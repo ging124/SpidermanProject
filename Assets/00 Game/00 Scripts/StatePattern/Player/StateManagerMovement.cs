@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class StateManagerMovement : StateManager
 {
-    public StateManager _stateManagerAction;
-
     public override void Start()
     {
         base.Start();

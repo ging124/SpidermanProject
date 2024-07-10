@@ -16,28 +16,15 @@ public class MovementState : CanMoveState
     {
         base.UpdateState();
 
-        if (_blackboard.inputSO.buttonJump && _blackboard.onGround)
+        if (_blackboard.inputSO.buttonJump && _blackboard.character.IsGrounded())
         {
             _stateManager.ChangeState(_stateManager.stateReferences.startJumpState);
             return;
         }
 
-        if (!_blackboard.onGround)
+        if (!_blackboard.character.IsGrounded())
         {
             _stateManager.ChangeState(_stateManager.stateReferences.onAirState);
-            return;
-        }
-
-        if (_blackboard.onSlope)
-        {
-            _stateManager.ChangeState(_stateManager.stateReferences.slopeState);
-            return;
-        }
-
-        if (_blackboard.inputSO.buttonRoll && _elapsedTime > _timeToRoll 
-            && _stateManager.stateReferences.idleActionState._elapsedTime > _stateManager.stateReferences.idleActionState._timeToAttack)
-        {
-            _stateManager.ChangeState(_stateManager.stateReferences.rollState);
             return;
         }
 

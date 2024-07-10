@@ -16,9 +16,8 @@ public class IdleActionState : ActionState
         base.UpdateState();
 
         if (_blackboard.inputSO.buttonAttack
-            && ((StateManagerAction)_stateManager).stateManagerMovement.currentState != _stateManager.stateReferences.deadState
-            && ((StateManagerAction)_stateManager).stateManagerMovement.currentState != _stateManager.stateReferences.rollState 
-            && !_blackboard.inputSO.buttonHolding && _elapsedTime > _timeToAttack)
+            && ((StateManagerAction)_stateManager).stateManagerMovement.currentState != _stateManager.stateReferences.deadState 
+            && _elapsedTime > _timeToAttack)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.attack1State);
             return;

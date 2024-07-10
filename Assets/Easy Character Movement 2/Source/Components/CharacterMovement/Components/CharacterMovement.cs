@@ -390,7 +390,7 @@ namespace EasyCharacterMovement
     #endregion
 
     [RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider))]
-    public sealed class CharacterMovement : MonoBehaviour
+    public sealed class CharacterMovement : MonoBehaviour   
     {
         #region ENUMS
 

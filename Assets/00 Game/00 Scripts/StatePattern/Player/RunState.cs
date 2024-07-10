@@ -22,7 +22,7 @@ public class RunState : MovementState
             return;
         }
 
-        Movement(_blackboard.playerData.moveSpeed + _blackboard.playerData.speedBoost);
+        Movement(_blackboard.playerData.speedBoost);
 
         if (_blackboard.inputSO.move != Vector2.zero)
         {

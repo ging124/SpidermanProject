@@ -23,12 +23,7 @@ public class CanMoveState : NormalState
     {
         GetInput();
 
-        _blackboard.charController.Move(new Vector3(_blackboard.movement.x, 0, _blackboard.movement.z) * speed * Time.deltaTime);
-
-        if (_blackboard.movement != Vector3.zero)
-        {
-            _blackboard.transform.forward = Vector3.Lerp(_blackboard.transform.forward, new Vector3(_blackboard.movement.x, 0, _blackboard.movement.z), _blackboard.playerData.rotateSpeed * Time.deltaTime);
-        }
+        _blackboard.character.SetMovementDirection(_blackboard.movement);
     }
 
     protected virtual void GetInput()
@@ -36,6 +31,6 @@ public class CanMoveState : NormalState
         Vector2 input = _blackboard.inputSO.move;
         Vector3 horizontal = _blackboard.cam.transform.right * input.x;
         Vector3 vertical = _blackboard.cam.transform.forward * input.y;
-        _blackboard.movement = (vertical + horizontal).normalized;
+        _blackboard.movement = (vertical + horizontal);
     }
 }

@@ -18,6 +18,5 @@ MonoBehaviour:
   buttonRoll: 0
   buttonRun: 0
   buttonAttack: 0
-  buttonInventory: 0
-  buttonHolding: 0
+  buttonSwing: 0
   disableInput: 0

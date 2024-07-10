@@ -12,8 +12,7 @@ public class InputSO : ScriptableObject
     public bool buttonRoll;
     public bool buttonRun;
     public bool buttonAttack;
-    public bool buttonInventory;
-    public bool buttonHolding;
+    public bool buttonSwing;
 
     public bool disableInput;
 

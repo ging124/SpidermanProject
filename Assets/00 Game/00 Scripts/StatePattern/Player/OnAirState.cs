@@ -18,15 +18,18 @@ public class OnAirState : AirborneMoveState
     {
         base.UpdateState();
 
-        if(_blackboard.onSlope)
-        {
-            _stateManager.ChangeState(_stateManager.stateReferences.slopeState);
-        }
-
-        if (_blackboard.onGround && _elapsedTime > _timeToChangeState)
+        if (_blackboard.character.IsGrounded() && _elapsedTime > _timeToChangeState)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.endJumpState);
+            return;
         }
+
+        if(_blackboard.inputSO.buttonSwing)
+        {
+            _stateManager.ChangeState(_stateManager.stateReferences.swingState);
+            return;
+        }
+
     }
 
     public override void ExitState()

@@ -11,6 +11,7 @@ public class IdleNormalState : MovementState
     {
         base.EnterState(stateManager, blackboard);
         _normalBodyLayer.Play(_idleNormalAnim);
+        _blackboard.character.SetMovementDirection(Vector3.zero);
     }
 
     public override void UpdateState()

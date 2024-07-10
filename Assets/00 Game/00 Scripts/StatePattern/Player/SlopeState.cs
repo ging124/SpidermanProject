@@ -15,9 +15,7 @@ public class SlopeState : NormalState
 
     public override void UpdateState()
     {
-        Slope();
-
-        if(_blackboard.onGround && !_blackboard.onSlope)
+        if(_blackboard.character.IsGrounded())
         {
             _stateManager.ChangeState(_stateManager.stateReferences.endJumpState);
         }
@@ -26,13 +24,5 @@ public class SlopeState : NormalState
     public override void ExitState()
     {
         base.ExitState();
-    }
-
-    void Slope()
-    {
-        if (_blackboard.onSlope)
-        {
-            _blackboard.charController.Move(-_blackboard.slopeVelocity.normalized * 6 * Time.deltaTime);
-        }
     }
 }

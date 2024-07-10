@@ -7,13 +7,12 @@ using UnityEngine;
 public class StartJumpState : AirborneMoveState
 {
     [SerializeField] private ClipTransition _startJumpAnim;
-    [SerializeField] private float _timeToJump = 0.2f;
 
     public override void EnterState(StateManager stateManager, Blackboard blackboard)
     {
         base.EnterState(stateManager, blackboard);
         _normalBodyLayer.Play(_startJumpAnim);
-        Invoke(nameof(Jump), _timeToJump);
+        Jump();
     }
 
     public override void UpdateState()
@@ -30,9 +29,9 @@ public class StartJumpState : AirborneMoveState
 
     void Jump()
     {
-        if(_blackboard.onGround)
+        if(_blackboard.character.IsGrounded())
         {
-            _blackboard.velocity.y = Mathf.Sqrt(_blackboard.playerData.jumpHeight * 9.81f);
+            _blackboard.character.Jump();
         }
     }
 }

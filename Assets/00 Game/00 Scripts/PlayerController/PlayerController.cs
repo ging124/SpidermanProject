@@ -1,4 +1,5 @@
 using Animancer;
+using EasyCharacterMovement;
 using System;
 using System.Collections;
 using Unity.VisualScripting;
@@ -13,16 +14,10 @@ public class PlayerController : MonoBehaviour
 
     public Player playerData;
 
-    [Header("----ReadOnly----")]
-    public Vector3 slopeVelocity;
-    public float groundedCheckDis;
-    public bool onGround;
-    public bool onSlope;
-    public LayerMask groundLayer;
-
     [Header("----Component----")]
     public AnimancerComponent animancer;
-    public CharacterController charController;
+    public Rigidbody rb;
+    public Character character;
     public Transform cam;
     public Blackboard blackboard;
 
@@ -31,10 +26,11 @@ public class PlayerController : MonoBehaviour
         GetData();
         SetStatus();
         animancer = this.GetComponent<AnimancerComponent>();
-        charController = this.GetComponent<CharacterController>();
+        character = this.GetComponent<Character>();
+        rb = this.GetComponent<Rigidbody>();
         cam = GameObject.FindWithTag("MainCamera").GetComponent<Transform>();
         blackboard = this.GetComponent<Blackboard>();
-        blackboard.SetBlackboard(currentHP, currentMP ,playerData, this, animancer, charController, cam);
+        blackboard.SetBlackboard(currentHP, currentMP ,playerData, this, animancer, character, cam, rb);
     }
 
     void GetData()
@@ -49,73 +45,6 @@ public class PlayerController : MonoBehaviour
     {
         this.currentHP = maxHP;
         this.currentMP = maxMP;
-    }
-
-    void Update()
-    {
-        CheckGround();
-        SetSlopeSlideVelocity();
-        CheckSlope();
-        AddGravity();
-    }
-
-    public void CheckGround()
-    {
-        groundedCheckDis = (charController.height / 2) + playerData.bufferCheckDis;
-
-        if (Physics.SphereCast(this.transform.position, charController.radius,-this.transform.up, out RaycastHit hit, groundedCheckDis, groundLayer))
-        {
-            onGround = true;
-        }
-        else
-        {
-            onGround = false;
-        }
-
-        blackboard.onGround = onGround;
-    }
-
-    void AddGravity()
-    {
-        if (onGround && blackboard.velocity.y < 0)
-        {
-            blackboard.velocity.y = 0;
-        }
-
-        blackboard.velocity.y += playerData.gravityValue * -9.81f * Time.deltaTime;
-        charController.Move(new Vector3(0, blackboard.velocity.y * Time.deltaTime, 0));
-    }
-
-    void SetSlopeSlideVelocity()
-    {
-        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hitInfor, groundedCheckDis + 0.6f, groundLayer))
-        {
-            float angle = Vector3.Angle(hitInfor.normal, Vector3.up);
-
-            if (angle >= charController.slopeLimit)
-            {
-                slopeVelocity = Vector3.ProjectOnPlane(new Vector3(0, playerData.gravityValue, 0), hitInfor.normal);
-                blackboard.slopeVelocity = slopeVelocity;
-                return;
-            }
-        }
-
-        slopeVelocity = Vector3.zero;
-        blackboard.slopeVelocity = slopeVelocity;
-    }
-
-    void CheckSlope()
-    {
-        if (slopeVelocity == Vector3.zero)
-        {
-            onSlope = false;
-        }
-        else
-        {
-            onSlope = true;
-        }
-
-        blackboard.onSlope = onSlope;
     }
 
     public void OnHit(int hitDamage)

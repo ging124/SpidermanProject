@@ -13,10 +13,9 @@ public class StateReferences : MonoBehaviour
     public StartJumpState startJumpState;
     public OnAirState onAirState;
     public EndJumpState endJumpState;
-    public SlopeState slopeState;
-    public RollState rollState;
     public HitState hitState;
     public DeadState deadState;
+    public SwingState swingState;
 
     [Header("ActionState")]
     public IdleActionState idleActionState;
