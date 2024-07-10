@@ -10569,8 +10569,8 @@ MonoBehaviour:
   rayCast: {fileID: 1402820911}
   grapplePoint: {x: 0, y: 0, z: 0}
   maxDistance: 50
-  tValue: 5
-  swingValue: 1
+  tValue: 15
+  swingValue: 20
 --- !u!120 &1239111778
 LineRenderer:
   serializedVersion: 2

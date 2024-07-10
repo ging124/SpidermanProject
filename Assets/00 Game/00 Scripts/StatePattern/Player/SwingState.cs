@@ -31,7 +31,7 @@ public class SwingState : AirborneMoveState
         if (grapplePoint != null)
         {
             Vector3 Gpara = Vector3.Project(_blackboard.character.GetGravityVector(), (grapplePoint - _blackboard.playerController.transform.position));
-            Vector3 Gperp = (_blackboard.character.GetGravityVector() - Gpara);
+            Vector3 Gperp = (_blackboard.character.GetGravityVector() - Gpara).normalized;
             Vector3 tDirection = ((Mathf.Pow(_blackboard.character.GetVelocity().magnitude, 2) / (grapplePoint - _blackboard.playerController.transform.position).magnitude)
                 * (grapplePoint - _blackboard.playerController.transform.position)).normalized;
             Debug.Log(Gpara.magnitude);
