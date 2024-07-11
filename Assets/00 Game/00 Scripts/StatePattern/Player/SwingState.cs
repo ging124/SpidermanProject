@@ -1,69 +1,111 @@
 using Animancer;
+using DG.Tweening;
 using EasyCharacterMovement;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class SwingState : AirborneMoveState
 {
-    [SerializeField] ClipTransition swingState;
-    [SerializeField] LineRenderer lineRenderer;
-    [SerializeField] Transform rayCast;
-    [SerializeField] Vector3 grapplePoint;
+    [SerializeField] float swingSpeed;
     [SerializeField] float maxDistance;
-    [SerializeField] float tValue;
-    [SerializeField] float swingValue;
+    [SerializeField] float rotateSpeed;
+    [SerializeField] Vector3 swingPoint;
+    [SerializeField] SpringJoint joint;
+    [SerializeField] Vector3 currentGrapplePosition;
+
+    [Header("References")]
+    [SerializeField] Transform grapplePoint;
+    [SerializeField] ClipTransition swingAnim;
+    [SerializeField] LineRenderer lineRenderer;
+    [SerializeField] LayerMask groundLayer;
 
     public override void EnterState(StateManager stateManager, Blackboard blackboard)
     {
         base.EnterState(stateManager, blackboard);
-        //_normalBodyLayer.Play(swingState);
-        lineRenderer.enabled = true;
+        _normalBodyLayer.Play(swingAnim);
+        Vector3 velocity = _blackboard.character.GetVelocity();
+        _blackboard.character.SetMovementMode(MovementMode.None);
+        _blackboard.character.SetRotationMode(RotationMode.None);
+        _blackboard.playerController.rb.isKinematic = false;
+        _blackboard.playerController.rb.velocity = velocity;
+        _blackboard.playerController.rb.useGravity = true;
+        _blackboard.playerController.rb.freezeRotation = true;
         Swing();
     }
 
     public override void UpdateState()  
     {
         base.UpdateState();
-        
-        if (grapplePoint != null)
-        {
-            Vector3 Gpara = Vector3.Project(_blackboard.character.GetGravityVector(), (grapplePoint - _blackboard.playerController.transform.position));
-            Vector3 Gperp = (_blackboard.character.GetGravityVector() - Gpara).normalized;
-            Vector3 tDirection = ((Mathf.Pow(_blackboard.character.GetVelocity().magnitude, 2) / (grapplePoint - _blackboard.playerController.transform.position).magnitude)
-                * (grapplePoint - _blackboard.playerController.transform.position)).normalized;
-            Debug.Log(Gpara.magnitude);
-            Debug.DrawRay(_blackboard.playerController.transform.position, tDirection, Color.red);
-            Debug.DrawRay(_blackboard.playerController.transform.position, Gpara, Color.yellow);
-            Debug.DrawRay(_blackboard.playerController.transform.position, Gperp, Color.blue);
 
-            _blackboard.character.AddForce(Gperp * swingValue + tDirection * tValue);
-            lineRenderer.SetPosition(0, _blackboard.playerController.transform.position);
-            lineRenderer.SetPosition(1, grapplePoint);
-        }
+        DrawRope();
+
+        
+        Debug.DrawRay(_blackboard.playerController.transform.position, _blackboard.playerController.rb.velocity, Color.blue);
 
         if (!_blackboard.inputSO.buttonSwing)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.onAirState);
+            return;
         }
+    }
+
+    public override void FixedUpdateState()
+    {
+        base.FixedUpdateState();
+
+        _blackboard.playerController.transform.forward = Vector3.Lerp(_blackboard.playerController.transform.forward,
+            _blackboard.playerController.rb.velocity.normalized, rotateSpeed * Time.deltaTime);
+
+        Vector2 input = _blackboard.inputSO.move;
+        Vector3 horizontal = _blackboard.cam.transform.right * input.x;
+
+        _blackboard.playerController.rb.AddForce(horizontal * swingSpeed);
     }
 
     public override void ExitState()
     {
-        lineRenderer.enabled = false;
-        /*Vector3 velocity = _blackboard.rb.velocity.projectedOnPlane(Vector3.up);
+        lineRenderer.positionCount = 0;
+
+        _blackboard.playerController.transform.forward = Vector3.forward;
+        Destroy(joint);
+        Vector3 velocity = _blackboard.playerController.rb.velocity;
         _blackboard.character.SetMovementMode(MovementMode.Walking);
-        _blackboard.rb.useGravity = false;
-        _blackboard.rb.isKinematic = true;
-        _blackboard.rb.constraints = RigidbodyConstraints.None;
-        _blackboard.character.SetVelocity(velocity);*/
+        _blackboard.character.SetRotationMode(RotationMode.OrientToMovement);
+        _blackboard.playerController.rb.isKinematic = true;
+        _blackboard.playerController.rb.useGravity = false;
+        _blackboard.character.SetVelocity(velocity);
+        
         base.ExitState();
     }
 
     void Swing()
     {
-        grapplePoint = rayCast.transform.position;
+        RaycastHit hit;
+        if(Physics.Raycast(grapplePoint.position, _blackboard.transform.up + _blackboard.transform.forward, out hit, maxDistance,groundLayer))
+        {
+            swingPoint = hit.point;
+            joint = _blackboard.gameObject.AddComponent<SpringJoint>();
+            joint.autoConfigureConnectedAnchor = false;
+            joint.connectedAnchor = swingPoint;
+
+            float distanceFromPoint = Vector3.Distance(_blackboard.playerController.transform.position, swingPoint);
+
+            joint.maxDistance = distanceFromPoint * 0.5f;
+            joint.minDistance = distanceFromPoint * 0.4f;
+
+            joint.spring = 4.5f;
+            joint.damper = 7f;
+            joint.massScale = 4.5f;
+
+            lineRenderer.positionCount = 2;
+        }
+    }
+
+    void DrawRope()
+    {
+        if(!joint) return;
+
+        lineRenderer.SetPosition(0, grapplePoint.position);
+        lineRenderer.SetPosition(1, swingPoint);
     }
 }

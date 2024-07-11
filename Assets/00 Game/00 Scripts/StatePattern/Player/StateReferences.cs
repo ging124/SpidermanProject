@@ -6,7 +6,6 @@ public class StateReferences : MonoBehaviour
 {
     [Header("MovementState")]
     public IdleNormalState idleState;
-    public StartMoveState startMoveState;
     public MoveState moveState;
     public RunState runState;
     public StopMoveState stopMoveState;

@@ -23,7 +23,7 @@ public class StopMoveState : MovementState
             return;
         }
 
-        Movement(_blackboard.playerData.moveSpeed);
+        Movement();
 
         if (_blackboard.inputSO.move == Vector2.zero && _elapsedTime > _timeChangeState)
         {
@@ -33,7 +33,7 @@ public class StopMoveState : MovementState
 
         if(_blackboard.inputSO.move != Vector2.zero && _elapsedTime > _timeChangeState)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.startMoveState);
+            _stateManager.ChangeState(_stateManager.stateReferences.moveState);
             return;
         }
     }

@@ -25,7 +25,7 @@ public class IdleNormalState : MovementState
 
         if (_blackboard.inputSO.move.magnitude != 0)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.startMoveState);
+            _stateManager.ChangeState(_stateManager.stateReferences.moveState);
             return;
         }
     }

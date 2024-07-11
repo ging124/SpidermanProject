@@ -1,26 +1,29 @@
 using Animancer;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class MoveState : MovementState
 {
-    [SerializeField] private ClipTransition _moveAnim;
+    [SerializeField] private LinearMixerTransition _moveBlendTree;
 
     public override void EnterState(StateManager stateManager, Blackboard blackboard)
     {
         base.EnterState(stateManager, blackboard);
-        _normalBodyLayer.Play(_moveAnim);
+        _normalBodyLayer.Play(_moveBlendTree);
     }
 
     public override void UpdateState()
     {
         base.UpdateState();
 
+        Movement();
+
+        _moveBlendTree.State.Parameter = Mathf.Lerp(_moveBlendTree.State.Parameter, _blackboard.character.GetSpeed(), 55 * Time.deltaTime);
+
         if (_stateManager.currentState != this)
         {
             return;
         }
-
-        Movement(_blackboard.playerData.moveSpeed);
 
         if (_blackboard.inputSO.move == Vector2.zero)
         {

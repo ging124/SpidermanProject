@@ -19,7 +19,7 @@ public class HitState : CanMoveState
     {
         base.UpdateState();
 
-        Movement(_blackboard.playerData.moveSpeed);
+        Movement();
 
         if (!_blackboard.onHit && _elapsedTime > _timeToIdle)
         {

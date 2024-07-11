@@ -26,4 +26,9 @@ public class StateManager : MonoBehaviour
     {
         currentState.UpdateState();
     }
+
+    public virtual void FixedUpdate()
+    {
+        currentState.FixedUpdateState();
+    }
 }

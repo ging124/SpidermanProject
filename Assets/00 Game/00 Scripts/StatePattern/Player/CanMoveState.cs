@@ -19,7 +19,7 @@ public class CanMoveState : NormalState
         base.ExitState();
     }
 
-    protected virtual void Movement(float speed)
+    protected virtual void Movement()
     {
         GetInput();
 

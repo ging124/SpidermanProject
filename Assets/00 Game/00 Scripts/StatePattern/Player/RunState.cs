@@ -5,12 +5,13 @@ using UnityEngine;
 
 public class RunState : MovementState
 {
-    [SerializeField] private ClipTransition _runAnim;
+    [SerializeField] private LinearMixerTransition _runBlendTree;
 
     public override void EnterState(StateManager stateManager, Blackboard blackboard)
     {
         base.EnterState(stateManager, blackboard);
-        _normalBodyLayer.Play(_runAnim);
+        _blackboard.character.Sprint();
+        _normalBodyLayer.Play(_runBlendTree);
     }
 
     public override void UpdateState()
@@ -22,9 +23,10 @@ public class RunState : MovementState
             return;
         }
 
-        Movement(_blackboard.playerData.speedBoost);
+        Movement();
+        _runBlendTree.State.Parameter = Mathf.Lerp(_runBlendTree.State.Parameter, _blackboard.character.GetSpeed(), 55 * Time.deltaTime);
 
-        if (_blackboard.inputSO.move != Vector2.zero)
+        if (!_blackboard.inputSO.buttonRun && _blackboard.inputSO.move != Vector2.zero)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.moveState);
             return;
@@ -39,6 +41,7 @@ public class RunState : MovementState
 
     public override void ExitState()
     {
+        _blackboard.character.StopSprinting();
         base.ExitState();
     }
 }

@@ -23,7 +23,7 @@ public class StartMoveState : MovementState
             return;
         }
 
-        Movement(_blackboard.playerData.moveSpeed);
+        Movement();
 
         if (_blackboard.inputSO.move != Vector2.zero && _elapsedTime > _timeChangeState)
         {

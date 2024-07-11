@@ -16,12 +16,12 @@ public class AirborneMoveState : CanMoveState
 
         if (_blackboard.inputSO.move != Vector2.zero)
         {
-            Movement(_blackboard.playerData.moveSpeed);
+            Movement();
         }
 
         if (_blackboard.inputSO.buttonRun)
         {
-            Movement(_blackboard.playerData.moveSpeed + _blackboard.playerData.speedBoost);
+            Movement();
         }
     }
 

@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class MovementState : CanMoveState
 {
-    [SerializeField] private const float _timeToRoll = 0.05f;
-
     public override void EnterState(StateManager stateManager, Blackboard blackboard)
     {
         base.EnterState(stateManager, blackboard);
