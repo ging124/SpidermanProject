@@ -16,6 +16,7 @@ public class CanMoveState : NormalState
 
     public override void ExitState()
     {
+        _blackboard.character.SetMovementDirection(Vector3.zero);
         base.ExitState();
     }
 

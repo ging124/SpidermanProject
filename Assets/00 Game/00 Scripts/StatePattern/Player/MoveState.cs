@@ -1,5 +1,4 @@
 using Animancer;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class MoveState : MovementState
@@ -16,12 +15,18 @@ public class MoveState : MovementState
     {
         base.UpdateState();
 
+        if (_stateManager.currentState != this)
+        {
+            return;
+        }
+
         Movement();
 
         _moveBlendTree.State.Parameter = Mathf.Lerp(_moveBlendTree.State.Parameter, _blackboard.character.GetSpeed(), 55 * Time.deltaTime);
 
-        if (_stateManager.currentState != this)
+        if (_blackboard.inputSO.buttonJump && _blackboard.character.IsGrounded())
         {
+            _stateManager.ChangeState(_stateManager.stateReferences.startJumpState);
             return;
         }
 

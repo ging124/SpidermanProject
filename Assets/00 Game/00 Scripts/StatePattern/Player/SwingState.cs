@@ -9,11 +9,10 @@ public class SwingState : AirborneMoveState
     [SerializeField] float swingSpeed;
     [SerializeField] float maxDistance;
     [SerializeField] float rotateSpeed;
-    [SerializeField] Vector3 swingPoint;
-    [SerializeField] SpringJoint joint;
-    [SerializeField] Vector3 currentGrapplePosition;
+    Vector3 swingPoint;
 
     [Header("References")]
+    [SerializeField] SpringJoint joint;
     [SerializeField] Transform grapplePoint;
     [SerializeField] ClipTransition swingAnim;
     [SerializeField] LineRenderer lineRenderer;
@@ -36,11 +35,10 @@ public class SwingState : AirborneMoveState
     public override void UpdateState()  
     {
         base.UpdateState();
-
-        DrawRope();
-
         
         Debug.DrawRay(_blackboard.playerController.transform.position, _blackboard.playerController.rb.velocity, Color.blue);
+
+        DrawRope();
 
         if (!_blackboard.inputSO.buttonSwing)
         {
@@ -54,7 +52,7 @@ public class SwingState : AirborneMoveState
         base.FixedUpdateState();
 
         _blackboard.playerController.transform.forward = Vector3.Lerp(_blackboard.playerController.transform.forward,
-            _blackboard.playerController.rb.velocity.normalized, rotateSpeed * Time.deltaTime);
+            _blackboard.playerController.rb.velocity, rotateSpeed * Time.deltaTime);
 
         Vector2 input = _blackboard.inputSO.move;
         Vector3 horizontal = _blackboard.cam.transform.right * input.x;
@@ -66,7 +64,7 @@ public class SwingState : AirborneMoveState
     {
         lineRenderer.positionCount = 0;
 
-        _blackboard.playerController.transform.forward = Vector3.forward;
+        _blackboard.playerController.transform.rotation = Quaternion.identity;
         Destroy(joint);
         Vector3 velocity = _blackboard.playerController.rb.velocity;
         _blackboard.character.SetMovementMode(MovementMode.Walking);
@@ -86,6 +84,7 @@ public class SwingState : AirborneMoveState
             swingPoint = hit.point;
             joint = _blackboard.gameObject.AddComponent<SpringJoint>();
             joint.autoConfigureConnectedAnchor = false;
+            joint.anchor = new Vector3(0, 1.4f, 0);
             joint.connectedAnchor = swingPoint;
 
             float distanceFromPoint = Vector3.Distance(_blackboard.playerController.transform.position, swingPoint);

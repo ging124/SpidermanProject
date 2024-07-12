@@ -26,15 +26,21 @@ public class RunState : MovementState
         Movement();
         _runBlendTree.State.Parameter = Mathf.Lerp(_runBlendTree.State.Parameter, _blackboard.character.GetSpeed(), 55 * Time.deltaTime);
 
-        if (!_blackboard.inputSO.buttonRun && _blackboard.inputSO.move != Vector2.zero)
+        if (_blackboard.inputSO.buttonJump && _blackboard.character.IsGrounded())
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.moveState);
+            _stateManager.ChangeState(_stateManager.stateReferences.startJumpHighState);
             return;
         }
 
-        if (_blackboard.inputSO.move == Vector2.zero)
+        if (!_blackboard.inputSO.buttonRun)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.stopMoveState);
+            _stateManager.ChangeState(_stateManager.stateReferences.stopRunState);
+            return;
+        }
+
+        if (!_blackboard.inputSO.buttonRun && _blackboard.inputSO.move.magnitude != 0)
+        {
+            _stateManager.ChangeState(_stateManager.stateReferences.moveState);
             return;
         }
     }

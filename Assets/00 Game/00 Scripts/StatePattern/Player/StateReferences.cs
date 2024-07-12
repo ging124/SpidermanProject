@@ -9,9 +9,13 @@ public class StateReferences : MonoBehaviour
     public MoveState moveState;
     public RunState runState;
     public StopMoveState stopMoveState;
+    public StopRunState stopRunState;
     public StartJumpState startJumpState;
+    public StartJumpHighState startJumpHighState;
     public OnAirState onAirState;
     public EndJumpState endJumpState;
+    public EndJumpToWalkState endJumpToWalkState;
+    public EndJumpToRunState endJumpToRunState;
     public HitState hitState;
     public DeadState deadState;
     public SwingState swingState;

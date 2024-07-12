@@ -14,12 +14,6 @@ public class MovementState : CanMoveState
     {
         base.UpdateState();
 
-        if (_blackboard.inputSO.buttonJump && _blackboard.character.IsGrounded())
-        {
-            _stateManager.ChangeState(_stateManager.stateReferences.startJumpState);
-            return;
-        }
-
         if (!_blackboard.character.IsGrounded())
         {
             _stateManager.ChangeState(_stateManager.stateReferences.onAirState);

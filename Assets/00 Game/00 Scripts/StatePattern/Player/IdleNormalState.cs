@@ -11,7 +11,7 @@ public class IdleNormalState : MovementState
     {
         base.EnterState(stateManager, blackboard);
         _normalBodyLayer.Play(_idleNormalAnim);
-        _blackboard.character.SetMovementDirection(Vector3.zero);
+        
     }
 
     public override void UpdateState()
@@ -23,7 +23,13 @@ public class IdleNormalState : MovementState
             return;
         }
 
-        if (_blackboard.inputSO.move.magnitude != 0)
+        if (_blackboard.inputSO.buttonJump && _blackboard.character.IsGrounded())
+        {
+            _stateManager.ChangeState(_stateManager.stateReferences.startJumpState);
+            return;
+        }
+
+        if (_blackboard.inputSO.move != Vector2.zero)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.moveState);
             return;

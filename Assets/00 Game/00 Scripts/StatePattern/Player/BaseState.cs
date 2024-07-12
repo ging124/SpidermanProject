@@ -21,10 +21,8 @@ public abstract class BaseState : MonoBehaviour
         _elapsedTime += Time.deltaTime;
     }
 
-    public virtual void FixedUpdateState()
-    {
-        _elapsedTime += Time.deltaTime;
-    }
+    public virtual void FixedUpdateState() { }
+
 
     public virtual void ExitState()
     {

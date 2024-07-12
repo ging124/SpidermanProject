@@ -18,13 +18,25 @@ public class OnAirState : AirborneMoveState
     {
         base.UpdateState();
 
-        if (_blackboard.character.IsGrounded() && _elapsedTime > _timeToChangeState)
+        if (_blackboard.character.IsGrounded() && _blackboard.inputSO.move == Vector2.zero && _elapsedTime > _timeToChangeState)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.endJumpState);
             return;
         }
 
-        if(_blackboard.inputSO.buttonSwing)
+        if (_blackboard.character.IsGrounded() && !_blackboard.inputSO.buttonRun && _elapsedTime > _timeToChangeState)
+        {
+            _stateManager.ChangeState(_stateManager.stateReferences.endJumpToWalkState);
+            return;
+        }
+
+        if (_blackboard.character.IsGrounded() && _blackboard.inputSO.buttonRun && _elapsedTime > _timeToChangeState)
+        {
+            _stateManager.ChangeState(_stateManager.stateReferences.endJumpToRunState);
+            return;
+        }
+
+        if (_blackboard.inputSO.buttonSwing)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.swingState);
             return;
