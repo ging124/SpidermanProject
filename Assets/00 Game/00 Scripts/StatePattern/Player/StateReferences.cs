@@ -5,7 +5,7 @@ using UnityEngine;
 public class StateReferences : MonoBehaviour
 {
     [Header("MovementState")]
-    public IdleNormalState idleState;
+    public IdleNormalState idleNormalState;
     public MoveState moveState;
     public RunState runState;
     public StopMoveState stopMoveState;
@@ -19,6 +19,9 @@ public class StateReferences : MonoBehaviour
     public HitState hitState;
     public DeadState deadState;
     public SwingState swingState;
+    public DiveState diveState;
+    public SwingJumpState swingJumpState;
+    public ClimbState climbState;
 
     [Header("ActionState")]
     public IdleActionState idleActionState;

@@ -1,22 +1,13 @@
 using Animancer;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class NormalState : BaseState
 {
     [SerializeField] protected AnimancerLayer _normalBodyLayer;
-
-    public Transform orientation;
-    public LayerMask wallLayer;
-
-    public float detectionLength;
-    public float sphereCastRadius;
-    public float wallLookAngle;
-
-    private bool wallFront;
-    private RaycastHit frontWallHit;
 
     public override void EnterState(StateManager stateManager, Blackboard blackboard)
     {
@@ -27,6 +18,20 @@ public class NormalState : BaseState
     public override void UpdateState()
     {
         base.UpdateState();
+
+        //WallCheck();
+
+        if (_blackboard.onHit)
+        {
+            _stateManager.ChangeState(_stateManager.stateReferences.hitState);
+            return;
+        }
+
+        if (_blackboard.wallFront)
+        {
+            _stateManager.ChangeState(_stateManager.stateReferences.climbState);
+            return;
+        }
     }
 
     public override void ExitState()
@@ -34,9 +39,11 @@ public class NormalState : BaseState
         base.ExitState();
     }
 
-    private void WallCheck()
+    public void WallCheck()
     {
-        wallFront = Physics.SphereCast(_blackboard.playerController.transform.position, sphereCastRadius, orientation.forward, out frontWallHit, detectionLength, wallLayer);
-        wallLookAngle = Vector3.Angle(orientation.forward, -frontWallHit.normal);
+        _blackboard.wallFront = Physics.SphereCast(new Vector3(_blackboard.playerController.transform.position.x, _blackboard.playerController.transform.position.y + _blackboard.character.GetHeight() / 2f, _blackboard.playerController.transform.position.z)
+            , _blackboard.sphereCastRadius, _blackboard.playerController.transform.forward, out _blackboard.frontWallHit, _blackboard.detectionLength, _blackboard.wallLayer);
+
+        _blackboard.wallLookAngle = Vector3.Angle(_blackboard.playerController.transform.forward, -_blackboard.frontWallHit.normal);
     }
 }

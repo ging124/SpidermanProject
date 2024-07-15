@@ -19,12 +19,6 @@ public class MovementState : CanMoveState
             _stateManager.ChangeState(_stateManager.stateReferences.onAirState);
             return;
         }
-
-        if (_blackboard.onHit)
-        {
-            _stateManager.ChangeState(_stateManager.stateReferences.hitState);
-            return;
-        }
     }
 
     public override void ExitState()

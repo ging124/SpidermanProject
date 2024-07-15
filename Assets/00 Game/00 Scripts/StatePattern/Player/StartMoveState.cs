@@ -32,7 +32,7 @@ public class StartMoveState : MovementState
 
         if(_blackboard.inputSO.move == Vector2.zero)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.idleState);
+            _stateManager.ChangeState(_stateManager.stateReferences.idleNormalState);
         }
     }
 

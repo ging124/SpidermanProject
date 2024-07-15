@@ -3,10 +3,18 @@ using System.Collections.Generic;
 using Animancer;
 using EasyCharacterMovement;
 using JetBrains.Annotations;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Blackboard : MonoBehaviour
 {
+    public LayerMask wallLayer;
+    public float detectionLength;
+    public float sphereCastRadius;
+    public float maxWallLookAngle;
+    public float wallLookAngle;
+
+    public RaycastHit frontWallHit;
 
     [Header("----ReadOnly----")]
     public int currentHP;
@@ -14,8 +22,10 @@ public class Blackboard : MonoBehaviour
 
     public Vector3 movement;
 
-    public bool onHit;
     public int hitDamage;
+    public bool onHit;
+    public bool wallFront;
+
 
     [Header("----Component----")]
     public Player playerData;

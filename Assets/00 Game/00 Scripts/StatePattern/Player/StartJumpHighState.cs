@@ -24,6 +24,19 @@ public class StartJumpHighState : AirborneMoveState
         if (!_blackboard.character.IsGrounded() && _elapsedTime >= _timeToOnAir)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.onAirState);
+            return;
+        }
+
+        if(_blackboard.character.IsGrounded())
+        {
+            _stateManager.ChangeState(_stateManager.stateReferences.idleNormalState);
+            return;
+        }
+
+        if (_blackboard.inputSO.buttonSwing)
+        {
+            _stateManager.ChangeState(_stateManager.stateReferences.swingState);
+            return;
         }
     }
 

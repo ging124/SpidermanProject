@@ -16,17 +16,20 @@ public class AirborneMoveState : CanMoveState
 
         if (_blackboard.inputSO.move != Vector2.zero)
         {
+            _blackboard.character.StopSprinting();
             Movement();
         }
 
         if (_blackboard.inputSO.buttonRun)
         {
+            _blackboard.character.Sprint();
             Movement();
         }
     }
 
     public override void ExitState()
     {
+        _blackboard.character.StopSprinting();
         base.ExitState();
     }
 }

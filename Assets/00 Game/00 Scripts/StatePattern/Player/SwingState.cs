@@ -24,11 +24,10 @@ public class SwingState : AirborneMoveState
         _normalBodyLayer.Play(swingAnim);
         Vector3 velocity = _blackboard.character.GetVelocity();
         _blackboard.character.SetMovementMode(MovementMode.None);
-        _blackboard.character.SetRotationMode(RotationMode.None);
         _blackboard.playerController.rb.isKinematic = false;
-        _blackboard.playerController.rb.velocity = velocity;
+        _blackboard.rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
         _blackboard.playerController.rb.useGravity = true;
-        _blackboard.playerController.rb.freezeRotation = true;
+        _blackboard.rb.velocity = velocity;
         Swing();
     }
 
@@ -36,13 +35,11 @@ public class SwingState : AirborneMoveState
     {
         base.UpdateState();
         
-        Debug.DrawRay(_blackboard.playerController.transform.position, _blackboard.playerController.rb.velocity, Color.blue);
-
         DrawRope();
 
         if (!_blackboard.inputSO.buttonSwing)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.onAirState);
+            _stateManager.ChangeState(_stateManager.stateReferences.swingJumpState);
             return;
         }
     }
@@ -51,8 +48,9 @@ public class SwingState : AirborneMoveState
     {
         base.FixedUpdateState();
 
-        _blackboard.playerController.transform.forward = Vector3.Lerp(_blackboard.playerController.transform.forward,
-            _blackboard.playerController.rb.velocity, rotateSpeed * Time.deltaTime);
+        _blackboard.character.RotateTowardsWithSlerp(_blackboard.playerController.rb.velocity.normalized, false);
+        Quaternion rotation = Quaternion.LookRotation(_blackboard.playerController.transform.forward, (swingPoint - _blackboard.playerController.transform.position).normalized);
+        _blackboard.playerController.transform.rotation = rotation;
 
         Vector2 input = _blackboard.inputSO.move;
         Vector3 horizontal = _blackboard.cam.transform.right * input.x;
@@ -64,13 +62,13 @@ public class SwingState : AirborneMoveState
     {
         lineRenderer.positionCount = 0;
 
-        _blackboard.playerController.transform.rotation = Quaternion.identity;
+        _blackboard.playerController.transform.DORotate(Quaternion.LookRotation(_blackboard.playerController.transform.forward.projectedOnPlane(Vector3.up), Vector3.up).eulerAngles, 0.2f);
         Destroy(joint);
-        Vector3 velocity = _blackboard.playerController.rb.velocity;
+        Vector3 velocity = _blackboard.rb.velocity;
         _blackboard.character.SetMovementMode(MovementMode.Walking);
-        _blackboard.character.SetRotationMode(RotationMode.OrientToMovement);
-        _blackboard.playerController.rb.isKinematic = true;
         _blackboard.playerController.rb.useGravity = false;
+        _blackboard.playerController.rb.isKinematic = true;
+        _blackboard.rb.constraints = RigidbodyConstraints.None;
         _blackboard.character.SetVelocity(velocity);
         
         base.ExitState();

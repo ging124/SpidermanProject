@@ -7,6 +7,8 @@ public class OnAirState : AirborneMoveState
 {
     [SerializeField] private ClipTransition _onAirAnim;
     [SerializeField] private float _timeToChangeState = 0.5f;
+    [SerializeField] private float _timeToDive = 0.5f;
+
 
     public override void EnterState(StateManager stateManager, Blackboard blackboard)
     {
@@ -17,6 +19,12 @@ public class OnAirState : AirborneMoveState
     public override void UpdateState()
     {
         base.UpdateState();
+
+        if(_blackboard.character.fallingTime > _timeToDive)
+        {
+            _stateManager.ChangeState(_stateManager.stateReferences.diveState);
+            return;
+        }
 
         if (_blackboard.character.IsGrounded() && _blackboard.inputSO.move == Vector2.zero && _elapsedTime > _timeToChangeState)
         {
@@ -35,13 +43,6 @@ public class OnAirState : AirborneMoveState
             _stateManager.ChangeState(_stateManager.stateReferences.endJumpToRunState);
             return;
         }
-
-        if (_blackboard.inputSO.buttonSwing)
-        {
-            _stateManager.ChangeState(_stateManager.stateReferences.swingState);
-            return;
-        }
-
     }
 
     public override void ExitState()

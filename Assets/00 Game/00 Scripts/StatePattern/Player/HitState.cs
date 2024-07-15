@@ -23,7 +23,7 @@ public class HitState : CanMoveState
 
         if (!_blackboard.onHit && _elapsedTime > _timeToIdle)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.idleState);
+            _stateManager.ChangeState(_stateManager.stateReferences.idleNormalState);
             return;
         }
 

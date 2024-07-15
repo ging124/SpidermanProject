@@ -21,7 +21,7 @@ public class EndJumpToRunState : AirborneMoveState
 
         if (_blackboard.character.IsGrounded() && _elapsedTime > _timeToChangeState)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.idleState);
+            _stateManager.ChangeState(_stateManager.stateReferences.idleNormalState);
             return;
         }
 
