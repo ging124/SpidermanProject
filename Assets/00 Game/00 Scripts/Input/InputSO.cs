@@ -10,7 +10,6 @@ public class InputSO : ScriptableObject
 
     public bool buttonJump;
     public bool buttonRoll;
-    public bool buttonRun;
     public bool buttonAttack;
     public bool buttonSwing;
 

@@ -4,6 +4,7 @@ using UnityEngine;
 public class MoveState : MovementState
 {
     [SerializeField] private LinearMixerTransition _moveBlendTree;
+    [SerializeField] private float _timeToRun = 0.2f;
 
     public override void EnterState(StateManager stateManager, Blackboard blackboard)
     {
@@ -24,7 +25,7 @@ public class MoveState : MovementState
 
         _moveBlendTree.State.Parameter = Mathf.Lerp(_moveBlendTree.State.Parameter, _blackboard.character.GetSpeed(), 55 * Time.deltaTime);
 
-        if (_blackboard.inputSO.buttonJump && _blackboard.character.IsGrounded())
+        if (_blackboard.inputSO.buttonJump && _blackboard.character.IsGrounded() || !_blackboard.character.IsGrounded())
         {
             _stateManager.ChangeState(_stateManager.stateReferences.startJumpState);
             return;
@@ -36,7 +37,7 @@ public class MoveState : MovementState
             return;
         }
 
-        if (_blackboard.inputSO.buttonRun)
+        if (_blackboard.character.GetSpeed() >= 6 && _elapsedTime > _timeToRun)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.runState);
             return;

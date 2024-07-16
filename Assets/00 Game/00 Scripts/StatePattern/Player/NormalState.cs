@@ -1,9 +1,5 @@
 using Animancer;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class NormalState : BaseState
 {
@@ -19,7 +15,7 @@ public class NormalState : BaseState
     {
         base.UpdateState();
 
-        //WallCheck();
+        WallCheck();
 
         if (_blackboard.onHit)
         {
@@ -43,7 +39,5 @@ public class NormalState : BaseState
     {
         _blackboard.wallFront = Physics.SphereCast(new Vector3(_blackboard.playerController.transform.position.x, _blackboard.playerController.transform.position.y + _blackboard.character.GetHeight() / 2f, _blackboard.playerController.transform.position.z)
             , _blackboard.sphereCastRadius, _blackboard.playerController.transform.forward, out _blackboard.frontWallHit, _blackboard.detectionLength, _blackboard.wallLayer);
-
-        _blackboard.wallLookAngle = Vector3.Angle(_blackboard.playerController.transform.forward, -_blackboard.frontWallHit.normal);
     }
 }

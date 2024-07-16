@@ -35,7 +35,7 @@ public class StopRunState : MovementState
             return;
         }
 
-        if (_blackboard.inputSO.move != Vector2.zero && _blackboard.inputSO.buttonRun)
+        if (_blackboard.inputSO.move != Vector2.zero && _blackboard.character.GetSpeed() >= 6)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.runState);
             return;

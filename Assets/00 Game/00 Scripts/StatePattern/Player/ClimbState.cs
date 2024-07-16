@@ -1,31 +1,26 @@
 using Animancer;
 using DG.Tweening;
 using EasyCharacterMovement;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem.HID;
 
 public class ClimbState : CanMoveState
 {
     [SerializeField] private LinearMixerTransition _climbBlendTree;
     [SerializeField] private float _timeToIdle;
-    public float climbSpeed;
 
     public override void EnterState(StateManager stateManager, Blackboard blackboard)
     {
         base.EnterState(stateManager, blackboard);
-        _blackboard.playerController.transform.DORotate(Quaternion.LookRotation(Vector3.up, -_blackboard.playerController.transform.forward).eulerAngles, 0.2f);
+        _blackboard.playerController.transform.DORotate(Quaternion.LookRotation(_blackboard.playerController.transform.up, -_blackboard.playerController.transform.forward).eulerAngles, 0);
         _normalBodyLayer.Play(_climbBlendTree);
+        _blackboard.character.SetRotationMode(RotationMode.None);
     }
 
     public override void UpdateState()
     {
         base.UpdateState();
-
-        Movement();
-        _climbBlendTree.State.Parameter = Mathf.Lerp(_climbBlendTree.State.Parameter, _blackboard.character.GetSpeed(), 55 * Time.deltaTime);
-
+        
         if (!_blackboard.character.IsGrounded() && _elapsedTime > _timeToIdle)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.idleNormalState);
@@ -33,8 +28,18 @@ public class ClimbState : CanMoveState
         }
     }
 
+    public override void FixedUpdateState()
+    {
+        base.FixedUpdateState();
+
+        Movement();
+        _climbBlendTree.State.Parameter = Mathf.Lerp(_climbBlendTree.State.Parameter, _blackboard.character.GetSpeed(), 55 * Time.deltaTime);
+
+    }
+
     public override void ExitState()
     {
+        _blackboard.character.SetRotationMode(RotationMode.OrientToMovement);
         base.ExitState();
     }
 
@@ -48,9 +53,12 @@ public class ClimbState : CanMoveState
     protected override void GetInput()
     {
         Vector2 input = _blackboard.inputSO.move;
-        Vector3 horizontal = new Vector3(input.x, 0, 0);
-        Vector3 vertical = new Vector3(0, input.y, 0);
-        _blackboard.movement = (vertical + horizontal);
+        Vector3 vertical = _blackboard.playerController.transform.forward * input.y;
+        Vector3 horizontal = _blackboard.playerController.transform.right * input.x;
+        RaycastHit hit;
+        _blackboard.movement = horizontal + vertical;
+        Physics.Raycast(_blackboard.playerController.transform.position + _blackboard.playerController.transform.up, -_blackboard.playerController.transform.up, out hit);
+        _blackboard.movement = Vector3.ProjectOnPlane(_blackboard.movement, hit.normal);
     }
 
 }

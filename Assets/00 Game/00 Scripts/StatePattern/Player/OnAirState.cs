@@ -1,4 +1,6 @@
 using Animancer;
+using DG.Tweening;
+using EasyCharacterMovement;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +15,7 @@ public class OnAirState : AirborneMoveState
     public override void EnterState(StateManager stateManager, Blackboard blackboard)
     {
         base.EnterState(stateManager, blackboard);
+        _blackboard.playerController.transform.DORotate(Quaternion.LookRotation(_blackboard.playerController.transform.forward.projectedOnPlane(Vector3.up), Vector3.up).eulerAngles, 0.2f);
         _normalBodyLayer.Play(_onAirAnim);
     }
 
@@ -20,7 +23,12 @@ public class OnAirState : AirborneMoveState
     {
         base.UpdateState();
 
-        if(_blackboard.character.fallingTime > _timeToDive)
+        if (_stateManager.currentState != this)
+        {
+            return;
+        }
+
+        if (_blackboard.character.fallingTime > _timeToDive)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.diveState);
             return;
@@ -32,13 +40,13 @@ public class OnAirState : AirborneMoveState
             return;
         }
 
-        if (_blackboard.character.IsGrounded() && !_blackboard.inputSO.buttonRun && _elapsedTime > _timeToChangeState)
+        if (_blackboard.character.IsGrounded() && _blackboard.character.GetSpeed() < 5f && _elapsedTime > _timeToChangeState)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.endJumpToWalkState);
             return;
         }
 
-        if (_blackboard.character.IsGrounded() && _blackboard.inputSO.buttonRun && _elapsedTime > _timeToChangeState)
+        if (_blackboard.character.IsGrounded() && _blackboard.character.GetSpeed() >= 6f && _elapsedTime > _timeToChangeState)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.endJumpToRunState);
             return;

@@ -1,4 +1,3 @@
-using Animancer;
 using System;
 using UnityEngine;
 

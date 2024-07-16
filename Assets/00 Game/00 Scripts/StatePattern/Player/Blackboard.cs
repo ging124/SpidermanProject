@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using Animancer;
 using EasyCharacterMovement;
-using JetBrains.Annotations;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Blackboard : MonoBehaviour
@@ -11,8 +7,7 @@ public class Blackboard : MonoBehaviour
     public LayerMask wallLayer;
     public float detectionLength;
     public float sphereCastRadius;
-    public float maxWallLookAngle;
-    public float wallLookAngle;
+
 
     public RaycastHit frontWallHit;
 
@@ -54,4 +49,5 @@ public class Blackboard : MonoBehaviour
     {
         playerController.currentHP = currentHP;
     }
+
 }

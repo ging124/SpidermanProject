@@ -30,8 +30,8 @@ public class CanMoveState : NormalState
     protected virtual void GetInput()
     {
         Vector2 input = _blackboard.inputSO.move;
-        Vector3 horizontal = _blackboard.cam.transform.right * input.x;
         Vector3 vertical = _blackboard.cam.transform.forward * input.y;
+        Vector3 horizontal = _blackboard.cam.transform.right * input.x;
         _blackboard.movement = (vertical + horizontal);
     }
 }

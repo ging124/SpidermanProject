@@ -20,7 +20,6 @@ public class InputManager : MonoBehaviour
 
     public bool buttonJump;
     public bool buttonSwing;
-    public bool buttonRun;
     public bool buttonAttack;
 
 
@@ -42,7 +41,6 @@ public class InputManager : MonoBehaviour
         #endif
     }
 
-    
 
     private void Update()
     {
@@ -83,16 +81,6 @@ public class InputManager : MonoBehaviour
             if (Input.GetKeyDown(_jumpKey))
             {
                 ButtonJump();
-            }
-
-            if (Input.GetKeyDown(_runKey))
-            {
-                ButtonRunDown();
-            }
-
-            if (Input.GetKeyUp(_runKey))
-            {
-                ButtonRunUp();
             }
 
             if (Input.GetKeyDown(_swingKey))
@@ -228,16 +216,6 @@ public class InputManager : MonoBehaviour
     {
         yield return 0;
         inputSO.buttonJump = false;
-    }
-
-    public void ButtonRunDown()
-    {
-        inputSO.buttonRun = true;
-    }
-
-    public void ButtonRunUp()
-    {
-        inputSO.buttonRun = false;
     }
 
     public void ButtonSwingDown()

@@ -19,21 +19,20 @@ public class EndJumpToRunState : AirborneMoveState
     {
         base.UpdateState();
 
-        if (_blackboard.character.IsGrounded() && _elapsedTime > _timeToChangeState)
+        if (_stateManager.currentState != this)
+        {
+            return;
+        }
+
+        if (_blackboard.character.IsGrounded() && _blackboard.movement == Vector3.zero && _elapsedTime > _timeToChangeState)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.idleNormalState);
             return;
         }
 
-        if (_blackboard.character.IsGrounded() && _blackboard.inputSO.buttonJump && _elapsedTime > _timeToChangeState)
+        if (_blackboard.character.IsGrounded() && _blackboard.character.GetSpeed() >= 6f && _elapsedTime > _timeToChangeState)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.startJumpState);
-            return;
-        }
-
-        if (_blackboard.inputSO.move != Vector2.zero && _blackboard.character.IsGrounded() && _elapsedTime > _timeToChangeState)
-        {
-            _stateManager.ChangeState(_stateManager.stateReferences.moveState);
+            _stateManager.ChangeState(_stateManager.stateReferences.runState);
             return;
         }
 

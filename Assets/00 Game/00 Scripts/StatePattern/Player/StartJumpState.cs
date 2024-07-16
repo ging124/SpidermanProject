@@ -32,15 +32,21 @@ public class StartJumpState : AirborneMoveState
             return;
         }
 
-        if (_blackboard.character.IsGrounded() && !_blackboard.inputSO.buttonRun && _elapsedTime > _timeToChangeState)
+        if (_blackboard.character.IsGrounded() && _blackboard.character.GetSpeed() <= 7.5f && _elapsedTime > _timeToChangeState)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.endJumpToWalkState);
             return;
         }
 
-        if (_blackboard.character.IsGrounded() && _blackboard.inputSO.buttonRun && _elapsedTime > _timeToChangeState)
+        if (_blackboard.character.IsGrounded() && _blackboard.character.GetSpeed() >= 7.5f && _elapsedTime > _timeToChangeState)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.endJumpToRunState);
+            return;
+        }
+
+        if (_blackboard.inputSO.buttonSwing)
+        {
+            _stateManager.ChangeState(_stateManager.stateReferences.swingState);
             return;
         }
     }

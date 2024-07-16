@@ -21,13 +21,13 @@ public class DiveState : AirborneMoveState
             return;
         }
 
-        if (_blackboard.character.IsGrounded() && !_blackboard.inputSO.buttonRun)
+        if (_blackboard.character.IsGrounded() && _blackboard.character.GetSpeed() < 7.5f)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.endJumpToWalkState);
             return;
         }
 
-        if (_blackboard.character.IsGrounded() && _blackboard.inputSO.buttonRun)
+        if (_blackboard.character.IsGrounded() && _blackboard.character.GetSpeed() >= 7.5f)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.endJumpToRunState);
             return;
