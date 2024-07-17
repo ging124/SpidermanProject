@@ -34,21 +34,27 @@ public class OnAirState : AirborneMoveState
             return;
         }
 
-        if (_blackboard.character.IsGrounded() && _blackboard.inputSO.move == Vector2.zero && _elapsedTime > _timeToChangeState)
+        if (_blackboard.character.IsGrounded() && _blackboard.character.GetVelocity().magnitude == 0 && _blackboard.inputSO.move == Vector2.zero && _elapsedTime > _timeToChangeState)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.endJumpState);
             return;
         }
 
-        if (_blackboard.character.IsGrounded() && _blackboard.character.GetSpeed() < 5f && _elapsedTime > _timeToChangeState)
+        if (_blackboard.character.IsGrounded() && _blackboard.character.GetVelocity().magnitude < 5 && _elapsedTime > _timeToChangeState)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.endJumpToWalkState);
             return;
         }
 
-        if (_blackboard.character.IsGrounded() && _blackboard.character.GetSpeed() >= 6f && _elapsedTime > _timeToChangeState)
+        if (_blackboard.character.IsGrounded() && _blackboard.character.GetVelocity().magnitude >= 5 && _elapsedTime > _timeToChangeState)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.endJumpToRunState);
+            return;
+        }
+
+        if (_blackboard.inputSO.buttonSwing)
+        {
+            _stateManager.ChangeState(_stateManager.stateReferences.swingState);
             return;
         }
     }

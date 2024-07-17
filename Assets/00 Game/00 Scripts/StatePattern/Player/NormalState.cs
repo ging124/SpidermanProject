@@ -1,5 +1,7 @@
 using Animancer;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class NormalState : BaseState
 {
@@ -16,16 +18,16 @@ public class NormalState : BaseState
         base.UpdateState();
 
         WallCheck();
+        Debug.DrawRay(new Vector3(_blackboard.playerController.transform.position.x, _blackboard.playerController.transform.position.y + _blackboard.character.GetHeight() / 2f, _blackboard.playerController.transform.position.z)
+            ,_blackboard.playerController.transform.forward * _blackboard.detectionLength, Color.red);
+
+        Debug.DrawRay(new Vector3(_blackboard.playerController.transform.position.x, _blackboard.playerController.transform.position.y + _blackboard.character.GetHeight(), _blackboard.playerController.transform.position.z)
+            - _blackboard.playerController.transform.up / 2f
+            , _blackboard.playerController.transform.forward * _blackboard.detectionLength, Color.red);
 
         if (_blackboard.onHit)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.hitState);
-            return;
-        }
-
-        if (_blackboard.wallFront)
-        {
-            _stateManager.ChangeState(_stateManager.stateReferences.climbState);
             return;
         }
     }
@@ -37,7 +39,11 @@ public class NormalState : BaseState
 
     public void WallCheck()
     {
-        _blackboard.wallFront = Physics.SphereCast(new Vector3(_blackboard.playerController.transform.position.x, _blackboard.playerController.transform.position.y + _blackboard.character.GetHeight() / 2f, _blackboard.playerController.transform.position.z)
-            , _blackboard.sphereCastRadius, _blackboard.playerController.transform.forward, out _blackboard.frontWallHit, _blackboard.detectionLength, _blackboard.wallLayer);
+        _blackboard.wallFront = Physics.Raycast(new Vector3(_blackboard.playerController.transform.position.x, _blackboard.playerController.transform.position.y + _blackboard.character.GetHeight() / 2f, _blackboard.playerController.transform.position.z)
+            , _blackboard.playerController.transform.forward, out _blackboard.frontWallHit, _blackboard.detectionLength, _blackboard.wallLayer);
+
+        _blackboard.wallInHead = Physics.Raycast(new Vector3(_blackboard.playerController.transform.position.x, _blackboard.playerController.transform.position.y + _blackboard.character.GetHeight(), _blackboard.playerController.transform.position.z)
+            - _blackboard.playerController.transform.up/2f
+            , _blackboard.playerController.transform.forward, out _blackboard.frontWallHit, _blackboard.detectionLength, _blackboard.wallLayer);
     }
 }

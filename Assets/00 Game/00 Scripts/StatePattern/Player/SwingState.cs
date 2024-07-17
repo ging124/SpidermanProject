@@ -74,7 +74,7 @@ public class SwingState : AirborneMoveState
         Vector2 input = _blackboard.inputSO.move;
         Vector3 horizontal = _blackboard.cam.transform.right * input.x;
 
-        _blackboard.playerController.rb.AddForce(horizontal * swingSpeed * Time.fixedDeltaTime * 50);
+        _blackboard.playerController.rb.AddForce(horizontal.normalized * swingSpeed * Time.fixedDeltaTime * 50);
     }
 
     public override void ExitState()

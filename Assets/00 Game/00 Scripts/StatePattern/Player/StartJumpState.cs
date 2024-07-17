@@ -1,4 +1,5 @@
 using Animancer;
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -21,9 +22,15 @@ public class StartJumpState : AirborneMoveState
     {
         base.UpdateState();
 
-        if(!_blackboard.character.IsGrounded() && _elapsedTime >= _timeToOnAir)
+        if (_stateManager.currentState != this)
+        {
+            return;
+        }
+
+        if (!_blackboard.character.IsGrounded() && _elapsedTime >= _timeToOnAir)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.onAirState);
+            return;
         }
 
         if (_blackboard.character.IsGrounded() && _blackboard.inputSO.move == Vector2.zero && _elapsedTime > _timeToChangeState)
@@ -43,24 +50,16 @@ public class StartJumpState : AirborneMoveState
             _stateManager.ChangeState(_stateManager.stateReferences.endJumpToRunState);
             return;
         }
-
-        if (_blackboard.inputSO.buttonSwing)
-        {
-            _stateManager.ChangeState(_stateManager.stateReferences.swingState);
-            return;
-        }
     }
 
     public override void ExitState()
     {
+        _blackboard.character.StopJumping();
         base.ExitState();
     }
 
     void Jump()
     {
-        if(_blackboard.character.IsGrounded())
-        {
-            _blackboard.character.Jump();
-        }
+        _blackboard.character.Jump();
     }
 }

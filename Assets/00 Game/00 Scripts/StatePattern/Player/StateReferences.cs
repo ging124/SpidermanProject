@@ -22,6 +22,9 @@ public class StateReferences : MonoBehaviour
     public DiveState diveState;
     public SwingJumpState swingJumpState;
     public ClimbState climbState;
+    public ClimbMovementState climbMovementState;
+    public ExitClimbState exitClimbState;
+
 
     [Header("ActionState")]
     public IdleActionState idleActionState;

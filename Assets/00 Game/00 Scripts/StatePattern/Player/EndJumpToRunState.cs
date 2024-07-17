@@ -12,7 +12,6 @@ public class EndJumpToRunState : AirborneMoveState
     {
         base.EnterState(stateManager, blackboard);
         _normalBodyLayer.Play(_endJumpToRunAnim);
-        _blackboard.character.StopJumping();
     }
 
     public override void UpdateState()
@@ -30,15 +29,15 @@ public class EndJumpToRunState : AirborneMoveState
             return;
         }
 
-        if (_blackboard.character.IsGrounded() && _blackboard.character.GetSpeed() >= 6f && _elapsedTime > _timeToChangeState)
+        if (_blackboard.character.IsGrounded() && _blackboard.character.GetSpeed() < 6f && _elapsedTime > _timeToChangeState)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.runState);
+            _stateManager.ChangeState(_stateManager.stateReferences.moveState);
             return;
         }
 
-        if (_blackboard.inputSO.buttonJump && _blackboard.character.IsGrounded() && _elapsedTime > _timeToChangeState)
+        if (_blackboard.character.IsGrounded() && _blackboard.character.GetSpeed() >= 6f && _elapsedTime > _timeToChangeState)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.startJumpState);
+            _stateManager.ChangeState(_stateManager.stateReferences.runState);
             return;
         }
     }

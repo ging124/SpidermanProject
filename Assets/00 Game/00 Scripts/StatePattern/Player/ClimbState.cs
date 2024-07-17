@@ -2,63 +2,57 @@ using Animancer;
 using DG.Tweening;
 using EasyCharacterMovement;
 using UnityEngine;
-using UnityEngine.InputSystem.HID;
 
 public class ClimbState : CanMoveState
 {
-    [SerializeField] private LinearMixerTransition _climbBlendTree;
+    [SerializeField] private ClipTransition _idleClimbAnim;
     [SerializeField] private float _timeToIdle;
 
     public override void EnterState(StateManager stateManager, Blackboard blackboard)
     {
         base.EnterState(stateManager, blackboard);
-        _blackboard.playerController.transform.DORotate(Quaternion.LookRotation(_blackboard.playerController.transform.up, -_blackboard.playerController.transform.forward).eulerAngles, 0);
-        _normalBodyLayer.Play(_climbBlendTree);
-        _blackboard.character.SetRotationMode(RotationMode.None);
+        _blackboard.playerController.transform.DORotate(Quaternion.LookRotation(_blackboard.playerController.transform.forward.projectedOnPlane(Vector3.up), Vector3.up).eulerAngles, 0.2f);
+        _blackboard.character.SetMovementMode(MovementMode.None);
+        _blackboard.playerController.rb.isKinematic = false;
+        _blackboard.playerController.rb.useGravity = false;
+        _blackboard.rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+        _normalBodyLayer.Play(_idleClimbAnim);
     }
 
     public override void UpdateState()
     {
         base.UpdateState();
-        
-        if (!_blackboard.character.IsGrounded() && _elapsedTime > _timeToIdle)
+
+        if (_stateManager.currentState != this)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.idleNormalState);
             return;
         }
-    }
 
-    public override void FixedUpdateState()
-    {
-        base.FixedUpdateState();
+        if (_blackboard.inputSO.move != Vector2.zero && _blackboard.wallFront)
+        {
+            _stateManager.ChangeState(_stateManager.stateReferences.climbMovementState);
+            return;
+        }
 
-        Movement();
-        _climbBlendTree.State.Parameter = Mathf.Lerp(_climbBlendTree.State.Parameter, _blackboard.character.GetSpeed(), 55 * Time.deltaTime);
+        if (!_blackboard.wallFront && _elapsedTime > _timeToIdle)
+        {
+            _stateManager.ChangeState(_stateManager.stateReferences.onAirState);
+            return;
+        }
 
+        if (_blackboard.inputSO.buttonJump)
+        {
+            _stateManager.ChangeState(_stateManager.stateReferences.startJumpHighState);
+            return;
+        }
     }
 
     public override void ExitState()
     {
         _blackboard.character.SetRotationMode(RotationMode.OrientToMovement);
+        _blackboard.character.SetMovementMode(MovementMode.Walking);
+        _blackboard.playerController.rb.isKinematic = true;
+        _blackboard.rb.constraints = RigidbodyConstraints.None;
         base.ExitState();
     }
-
-    protected override void Movement()
-    {
-        GetInput();
-
-        _blackboard.character.SetMovementDirection(_blackboard.movement);
-    }
-
-    protected override void GetInput()
-    {
-        Vector2 input = _blackboard.inputSO.move;
-        Vector3 vertical = _blackboard.playerController.transform.forward * input.y;
-        Vector3 horizontal = _blackboard.playerController.transform.right * input.x;
-        RaycastHit hit;
-        _blackboard.movement = horizontal + vertical;
-        Physics.Raycast(_blackboard.playerController.transform.position + _blackboard.playerController.transform.up, -_blackboard.playerController.transform.up, out hit);
-        _blackboard.movement = Vector3.ProjectOnPlane(_blackboard.movement, hit.normal);
-    }
-
 }

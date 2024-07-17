@@ -6,12 +6,11 @@ public class Blackboard : MonoBehaviour
 {
     public LayerMask wallLayer;
     public float detectionLength;
-    public float sphereCastRadius;
-
+    public Transform point;
 
     public RaycastHit frontWallHit;
 
-    [Header("----ReadOnly----")]
+   [Header("----ReadOnly----")]
     public int currentHP;
     public int currentMP;
 
@@ -20,6 +19,7 @@ public class Blackboard : MonoBehaviour
     public int hitDamage;
     public bool onHit;
     public bool wallFront;
+    public bool wallInHead;
 
 
     [Header("----Component----")]

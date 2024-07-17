@@ -1,6 +1,7 @@
 using Animancer;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro.EditorUtilities;
 using UnityEngine;
 
 public class MovementState : CanMoveState
@@ -17,6 +18,12 @@ public class MovementState : CanMoveState
         if (!_blackboard.character.IsGrounded())
         {
             _stateManager.ChangeState(_stateManager.stateReferences.onAirState);
+            return;
+        }
+
+        if (_blackboard.wallFront && _blackboard.wallInHead)
+        {
+            _stateManager.ChangeState(_stateManager.stateReferences.climbState);
             return;
         }
     }

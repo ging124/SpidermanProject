@@ -8,29 +8,28 @@ public class AirborneMoveState : CanMoveState
     public override void EnterState(StateManager stateManager, Blackboard blackboard)
     {
         base.EnterState(stateManager, blackboard);
-        _blackboard.character.Sprint();
     }
 
     public override void UpdateState()
     {
         base.UpdateState();
-
-        
     }
 
     public override void FixedUpdateState()
     {
         base.FixedUpdateState();
 
-        if (_blackboard.inputSO.move != Vector2.zero)
+        Movement();
+
+        if (_blackboard.wallFront)
         {
-            Movement();
+            _stateManager.ChangeState(_stateManager.stateReferences.climbState);
+            return;
         }
     }
 
     public override void ExitState()
     {
-        _blackboard.character.StopSprinting();
         base.ExitState();
     }
 }
