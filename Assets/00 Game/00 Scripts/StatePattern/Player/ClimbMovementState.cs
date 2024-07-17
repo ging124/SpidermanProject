@@ -8,6 +8,7 @@ using UnityEngine;
 public class ClimbMovementState : CanMoveState
 {
     [SerializeField] private float _climbSpeed;
+    [SerializeField] private float _climbForce;
     [SerializeField] private LinearMixerTransition _climbBlendTree;
     [SerializeField] private float _timeToIdle;
 
@@ -32,9 +33,10 @@ public class ClimbMovementState : CanMoveState
         }
 
         Movement();
+
         _climbBlendTree.State.Parameter = Mathf.Lerp(_climbBlendTree.State.Parameter, Vector3.Angle(_blackboard.playerController.transform.right, _blackboard.movement.normalized), 50 * Time.deltaTime);
 
-        if (!_blackboard.wallInHead)
+        if (!_blackboard.wallFront)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.exitClimbState);
             return;
@@ -43,18 +45,6 @@ public class ClimbMovementState : CanMoveState
         if (_blackboard.movement == Vector3.zero && _blackboard.wallFront)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.climbState);
-            return;
-        }
-
-        if (!_blackboard.wallFront && _elapsedTime > _timeToIdle)
-        {
-            _stateManager.ChangeState(_stateManager.stateReferences.onAirState);
-            return;
-        }
-
-        if (_blackboard.inputSO.buttonJump)
-        {
-            _stateManager.ChangeState(_stateManager.stateReferences.startJumpHighState);
             return;
         }
     }
@@ -72,12 +62,18 @@ public class ClimbMovementState : CanMoveState
     {
         GetInput();
 
-        _blackboard.rb.velocity = _blackboard.movement.normalized * _climbSpeed;
+        _blackboard.rb.velocity = _blackboard.movement.normalized * _climbSpeed * Time.deltaTime * 20;
     }
 
     protected override void GetInput()
     {
         Vector2 input = _blackboard.inputSO.move;
+
+        if(input.y < 0)
+        {
+            input = Vector2.zero;
+        }
+        
         Vector3 vertical = _blackboard.playerController.transform.up * input.y;
         Vector3 horizontal = _blackboard.playerController.transform.right * input.x;
         _blackboard.movement = horizontal + vertical;

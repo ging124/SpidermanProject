@@ -25,9 +25,15 @@ public class MoveState : MovementState
 
         _moveBlendTree.State.Parameter = Mathf.Lerp(_moveBlendTree.State.Parameter, _blackboard.character.GetSpeed(), 55 * Time.deltaTime);
 
-        if (_blackboard.inputSO.buttonJump && _blackboard.character.IsGrounded() || !_blackboard.character.IsGrounded())
+        if (_blackboard.inputSO.buttonJump && _blackboard.character.IsGrounded())
         {
             _stateManager.ChangeState(_stateManager.stateReferences.startJumpState);
+            return;
+        }
+
+        if (!_blackboard.character.IsGrounded())
+        {
+            _stateManager.ChangeState(_stateManager.stateReferences.onAirState);
             return;
         }
 

@@ -29,15 +29,9 @@ public class EndJumpToWalkState : AirborneMoveState
             return;
         }
 
-        if (_blackboard.character.IsGrounded() && _blackboard.character.GetSpeed() < 6f && _elapsedTime > _timeToChangeState)
+        if (_blackboard.character.IsGrounded() && _blackboard.movement != Vector3.zero && _elapsedTime > _timeToChangeState)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.moveState);
-            return;
-        }
-
-        if (_blackboard.character.IsGrounded() && _blackboard.character.GetSpeed() >= 6f && _elapsedTime > _timeToChangeState)
-        {
-            _stateManager.ChangeState(_stateManager.stateReferences.runState);
             return;
         }
     }

@@ -72,12 +72,18 @@ public class ExitClimbState : CanMoveState
     {
         GetInput();
 
-        _blackboard.rb.velocity = _blackboard.movement.normalized * _climbSpeed;
+        _blackboard.rb.velocity = _blackboard.movement.normalized * _climbSpeed * Time.deltaTime * 20;
     }
 
     protected override void GetInput()
     {
         Vector2 input = _blackboard.inputSO.move;
+
+        if (input.y < 0)
+        {
+            input = new Vector2(1, 0);
+        }
+
         Vector3 vertical = _blackboard.playerController.transform.up * input.y;
         Vector3 horizontal = _blackboard.playerController.transform.right * input.x;
         _blackboard.movement = horizontal + vertical;

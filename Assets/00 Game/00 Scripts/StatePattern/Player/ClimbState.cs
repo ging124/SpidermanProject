@@ -2,11 +2,13 @@ using Animancer;
 using DG.Tweening;
 using EasyCharacterMovement;
 using UnityEngine;
+using UnityEngine.InputSystem.HID;
 
 public class ClimbState : CanMoveState
 {
     [SerializeField] private ClipTransition _idleClimbAnim;
     [SerializeField] private float _timeToIdle;
+    [SerializeField] private float _climbForce;
 
     public override void EnterState(StateManager stateManager, Blackboard blackboard)
     {
@@ -28,21 +30,22 @@ public class ClimbState : CanMoveState
             return;
         }
 
-        if (_blackboard.inputSO.move != Vector2.zero && _blackboard.wallFront)
+
+        if (!_blackboard.wallFront)
+        {
+            _stateManager.ChangeState(_stateManager.stateReferences.exitClimbState);
+            return;
+        }
+
+        if(_blackboard.inputSO.buttonJump)
+        {
+            _blackboard.rb.AddForce(-_blackboard.playerController.transform.forward * _climbForce);
+            return;
+        }
+
+        if (_blackboard.inputSO.move != Vector2.zero && _blackboard.inputSO.move.y >= 0 && _blackboard.wallFront)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.climbMovementState);
-            return;
-        }
-
-        if (!_blackboard.wallFront && _elapsedTime > _timeToIdle)
-        {
-            _stateManager.ChangeState(_stateManager.stateReferences.onAirState);
-            return;
-        }
-
-        if (_blackboard.inputSO.buttonJump)
-        {
-            _stateManager.ChangeState(_stateManager.stateReferences.startJumpHighState);
             return;
         }
     }

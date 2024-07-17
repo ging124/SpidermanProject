@@ -19,7 +19,6 @@ public class Blackboard : MonoBehaviour
     public int hitDamage;
     public bool onHit;
     public bool wallFront;
-    public bool wallInHead;
 
 
     [Header("----Component----")]

@@ -32,6 +32,12 @@ public class RunState : MovementState
             return;
         }
 
+        if (!_blackboard.character.IsGrounded())
+        {
+            _stateManager.ChangeState(_stateManager.stateReferences.onAirState);
+            return;
+        }
+
         if (_blackboard.inputSO.move == Vector2.zero)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.stopRunState);

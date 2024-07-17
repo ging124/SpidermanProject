@@ -1,9 +1,3 @@
-using Animancer;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro.EditorUtilities;
-using UnityEngine;
-
 public class MovementState : CanMoveState
 {
     public override void EnterState(StateManager stateManager, Blackboard blackboard)
@@ -21,7 +15,7 @@ public class MovementState : CanMoveState
             return;
         }
 
-        if (_blackboard.wallFront && _blackboard.wallInHead)
+        if (_blackboard.wallFront)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.climbState);
             return;
