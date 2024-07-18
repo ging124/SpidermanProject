@@ -22,8 +22,5 @@ public abstract class BaseState : MonoBehaviour
 
     public virtual void FixedUpdateState() { }
 
-
-    public virtual void ExitState()
-    {
-    }
+    public virtual void ExitState() { }
 }

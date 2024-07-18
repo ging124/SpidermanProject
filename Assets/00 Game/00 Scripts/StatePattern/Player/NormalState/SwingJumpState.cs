@@ -1,0 +1,52 @@
+using Animancer;
+using DG.Tweening;
+using EasyCharacterMovement;
+using UnityEngine;
+
+public class SwingJumpState : AirborneMoveState
+{
+    [SerializeField] private ClipTransition _swingJumpAnim;
+    [SerializeField] private float _swingJumpForce;
+    [SerializeField] private float _timeToChangeState = 0.5f;
+
+    public override void EnterState(StateManager stateManager, Blackboard blackboard)
+    {
+        base.EnterState(stateManager, blackboard);
+        _normalBodyLayer.Play(_swingJumpAnim);
+        _blackboard.character.AddForce((_blackboard.character.GetVelocity() + _blackboard.cam.up ) * _swingJumpForce);
+    }
+
+    public override void UpdateState()
+    {
+        base.UpdateState();
+
+        if (_blackboard.character.IsGrounded() && _blackboard.character.GetVelocity().magnitude == 0 && _blackboard.inputSO.move == Vector2.zero && _elapsedTime > _timeToChangeState)
+        {
+            _stateManager.ChangeState(_stateManager.stateReferences.endJumpState);
+            return;
+        }
+
+        if (_blackboard.character.IsGrounded() && _blackboard.character.GetVelocity().magnitude < 5 && _elapsedTime > _timeToChangeState)
+        {
+            _stateManager.ChangeState(_stateManager.stateReferences.endJumpToWalkState);
+            return;
+        }
+
+        if (_blackboard.character.IsGrounded() && _blackboard.character.GetVelocity().magnitude >= 5 && _elapsedTime > _timeToChangeState)
+        {
+            _stateManager.ChangeState(_stateManager.stateReferences.endJumpToRunState);
+            return;
+        }
+
+        if (_elapsedTime > _timeToChangeState)
+        {
+            _stateManager.ChangeState(_stateManager.stateReferences.onAirState);
+            return;
+        }
+    }
+
+    public override void ExitState()
+    {
+        base.ExitState();
+    }
+}
