@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.26852536, g: 0.46447328, b: 0.6146784, a: 1}
+  m_IndirectSpecularColor: {r: 0.26852533, g: 0.46447325, b: 0.6146784, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -30416,7 +30416,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   detectionLength: 0.55
-  point: {fileID: 1402820911}
+  zipRange: 10
+  swingPointOnCam: {fileID: 0}
   currentHP: 0
   currentMP: 0
   movement: {x: 0, y: 0, z: 0}

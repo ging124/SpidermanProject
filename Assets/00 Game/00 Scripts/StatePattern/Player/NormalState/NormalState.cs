@@ -18,9 +18,7 @@ public class NormalState : BaseState
         base.UpdateState();
 
         WallCheck();
-        Debug.DrawRay(new Vector3(_blackboard.playerController.transform.position.x, _blackboard.playerController.transform.position.y + _blackboard.character.GetHeight() / 2f, _blackboard.playerController.transform.position.z)
-            ,_blackboard.playerController.transform.forward * _blackboard.detectionLength, Color.red);
-
+        ZipPointCheck();
 
         if (_blackboard.onHit)
         {
@@ -38,5 +36,16 @@ public class NormalState : BaseState
     {
         _blackboard.wallFront = Physics.Raycast(new Vector3(_blackboard.playerController.transform.position.x, _blackboard.playerController.transform.position.y + _blackboard.character.GetHeight() / 2f, _blackboard.playerController.transform.position.z)
             , _blackboard.playerController.transform.forward, out _blackboard.frontWallHit, _blackboard.detectionLength, _blackboard.wallLayer);
+    }
+
+    public void ZipPointCheck()
+    {
+        Collider[] pointCheck = Physics.OverlapSphere(_blackboard.transform.position, _blackboard.zipRange, _blackboard.wallLayer);
+
+        if(pointCheck.Length > 0 )
+        {
+
+        }
+
     }
 }

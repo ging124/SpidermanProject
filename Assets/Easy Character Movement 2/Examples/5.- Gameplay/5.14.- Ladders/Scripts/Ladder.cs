@@ -35,7 +35,7 @@ namespace EasyCharacterMovement.Examples.Gameplay.LadderClimbExample
 
             if (height > 0.0f)
             {
-                // If we are below top point
+                // If we are below top swingPointOnCam
                 
                 if (height <= path.magnitude)
                 {
@@ -43,13 +43,13 @@ namespace EasyCharacterMovement.Examples.Gameplay.LadderClimbExample
                     return bottomAnchorPoint + path.normalized * height;
                 }
 
-                // If we are higher than top point
+                // If we are higher than top swingPointOnCam
 
                 pathPosition = height - path.magnitude;
                 return topAnchorPoint;
             }
 
-            // Below bottom point
+            // Below bottom swingPointOnCam
 
             pathPosition = height;
             return bottomAnchorPoint;

@@ -260,14 +260,14 @@ namespace EasyCharacterMovement.Examples.Gameplay.LadderClimbExample
 
                         if (_ladderPathPosition > 0.0f)
                         {
-                            // Above ladder path top point
+                            // Above ladder path top swingPointOnCam
 
                             _ladderTargetPosition = _activeLadder.TopPoint.position;
                             _ladderTargetRotation = _activeLadder.TopPoint.rotation;
                         }
                         else if (_ladderPathPosition < 0.0f)
                         {
-                            // Below ladder path bottom point
+                            // Below ladder path bottom swingPointOnCam
 
                             _ladderTargetPosition = _activeLadder.BottomPoint.position;
                             _ladderTargetRotation = _activeLadder.BottomPoint.rotation;

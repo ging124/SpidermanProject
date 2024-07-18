@@ -6,7 +6,8 @@ public class Blackboard : MonoBehaviour
 {
     public LayerMask wallLayer;
     public float detectionLength;
-    public Transform point;
+    public float zipRange;
+    public Transform swingPointOnCam;
 
     public RaycastHit frontWallHit;
 
@@ -49,4 +50,8 @@ public class Blackboard : MonoBehaviour
         playerController.currentHP = currentHP;
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(playerController.transform.position, zipRange);
+    }
 }
