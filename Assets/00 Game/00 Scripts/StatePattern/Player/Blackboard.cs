@@ -1,5 +1,6 @@
 using Animancer;
 using EasyCharacterMovement;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Blackboard : MonoBehaviour
@@ -7,7 +8,10 @@ public class Blackboard : MonoBehaviour
     public LayerMask wallLayer;
     public float detectionLength;
     public float zipRange;
+    public float zipLength;
     public Transform swingPointOnCam;
+    public RaycastHit zipPoint;
+
 
     public RaycastHit frontWallHit;
 
@@ -52,6 +56,6 @@ public class Blackboard : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(playerController.transform.position, zipRange);
+        Gizmos.DrawSphere(zipPoint.point, zipRange);
     }
 }

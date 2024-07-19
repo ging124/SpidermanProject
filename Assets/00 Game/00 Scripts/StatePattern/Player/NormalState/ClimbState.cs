@@ -30,7 +30,6 @@ public class ClimbState : CanMoveState
             return;
         }
 
-
         if (!_blackboard.wallFront)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.exitClimbState);

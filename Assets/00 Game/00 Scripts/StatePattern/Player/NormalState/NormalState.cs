@@ -40,11 +40,8 @@ public class NormalState : BaseState
 
     public void ZipPointCheck()
     {
-        Collider[] pointCheck = Physics.OverlapSphere(_blackboard.transform.position, _blackboard.zipRange, _blackboard.wallLayer);
-
-        if(pointCheck.Length > 0 )
+        if(Physics.SphereCast(_blackboard.cam.position, _blackboard.zipRange, _blackboard.cam.forward, out _blackboard.zipPoint, _blackboard.zipLength, _blackboard.wallLayer))
         {
-
         }
 
     }
