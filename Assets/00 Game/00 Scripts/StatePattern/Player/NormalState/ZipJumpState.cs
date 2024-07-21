@@ -1,8 +1,5 @@
 using Animancer;
-using DG.Tweening;
 using EasyCharacterMovement;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ZipJumpState : AirborneMoveState

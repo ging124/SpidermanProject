@@ -1,7 +1,5 @@
 using Animancer;
 using EasyCharacterMovement;
-using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Blackboard : MonoBehaviour

@@ -1,10 +1,7 @@
 using Animancer;
 using DG.Tweening;
 using EasyCharacterMovement;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Windows;
 
 public class ClimbMovementState : CanMoveState
 {
@@ -77,7 +74,7 @@ public class ClimbMovementState : CanMoveState
         Vector2 input = _blackboard.inputSO.move;
 
         if (input.y < 0) input = Vector2.zero;
-        
+
         Vector3 vertical = _blackboard.playerController.transform.up * input.y;
         Vector3 horizontal = _blackboard.playerController.transform.right * input.x;
         _blackboard.movement = horizontal + vertical;

@@ -1,7 +1,5 @@
 using Animancer;
 using DG.Tweening;
-using EasyCharacterMovement;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class StartZipState : NormalState
@@ -19,7 +17,7 @@ public class StartZipState : NormalState
         base.EnterState(stateManager, blackboard);
         _normalBodyLayer.Play(_zipAnim);
     }
-        
+
 
     public override void UpdateState()
     {
@@ -30,7 +28,7 @@ public class StartZipState : NormalState
             return;
         }
 
-        if(_elapsedTime > _timeToChangeState)
+        if (_elapsedTime > _timeToChangeState)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.idleZipState);
         }
