@@ -16,11 +16,7 @@ public class InputManager : MonoBehaviour
     [SerializeField] private KeyCode _jumpKey;
     [SerializeField] private KeyCode _runKey;
     [SerializeField] private KeyCode _swingKey;
-
-
-    public bool buttonJump;
-    public bool buttonSwing;
-    public bool buttonAttack;
+    [SerializeField] private KeyCode _zipKey;
 
 
     [Header("Input value(Readonly)")]
@@ -91,6 +87,11 @@ public class InputManager : MonoBehaviour
             if (Input.GetKeyUp(_swingKey))
             {
                 ButtonSwingUp();
+            }
+
+            if (Input.GetKeyUp(_zipKey))
+            {
+                ButtonZip();
             }
         }
 #endif
@@ -226,6 +227,18 @@ public class InputManager : MonoBehaviour
     public void ButtonSwingUp()
     {
         inputSO.buttonSwing = false;
+    }
+
+    public void ButtonZip()
+    {
+        inputSO.buttonZip = true;
+        StartCoroutine(ButtonJumpZip());
+    }
+
+    IEnumerator ButtonJumpZip()
+    {
+        yield return 0;
+        inputSO.buttonZip = false;
     }
 
 }

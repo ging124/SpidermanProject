@@ -2,7 +2,6 @@ using Animancer;
 using DG.Tweening;
 using EasyCharacterMovement;
 using UnityEngine;
-using UnityEngine.InputSystem.HID;
 
 public class ClimbState : CanMoveState
 {

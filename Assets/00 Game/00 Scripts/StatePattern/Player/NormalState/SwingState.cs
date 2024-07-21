@@ -66,11 +66,10 @@ public class SwingState : AirborneMoveState
     {
         base.FixedUpdateState();
 
-        _blackboard.character.RotateTowardsWithSlerp(_blackboard.playerController.rb.velocity.normalized, false);
         Quaternion rotation = Quaternion.LookRotation(_blackboard.playerController.transform.forward, (swingPoint - _blackboard.playerController.transform.position).normalized);
         _blackboard.playerController.transform.rotation = Quaternion.Lerp(_blackboard.playerController.transform.rotation, rotation, 0.2f * Time.deltaTime);
-
-
+        _blackboard.character.RotateTowardsWithSlerp(_blackboard.playerController.rb.velocity.normalized, false);
+        
         Vector2 input = _blackboard.inputSO.move;
         Vector3 horizontal = _blackboard.cam.transform.right * input.x;
 
@@ -83,8 +82,8 @@ public class SwingState : AirborneMoveState
 
         Destroy(joint);
         Vector3 velocity = _blackboard.rb.velocity;
-        _blackboard.playerController.transform.DORotate(Quaternion.LookRotation(_blackboard.playerController.transform.forward.projectedOnPlane(Vector3.up), Vector3.up).eulerAngles, 40 * Time.deltaTime);
-        _blackboard.character.SetMovementMode(MovementMode.Walking);
+        _blackboard.playerController.transform.DORotate(Quaternion.LookRotation(_blackboard.playerController.transform.forward.projectedOnPlane(Vector3.up), Vector3.up).eulerAngles, 0.2f);
+        _blackboard.character.SetMovementMode(MovementMode.Falling);
         _blackboard.playerController.rb.useGravity = false;
         _blackboard.playerController.rb.isKinematic = true;
         _blackboard.rb.constraints = RigidbodyConstraints.None;

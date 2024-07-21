@@ -16,7 +16,7 @@ MonoBehaviour:
   look: {x: 0, y: 0}
   buttonJump: 0
   buttonRoll: 0
-  buttonRun: 0
   buttonAttack: 0
   buttonSwing: 0
+  buttonZip: 0
   disableInput: 0

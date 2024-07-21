@@ -13,7 +13,7 @@ public class IdleNormalState : MovementState
     {
         base.EnterState(stateManager, blackboard);
         _normalBodyLayer.Play(_idleNormalAnim);
-        //_blackboard.playerController.transform.DORotate(Quaternion.LookRotation(_blackboard.playerController.transform.forward.projectedOnPlane(Vector3.up), Vector3.up).eulerAngles, 0.2f);
+        _blackboard.playerController.transform.DORotate(Quaternion.LookRotation(_blackboard.playerController.transform.forward.projectedOnPlane(Vector3.up), Vector3.up).eulerAngles, 0.2f);
     }
 
     public override void UpdateState()

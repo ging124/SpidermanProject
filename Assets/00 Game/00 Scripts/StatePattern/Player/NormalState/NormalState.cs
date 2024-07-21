@@ -1,7 +1,5 @@
 using Animancer;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class NormalState : BaseState
 {
@@ -25,6 +23,12 @@ public class NormalState : BaseState
             _stateManager.ChangeState(_stateManager.stateReferences.hitState);
             return;
         }
+
+        if(_blackboard.zipPoint != Vector3.zero && _blackboard.inputSO.buttonZip)
+        {
+            _stateManager.ChangeState(_stateManager.stateReferences.startZipState);
+            return;
+        }
     }
 
     public override void ExitState()
@@ -40,9 +44,10 @@ public class NormalState : BaseState
 
     public void ZipPointCheck()
     {
-        if(Physics.SphereCast(_blackboard.cam.position, _blackboard.zipRange, _blackboard.cam.forward, out _blackboard.zipPoint, _blackboard.zipLength, _blackboard.wallLayer))
+        if (Physics.SphereCast(_blackboard.cam.position, _blackboard.zipRange, _blackboard.cam.forward, out _blackboard.zipPointDetection, _blackboard.zipLength, _blackboard.wallLayer))
         {
+            var wallScript = _blackboard.zipPointDetection.transform.GetComponent<WallScript>();
+            _blackboard.zipPoint = wallScript.GetZipPoint(_blackboard.zipPointDetection.point);
         }
-
     }
 }

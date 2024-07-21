@@ -23,7 +23,7 @@ public class MoveState : MovementState
 
         Movement();
 
-        _moveBlendTree.State.Parameter = Mathf.Lerp(_moveBlendTree.State.Parameter, _blackboard.character.GetSpeed(), 55 * Time.deltaTime);
+        _moveBlendTree.State.Parameter = Mathf.Lerp(_moveBlendTree.State.Parameter, _blackboard.character.GetSpeed(), 40 * Time.deltaTime);
 
         if (_blackboard.inputSO.buttonJump && _blackboard.character.IsGrounded())
         {

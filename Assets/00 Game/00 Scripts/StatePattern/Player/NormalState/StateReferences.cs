@@ -24,6 +24,9 @@ public class StateReferences : MonoBehaviour
     public ClimbState climbState;
     public ClimbMovementState climbMovementState;
     public ExitClimbState exitClimbState;
+    public StartZipState startZipState;
+    public IdleZipState idleZipState;
+    public ZipJumpState zipJumpState;
 
 
     [Header("ActionState")]

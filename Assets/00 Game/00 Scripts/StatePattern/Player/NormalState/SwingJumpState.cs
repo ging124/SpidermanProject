@@ -13,7 +13,7 @@ public class SwingJumpState : AirborneMoveState
     {
         base.EnterState(stateManager, blackboard);
         _normalBodyLayer.Play(_swingJumpAnim);
-        _blackboard.character.AddForce((_blackboard.character.GetVelocity() + _blackboard.cam.up ) * _swingJumpForce);
+        _blackboard.character.AddForce((_blackboard.character.GetVelocity() + _blackboard.cam.up) * _swingJumpForce);
     }
 
     public override void UpdateState()
@@ -47,6 +47,7 @@ public class SwingJumpState : AirborneMoveState
 
     public override void ExitState()
     {
+        _blackboard.playerController.transform.DORotate(Quaternion.LookRotation(_blackboard.playerController.transform.forward.projectedOnPlane(Vector3.up), Vector3.up).eulerAngles, 0.2f);
         base.ExitState();
     }
 }
