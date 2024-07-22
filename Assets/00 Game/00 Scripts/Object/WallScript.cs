@@ -22,7 +22,9 @@ public class WallScript : MonoBehaviour
         Vector3[] vertices = meshCollider.sharedMesh.vertices;
         for (int i = 0; i < vertices.Length; i++)
         {
-            var vertexTransform = vertices[i] * this.transform.lossyScale.x + this.transform.position;
+            var vertexTransform = vertices[i];
+            vertexTransform.Scale(this.transform.lossyScale);
+            vertexTransform += this.transform.position;
 
             if (!verticesList.Contains(vertexTransform) && vertices[i].y > 0.1)
             {
@@ -45,10 +47,12 @@ public class WallScript : MonoBehaviour
 
             if (i == verticesList.Count - 1)
             {
+                Debug.DrawLine(verticesList[i], verticesList[0], Color.blue);
                 projectedPoint = ProjectPointOnLine(point, verticesList[i], verticesList[0]);
             }
             else
             {
+                Debug.DrawLine(verticesList[i], verticesList[i+1], Color.blue);
                 projectedPoint = ProjectPointOnLine(point, verticesList[i], verticesList[i + 1]);
             }
 
