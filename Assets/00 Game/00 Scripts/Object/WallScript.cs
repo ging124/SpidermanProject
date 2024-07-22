@@ -7,7 +7,6 @@ public class WallScript : MonoBehaviour
     public MeshCollider meshCollider;
     public List<Vector3> verticesList = new List<Vector3>();
 
-
     private void Awake()
     {
         meshCollider = GetComponent<MeshCollider>();
@@ -60,7 +59,6 @@ public class WallScript : MonoBehaviour
                 minDistance = disctance;
                 minPoint = projectedPoint;
             }
-            
         }
 
         return minPoint;

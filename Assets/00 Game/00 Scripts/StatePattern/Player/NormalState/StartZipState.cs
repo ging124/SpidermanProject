@@ -29,9 +29,6 @@ public class StartZipState : NormalState
         }
 
         zipPoint = _blackboard.zipPoint;
-        _blackboard.zipIconImage.gameObject.SetActive(true);
-        Camera camera = _blackboard.cam.GetComponent<Camera>();
-        _blackboard.zipIconImage.transform.position = camera.WorldToScreenPoint(_blackboard.zipPoint);
     }
 
     public override void UpdateState()

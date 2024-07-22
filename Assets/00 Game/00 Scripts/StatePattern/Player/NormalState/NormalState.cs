@@ -59,7 +59,6 @@ public class NormalState : BaseState
             _blackboard.zipIconImage.gameObject.SetActive(true);
             Camera camera = _blackboard.cam.GetComponent<Camera>();
             _blackboard.zipIconImage.transform.position = camera.WorldToScreenPoint(_blackboard.zipPoint);
-
         }
         else
         {
