@@ -1,5 +1,6 @@
 using Animancer;
 using DG.Tweening;
+using EasyCharacterMovement;
 using UnityEngine;
 
 public class StartZipState : NormalState
@@ -10,14 +11,28 @@ public class StartZipState : NormalState
     [SerializeField] private LineRenderer _rightLineRenderer;
     [SerializeField] private Transform _leftHandTransform;
     [SerializeField] private Transform _rightHandTransform;
+    [SerializeField] private Vector3 zipPoint;
 
 
     public override void EnterState(StateManager stateManager, Blackboard blackboard)
     {
         base.EnterState(stateManager, blackboard);
         _normalBodyLayer.Play(_zipAnim);
-    }
+        _blackboard.character.SetMovementMode(MovementMode.None);
+        if (_blackboard.zipLength / 100f >= 0.5f)
+        {
+            _timeToChangeState = _blackboard.zipLength / 100f;
+        }
+        else
+        {
+            _timeToChangeState = 0.5f;
+        }
 
+        zipPoint = _blackboard.zipPoint;
+        _blackboard.zipIconImage.gameObject.SetActive(true);
+        Camera camera = _blackboard.cam.GetComponent<Camera>();
+        _blackboard.zipIconImage.transform.position = camera.WorldToScreenPoint(_blackboard.zipPoint);
+    }
 
     public override void UpdateState()
     {
@@ -43,13 +58,14 @@ public class StartZipState : NormalState
     {
         _leftLineRenderer.positionCount = 0;
         _rightLineRenderer.positionCount = 0;
+        _blackboard.character.SetMovementMode(MovementMode.Walking);
         base.ExitState();
     }
 
     public void Zip()
     {
-        _blackboard.playerController.transform.DOLookAt(_blackboard.zipPoint, 0.1f, AxisConstraint.Y);
-        _blackboard.rb.DOMove(_blackboard.zipPoint, 0.6f);
+        _blackboard.playerController.transform.DOLookAt(zipPoint, 0.1f, AxisConstraint.Y);
+        _blackboard.rb.DOMove(zipPoint + Vector3.up, _timeToChangeState);
     }
 
     public void StartZip()
@@ -63,6 +79,6 @@ public class StartZipState : NormalState
     private void SetLineRenderer(LineRenderer lineRenderer, Transform hand)
     {
         lineRenderer.SetPosition(0, hand.position);
-        lineRenderer.SetPosition(1, _blackboard.zipPoint);
+        lineRenderer.SetPosition(1, zipPoint);
     }
 }

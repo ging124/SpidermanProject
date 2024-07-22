@@ -24,7 +24,7 @@ public class NormalState : BaseState
             return;
         }
 
-        if(_blackboard.zipPoint != Vector3.zero && _blackboard.inputSO.buttonZip)
+        if(_blackboard.zipPoint != Vector3.zero && _blackboard.zipLength <= _blackboard.maxZipLength && _blackboard.inputSO.buttonZip)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.startZipState);
             return;
@@ -44,10 +44,26 @@ public class NormalState : BaseState
 
     public void ZipPointCheck()
     {
-        if (Physics.SphereCast(_blackboard.cam.position, _blackboard.zipRange, _blackboard.cam.forward, out _blackboard.zipPointDetection, _blackboard.zipLength, _blackboard.wallLayer))
+        if (Physics.SphereCast(_blackboard.cam.position, _blackboard.zipDetectionRange, _blackboard.cam.forward, out _blackboard.zipPointDetection, _blackboard.zipDetectionLength, _blackboard.wallLayer))
         {
             var wallScript = _blackboard.zipPointDetection.transform.GetComponent<WallScript>();
             _blackboard.zipPoint = wallScript.GetZipPoint(_blackboard.zipPointDetection.point);
+        }
+        else
+        {
+            _blackboard.zipPoint = Vector3.zero;
+        }
+        
+        if(_blackboard.zipPoint != Vector3.zero && _blackboard.zipLength < _blackboard.maxZipLength)
+        {
+            _blackboard.zipIconImage.gameObject.SetActive(true);
+            Camera camera = _blackboard.cam.GetComponent<Camera>();
+            _blackboard.zipIconImage.transform.position = camera.WorldToScreenPoint(_blackboard.zipPoint);
+
+        }
+        else
+        {
+            _blackboard.zipIconImage.gameObject.SetActive(false);
         }
     }
 }

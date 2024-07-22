@@ -1,19 +1,22 @@
 using Animancer;
 using EasyCharacterMovement;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Blackboard : MonoBehaviour
 {
     public LayerMask wallLayer;
-    public float detectionLength;
-    public float zipRange;
-    public float zipLength;
     public Transform swingPointOnCam;
+    public float detectionLength;
+    public RaycastHit frontWallHit;
+
+    public float zipDetectionRange;
+    public float zipDetectionLength;
+    public float zipLength => (zipPoint - playerController.transform.position).magnitude;
+    public float maxZipLength = 50;
     public RaycastHit zipPointDetection;
     public Vector3 zipPoint;
-
-
-    public RaycastHit frontWallHit;
+    public Image zipIconImage;
 
    [Header("----ReadOnly----")]
     public int currentHP;
@@ -24,6 +27,7 @@ public class Blackboard : MonoBehaviour
     public int hitDamage;
     public bool onHit;
     public bool wallFront;
+
 
 
     [Header("----Component----")]
@@ -56,8 +60,8 @@ public class Blackboard : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawSphere(zipPointDetection.point, zipRange);
+        Gizmos.DrawSphere(zipPointDetection.point, zipDetectionRange);
         Gizmos.color = Color.red;
-        Gizmos.DrawSphere(zipPoint, zipRange);
+        Gizmos.DrawSphere(zipPoint, zipDetectionRange);
     }
 }

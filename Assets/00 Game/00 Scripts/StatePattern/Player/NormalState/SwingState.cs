@@ -28,14 +28,14 @@ public class SwingState : AirborneMoveState
 
         _blackboard.character.SetMovementMode(MovementMode.None);
         _blackboard.playerController.rb.isKinematic = false;
-        _blackboard.rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
         _blackboard.playerController.rb.useGravity = true;
+        _blackboard.rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 
         swingPoint = point.transform.position + new Vector3(0, Random.Range(0, 1), Random.Range(0, 10));
 
         if(velocity.magnitude < 20)
         {
-            _blackboard.rb.velocity = velocity * 2f;
+            _blackboard.rb.velocity = velocity * 1.5f;
         }
         else if (velocity.magnitude > 80)
         {
@@ -81,8 +81,8 @@ public class SwingState : AirborneMoveState
         lineRenderer.positionCount = 0;
 
         Destroy(joint);
-        Vector3 velocity = _blackboard.rb.velocity;
         _blackboard.playerController.transform.DORotate(Quaternion.LookRotation(_blackboard.playerController.transform.forward.projectedOnPlane(Vector3.up), Vector3.up).eulerAngles, 0.2f);
+        Vector3 velocity = _blackboard.rb.velocity;
         _blackboard.character.SetMovementMode(MovementMode.Falling);
         _blackboard.playerController.rb.useGravity = false;
         _blackboard.playerController.rb.isKinematic = true;
