@@ -20,7 +20,7 @@ public class ZipJumpState : AirborneMoveState
         _blackboard.rb.velocity = velocity;
 
         _blackboard.rb.AddForce((_blackboard.playerController.transform.up * 75) * _jumpForce);
-        _blackboard.rb.AddForce((_blackboard.playerController.transform.forward * 75) * _jumpForce);
+        _blackboard.rb.AddForce((_blackboard.playerController.transform.forward * 100) * _jumpForce);
 
     }
 

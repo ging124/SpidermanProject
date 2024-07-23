@@ -6,8 +6,7 @@ using UnityEngine;
 public class ClimbState : CanMoveState
 {
     [SerializeField] private ClipTransition _idleClimbAnim;
-    [SerializeField] private float _timeToIdle;
-    [SerializeField] private float _climbForce;
+    [SerializeField] private float _timeToChangeState;
 
     public override void EnterState(StateManager stateManager, Blackboard blackboard)
     {
@@ -16,7 +15,6 @@ public class ClimbState : CanMoveState
         _blackboard.character.SetMovementMode(MovementMode.None);
         _blackboard.playerController.rb.isKinematic = false;
         _blackboard.playerController.rb.useGravity = false;
-        _blackboard.rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
         _normalBodyLayer.Play(_idleClimbAnim);
     }
 
@@ -35,10 +33,9 @@ public class ClimbState : CanMoveState
             return;
         }
 
-        if(_blackboard.inputSO.buttonJump)
+        if(_blackboard.inputSO.buttonJump && _elapsedTime > _timeToChangeState)
         {
-            _blackboard.rb.velocity = _blackboard.frontWallHit.normal * _climbForce;
-            _stateManager.ChangeState(_stateManager.stateReferences.onAirState);
+            _stateManager.ChangeState(_stateManager.stateReferences.climbJumpState);
             return;
         }
 
@@ -55,7 +52,6 @@ public class ClimbState : CanMoveState
         _blackboard.character.SetRotationMode(RotationMode.OrientToMovement);
         _blackboard.character.SetMovementMode(MovementMode.Walking);
         _blackboard.playerController.rb.isKinematic = true;
-        _blackboard.rb.constraints = RigidbodyConstraints.None;
         _blackboard.character.SetVelocity(velocity);
         base.ExitState();
     }

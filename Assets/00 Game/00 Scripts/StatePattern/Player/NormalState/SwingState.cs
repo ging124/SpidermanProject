@@ -27,17 +27,17 @@ public class SwingState : AirborneMoveState
         Vector3 velocity = _blackboard.character.GetVelocity();
 
         _blackboard.character.SetMovementMode(MovementMode.None);
-        _blackboard.playerController.rb.isKinematic = false;
         _blackboard.playerController.rb.useGravity = true;
+        _blackboard.playerController.rb.isKinematic = false;
         _blackboard.rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 
         swingPoint = point.transform.position + new Vector3(0, Random.Range(0, 1), Random.Range(0, 10));
 
-        if(velocity.magnitude < 20)
+        if(velocity.magnitude < 30)
         {
             _blackboard.rb.velocity = velocity * 1.5f;
         }
-        else if (velocity.magnitude > 80)
+        else if (velocity.magnitude > 100)
         {
             _blackboard.rb.velocity = velocity * 0.9f;
         }
@@ -55,7 +55,7 @@ public class SwingState : AirborneMoveState
 
         DrawRope();
 
-        if (!_blackboard.inputSO.buttonSwing)
+        if (!_blackboard.inputSO.buttonJump)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.swingJumpState);
             return;
@@ -66,14 +66,12 @@ public class SwingState : AirborneMoveState
     {
         base.FixedUpdateState();
 
-        Quaternion rotation = Quaternion.LookRotation(_blackboard.playerController.transform.forward, (swingPoint - _blackboard.playerController.transform.position).normalized);
-        _blackboard.playerController.transform.rotation = Quaternion.Lerp(_blackboard.playerController.transform.rotation, rotation, 0.2f * Time.deltaTime);
-        _blackboard.character.RotateTowardsWithSlerp(_blackboard.playerController.rb.velocity.normalized, false);
-        
-        Vector2 input = _blackboard.inputSO.move;
+        Rotation();
+
+        /*Vector2 input = _blackboard.inputSO.move;
         Vector3 horizontal = _blackboard.cam.transform.right * input.x;
 
-        _blackboard.playerController.rb.AddForce(horizontal.normalized * swingSpeed * Time.fixedDeltaTime * 50);
+        _blackboard.playerController.rb.AddForce(horizontal.normalized * swingSpeed * Time.fixedDeltaTime * 50);*/
     }
 
     public override void ExitState()
@@ -87,6 +85,7 @@ public class SwingState : AirborneMoveState
         _blackboard.playerController.rb.useGravity = false;
         _blackboard.playerController.rb.isKinematic = true;
         _blackboard.rb.constraints = RigidbodyConstraints.None;
+        swingPoint = point.transform.position;
         _blackboard.character.SetVelocity(velocity);
 
         base.ExitState();
@@ -101,22 +100,28 @@ public class SwingState : AirborneMoveState
 
         float distanceFromPoint = Vector3.Distance(_blackboard.playerController.transform.position, swingPoint);
 
-        joint.maxDistance = distanceFromPoint * 0.5f;
-        joint.minDistance = distanceFromPoint * 0.4f;
+        joint.maxDistance = distanceFromPoint * 0.6f;
+        joint.minDistance = distanceFromPoint * 0.3f;
 
         joint.spring = 4.5f;
         joint.damper = 7f;
         joint.massScale = 4.5f;
 
-        lineRenderer.positionCount = 3;
+        lineRenderer.positionCount = 2;
+    }
+
+    void Rotation()
+    {
+        Quaternion rotation = Quaternion.LookRotation(_blackboard.playerController.transform.forward, (swingPoint - _blackboard.playerController.transform.position).normalized);
+        _blackboard.playerController.transform.rotation = Quaternion.Lerp(_blackboard.playerController.transform.rotation, rotation, 0.2f * rotateSpeed * Time.fixedDeltaTime);
+        _blackboard.character.RotateTowardsWithSlerp(_blackboard.playerController.rb.velocity.normalized, false);
     }
 
     void DrawRope()
     {
         if (!joint) return;
 
-        lineRenderer.SetPosition(0, grapplePoint.position + Vector3.down / 3f);
-        lineRenderer.SetPosition(1, grapplePoint.position);
-        lineRenderer.SetPosition(2, swingPoint);
+        lineRenderer.SetPosition(0, grapplePoint.position);
+        lineRenderer.SetPosition(1, swingPoint);
     }
 }

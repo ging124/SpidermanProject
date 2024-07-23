@@ -6,7 +6,7 @@ using UnityEngine;
 public class ClimbMovementState : CanMoveState
 {
     [SerializeField] private float _climbSpeed;
-    [SerializeField] private float _climbForce;
+    [SerializeField] private float _timeToChangeState;
     [SerializeField] private LinearMixerTransition _climbBlendTree;
     [SerializeField] private ClipTransition _idleClimbAnim;
 
@@ -38,10 +38,9 @@ public class ClimbMovementState : CanMoveState
             return;
         }
 
-        if (_blackboard.inputSO.buttonJump)
+        if (_blackboard.inputSO.buttonJump && _elapsedTime > _timeToChangeState)
         {
-            _blackboard.rb.velocity = _blackboard.frontWallHit.normal * _climbForce;
-            _stateManager.ChangeState(_stateManager.stateReferences.onAirState);
+            _stateManager.ChangeState(_stateManager.stateReferences.climbJumpState);
             return;
         }
 

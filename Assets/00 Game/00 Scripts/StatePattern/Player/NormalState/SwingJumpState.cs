@@ -8,12 +8,14 @@ public class SwingJumpState : AirborneMoveState
     [SerializeField] private ClipTransition _swingJumpAnim;
     [SerializeField] private float _swingJumpForce;
     [SerializeField] private float _timeToChangeState = 0.5f;
+    [SerializeField] private float _timeToOnAir = 0.5f;
+
 
     public override void EnterState(StateManager stateManager, Blackboard blackboard)
     {
         base.EnterState(stateManager, blackboard);
         _normalBodyLayer.Play(_swingJumpAnim);
-        _blackboard.character.AddForce((_blackboard.character.GetVelocity() + _blackboard.cam.up) * _swingJumpForce);
+        _blackboard.character.AddForce((_blackboard.character.GetVelocity() + Vector3.up * 10) * _swingJumpForce);
     }
 
     public override void UpdateState()
@@ -38,7 +40,7 @@ public class SwingJumpState : AirborneMoveState
             return;
         }
 
-        if (_elapsedTime > _timeToChangeState)
+        if (_elapsedTime > _timeToOnAir)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.onAirState);
             return;

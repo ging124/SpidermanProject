@@ -27,7 +27,7 @@ public class DiveState : AirborneMoveState
             return;
         }
 
-        if (_blackboard.inputSO.buttonSwing)
+        if (_blackboard.inputSO.buttonJump && !_blackboard.character.IsGrounded())
         {
             _stateManager.ChangeState(_stateManager.stateReferences.swingState);
             return;

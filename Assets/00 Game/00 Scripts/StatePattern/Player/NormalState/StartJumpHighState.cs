@@ -8,6 +8,7 @@ public class StartJumpHighState : AirborneMoveState
     [SerializeField] private ClipTransition _startJumpAnim;
     [SerializeField] private float _timeToOnAir;
     [SerializeField] private float _timeToChangeState = 0.15f;
+    [SerializeField] private float _timeToSwing = 0.15f;
     [SerializeField] private float jumpImpulseModifier = 1f;
 
     public override void EnterState(StateManager stateManager, Blackboard blackboard)
@@ -51,7 +52,7 @@ public class StartJumpHighState : AirborneMoveState
             return;
         }
 
-        if (_blackboard.inputSO.buttonSwing)
+        if (_blackboard.inputSO.buttonJump && !_blackboard.character.IsGrounded() && _elapsedTime > _timeToSwing)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.swingState);
             return;

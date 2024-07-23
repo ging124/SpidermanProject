@@ -11,9 +11,7 @@ public class InputSO : ScriptableObject
     public bool buttonJump;
     public bool buttonRoll;
     public bool buttonAttack;
-    public bool buttonSwing;
     public bool buttonZip;
-
 
     public bool disableInput;
 

@@ -22,6 +22,7 @@ public class WallScript : MonoBehaviour
         Vector3[] vertices = meshCollider.sharedMesh.vertices;
         for (int i = 0; i < vertices.Length; i++)
         {
+            transform.TransformPoint(vertices[i]);
             var vertexTransform = vertices[i];
             vertexTransform.Scale(this.transform.lossyScale);
             vertexTransform += this.transform.position;

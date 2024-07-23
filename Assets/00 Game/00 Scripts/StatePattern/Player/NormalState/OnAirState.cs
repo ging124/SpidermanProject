@@ -47,7 +47,7 @@ public class OnAirState : AirborneMoveState
             return;
         }
 
-        if (_blackboard.inputSO.buttonSwing)
+        if (_blackboard.inputSO.buttonJump && !_blackboard.character.IsGrounded() && _elapsedTime > 0.5f)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.swingState);
             return;

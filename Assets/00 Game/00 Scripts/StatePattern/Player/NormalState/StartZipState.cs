@@ -1,12 +1,14 @@
 using Animancer;
 using DG.Tweening;
 using EasyCharacterMovement;
+using System;
 using UnityEngine;
 
 public class StartZipState : NormalState
 {
     [SerializeField] private ClipTransition _zipAnim;
-    [SerializeField] private float _timeToChangeState;
+    [SerializeField] private float _time;
+    [SerializeField] private float _speed;
     [SerializeField] private LineRenderer _leftLineRenderer;
     [SerializeField] private LineRenderer _rightLineRenderer;
     [SerializeField] private Transform _leftHandTransform;
@@ -19,16 +21,19 @@ public class StartZipState : NormalState
         base.EnterState(stateManager, blackboard);
         _normalBodyLayer.Play(_zipAnim);
         _blackboard.character.SetMovementMode(MovementMode.None);
-        if (_blackboard.zipLength / 100f >= 0.5f)
-        {
-            _timeToChangeState = _blackboard.zipLength / 100f;
-        }
-        else
-        {
-            _timeToChangeState = 0.5f;
-        }
+        _blackboard.playerController.rb.useGravity = true;
+        _blackboard.playerController.rb.isKinematic = false;
 
         zipPoint = _blackboard.zipPoint;
+
+        _time = Vector3.Distance(_blackboard.playerController.transform.position, zipPoint) / _speed;
+
+        if(_time < 0.5f)
+        {
+            _time = 0.5f;
+        }
+
+        StartZip();
     }
 
     public override void UpdateState()
@@ -40,12 +45,12 @@ public class StartZipState : NormalState
             return;
         }
 
-        if (_elapsedTime > _timeToChangeState)
+        if (_elapsedTime > _time)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.idleZipState);
         }
 
-        if (_blackboard.inputSO.buttonJump && _elapsedTime > _timeToChangeState - 0.2f)
+        if (_blackboard.inputSO.buttonJump && _elapsedTime > _time - 0.2f)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.zipJumpState);
         }
@@ -55,14 +60,18 @@ public class StartZipState : NormalState
     {
         _leftLineRenderer.positionCount = 0;
         _rightLineRenderer.positionCount = 0;
+        Vector3 velocity = _blackboard.rb.velocity;
         _blackboard.character.SetMovementMode(MovementMode.Walking);
+        _blackboard.playerController.rb.useGravity = false;
+        _blackboard.playerController.rb.isKinematic = true;
+        _blackboard.character.SetVelocity(velocity);
         base.ExitState();
     }
 
     public void Zip()
     {
-        _blackboard.playerController.transform.DOLookAt(zipPoint, 0.1f, AxisConstraint.Y);
-        _blackboard.rb.DOMove(zipPoint + Vector3.up, _timeToChangeState);
+        _blackboard.transform.DOLookAt(zipPoint, 0.2f, AxisConstraint.Y);
+        _blackboard.transform.DOMove(zipPoint + Vector3.up, _time);
     }
 
     public void StartZip()
