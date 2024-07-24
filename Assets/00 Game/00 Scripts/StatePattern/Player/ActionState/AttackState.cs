@@ -6,7 +6,6 @@ using UnityEngine;
 public class AttackState : ActionState
 {
     [SerializeField] protected float _timeChangeState = 0.25f;
-    [SerializeField] protected ParticleSystem _attackEffect;
     [SerializeField] protected float attackRange = 1.0f;
     [SerializeField] protected LayerMask enemyLayer;
     [SerializeField] protected Transform attackPoint;
@@ -14,7 +13,6 @@ public class AttackState : ActionState
     public override void EnterState(StateManager stateManager, Blackboard blackboard)
     {
         base.EnterState(stateManager, blackboard);
-        _attackEffect.Play();
     }
 
     public override void UpdateState()
@@ -42,9 +40,9 @@ public class AttackState : ActionState
         }
     }
 
-    void OnDrawGizmosSelected()
+    /*void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(attackPoint.transform.position, attackRange);
-    }
+    }*/
 
 }

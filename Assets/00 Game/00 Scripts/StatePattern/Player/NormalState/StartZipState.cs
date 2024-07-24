@@ -82,6 +82,8 @@ public class StartZipState : NormalState
         SetLineRenderer(_leftLineRenderer, _leftHandTransform);
         SetLineRenderer(_rightLineRenderer, _rightHandTransform);
     }
+
+
     private void SetLineRenderer(LineRenderer lineRenderer, Transform hand)
     {
         lineRenderer.SetPosition(0, hand.position);

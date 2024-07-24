@@ -1,4 +1,6 @@
 using Animancer;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class StartJumpState : AirborneMoveState
@@ -6,10 +8,13 @@ public class StartJumpState : AirborneMoveState
     [SerializeField] private ClipTransition _startJumpAnim;
     [SerializeField] private float _timeToOnAir;
     [SerializeField] private float _timeToChangeState = 0.15f;
+    [SerializeField] private float _timeToSwing = 0.15f;
+    [SerializeField] private float jumpImpulseModifier = 1f;
 
     public override void EnterState(StateManager stateManager, Blackboard blackboard)
     {
         base.EnterState(stateManager, blackboard);
+        _blackboard.character.jumpImpulse *= jumpImpulseModifier;
         _normalBodyLayer.Play(_startJumpAnim);
         Jump();
     }
@@ -46,10 +51,17 @@ public class StartJumpState : AirborneMoveState
             _stateManager.ChangeState(_stateManager.stateReferences.endJumpToRunState);
             return;
         }
+
+        if (_blackboard.inputSO.buttonJump && !_blackboard.character.IsGrounded() && _elapsedTime > _timeToSwing)
+        {
+            _stateManager.ChangeState(_stateManager.stateReferences.swingState);
+            return;
+        }
     }
 
     public override void ExitState()
     {
+        _blackboard.character.jumpImpulse /= jumpImpulseModifier;
         _blackboard.character.StopJumping();
         base.ExitState();
     }

@@ -3,7 +3,7 @@ using DG.Tweening;
 using EasyCharacterMovement;
 using UnityEngine;
 
-public class ClimbState : CanMoveState
+public class ClimbState : NormalState
 {
     [SerializeField] private ClipTransition _idleClimbAnim;
     [SerializeField] private float _timeToChangeState;

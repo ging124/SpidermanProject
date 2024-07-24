@@ -41,7 +41,7 @@ public class ExitClimbState : CanMoveState
 
         if (!_blackboard.wallFront && _blackboard.inputSO.buttonJump && _elapsedTime > _timeToChangeState)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.startJumpState);
+            _stateManager.ChangeState(_stateManager.stateReferences.jumpState);
             return;
         }
 

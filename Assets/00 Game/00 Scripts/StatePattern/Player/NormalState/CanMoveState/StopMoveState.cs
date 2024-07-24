@@ -3,15 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StopRunState : MovementState
+public class StopMoveState : MovementState
 {
-    [SerializeField] private ClipTransition _stopRunAnim;
+    [SerializeField] private ClipTransition _stopMoveAnim;
     [SerializeField] private float _timeChangeState = 0.5f;
 
     public override void EnterState(StateManager stateManager, Blackboard blackboard)
     {
         base.EnterState(stateManager, blackboard);
-        _normalBodyLayer.Play(_stopRunAnim);
+        _normalBodyLayer.Play(_stopMoveAnim);
     }
 
     public override void UpdateState()
@@ -25,7 +25,7 @@ public class StopRunState : MovementState
 
         if (_blackboard.inputSO.buttonJump && _blackboard.character.IsGrounded())
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.startJumpHighState);
+            _stateManager.ChangeState(_stateManager.stateReferences.jumpState);
             return;
         }
 

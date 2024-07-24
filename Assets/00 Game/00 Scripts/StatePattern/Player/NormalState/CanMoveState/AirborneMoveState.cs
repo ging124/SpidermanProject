@@ -21,7 +21,7 @@ public class AirborneMoveState : CanMoveState
 
         Movement();
 
-        if (_blackboard.wallFront && _elapsedTime > 0.5f)
+        if (_blackboard.wallFront)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.climbState);
             return;

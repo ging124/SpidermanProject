@@ -60,4 +60,20 @@ public class PlayerController : MonoBehaviour
         blackboard.onHit = false;
         blackboard.hitDamage = 0;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Water"))
+        {
+            blackboard.onSwim = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Water"))
+        {
+            blackboard.onSwim = false;
+        }
+    }
 }

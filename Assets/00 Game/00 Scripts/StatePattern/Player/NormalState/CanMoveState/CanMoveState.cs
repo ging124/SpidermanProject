@@ -24,7 +24,7 @@ public class CanMoveState : NormalState
     {
         GetInput();
 
-        _blackboard.character.SetMovementDirection(_blackboard.movement);
+        _blackboard.character.SetMovementDirection(_blackboard.movement.normalized);
     }
 
     protected virtual void GetInput()
@@ -33,5 +33,6 @@ public class CanMoveState : NormalState
         Vector3 vertical = _blackboard.cam.transform.forward * input.y;
         Vector3 horizontal = _blackboard.cam.transform.right * input.x;
         _blackboard.movement = (vertical + horizontal);
+        _blackboard.movement.y = 0;
     }
 }

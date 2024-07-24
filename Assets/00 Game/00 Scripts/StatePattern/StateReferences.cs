@@ -10,8 +10,7 @@ public class StateReferences : MonoBehaviour
     public RunState runState;
     public StopMoveState stopMoveState;
     public StopRunState stopRunState;
-    public StartJumpState startJumpState;
-    public StartJumpHighState startJumpHighState;
+    public StartJumpState jumpState;
     public OnAirState onAirState;
     public EndJumpState endJumpState;
     public EndJumpToWalkState endJumpToWalkState;
@@ -28,6 +27,7 @@ public class StateReferences : MonoBehaviour
     public StartZipState startZipState;
     public IdleZipState idleZipState;
     public ZipJumpState zipJumpState;
+    public SwimState swimState;
 
 
     [Header("ActionState")]

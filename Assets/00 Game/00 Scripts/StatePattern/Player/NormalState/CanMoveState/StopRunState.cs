@@ -1,33 +1,31 @@
 using Animancer;
-using DG.Tweening;
-using EasyCharacterMovement;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IdleNormalState : MovementState
+public class StopRunState : MovementState
 {
-    [SerializeField] private ClipTransition _idleNormalAnim;
+    [SerializeField] private ClipTransition _stopRunAnim;
+    [SerializeField] private float _timeChangeState = 0.5f;
 
     public override void EnterState(StateManager stateManager, Blackboard blackboard)
     {
         base.EnterState(stateManager, blackboard);
-        _normalBodyLayer.Play(_idleNormalAnim);
-        _blackboard.playerController.transform.DORotate(Quaternion.LookRotation(_blackboard.playerController.transform.forward.projectedOnPlane(Vector3.up), Vector3.up).eulerAngles, 0.2f);
+        _normalBodyLayer.Play(_stopRunAnim);
     }
 
     public override void UpdateState()
     {
         base.UpdateState();
 
-        if(_stateManager.currentState != this)
+        if (_stateManager.currentState != this)
         {
             return;
         }
 
         if (_blackboard.inputSO.buttonJump && _blackboard.character.IsGrounded())
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.startJumpState);
+            _stateManager.ChangeState(_stateManager.stateReferences.jumpState);
             return;
         }
 
@@ -36,10 +34,16 @@ public class IdleNormalState : MovementState
             _stateManager.ChangeState(_stateManager.stateReferences.moveState);
             return;
         }
+
+        if (_blackboard.inputSO.move == Vector2.zero && _elapsedTime > _timeChangeState)
+        {
+            _stateManager.ChangeState(_stateManager.stateReferences.idleNormalState);
+            return;
+        }
     }
 
     public override void ExitState()
     {
         base.ExitState();
-    }   
+    }
 }

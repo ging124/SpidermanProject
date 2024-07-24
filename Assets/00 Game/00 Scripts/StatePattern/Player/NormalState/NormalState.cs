@@ -24,7 +24,13 @@ public class NormalState : BaseState
             return;
         }
 
-        if(_blackboard.zipPoint != Vector3.zero && _blackboard.zipLength <= _blackboard.maxZipLength && _blackboard.inputSO.buttonZip)
+        if (_blackboard.onSwim && _elapsedTime > 0.25 && _stateManager.currentState != _stateManager.stateReferences.swimState)
+        {
+            _stateManager.ChangeState(_stateManager.stateReferences.swimState);
+            return;
+        }
+
+        if (_blackboard.zipPoint != Vector3.zero && _blackboard.zipLength <= _blackboard.maxZipLength && _blackboard.inputSO.buttonZip)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.startZipState);
             return;

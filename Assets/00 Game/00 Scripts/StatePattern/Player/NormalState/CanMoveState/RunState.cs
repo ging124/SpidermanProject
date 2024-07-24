@@ -28,7 +28,7 @@ public class RunState : MovementState
 
         if (_blackboard.inputSO.buttonJump && _blackboard.character.IsGrounded())
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.startJumpHighState);
+            _stateManager.ChangeState(_stateManager.stateReferences.jumpState);
             return;
         }
 
