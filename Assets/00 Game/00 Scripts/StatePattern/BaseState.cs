@@ -6,9 +6,9 @@ public abstract class BaseState : MonoBehaviour
 {
     public float _elapsedTime;
     [SerializeField] protected StateManager _stateManager;
-    [SerializeField] protected Blackboard _blackboard;
+    [SerializeField] protected PlayerBlackboard _blackboard;
 
-    public virtual void EnterState(StateManager stateManager, Blackboard blackboard)
+    public virtual void EnterState(StateManager stateManager, PlayerBlackboard blackboard)
     {
         _elapsedTime = 0;
         _stateManager = stateManager;

@@ -11,7 +11,7 @@ public class StartJumpState : AirborneMoveState
     [SerializeField] private float _timeToSwing = 0.15f;
     [SerializeField] private float jumpImpulseModifier = 1f;
 
-    public override void EnterState(StateManager stateManager, Blackboard blackboard)
+    public override void EnterState(StateManager stateManager, PlayerBlackboard blackboard)
     {
         base.EnterState(stateManager, blackboard);
         _blackboard.character.jumpImpulse *= jumpImpulseModifier;

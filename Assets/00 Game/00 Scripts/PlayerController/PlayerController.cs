@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -12,60 +13,64 @@ public class PlayerController : MonoBehaviour
     public int armor;
     public int attackDamage;
 
+    public Vector3 movement;
+
+    public bool onHit;
+    public int hitDamage;
+
+    public LayerMask wallLayer;
+    public Transform swingPointOnCam;
+    public float detectionLength;
+    public RaycastHit frontWallHit;
+
+    public float zipDetectionRange;
+    public float zipDetectionLength;
+    public float zipLength => (zipPoint - this.transform.position).magnitude;
+    public float maxZipLength = 50;
+    public RaycastHit zipPointDetection;
+    public Vector3 zipPoint;
+    public Image zipIconImage;
+
+    [Header("----ReadOnly----")]
+    public bool onSwim;
+    public bool wallFront;
+
+
     public Player playerData;
 
     [Header("----Component----")]
     public AnimancerComponent animancer;
     public Rigidbody rb;
-    public Character character;
     public Transform cam;
-    public Blackboard blackboard;
+    public PlayerBlackboard blackboard;
 
     void Awake()
     {
-        GetData();
-        SetStatus();
         animancer = this.GetComponent<AnimancerComponent>();
-        character = this.GetComponent<Character>();
         rb = this.GetComponent<Rigidbody>();
         cam = GameObject.FindWithTag("MainCamera").GetComponent<Transform>();
-        blackboard = this.GetComponent<Blackboard>();
-        blackboard.SetBlackboard(currentHP, currentMP ,playerData, this, animancer, character, cam, rb);
-    }
-
-    void GetData()
-    {
-        this.maxHP = playerData.maxHP;
-        this.maxMP = playerData.maxMP;
-        this.armor = playerData.armor;
-        this.attackDamage = playerData.attackDamage;
-    }
-
-    void SetStatus()
-    {
-        this.currentHP = maxHP;
-        this.currentMP = maxMP;
+        blackboard = this.GetComponent<PlayerBlackboard>();
     }
 
     public void OnHit(int hitDamage)
     {
-        blackboard.onHit = true;
-        blackboard.hitDamage = hitDamage;
+        this.onHit = true;
+        this.hitDamage = hitDamage;
         StartCoroutine(SetOnHitFalse());
     }
 
     public IEnumerator SetOnHitFalse()
     {
         yield return new WaitForSeconds(0.2f);
-        blackboard.onHit = false;
-        blackboard.hitDamage = 0;
+        this.onHit = false;
+        this.hitDamage = 0;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Water"))
         {
-            blackboard.onSwim = true;
+            onSwim = true;
         }
     }
 
@@ -73,7 +78,14 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Water"))
         {
-            blackboard.onSwim = false;
+            onSwim = false;
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawSphere(zipPointDetection.point, zipDetectionRange);
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(zipPoint, zipDetectionRange);
     }
 }

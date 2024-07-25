@@ -8,7 +8,7 @@ public class StopRunState : MovementState
     [SerializeField] private ClipTransition _stopRunAnim;
     [SerializeField] private float _timeChangeState = 0.5f;
 
-    public override void EnterState(StateManager stateManager, Blackboard blackboard)
+    public override void EnterState(StateManager stateManager, PlayerBlackboard blackboard)
     {
         base.EnterState(stateManager, blackboard);
         _normalBodyLayer.Play(_stopRunAnim);

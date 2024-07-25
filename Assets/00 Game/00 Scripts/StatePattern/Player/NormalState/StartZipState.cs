@@ -16,7 +16,7 @@ public class StartZipState : NormalState
     [SerializeField] private Vector3 zipPoint;
 
 
-    public override void EnterState(StateManager stateManager, Blackboard blackboard)
+    public override void EnterState(StateManager stateManager, PlayerBlackboard blackboard)
     {
         base.EnterState(stateManager, blackboard);
         _normalBodyLayer.Play(_zipAnim);
@@ -24,7 +24,7 @@ public class StartZipState : NormalState
         _blackboard.playerController.rb.useGravity = true;
         _blackboard.playerController.rb.isKinematic = false;
 
-        zipPoint = _blackboard.zipPoint;
+        zipPoint = _blackboard.playerController.zipPoint;
 
         _time = Vector3.Distance(_blackboard.playerController.transform.position, zipPoint) / _speed;
 
@@ -60,7 +60,7 @@ public class StartZipState : NormalState
     {
         _leftLineRenderer.positionCount = 0;
         _rightLineRenderer.positionCount = 0;
-        Vector3 velocity = _blackboard.rb.velocity;
+        Vector3 velocity = _blackboard.playerController.rb.velocity;
         _blackboard.character.SetMovementMode(MovementMode.Walking);
         _blackboard.playerController.rb.useGravity = false;
         _blackboard.playerController.rb.isKinematic = true;

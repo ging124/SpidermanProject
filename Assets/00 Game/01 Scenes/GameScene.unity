@@ -4124,7 +4124,7 @@ MonoBehaviour:
   startState: {fileID: 1337339351}
   currentState: {fileID: 0}
   stateReferences: {fileID: 3249286520608389142}
-  blackboard: {fileID: 1333059635620172082}
+  blackboard: {fileID: 8149211198533839320}
   stateManagerMovement: {fileID: 999914329035780230}
 --- !u!1 &241167161
 GameObject:
@@ -4214,8 +4214,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 247113168}
+  - component: {fileID: 247113169}
   m_Layer: 0
-  m_Name: AttackState
+  m_Name: Attack2State
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4236,6 +4237,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 240359664}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &247113169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 247113167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 349ef7e61c14b38498b63ee62d2dcdc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _elapsedTime: 0
+  _stateManager: {fileID: 0}
+  _blackboard: {fileID: 0}
+  _actionMask: {fileID: 0}
+  _timeChangeState: 0.25
+  attackRange: 1
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  attackPoint: {fileID: 0}
+  _attack2Anim:
+    _FadeDuration: 0.25
+    _Events:
+      _NormalizedTimes: []
+      _Callbacks: []
+      _Names: []
+    _Clip: {fileID: 7400000, guid: 8d45f37dadc4d6044bc7069abe664e32, type: 2}
+    _Speed: 1
+    _NormalizedStartTime: NaN
 --- !u!1 &248478020
 GameObject:
   m_ObjectHideFlags: 0
@@ -11893,7 +11925,7 @@ MonoBehaviour:
     _SynchronizeChildren: 
     _Thresholds:
     - 0
-    - 3
+    - 7
     _DefaultParameter: 0
     _ExtrapolateSpeed: 1
 --- !u!1 &735251583
@@ -11905,8 +11937,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 735251584}
+  - component: {fileID: 735251585}
   m_Layer: 0
-  m_Name: AttackState
+  m_Name: Attack3State
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11927,6 +11960,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 240359664}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &735251585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 735251583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35f8da0ace8a8984d9b4d4bcb1073a04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _elapsedTime: 0
+  _stateManager: {fileID: 0}
+  _blackboard: {fileID: 0}
+  _actionMask: {fileID: 0}
+  _timeChangeState: 0.25
+  attackRange: 1
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  attackPoint: {fileID: 0}
+  _attack3Anim:
+    _FadeDuration: 0.25
+    _Events:
+      _NormalizedTimes: []
+      _Callbacks: []
+      _Names: []
+    _Clip: {fileID: 7400000, guid: e5ae921388095f04c9dd8203bc3c58bf, type: 2}
+    _Speed: 1
+    _NormalizedStartTime: NaN
 --- !u!1 &736131676
 GameObject:
   m_ObjectHideFlags: 0
@@ -18905,7 +18969,7 @@ GameObject:
   - component: {fileID: 1279164650}
   - component: {fileID: 1279164651}
   m_Layer: 0
-  m_Name: AttackState
+  m_Name: Attack1State
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18954,7 +19018,7 @@ MonoBehaviour:
       _NormalizedTimes: []
       _Callbacks: []
       _Names: []
-    _Clip: {fileID: 0}
+    _Clip: {fileID: 7400000, guid: 4a804a5aa0343694ab4f74624cb84588, type: 2}
     _Speed: 1
     _NormalizedStartTime: NaN
 --- !u!1 &1281692591
@@ -19803,7 +19867,7 @@ MonoBehaviour:
   _elapsedTime: 0
   _stateManager: {fileID: 0}
   _blackboard: {fileID: 0}
-  _actionMask: {fileID: 0}
+  _actionMask: {fileID: 31900000, guid: d702aa439d2bc9441a4ae211dfed384b, type: 2}
   _timeToAttack: 0.15
 --- !u!1 &1340688158
 GameObject:
@@ -32440,43 +32504,7 @@ MonoBehaviour:
   startState: {fileID: 7680818995091676802}
   currentState: {fileID: 0}
   stateReferences: {fileID: 3249286520608389142}
-  blackboard: {fileID: 1333059635620172082}
---- !u!114 &1333059635620172082
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6687992652898648253}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86dbf7f0cc07dee45b22bd072126179c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  swingPointOnCam: {fileID: 0}
-  detectionLength: 0.6
-  zipDetectionRange: 0.5
-  zipDetectionLength: 80
-  maxZipLength: 80
-  zipPoint: {x: 0, y: 0, z: 0}
-  zipIconImage: {fileID: 1070786530}
-  currentHP: 0
-  currentMP: 0
-  movement: {x: 0, y: 0, z: 0}
-  hitDamage: 0
-  onHit: 0
-  onSwim: 0
-  wallFront: 0
-  playerData: {fileID: 11400000, guid: 5d000776605bc934984d83bb8b21a21b, type: 2}
-  playerController: {fileID: 0}
-  animancer: {fileID: 0}
-  character: {fileID: 0}
-  cam: {fileID: 0}
-  rb: {fileID: 0}
-  inputSO: {fileID: 11400000, guid: 26ce3a0f6d35fa54f9e5e26650eaed8f, type: 2}
+  blackboard: {fileID: 8149211198533839320}
 --- !u!114 &1546882026480860832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32640,10 +32668,10 @@ MonoBehaviour:
   idleZipState: {fileID: 1136172610}
   zipJumpState: {fileID: 1567127700}
   swimState: {fileID: 733412405}
-  idleActionState: {fileID: 0}
-  attack1State: {fileID: 0}
-  attack2State: {fileID: 0}
-  attack3State: {fileID: 0}
+  idleActionState: {fileID: 1337339351}
+  attack1State: {fileID: 1279164651}
+  attack2State: {fileID: 247113169}
+  attack3State: {fileID: 735251585}
 --- !u!114 &3325075903783873980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35391,8 +35419,8 @@ GameObject:
   - component: {fileID: 4534310603810652297}
   - component: {fileID: 8149211198533839316}
   - component: {fileID: 8149211198533839315}
-  - component: {fileID: 1333059635620172082}
   - component: {fileID: 8149211198533839319}
+  - component: {fileID: 8149211198533839320}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -35616,7 +35644,7 @@ MonoBehaviour:
   _brakingDecelerationFlying: 0
   _flyingFriction: 0.5
   _canEverSwim: 1
-  _maxSwimSpeed: 3
+  _maxSwimSpeed: 7
   _brakingDecelerationSwimming: 5
   _swimmingFriction: 0.5
   _buoyancy: 2
@@ -35755,12 +35783,41 @@ MonoBehaviour:
   currentMP: 0
   armor: 0
   attackDamage: 0
+  movement: {x: 0, y: 0, z: 0}
+  onHit: 0
+  hitDamage: 0
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  swingPointOnCam: {fileID: 1402820911}
+  detectionLength: 0
+  zipDetectionRange: 0
+  zipDetectionLength: 0
+  maxZipLength: 50
+  zipPoint: {x: 0, y: 0, z: 0}
+  zipIconImage: {fileID: 1070786530}
+  onSwim: 0
+  wallFront: 0
   playerData: {fileID: 11400000, guid: 5d000776605bc934984d83bb8b21a21b, type: 2}
   animancer: {fileID: 0}
   rb: {fileID: 0}
-  character: {fileID: 0}
   cam: {fileID: 0}
   blackboard: {fileID: 0}
+--- !u!114 &8149211198533839320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6687992652898648253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b23feff165f1dfb4cbf3e066ecd8aad8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerController: {fileID: 8149211198533839319}
+  character: {fileID: 8149211198533839315}
+  inputSO: {fileID: 11400000, guid: 26ce3a0f6d35fa54f9e5e26650eaed8f, type: 2}
 --- !u!1 &8168491449522623357
 GameObject:
   m_ObjectHideFlags: 0

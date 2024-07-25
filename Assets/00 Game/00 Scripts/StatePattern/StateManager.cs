@@ -5,7 +5,7 @@ public class StateManager : MonoBehaviour
     public BaseState startState;
     public BaseState currentState;
     public StateReferences stateReferences;
-    public Blackboard blackboard;
+    public PlayerBlackboard blackboard;
 
     public virtual void Start()
     {

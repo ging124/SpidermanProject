@@ -6,7 +6,7 @@ public class IdleActionState : ActionState
 {
     public float _timeToAttack = 0.15f;
 
-    public override void EnterState(StateManager stateManager, Blackboard blackboard)
+    public override void EnterState(StateManager stateManager, PlayerBlackboard blackboard)
     {
         base.EnterState(stateManager, blackboard);
     }

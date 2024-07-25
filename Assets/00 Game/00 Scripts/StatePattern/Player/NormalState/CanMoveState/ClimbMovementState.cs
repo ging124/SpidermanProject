@@ -10,10 +10,10 @@ public class ClimbMovementState : CanMoveState
     [SerializeField] private LinearMixerTransition _climbBlendTree;
     [SerializeField] private ClipTransition _idleClimbAnim;
 
-    public override void EnterState(StateManager stateManager, Blackboard blackboard)
+    public override void EnterState(StateManager stateManager, PlayerBlackboard blackboard)
     {
         base.EnterState(stateManager, blackboard);
-        _blackboard.playerController.transform.DORotate(Quaternion.LookRotation(-_blackboard.frontWallHit.normal, Vector3.up).eulerAngles, 0.2f);
+        _blackboard.playerController.transform.DORotate(Quaternion.LookRotation(-_blackboard.playerController.frontWallHit.normal, Vector3.up).eulerAngles, 0.2f);
         _blackboard.character.SetMovementMode(MovementMode.None);
         _blackboard.playerController.rb.isKinematic = false;
         _blackboard.playerController.rb.useGravity = false;
@@ -32,7 +32,7 @@ public class ClimbMovementState : CanMoveState
         Movement();
         SetAnimancer();
 
-        if (!_blackboard.wallFront)
+        if (!_blackboard.playerController.wallFront)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.exitClimbState);
             return;
@@ -44,7 +44,7 @@ public class ClimbMovementState : CanMoveState
             return;
         }
 
-        if (_blackboard.movement == Vector3.zero && _blackboard.wallFront)
+        if (_blackboard.playerController.movement == Vector3.zero && _blackboard.playerController.wallFront)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.climbState);
             return;
@@ -53,7 +53,7 @@ public class ClimbMovementState : CanMoveState
 
     public override void ExitState()
     {
-        Vector3 velocity = _blackboard.rb.velocity;
+        Vector3 velocity = _blackboard.playerController.rb.velocity;
         _blackboard.character.SetRotationMode(RotationMode.OrientToMovement);
         _blackboard.character.SetMovementMode(MovementMode.Walking);
         _blackboard.playerController.rb.isKinematic = true;
@@ -65,7 +65,7 @@ public class ClimbMovementState : CanMoveState
     {
         GetInput();
 
-        _blackboard.rb.velocity = _blackboard.movement.normalized * _climbSpeed * Time.deltaTime * 20;
+        _blackboard.playerController.rb.velocity = _blackboard.playerController.movement.normalized * _climbSpeed * Time.deltaTime * 20;
     }
 
     protected override void GetInput()
@@ -76,8 +76,8 @@ public class ClimbMovementState : CanMoveState
 
         Vector3 vertical = _blackboard.playerController.transform.up * input.y;
         Vector3 horizontal = _blackboard.playerController.transform.right * input.x;
-        _blackboard.movement = horizontal + vertical;
-        _blackboard.movement = Vector3.ProjectOnPlane(_blackboard.movement, _blackboard.frontWallHit.normal);
+        _blackboard.playerController.movement = horizontal + vertical;
+        _blackboard.playerController.movement = Vector3.ProjectOnPlane(_blackboard.playerController.movement, _blackboard.playerController.frontWallHit.normal);
     }
 
     public void SetAnimancer()
@@ -88,7 +88,7 @@ public class ClimbMovementState : CanMoveState
         }
         else
         {
-            _climbBlendTree.State.Parameter = Mathf.Lerp(_climbBlendTree.State.Parameter, Vector3.Angle(_blackboard.playerController.transform.right, _blackboard.movement.normalized), 60 * Time.deltaTime);
+            _climbBlendTree.State.Parameter = Mathf.Lerp(_climbBlendTree.State.Parameter, Vector3.Angle(_blackboard.playerController.transform.right, _blackboard.playerController.movement.normalized), 60 * Time.deltaTime);
         }
     }
 }

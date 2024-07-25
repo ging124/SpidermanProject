@@ -9,7 +9,7 @@ public class IdleNormalState : MovementState
 {
     [SerializeField] private ClipTransition _idleNormalAnim;
 
-    public override void EnterState(StateManager stateManager, Blackboard blackboard)
+    public override void EnterState(StateManager stateManager, PlayerBlackboard blackboard)
     {
         base.EnterState(stateManager, blackboard);
         _normalBodyLayer.Play(_idleNormalAnim);

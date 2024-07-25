@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class AirborneMoveState : CanMoveState
 {
-    public override void EnterState(StateManager stateManager, Blackboard blackboard)
+    public override void EnterState(StateManager stateManager, PlayerBlackboard blackboard)
     {
         base.EnterState(stateManager, blackboard);
     }
@@ -21,7 +21,7 @@ public class AirborneMoveState : CanMoveState
 
         Movement();
 
-        if (_blackboard.wallFront)
+        if (_blackboard.playerController.wallFront)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.climbState);
             return;

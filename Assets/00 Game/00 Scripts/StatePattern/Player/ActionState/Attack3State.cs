@@ -6,9 +6,8 @@ using UnityEngine;
 public class Attack3State : AttackState
 {
     [SerializeField] private ClipTransition _attack3Anim;
-    [SerializeField] private float orbitDegreesPerSec;
 
-    public override void EnterState(StateManager stateManager, Blackboard blackboard)
+    public override void EnterState(StateManager stateManager, PlayerBlackboard blackboard)
     {
         base.EnterState(stateManager, blackboard);
         _actionLayer.Play(_attack3Anim);

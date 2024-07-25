@@ -8,7 +8,7 @@ public class ClimbState : NormalState
     [SerializeField] private ClipTransition _idleClimbAnim;
     [SerializeField] private float _timeToChangeState;
 
-    public override void EnterState(StateManager stateManager, Blackboard blackboard)
+    public override void EnterState(StateManager stateManager, PlayerBlackboard blackboard)
     {
         base.EnterState(stateManager, blackboard);
         _blackboard.playerController.transform.DORotate(Quaternion.LookRotation(_blackboard.playerController.transform.forward.projectedOnPlane(Vector3.up), Vector3.up).eulerAngles, 0.2f);
@@ -27,7 +27,7 @@ public class ClimbState : NormalState
             return;
         }
 
-        if (!_blackboard.wallFront)
+        if (!_blackboard.playerController.wallFront)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.exitClimbState);
             return;
@@ -39,7 +39,7 @@ public class ClimbState : NormalState
             return;
         }
 
-        if (_blackboard.inputSO.move != Vector2.zero && _blackboard.inputSO.move.y >= 0 && _blackboard.wallFront)
+        if (_blackboard.inputSO.move != Vector2.zero && _blackboard.inputSO.move.y >= 0 && _blackboard.playerController.wallFront)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.climbMovementState);
             return;
@@ -48,7 +48,7 @@ public class ClimbState : NormalState
 
     public override void ExitState()
     {
-        Vector3 velocity = _blackboard.rb.velocity;
+        Vector3 velocity = _blackboard.playerController.rb.velocity;
         _blackboard.character.SetRotationMode(RotationMode.OrientToMovement);
         _blackboard.character.SetMovementMode(MovementMode.Walking);
         _blackboard.playerController.rb.isKinematic = true;

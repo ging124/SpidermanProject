@@ -10,7 +10,7 @@ public class AttackState : ActionState
     [SerializeField] protected LayerMask enemyLayer;
     [SerializeField] protected Transform attackPoint;
 
-    public override void EnterState(StateManager stateManager, Blackboard blackboard)
+    public override void EnterState(StateManager stateManager, PlayerBlackboard blackboard)
     {
         base.EnterState(stateManager, blackboard);
     }

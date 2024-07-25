@@ -5,7 +5,7 @@ public class DiveState : AirborneMoveState
 {
     [SerializeField] private ClipTransition _onAirAnim;
 
-    public override void EnterState(StateManager stateManager, Blackboard blackboard)
+    public override void EnterState(StateManager stateManager, PlayerBlackboard blackboard)
     {
         base.EnterState(stateManager, blackboard);
         _normalBodyLayer.Play(_onAirAnim);

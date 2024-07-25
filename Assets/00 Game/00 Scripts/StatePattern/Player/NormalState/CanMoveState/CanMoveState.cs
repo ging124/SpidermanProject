@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CanMoveState : NormalState
 {
-    public override void EnterState(StateManager stateManager, Blackboard blackboard)
+    public override void EnterState(StateManager stateManager, PlayerBlackboard blackboard)
     {
         base.EnterState(stateManager, blackboard);
     }
@@ -24,15 +24,15 @@ public class CanMoveState : NormalState
     {
         GetInput();
 
-        _blackboard.character.SetMovementDirection(_blackboard.movement.normalized);
+        _blackboard.character.SetMovementDirection(_blackboard.playerController.movement.normalized);
     }
 
     protected virtual void GetInput()
     {
         Vector2 input = _blackboard.inputSO.move;
-        Vector3 vertical = _blackboard.cam.transform.forward * input.y;
-        Vector3 horizontal = _blackboard.cam.transform.right * input.x;
-        _blackboard.movement = (vertical + horizontal);
-        _blackboard.movement.y = 0;
+        Vector3 vertical = _blackboard.playerController.cam.transform.forward * input.y;
+        Vector3 horizontal = _blackboard.playerController.cam.transform.right * input.x;
+        _blackboard.playerController.movement = (vertical + horizontal);
+        _blackboard.playerController.movement.y = 0;
     }
 }

@@ -10,10 +10,10 @@ public class ActionState : BaseState
     [SerializeField] protected AnimancerLayer _actionLayer;
     [SerializeField] protected AvatarMask _actionMask;
 
-    public override void EnterState(StateManager stateManager, Blackboard blackboard)
+    public override void EnterState(StateManager stateManager, PlayerBlackboard blackboard)
     {
         base.EnterState(stateManager, blackboard);
-        _actionLayer = _blackboard.animancer.Layers[1];
+        _actionLayer = _blackboard.playerController.animancer.Layers[1];
         _actionLayer.SetMask(_actionMask);
     }
 

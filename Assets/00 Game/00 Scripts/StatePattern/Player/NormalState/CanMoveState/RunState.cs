@@ -7,7 +7,7 @@ public class RunState : MovementState
 {
     [SerializeField] private LinearMixerTransition _runBlendTree;
 
-    public override void EnterState(StateManager stateManager, Blackboard blackboard)
+    public override void EnterState(StateManager stateManager, PlayerBlackboard blackboard)
     {
         base.EnterState(stateManager, blackboard);
         _normalBodyLayer.Play(_runBlendTree);

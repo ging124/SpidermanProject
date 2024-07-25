@@ -11,13 +11,13 @@ public class ExitClimbState : CanMoveState
     [SerializeField] private LinearMixerTransition _exitClimbAnim;
     [SerializeField] private float _timeToChangeState = 0.25f;
 
-    public override void EnterState(StateManager stateManager, Blackboard blackboard)
+    public override void EnterState(StateManager stateManager, PlayerBlackboard blackboard)
     {
         base.EnterState(stateManager, blackboard);
         _blackboard.character.SetMovementMode(MovementMode.None);
         _blackboard.playerController.rb.isKinematic = false;
         _blackboard.playerController.rb.useGravity = false;
-        _blackboard.rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+        _blackboard.playerController.rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
         _normalBodyLayer.Play(_exitClimbAnim);
     }
         
@@ -31,33 +31,33 @@ public class ExitClimbState : CanMoveState
         }
 
         Movement();
-        _exitClimbAnim.State.Parameter = Mathf.Lerp(_exitClimbAnim.State.Parameter, Vector3.Angle(_blackboard.playerController.transform.right, _blackboard.movement.normalized), 40 * Time.deltaTime);
+        _exitClimbAnim.State.Parameter = Mathf.Lerp(_exitClimbAnim.State.Parameter, Vector3.Angle(_blackboard.playerController.transform.right, _blackboard.playerController.movement.normalized), 40 * Time.deltaTime);
 
-        if (_blackboard.wallFront)
+        if (_blackboard.playerController.wallFront)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.climbState);
             return;
         }
 
-        if (!_blackboard.wallFront && _blackboard.inputSO.buttonJump && _elapsedTime > _timeToChangeState)
+        if (!_blackboard.playerController.wallFront && _blackboard.inputSO.buttonJump && _elapsedTime > _timeToChangeState)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.jumpState);
             return;
         }
 
-        if (!_blackboard.wallFront && _blackboard.character.IsGrounded() && _elapsedTime > _timeToChangeState)
+        if (!_blackboard.playerController.wallFront && _blackboard.character.IsGrounded() && _elapsedTime > _timeToChangeState)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.onAirState);
             return;
         }
 
-        if (!_blackboard.wallFront && _blackboard.inputSO.move == Vector2.zero && _elapsedTime > _timeToChangeState)
+        if (!_blackboard.playerController.wallFront && _blackboard.inputSO.move == Vector2.zero && _elapsedTime > _timeToChangeState)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.stopRunState);
             return;
         }
 
-        if (!_blackboard.wallFront && _blackboard.inputSO.move != Vector2.zero && _elapsedTime > _timeToChangeState)
+        if (!_blackboard.playerController.wallFront && _blackboard.inputSO.move != Vector2.zero && _elapsedTime > _timeToChangeState)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.runState);
             return;
@@ -66,11 +66,11 @@ public class ExitClimbState : CanMoveState
 
     public override void ExitState()
     {
-        Vector3 velocity = _blackboard.rb.velocity;
+        Vector3 velocity = _blackboard.playerController.rb.velocity;
         _blackboard.character.SetRotationMode(RotationMode.OrientToMovement);
         _blackboard.character.SetMovementMode(MovementMode.Walking);
         _blackboard.playerController.rb.isKinematic = true;
-        _blackboard.rb.constraints = RigidbodyConstraints.None;
+        _blackboard.playerController.rb.constraints = RigidbodyConstraints.None;
         _blackboard.character.SetVelocity(velocity + _blackboard.playerController.transform.forward * 10);
         base.ExitState();
     }
@@ -79,7 +79,7 @@ public class ExitClimbState : CanMoveState
     {
         GetInput();
 
-        _blackboard.rb.velocity = _blackboard.movement.normalized * _climbSpeed * Time.deltaTime * 20;
+        _blackboard.playerController.rb.velocity = _blackboard.playerController.movement.normalized * _climbSpeed * Time.deltaTime * 20;
     }
 
     protected override void GetInput()
@@ -93,7 +93,7 @@ public class ExitClimbState : CanMoveState
 
         Vector3 vertical = _blackboard.playerController.transform.up * input.y;
         Vector3 horizontal = _blackboard.playerController.transform.right * input.x;
-        _blackboard.movement = horizontal + vertical;
-        _blackboard.movement = Vector3.ProjectOnPlane(_blackboard.movement, _blackboard.frontWallHit.normal);
+        _blackboard.playerController.movement = horizontal + vertical;
+        _blackboard.playerController.movement = Vector3.ProjectOnPlane(_blackboard.playerController.movement, _blackboard.playerController.frontWallHit.normal);
     }
 }

@@ -11,7 +11,7 @@ public class SwingJumpState : AirborneMoveState
     [SerializeField] private float _timeToOnAir = 0.5f;
 
 
-    public override void EnterState(StateManager stateManager, Blackboard blackboard)
+    public override void EnterState(StateManager stateManager, PlayerBlackboard blackboard)
     {
         base.EnterState(stateManager, blackboard);
         _normalBodyLayer.Play(_swingJumpAnim);
