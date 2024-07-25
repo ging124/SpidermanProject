@@ -17,9 +17,9 @@ public class Attack3State : AttackState
     {
         base.UpdateState();
 
-        if (_blackboard.inputSO.buttonAttack && _elapsedTime > _timeChangeState)
+        if (_blackboard.inputSO.buttonAttack)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.attack1State);
+            _stateManager.ChangeState(_stateManager.stateReferences.meleAttackState);
             return;
         }
     }

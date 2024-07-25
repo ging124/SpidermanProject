@@ -6,64 +6,46 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : ObjectController
 {
-    public int maxHP, maxMP;
-    public int currentHP, currentMP;
-    public int armor;
-    public int attackDamage;
+    [Header("----InputValue----")]
+    public LayerMask enemyLayer;
 
-    public Vector3 movement;
+    public Transform leftLeg;
+    public Transform rightLeg;
+    public Transform leftHand;
+    public Transform rightHand;
 
-    public bool onHit;
-    public int hitDamage;
-
+    [Header("----WallRunValue----")]
     public LayerMask wallLayer;
-    public Transform swingPointOnCam;
     public float detectionLength;
     public RaycastHit frontWallHit;
 
+    [Header("----ZipValue----")]
     public float zipDetectionRange;
     public float zipDetectionLength;
-    public float zipLength => (zipPoint - this.transform.position).magnitude;
     public float maxZipLength = 50;
     public RaycastHit zipPointDetection;
-    public Vector3 zipPoint;
     public Image zipIconImage;
+    public float zipLength => (zipPoint - this.transform.position).magnitude;
 
     [Header("----ReadOnly----")]
     public bool onSwim;
     public bool wallFront;
-
-
-    public Player playerData;
+    public Vector3 zipPoint;
 
     [Header("----Component----")]
+    public Player playerData;
+    public Animator anim;
     public AnimancerComponent animancer;
     public Rigidbody rb;
     public Transform cam;
-    public PlayerBlackboard blackboard;
 
     void Awake()
     {
-        animancer = this.GetComponent<AnimancerComponent>();
         rb = this.GetComponent<Rigidbody>();
         cam = GameObject.FindWithTag("MainCamera").GetComponent<Transform>();
-        blackboard = this.GetComponent<PlayerBlackboard>();
-    }
-
-    public void OnHit(int hitDamage)
-    {
-        this.onHit = true;
-        this.hitDamage = hitDamage;
-        StartCoroutine(SetOnHitFalse());
-    }
-
-    public IEnumerator SetOnHitFalse()
-    {
-        yield return new WaitForSeconds(0.2f);
-        this.onHit = false;
-        this.hitDamage = 0;
+        playerData.SetHpStart();
     }
 
     private void OnTriggerEnter(Collider other)

@@ -13,7 +13,6 @@ public class SwingState : AirborneMoveState
 
     [Header("References")]
     [SerializeField] SpringJoint joint;
-    [SerializeField] Transform grapplePoint;
     [SerializeField] ClipTransition swingAnim;
     [SerializeField] LineRenderer lineRenderer;
     [SerializeField] LayerMask groundLayer;
@@ -121,7 +120,7 @@ public class SwingState : AirborneMoveState
     {
         if (!joint) return;
 
-        lineRenderer.SetPosition(0, grapplePoint.position);
+        lineRenderer.SetPosition(0, _blackboard.playerController.rightHand.position);
         lineRenderer.SetPosition(1, swingPoint);
     }
 }

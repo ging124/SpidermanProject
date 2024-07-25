@@ -27,7 +27,7 @@ public class HitState : CanMoveState
             return;
         }
 
-        if (_blackboard.playerController.currentHP <= 0)
+        if (_blackboard.playerController.playerData.currentHP <= 0)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.deadState);
             return;
@@ -43,11 +43,11 @@ public class HitState : CanMoveState
     {
         int damageValue = _blackboard.playerController.hitDamage - _blackboard.playerController.playerData.armor;
         if(damageValue <= 0) damageValue = 1;
-        _blackboard.playerController.currentHP -= damageValue;
+        _blackboard.playerController.playerData.currentHP -= damageValue;
 
-        if (_blackboard.playerController.currentHP <= 0)
+        if (_blackboard.playerController.playerData.currentHP <= 0)
         {
-            _blackboard.playerController.currentHP = 0;
+            _blackboard.playerController.playerData.currentHP = 0;
         }
 
     }

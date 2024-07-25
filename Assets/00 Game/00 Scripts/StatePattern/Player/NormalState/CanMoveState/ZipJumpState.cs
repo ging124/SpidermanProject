@@ -12,15 +12,13 @@ public class ZipJumpState : AirborneMoveState
     {
         base.EnterState(stateManager, blackboard);
         _normalBodyLayer.Play(_ZipJumpAnim);
-        Vector3 velocity = _blackboard.character.GetVelocity();
         _blackboard.character.SetMovementMode(MovementMode.None);
         _blackboard.playerController.rb.useGravity = true;
         _blackboard.playerController.rb.isKinematic = false;
         _blackboard.playerController.rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
-        _blackboard.playerController.rb.velocity = velocity;
 
-        _blackboard.playerController.rb.AddForce((_blackboard.playerController.transform.up * 75) * _jumpForce);
-        _blackboard.playerController.rb.AddForce((_blackboard.playerController.transform.forward * 100) * _jumpForce);
+        _blackboard.playerController.rb.AddForce((_blackboard.playerController.transform.up * 150) * _jumpForce);
+        _blackboard.playerController.rb.AddForce((_blackboard.playerController.transform.forward * 175) * _jumpForce);
 
     }
 

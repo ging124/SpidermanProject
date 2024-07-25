@@ -7,12 +7,10 @@ using UnityEngine;
 public class StartZipState : NormalState
 {
     [SerializeField] private ClipTransition _zipAnim;
-    [SerializeField] private float _time;
-    [SerializeField] private float _speed;
+    [SerializeField] private float _zipTime;
+    [SerializeField] private float _zipSpeed;
     [SerializeField] private LineRenderer _leftLineRenderer;
     [SerializeField] private LineRenderer _rightLineRenderer;
-    [SerializeField] private Transform _leftHandTransform;
-    [SerializeField] private Transform _rightHandTransform;
     [SerializeField] private Vector3 zipPoint;
 
 
@@ -26,11 +24,11 @@ public class StartZipState : NormalState
 
         zipPoint = _blackboard.playerController.zipPoint;
 
-        _time = Vector3.Distance(_blackboard.playerController.transform.position, zipPoint) / _speed;
+        _zipTime = Vector3.Distance(_blackboard.playerController.transform.position, zipPoint) / _zipSpeed;
 
-        if(_time < 0.5f)
+        if(_zipTime < 0.4)
         {
-            _time = 0.5f;
+            _zipTime = 0.4f;
         }
 
         StartZip();
@@ -45,12 +43,12 @@ public class StartZipState : NormalState
             return;
         }
 
-        if (_elapsedTime > _time)
+        if (_elapsedTime > _zipTime)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.idleZipState);
         }
 
-        if (_blackboard.inputSO.buttonJump && _elapsedTime > _time - 0.2f)
+        if (_blackboard.inputSO.buttonJump && _elapsedTime > _zipTime - _zipTime * 0.25f)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.zipJumpState);
         }
@@ -71,7 +69,7 @@ public class StartZipState : NormalState
     public void Zip()
     {
         _blackboard.transform.DOLookAt(zipPoint, 0.2f, AxisConstraint.Y);
-        _blackboard.transform.DOMove(zipPoint + Vector3.up, _time);
+        _blackboard.transform.DOMove(zipPoint + Vector3.up, _zipTime);
     }
 
     public void StartZip()
@@ -79,8 +77,8 @@ public class StartZipState : NormalState
         _leftLineRenderer.positionCount = 2;
         _rightLineRenderer.positionCount = 2;
 
-        SetLineRenderer(_leftLineRenderer, _leftHandTransform);
-        SetLineRenderer(_rightLineRenderer, _rightHandTransform);
+        SetLineRenderer(_leftLineRenderer, _blackboard.playerController.leftHand);
+        SetLineRenderer(_rightLineRenderer, _blackboard.playerController.rightHand);
     }
 
 

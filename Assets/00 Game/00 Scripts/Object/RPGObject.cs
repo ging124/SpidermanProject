@@ -7,12 +7,20 @@ public abstract class RPGObject : ScriptableObject
 {
     public int maxHP;
     public int maxMP;
+    public int currentHP;
+    public int currentMP;
     public float moveSpeed;
     public float speedBoost;
     public int armor;
     public int attackDamage;
 
     [SerializeField] private float _randomDamageRange = 0.2f;
+
+    public void SetHpStart()
+    {
+        currentHP = maxHP;
+        currentMP = maxMP;
+    }
 
     public int RandomDamage(int damage)
     {

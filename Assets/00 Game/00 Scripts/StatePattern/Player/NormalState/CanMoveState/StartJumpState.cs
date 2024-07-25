@@ -9,12 +9,10 @@ public class StartJumpState : AirborneMoveState
     [SerializeField] private float _timeToOnAir;
     [SerializeField] private float _timeToChangeState = 0.15f;
     [SerializeField] private float _timeToSwing = 0.15f;
-    [SerializeField] private float jumpImpulseModifier = 1f;
 
     public override void EnterState(StateManager stateManager, PlayerBlackboard blackboard)
     {
         base.EnterState(stateManager, blackboard);
-        _blackboard.character.jumpImpulse *= jumpImpulseModifier;
         _normalBodyLayer.Play(_startJumpAnim);
         Jump();
     }
@@ -61,7 +59,6 @@ public class StartJumpState : AirborneMoveState
 
     public override void ExitState()
     {
-        _blackboard.character.jumpImpulse /= jumpImpulseModifier;
         _blackboard.character.StopJumping();
         base.ExitState();
     }

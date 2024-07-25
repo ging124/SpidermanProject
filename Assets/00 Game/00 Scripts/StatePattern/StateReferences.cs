@@ -31,8 +31,7 @@ public class StateReferences : MonoBehaviour
 
 
     [Header("ActionState")]
+    public NormalActionState normalActionState;
     public IdleActionState idleActionState;
-    public Attack1State attack1State;
-    public Attack2State attack2State;
-    public Attack3State attack3State;
+    public MeleAttackState meleAttackState;
 }

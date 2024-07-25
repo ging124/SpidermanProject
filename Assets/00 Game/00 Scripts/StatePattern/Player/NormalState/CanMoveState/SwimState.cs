@@ -29,7 +29,7 @@ public class SwimState : CanMoveState
 
         if (_blackboard.inputSO.buttonJump && _elapsedTime > 0.25)
         {
-            _blackboard.character.LaunchCharacter(_blackboard.playerController.transform.up * 40, true);
+            _blackboard.character.LaunchCharacter(_blackboard.playerController.transform.up * 30, true);
             _stateManager.ChangeState(_stateManager.stateReferences.onAirState);
             return;
         }
