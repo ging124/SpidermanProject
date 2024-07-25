@@ -16,7 +16,7 @@ MonoBehaviour:
   timeEndAttack: 0.4
   hitType: 1
   hitAnim:
-    _FadeDuration: 0.25
+    _FadeDuration: 0.15
     _Events:
       _NormalizedTimes: []
       _Callbacks: []

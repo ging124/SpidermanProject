@@ -81,7 +81,6 @@ public class StartZipState : NormalState
         SetLineRenderer(_rightLineRenderer, _blackboard.playerController.rightHand);
     }
 
-
     private void SetLineRenderer(LineRenderer lineRenderer, Transform hand)
     {
         lineRenderer.SetPosition(0, hand.position);

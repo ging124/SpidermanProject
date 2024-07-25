@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0afbd12b58e54f44b40a72171dec0bb, type: 3}
   m_Name: Hit 10
   m_EditorClassIdentifier: 
-  timeNextAttack: 0.5
-  timeEndAttack: 1
+  timeNextAttack: 0.8
+  timeEndAttack: 1.3
   hitType: 3
   hitAnim:
-    _FadeDuration: 0.25
+    _FadeDuration: 0.25833336
     _Events:
       _NormalizedTimes: []
       _Callbacks: []

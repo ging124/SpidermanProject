@@ -8,14 +8,12 @@ public class SwingState : AirborneMoveState
     [SerializeField] float swingSpeed;
     [SerializeField] float maxDistance;
     [SerializeField] float rotateSpeed;
-    [SerializeField] Transform point;
     private Vector3 swingPoint;
 
     [Header("References")]
     [SerializeField] SpringJoint joint;
     [SerializeField] ClipTransition swingAnim;
     [SerializeField] LineRenderer lineRenderer;
-    [SerializeField] LayerMask groundLayer;
 
     public override void EnterState(StateManager stateManager, PlayerBlackboard blackboard)
     {
@@ -30,7 +28,7 @@ public class SwingState : AirborneMoveState
         _blackboard.playerController.rb.isKinematic = false;
         _blackboard.playerController.rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 
-        swingPoint = point.transform.position + new Vector3(0, Random.Range(0, 1), Random.Range(0, 10));
+        swingPoint = _blackboard.transform.position + _blackboard.playerController.transform.forward * 30 + _blackboard.playerController.transform.up * 30;
 
         if(velocity.magnitude < 30)
         {
@@ -54,7 +52,7 @@ public class SwingState : AirborneMoveState
 
         DrawRope();
 
-        if (!_blackboard.inputSO.buttonJump)
+        if (!_blackboard.inputSO.buttonJump || _blackboard.playerController.rb.velocity.magnitude > 60 && _elapsedTime > 0.9f)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.swingJumpState);
             return;
@@ -78,13 +76,12 @@ public class SwingState : AirborneMoveState
         lineRenderer.positionCount = 0;
 
         Destroy(joint);
-        _blackboard.playerController.transform.DORotate(Quaternion.LookRotation(_blackboard.playerController.transform.forward.projectedOnPlane(Vector3.up), Vector3.up).eulerAngles, 0.2f);
+        _blackboard.playerController.transform.DORotate(Quaternion.LookRotation(_blackboard.transform.forward.projectedOnPlane(Vector3.up), Vector3.up).eulerAngles, 0.2f);
         Vector3 velocity = _blackboard.playerController.rb.velocity;
         _blackboard.character.SetMovementMode(MovementMode.Falling);
         _blackboard.playerController.rb.useGravity = false;
         _blackboard.playerController.rb.isKinematic = true;
         _blackboard.playerController.rb.constraints = RigidbodyConstraints.None;
-        swingPoint = point.transform.position;
         _blackboard.character.SetVelocity(velocity);
 
         base.ExitState();
@@ -92,12 +89,12 @@ public class SwingState : AirborneMoveState
 
     void Swing()
     {
-        joint = _blackboard.playerController.gameObject.AddComponent<SpringJoint>();
+        joint = _blackboard.gameObject.AddComponent<SpringJoint>();
         joint.autoConfigureConnectedAnchor = false;
         joint.anchor = new Vector3(0, 1.4f, 0);
         joint.connectedAnchor = swingPoint;
 
-        float distanceFromPoint = Vector3.Distance(_blackboard.playerController.transform.position, swingPoint);
+        float distanceFromPoint = Vector3.Distance(_blackboard.transform.position, swingPoint);
 
         joint.maxDistance = distanceFromPoint * 0.6f;
         joint.minDistance = distanceFromPoint * 0.3f;
@@ -112,7 +109,7 @@ public class SwingState : AirborneMoveState
     void Rotation()
     {
         Quaternion rotation = Quaternion.LookRotation(_blackboard.playerController.transform.forward, (swingPoint - _blackboard.playerController.transform.position).normalized);
-        _blackboard.playerController.transform.rotation = Quaternion.Lerp(_blackboard.playerController.transform.rotation, rotation, 0.2f * rotateSpeed * Time.fixedDeltaTime);
+        _blackboard.transform.rotation = Quaternion.Lerp(_blackboard.playerController.transform.rotation, rotation, 0.2f * rotateSpeed * Time.fixedDeltaTime);
         _blackboard.character.RotateTowardsWithSlerp(_blackboard.playerController.rb.velocity.normalized, false);
     }
 

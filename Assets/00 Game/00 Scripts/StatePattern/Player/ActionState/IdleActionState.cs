@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class IdleActionState : ActionState
 {
+    [SerializeField] private float _timeToAttack;
     [SerializeField] private float _timeToChangeState;
     [SerializeField] private ClipTransition _idleActionAnim;
 
@@ -23,13 +24,13 @@ public class IdleActionState : ActionState
         if (_blackboard.inputSO.buttonAttack
             && _blackboard.character.IsGrounded()
             && ((StateManagerAction)_stateManager).stateManagerMovement.currentState != _stateManager.stateReferences.deadState
-            && _elapsedTime > _timeToChangeState)
+            && _elapsedTime > _timeToAttack)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.meleAttackState);
             return;
         }
 
-        if(_elapsedTime > _timeToChangeState)
+        if(_elapsedTime > _timeToChangeState || ((StateManagerAction)_stateManager).stateManagerMovement.currentState != _stateManager.stateReferences.idleNormalState)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.normalActionState);
             return;

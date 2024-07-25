@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.26852536, g: 0.46447328, b: 0.6146784, a: 1}
+  m_IndirectSpecularColor: {r: 0.26852533, g: 0.46447325, b: 0.6146784, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6473,7 +6473,8 @@ MonoBehaviour:
   _stateManager: {fileID: 0}
   _blackboard: {fileID: 0}
   _actionMask: {fileID: 31900000, guid: 985b626028bd3154c90506b2dab62e20, type: 2}
-  _timeToChangeState: 1
+  _timeToAttack: 0.15
+  _timeToChangeState: 2
   _idleActionAnim:
     _FadeDuration: 0.25
     _Events:
@@ -18460,7 +18461,6 @@ MonoBehaviour:
   swingSpeed: 50
   maxDistance: 50
   rotateSpeed: 20
-  point: {fileID: 1402820911}
   joint: {fileID: 0}
   swingAnim:
     _FadeDuration: 0.25
@@ -18472,9 +18472,6 @@ MonoBehaviour:
     _Speed: 1
     _NormalizedStartTime: NaN
   lineRenderer: {fileID: 1089483023}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 8
 --- !u!1 &1242578665
 GameObject:
   m_ObjectHideFlags: 0
