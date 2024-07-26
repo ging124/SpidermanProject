@@ -5,39 +5,31 @@ using UnityEngine;
 
 public class MeleAttackState : AttackState
 {
-    [SerializeField] private List<Combo> _listCombo;
+    [SerializeField] private List<Combo> listCombo;
     [SerializeField] private int combo = -1;
     [SerializeField] private int hit = 0;
-    [SerializeField] protected float attackRange = 1.0f;
 
     public override void EnterState(StateManager stateManager, PlayerBlackboard blackboard)
     {
         base.EnterState(stateManager, blackboard);
         _blackboard.character.useRootMotion = true;
 
-        if (combo == -1)
-        {
-            combo = Random.Range(0, _listCombo.Count);
-        }
-        else
-        {
-            hit++;
-        }
 
-        _actionLayer.Play(_listCombo[combo].hitList[hit].hitAnim);
+        CountCombo();
+        _actionLayer.Play(listCombo[combo].hitList[hit].hitAnim);
     }
 
     public override void UpdateState()
     {
         base.UpdateState();
 
-        if (!_blackboard.inputSO.buttonAttack && _elapsedTime > _listCombo[combo].hitList[hit].timeEndAttack)
+        if (!_blackboard.inputSO.buttonAttack && _elapsedTime > listCombo[combo].hitList[hit].timeEndAttack)
         {
             ResetCombo();
             _stateManager.ChangeState(_stateManager.stateReferences.idleActionState);
         }
 
-        if (_blackboard.inputSO.buttonAttack && _elapsedTime > _listCombo[combo].hitList[hit].timeNextAttack)
+        if (_blackboard.inputSO.buttonAttack && _elapsedTime > listCombo[combo].hitList[hit].timeNextAttack)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.meleAttackState);
         }
@@ -48,6 +40,18 @@ public class MeleAttackState : AttackState
         LoopCombo();
         _blackboard.character.useRootMotion = false;
         base.ExitState();
+    }
+
+    public void CountCombo()
+    {
+        if (combo == -1)
+        {
+            combo = Random.Range(0, listCombo.Count);
+        }
+        else
+        {
+            hit++;
+        }
     }
 
     public void LoopCombo()

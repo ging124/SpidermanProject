@@ -15,8 +15,9 @@ public class NormalState : BaseState
     {
         base.UpdateState();
 
-        WallCheck();
-        ZipPointCheck();
+        _blackboard.playerController.WallCheck();
+        _blackboard.playerController.ZipPointCheck();
+        _blackboard.playerController.EnemyCheck();
 
         if (_blackboard.playerController.onHit)
         {
@@ -40,35 +41,5 @@ public class NormalState : BaseState
     public override void ExitState()
     {
         base.ExitState();
-    }
-
-    public void WallCheck()
-    {
-        _blackboard.playerController.wallFront = Physics.Raycast(new Vector3(_blackboard.playerController.transform.position.x, _blackboard.playerController.transform.position.y + _blackboard.character.GetHeight() / 2f, _blackboard.playerController.transform.position.z)
-            , _blackboard.playerController.transform.forward, out _blackboard.playerController.frontWallHit, _blackboard.playerController.detectionLength, _blackboard.playerController.wallLayer);
-    }
-
-    public void ZipPointCheck()
-    {
-        if (Physics.SphereCast(_blackboard.playerController.cam.position, _blackboard.playerController.zipDetectionRange, _blackboard.playerController.cam.forward, out _blackboard.playerController.zipPointDetection, _blackboard.playerController.zipDetectionLength, _blackboard.playerController.wallLayer))
-        {
-            var wallScript = _blackboard.playerController.zipPointDetection.transform.GetComponent<WallScript>();
-            _blackboard.playerController.zipPoint = wallScript.GetZipPoint(_blackboard.playerController.zipPointDetection.point);
-        }
-        else
-        {
-            _blackboard.playerController.zipPoint = Vector3.zero;
-        }
-        
-        if(_blackboard.playerController.zipPoint != Vector3.zero && _blackboard.playerController.zipLength < _blackboard.playerController.maxZipLength)
-        {
-            _blackboard.playerController.zipIconImage.gameObject.SetActive(true);
-            Camera camera = _blackboard.playerController.cam.GetComponent<Camera>();
-            _blackboard.playerController.zipIconImage.transform.position = camera.WorldToScreenPoint(_blackboard.playerController.zipPoint);
-        }
-        else
-        {
-            _blackboard.playerController.zipIconImage.gameObject.SetActive(false);
-        }
     }
 }

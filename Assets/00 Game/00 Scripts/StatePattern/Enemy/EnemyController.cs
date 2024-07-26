@@ -7,6 +7,10 @@ public class EnemyController : ObjectController
 {
     public UnityEvent enemyActive;
 
+    public bool canAttack;
+    public bool followPlayer;
+
+
     public Enemy enemyData;
 
     public PlayerController player;
@@ -22,8 +26,14 @@ public class EnemyController : ObjectController
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         capCollider = this.GetComponent<CapsuleCollider>();
         rigid = this.GetComponent<Rigidbody>();
-        animancer = this.GetComponent<AnimancerComponent>();
-        enemyBlackboard = this.GetComponent<EnemyBlackboard>();
         agent = this.GetComponent<NavMeshAgent>();
+    }
+
+    public void FollowPlayer()
+    {
+        if (!followPlayer)
+        {
+            followPlayer = true;
+        }
     }
 }

@@ -31,7 +31,7 @@ public class ExitClimbState : CanMoveState
         }
 
         Movement();
-        _exitClimbAnim.State.Parameter = Mathf.Lerp(_exitClimbAnim.State.Parameter, Vector3.Angle(_blackboard.playerController.transform.right, _blackboard.playerController.movement.normalized), 40 * Time.deltaTime);
+        Animation();
 
         if (_blackboard.playerController.wallFront)
         {
@@ -71,7 +71,7 @@ public class ExitClimbState : CanMoveState
         _blackboard.character.SetMovementMode(MovementMode.Walking);
         _blackboard.playerController.rb.isKinematic = true;
         _blackboard.playerController.rb.constraints = RigidbodyConstraints.None;
-        _blackboard.character.SetVelocity(velocity + _blackboard.playerController.transform.forward * 10);
+        _blackboard.character.SetVelocity(velocity + _blackboard.playerController.transform.forward * 15);
         base.ExitState();
     }
 
@@ -95,5 +95,18 @@ public class ExitClimbState : CanMoveState
         Vector3 horizontal = _blackboard.playerController.transform.right * input.x;
         _blackboard.playerController.movement = horizontal + vertical;
         _blackboard.playerController.movement = Vector3.ProjectOnPlane(_blackboard.playerController.movement, _blackboard.playerController.frontWallHit.normal);
+    }
+
+    private void Animation()
+    {
+        if (_blackboard.playerController.movement.magnitude == 0)
+        {
+            _exitClimbAnim.State.Parameter = Mathf.Lerp(_exitClimbAnim.State.Parameter, 90, 40 * Time.deltaTime);
+        }
+        else
+        {
+            _exitClimbAnim.State.Parameter = Mathf.Lerp(_exitClimbAnim.State.Parameter, Vector3.Angle(_blackboard.playerController.transform.right, _blackboard.playerController.movement.normalized), 40 * Time.deltaTime);
+        }
+
     }
 }

@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class AttackState : ActionState
 {
-    
-
     public override void EnterState(StateManager stateManager, PlayerBlackboard blackboard)
     {
         base.EnterState(stateManager, blackboard);
@@ -26,7 +24,4 @@ public class AttackState : ActionState
         _actionLayer.StartFade(0, 0.1f);
         base.ExitState();
     }
-
-    
-
 }
