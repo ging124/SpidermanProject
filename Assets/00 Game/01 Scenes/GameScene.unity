@@ -20692,7 +20692,9 @@ MonoBehaviour:
   _elapsedTime: 0
   _stateManager: {fileID: 0}
   _blackboard: {fileID: 0}
-  _actionMask: {fileID: 0}
+  _actionMask: {fileID: 31900000, guid: 985b626028bd3154c90506b2dab62e20, type: 2}
+  firstHit: {fileID: 11400000, guid: ba80acbd35f505e429e938cfb9855b27, type: 2}
+  _rightLineRenderer: {fileID: 1089483023}
 --- !u!1 &1140653560
 GameObject:
   m_ObjectHideFlags: 0
@@ -23383,7 +23385,7 @@ MonoBehaviour:
   _stateManager: {fileID: 0}
   _blackboard: {fileID: 0}
   _actionMask: {fileID: 31900000, guid: 985b626028bd3154c90506b2dab62e20, type: 2}
-  _listCombo:
+  listCombo:
   - {fileID: 11400000, guid: 72118e900c4f2bf48a064052874bb097, type: 2}
   - {fileID: 11400000, guid: ea07829b442766444bed410e3065adec, type: 2}
   - {fileID: 11400000, guid: c1313d06b5985b04c9bf0f016fc601ba, type: 2}
@@ -42048,6 +42050,7 @@ MonoBehaviour:
   normalActionState: {fileID: 1337339351}
   idleActionState: {fileID: 378651417}
   meleAttackState: {fileID: 1279164651}
+  firstAttackState: {fileID: 1137948406}
 --- !u!4 &3254904331066837977
 Transform:
   m_ObjectHideFlags: 0
@@ -46452,11 +46455,11 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 128
-  attackRangeDetection: 0
-  mediumAttackRange: 0
-  farAttackRange: 0
+  attackRangeDetection: 13
+  mediumAttackRange: 2
+  farAttackRange: 6
   hitEnemy: []
-  enemy: {fileID: 0}
+  enemyTarget: {fileID: 0}
   leftLeg: {fileID: 1106224540161184671}
   rightLeg: {fileID: 7012204540097955011}
   leftHand: {fileID: 1161258415154469294}

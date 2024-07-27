@@ -1,10 +1,7 @@
 using Animancer;
+using DG.Tweening;
 using EasyCharacterMovement;
-using System;
-using System.Collections;
 using Unity.VisualScripting;
-using UnityEditor;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,7 +17,7 @@ public class PlayerController : ObjectController
     public float farAttackRange;
 
     public Collider[] hitEnemy;
-    public Collider enemy;
+    public Collider enemyTarget;
 
 
     public Transform leftLeg;
@@ -105,15 +102,12 @@ public class PlayerController : ObjectController
                 }
             }
 
-            if(enemyFlag != -1) this.enemy = hitEnemy[enemyFlag];
-            else this.enemy = null;
-
-            Debug.Log(Vector3.Distance(enemy.transform.position, this.transform.position));
-
+            if (enemyFlag != -1) this.enemyTarget = hitEnemy[enemyFlag];
+            else this.enemyTarget = null;
         }
         else
         {
-            this.enemy = null;
+            this.enemyTarget = null;
         }
 
     }
@@ -146,5 +140,11 @@ public class PlayerController : ObjectController
         {
             this.zipIconImage.gameObject.SetActive(false);
         }
+    }
+
+    public void SetLineRenderer(LineRenderer lineRenderer, Transform hand, Vector3 zipPoint)
+    {
+        lineRenderer.SetPosition(0, hand.position);
+        lineRenderer.SetPosition(1, zipPoint);
     }
 }

@@ -9,17 +9,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0afbd12b58e54f44b40a72171dec0bb, type: 3}
+  m_Script: {fileID: 11500000, guid: 885a0a2dbc162d04fac89bf58abc2525, type: 3}
   m_Name: FarHit
   m_EditorClassIdentifier: 
-  timeNextAttack: 0.2
-  timeEndAttack: 0.4
+  timeNextAttack: 0
+  timeEndAttack: 0
   hitAnim:
-    _FadeDuration: 0.125
+    _FadeDuration: 0.11666667
     _Events:
       _NormalizedTimes: []
       _Callbacks: []
       _Names: []
-    _Clip: {fileID: 7400000, guid: 06786a1e3bc05d547a97de025697c522, type: 2}
+    _Clip: {fileID: 7400000, guid: cc58c7754358213429d806ea498c2ba2, type: 2}
+    _Speed: 1
+    _NormalizedStartTime: NaN
+  zipAnim:
+    _FadeDuration: 0.09166667
+    _Events:
+      _NormalizedTimes:
+      - 0
+      - 0.4122904
+      - NaN
+      _Callbacks: []
+      _Names:
+      - Zip
+      - MoveToTarget
+    _Clip: {fileID: 7400000, guid: 73c1db5cfdb466d4093b2f2d21065986, type: 2}
     _Speed: 1
     _NormalizedStartTime: NaN

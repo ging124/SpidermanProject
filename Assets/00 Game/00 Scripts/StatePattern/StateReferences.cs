@@ -34,4 +34,5 @@ public class StateReferences : MonoBehaviour
     public NormalActionState normalActionState;
     public IdleActionState idleActionState;
     public MeleAttackState meleAttackState;
+    public FirstAttackState firstAttackState;
 }

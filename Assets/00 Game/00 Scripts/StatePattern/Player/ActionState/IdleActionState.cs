@@ -26,7 +26,7 @@ public class IdleActionState : ActionState
             && ((StateManagerAction)_stateManager).stateManagerMovement.currentState != _stateManager.stateReferences.deadState
             && _elapsedTime > _timeToAttack)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.meleAttackState);
+            _stateManager.ChangeState(_stateManager.stateReferences.firstAttackState);
             return;
         }
 

@@ -1,4 +1,5 @@
 using Animancer;
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,8 +13,6 @@ public class MeleAttackState : AttackState
     public override void EnterState(StateManager stateManager, PlayerBlackboard blackboard)
     {
         base.EnterState(stateManager, blackboard);
-        _blackboard.character.useRootMotion = true;
-
 
         CountCombo();
         _actionLayer.Play(listCombo[combo].hitList[hit].hitAnim);
@@ -29,16 +28,21 @@ public class MeleAttackState : AttackState
             _stateManager.ChangeState(_stateManager.stateReferences.idleActionState);
         }
 
-        if (_blackboard.inputSO.buttonAttack && _elapsedTime > listCombo[combo].hitList[hit].timeNextAttack)
+        if (_blackboard.inputSO.buttonAttack && hit != listCombo[combo].hitList.Count - 1 && _elapsedTime > listCombo[combo].hitList[hit].timeNextAttack)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.meleAttackState);
+        }
+
+        if (_blackboard.inputSO.buttonAttack && hit == listCombo[combo].hitList.Count - 1  && _elapsedTime > listCombo[combo].hitList[hit].timeNextAttack
+            || _blackboard.inputSO.buttonAttack && EnemyTargetDistance() >= _blackboard.playerController.mediumAttackRange && _elapsedTime > listCombo[combo].hitList[hit].timeNextAttack)
+        {
+            _stateManager.ChangeState(_stateManager.stateReferences.firstAttackState);
         }
     }
 
     public override void ExitState()
     {
         LoopCombo();
-        _blackboard.character.useRootMotion = false;
         base.ExitState();
     }
 
@@ -69,17 +73,15 @@ public class MeleAttackState : AttackState
         combo = -1;
     }
 
-    /*public virtual void Attack()
+    public float EnemyTargetDistance()
     {
-        Collider[] hitEnemy = Physics.OverlapSphere(attackPoint.transform.position, attackRange, _blackboard.playerController.enemyLayer);
-        foreach (Collider enemy in hitEnemy)
+        if (_blackboard.playerController.enemyTarget == null)
         {
-            enemy.GetComponent<EnemyController>().OnHit(_blackboard.playerData.RandomDamage(_blackboard.playerController.attackDamage));
+            return 0;
+        }
+        else
+        {
+            return Vector3.Distance(_blackboard.playerController.enemyTarget.transform.position, _blackboard.playerController.transform.position);
         }
     }
-
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.DrawWireSphere(attackPoint.transform.position, attackRange);
-    }*/
 }
