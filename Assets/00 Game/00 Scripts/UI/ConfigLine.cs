@@ -20,4 +20,9 @@ public class ConfigLine : MonoBehaviour
         nameText.text = attribiute;
         inputField.text = value.ToString();
     }
+
+    public void SaveData()
+    {
+        float.TryParse(inputField.text, out data.Value);
+    }
 }

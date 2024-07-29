@@ -2,22 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIConfig : MonoBehaviour
+public class UIConfig : UIBase
 {
-    public Player player;
     public Transform contener;
 
     public List<ConfigLine> configLines = new List<ConfigLine>();
     
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         foreach(Transform t in contener)
         {
-            if (t.GetComponent<ConfigLine>() == null) return;
-
+            Debug.Log(t.name);
+            if (t.GetComponent<ConfigLine>() == null) continue;
 
             configLines.Add(t.GetComponent<ConfigLine>());
         }
+    }
 
+    public void SaveConfig()
+    {
+        foreach(ConfigLine line in configLines)
+        {
+            line.SaveData();
+        }
     }
 }

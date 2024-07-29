@@ -12,11 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79c9c504d46d76048bd18946858ad83e, type: 3}
   m_Name: Enemy
   m_EditorClassIdentifier: 
-  maxHP: 100
-  moveSpeed: 0
-  speedBoost: 0
-  armor: 0
-  attackDamage: 0
+  maxHP: {fileID: 11400000, guid: 50dd2531f6438db458141b5b266efaa8, type: 2}
+  attackDamage: {fileID: 11400000, guid: 33ebcdc7a1d1d6441a6986a553511a1f, type: 2}
+  moveSpeed: {fileID: 11400000, guid: 68396926d3f876d41a90016312eae49d, type: 2}
   _randomDamageRange: 0.2
   dectectionRange: 0
   rotateSpeed: 0
