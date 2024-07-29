@@ -36,7 +36,7 @@ public class EnemyAttackState : EnemyActionState
         Collider[] hitPlayer = Physics.OverlapSphere(attackPoint.transform.position, _blackboard.enemyController.enemyData.attackRange, _blackboard.enemyController.enemyData.playerLayer);
         foreach (Collider player in hitPlayer)
         {
-            player.GetComponent<PlayerController>().OnHit(_blackboard.enemyController.enemyData.RandomDamage(_blackboard.enemyController.enemyData.attackDamage));
+            player.GetComponent<PlayerController>().OnHit(_blackboard.enemyController.enemyData.RandomDamage(_blackboard.enemyController.enemyData.attackDamage.Value));
         }
     }
 /*

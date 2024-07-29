@@ -19,7 +19,7 @@ public class EnemyMoveState : EnemyCanMoveState
     {
         base.UpdateState();
 
-        Movement(_blackboard.enemyController.enemyData.moveSpeed);
+        Movement(_blackboard.enemyController.enemyData.moveSpeed.Value);
 
         if(_elapsedTime > _timeToIdle)
         {

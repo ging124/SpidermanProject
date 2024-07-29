@@ -14,13 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeNextAttack: 0.2
   timeEndAttack: 0.4
-  hitType: 1
   hitAnim:
     _FadeDuration: 0.15
     _Events:
-      _NormalizedTimes: []
+      _NormalizedTimes:
+      - 0.5254436
+      - NaN
       _Callbacks: []
-      _Names: []
+      _Names:
+      - Attack
     _Clip: {fileID: 7400000, guid: 2a7975c93112fb644b6053516cc11a62, type: 2}
     _Speed: 1
     _NormalizedStartTime: NaN

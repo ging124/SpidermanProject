@@ -16,6 +16,7 @@ public class MeleAttackState : AttackState
 
         CountCombo();
         _actionLayer.Play(listCombo[combo].hitList[hit].hitAnim);
+        listCombo[combo].hitList[hit].hitAnim.Events.SetCallback("Attack", Attack);
     }
 
     public override void UpdateState()

@@ -33,4 +33,14 @@ public class AttackState : ActionState
         _actionLayer.StartFade(0, 0.1f);
         base.ExitState();
     }
+
+    public void Attack()
+    {
+        if (_blackboard.playerController.enemyTarget == null) return;
+
+        var enemyComponent = _blackboard.playerController.enemyTarget.GetComponent<IHitable>();
+        
+        var damage = _blackboard.playerController.playerData.RandomDamage(_blackboard.playerController.playerData.attackDamage.Value);
+        enemyComponent.OnHit(damage);
+    }
 }

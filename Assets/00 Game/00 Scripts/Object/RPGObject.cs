@@ -5,24 +5,13 @@ using UnityEngine;
 [System.Serializable]
 public abstract class RPGObject : ScriptableObject
 {
-    public int maxHP;
-    public int maxMP;
-    public int currentHP;
-    public int currentMP;
-    public float moveSpeed;
-    public float speedBoost;
-    public int armor;
-    public int attackDamage;
+    public FloatVariables maxHP;
+    public FloatVariables attackDamage;
+    public FloatVariables moveSpeed;
 
     [SerializeField] private float _randomDamageRange = 0.2f;
 
-    public void SetHpStart()
-    {
-        currentHP = maxHP;
-        currentMP = maxMP;
-    }
-
-    public int RandomDamage(int damage)
+    public int RandomDamage(float damage)
     {
         float minRandomDamage = damage -  damage * _randomDamageRange;
         float maxRandomDamage = damage + damage * _randomDamageRange;

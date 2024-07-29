@@ -10,9 +10,9 @@ public class PlayerController : ObjectController
     [Header("----InputValue----")]
     public LayerMask enemyLayer;
 
+
     [Header("----WallRunValue----")]
     public float attackRangeDetection;
-
     public float mediumAttackRange;
     public float farAttackRange;
 
@@ -55,7 +55,7 @@ public class PlayerController : ObjectController
     {
         rb = this.GetComponent<Rigidbody>();
         cam = GameObject.FindWithTag("MainCamera").GetComponent<Transform>();
-        playerData.SetHpStart();
+        playerData.currentHP = playerData.maxHP.Value;
     }
 
     private void OnTriggerEnter(Collider other)

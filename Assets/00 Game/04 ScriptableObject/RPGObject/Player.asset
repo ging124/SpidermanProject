@@ -12,15 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7f2785420c0ebf4cae67175f37fe951, type: 3}
   m_Name: Player
   m_EditorClassIdentifier: 
-  maxHP: 100
-  maxMP: 100
-  moveSpeed: 5
-  speedBoost: 5
-  armor: 1
-  attackDamage: 5
+  maxHP: {fileID: 11400000, guid: 91e3fb5e9848362478bcc2c75a836122, type: 2}
+  attackDamage: {fileID: 11400000, guid: 05686614ac807d342b9009e8a2548199, type: 2}
+  moveSpeed: {fileID: 11400000, guid: 28d0e2c9ce49a4a41b9ccdae461c5dbb, type: 2}
   _randomDamageRange: 0.2
-  jumpHeight: 30
-  rotateSpeed: 30
-  gravityValue: 6
-  rollVelocity: 10
-  bufferCheckDis: -0.2
+  currentHP: 0
+  jumpHeight: {fileID: 11400000, guid: 43cf8046126545843886022dd7bbd91d, type: 2}

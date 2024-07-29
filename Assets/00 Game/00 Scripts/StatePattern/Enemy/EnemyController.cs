@@ -3,13 +3,14 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
 
-public class EnemyController : ObjectController
+public class EnemyController : ObjectController, IHitable
 {
     public UnityEvent enemyActive;
 
+    public float currentHP;
+
     public bool canAttack;
     public bool followPlayer;
-
 
     public Enemy enemyData;
 
@@ -22,7 +23,7 @@ public class EnemyController : ObjectController
 
     private void Awake()
     {
-        enemyData.SetHpStart();
+        currentHP = enemyData.maxHP.Value;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         capCollider = this.GetComponent<CapsuleCollider>();
         rigid = this.GetComponent<Rigidbody>();

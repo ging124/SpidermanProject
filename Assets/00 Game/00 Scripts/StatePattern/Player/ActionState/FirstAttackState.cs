@@ -51,17 +51,23 @@ public class FirstAttackState : AttackState
         {
             _actionLayer.Play(firstHit.mediumAttack.hitAnim);
             firstHit.mediumAttack.hitAnim.Events.SetCallback("MoveToTarget", MoveToTarget);
+            firstHit.mediumAttack.hitAnim.Events.SetCallback("Attack", Attack);
+
         }
         else if(range >= _blackboard.playerController.farAttackRange)
         {
             _actionLayer.Play(((FarHit)firstHit.farAttack).zipAnim);
             ((FarHit)firstHit.farAttack).zipAnim.Events.SetCallback("Zip", Zip);
             ((FarHit)firstHit.farAttack).zipAnim.Events.SetCallback("MoveToTarget", MoveToTarget);
+            ((FarHit)firstHit.farAttack).zipAnim.Events.SetCallback("Attack", Attack);
+
         }
         else if (range < _blackboard.playerController.mediumAttackRange)
         {
             _actionLayer.Play(firstHit.nearAttack.hitAnim);
             firstHit.nearAttack.hitAnim.Events.SetCallback("MoveToTarget", MoveToTarget);
+            firstHit.nearAttack.hitAnim.Events.SetCallback("Attack", Attack);
+
         }
     }
 

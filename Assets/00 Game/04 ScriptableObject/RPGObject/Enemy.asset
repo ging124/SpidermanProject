@@ -12,10 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79c9c504d46d76048bd18946858ad83e, type: 3}
   m_Name: Enemy
   m_EditorClassIdentifier: 
-  maxHP: 0
-  maxMP: 0
-  currentHP: 0
-  currentMP: 0
+  maxHP: 100
   moveSpeed: 0
   speedBoost: 0
   armor: 0

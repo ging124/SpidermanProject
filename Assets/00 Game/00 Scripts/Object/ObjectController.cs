@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectController : MonoBehaviour
+public class ObjectController : MonoBehaviour, IHitable
 {
     [Header("----Object Controller----")]
     public Vector3 movement;

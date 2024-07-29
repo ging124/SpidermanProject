@@ -19,10 +19,12 @@ MonoBehaviour:
     _Events:
       _NormalizedTimes:
       - 0.34531248
+      - 0.6034587
       - NaN
       _Callbacks: []
       _Names:
       - MoveToTarget
+      - Attack
     _Clip: {fileID: 7400000, guid: ab39cd7e89df4da4199db33f4caa63c9, type: 2}
     _Speed: 1
     _NormalizedStartTime: NaN
