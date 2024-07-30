@@ -25,4 +25,4 @@ MonoBehaviour:
     m_Bits: 0
   damageText: {fileID: 0}
   enemyDeadEffect: {fileID: 0}
-  enemyPrefab: {fileID: 0}
+  enemyPrefab: {fileID: 1685392847421013538, guid: 4d4ac4109d49d00419f83e888518c416, type: 3}

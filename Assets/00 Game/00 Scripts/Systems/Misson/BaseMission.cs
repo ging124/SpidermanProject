@@ -1,14 +1,27 @@
 using System;
+using System.Collections.Generic;
+using UnityEngine;
 
-[Serializable]
-public class BaseMission
+public class BaseMission : ScriptableObject
 {
-    public enum MissionType
+    public Vector3 spawnPosition;
+    public float detectRangeMission;
+
+    public float moneyReward;
+    public float expReward;
+
+
+    public virtual bool CheckCompleteMission()
     {
-        Fighting,
-        StopCar,
-        Shipping
+        return true;
     }
 
-    public MissionType missionType;
+    public virtual bool CheckFailedMission()
+    {
+        return false;
+    }
+
+    public virtual void InstantiateMisison(Transform parent)
+    {
+    }
 }

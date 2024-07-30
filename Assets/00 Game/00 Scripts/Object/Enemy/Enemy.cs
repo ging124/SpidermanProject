@@ -13,11 +13,11 @@ public class Enemy : RPGObject, IFactory
     public LayerMask playerLayer;
 
     public GameObject damageText;
-    [SerializeField] ParticleSystem enemyDeadEffect;
-    [SerializeField] GameObject enemyPrefab;
-    [SerializeField] Queue<GameObject> enemyPool = new Queue<GameObject>();
+    public ParticleSystem enemyDeadEffect;
+    public GameObject enemyPrefab;
+    Queue<GameObject> enemyPool = new Queue<GameObject>();
 
-    public GameObject Spawn(Vector3 position, Quaternion rotation, Transform parent)
+    public GameObject Spawn(Vector3 position, Quaternion rotation, Transform parent = null)
     {
         if (enemyPool.Count > 0)
         {
@@ -40,7 +40,7 @@ public class Enemy : RPGObject, IFactory
     {
         prefab.SetActive(false);
         enemyPool.Enqueue(prefab);
-        ParticleSystem deadEffect = Instantiate(enemyDeadEffect, prefab.transform.position, Quaternion.identity);
-        deadEffect.Play();
+        /*ParticleSystem deadEffect = Instantiate(enemyDeadEffect, prefab.transform.position, Quaternion.identity);
+        deadEffect.Play();*/
     }
 }

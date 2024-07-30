@@ -73,6 +73,8 @@ public class FirstAttackState : AttackState
 
     public void MoveToTarget()
     {
+        if (_blackboard.playerController.enemyTarget == null) return;
+
         _rightLineRenderer.positionCount = 0;
 
         Vector3 distance = _blackboard.playerController.enemyTarget.transform.position - _blackboard.playerController.transform.position;

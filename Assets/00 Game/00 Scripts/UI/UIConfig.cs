@@ -14,7 +14,6 @@ public class UIConfig : UIBase
 
         foreach(Transform t in contener)
         {
-            Debug.Log(t.name);
             if (t.GetComponent<ConfigLine>() == null) continue;
 
             configLines.Add(t.GetComponent<ConfigLine>());

@@ -1,11 +1,13 @@
 using Animancer;
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
 
 public class EnemyController : ObjectController, IHitable
 {
-    public UnityEvent enemyActive;
+    public GameEvent enemyDead;
+    public GameEvent<Enemy> updateQuestProgress;
 
     public float currentHP;
 

@@ -12,5 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 049b289c50c07434f96b86a572a8cf73, type: 3}
   m_Name: MainMission
   m_EditorClassIdentifier: 
-  missions:
-  - missionType: 0
+  progressingMission: {fileID: 11400000, guid: f607bf1f997a28049b247af8b355871f, type: 2}
+  listMission:
+  - {fileID: 11400000, guid: f607bf1f997a28049b247af8b355871f, type: 2}
+  - {fileID: 11400000, guid: 5eac17c5da1353a47b2f0f606d3a80bb, type: 2}
+  - {fileID: 11400000, guid: 50cd58f53fb62e14289db3a64b5f042d, type: 2}
+  - {fileID: 11400000, guid: 8ca1a75128467de4fbe3b1e77139467a, type: 2}
+  - {fileID: 11400000, guid: 43ddd8ebca3209a408523b8ef73296af, type: 2}
+  - {fileID: 11400000, guid: 5921e4c6cd90fd940afc2caddc7762ba, type: 2}
