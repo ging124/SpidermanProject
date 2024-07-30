@@ -14,3 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   missions:
   - missionType: 0
+    enemyList: []
+  - missionType: 1
+    enemyList: []
+  - missionType: 2
+    enemyList: []

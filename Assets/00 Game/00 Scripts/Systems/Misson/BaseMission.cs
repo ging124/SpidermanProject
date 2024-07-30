@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 [Serializable]
 public class BaseMission
@@ -11,4 +12,7 @@ public class BaseMission
     }
 
     public MissionType missionType;
+
+    public List<Enemy> enemyList = new List<Enemy>();
+
 }
