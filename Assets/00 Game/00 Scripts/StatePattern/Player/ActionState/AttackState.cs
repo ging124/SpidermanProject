@@ -7,9 +7,9 @@ using UnityEngine;
 
 public class AttackState : ActionState
 {
-    public override void EnterState(StateManager stateManager, PlayerBlackboard blackboard)
+    public override void EnterState()
     {
-        base.EnterState(stateManager, blackboard);
+        base.EnterState();
         _blackboard.character.useRootMotion = true;
         _blackboard.character.SetRotationMode(RotationMode.OrientWithRootMotion);
 

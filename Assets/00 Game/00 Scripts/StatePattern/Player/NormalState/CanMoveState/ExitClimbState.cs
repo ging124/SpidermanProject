@@ -11,9 +11,9 @@ public class ExitClimbState : CanMoveState
     [SerializeField] private LinearMixerTransition _exitClimbAnim;
     [SerializeField] private float _timeToChangeState = 0.25f;
 
-    public override void EnterState(StateManager stateManager, PlayerBlackboard blackboard)
+    public override void EnterState()
     {
-        base.EnterState(stateManager, blackboard);
+        base.EnterState();
         _blackboard.character.SetMovementMode(MovementMode.None);
         _blackboard.playerController.rb.isKinematic = false;
         _blackboard.playerController.rb.useGravity = false;
@@ -35,31 +35,31 @@ public class ExitClimbState : CanMoveState
 
         if (_blackboard.playerController.wallFront)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.climbState);
+            _stateManager.ChangeState(_stateReferences.climbState);
             return;
         }
 
         if (!_blackboard.playerController.wallFront && _blackboard.inputSO.buttonJump && _elapsedTime > _timeToChangeState)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.jumpState);
+            _stateManager.ChangeState(_stateReferences.jumpState);
             return;
         }
 
         if (!_blackboard.playerController.wallFront && _blackboard.character.IsGrounded() && _elapsedTime > _timeToChangeState)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.onAirState);
+            _stateManager.ChangeState(_stateReferences.onAirState);
             return;
         }
 
         if (!_blackboard.playerController.wallFront && _blackboard.inputSO.move == Vector2.zero && _elapsedTime > _timeToChangeState)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.stopRunState);
+            _stateManager.ChangeState(_stateReferences.stopRunState);
             return;
         }
 
         if (!_blackboard.playerController.wallFront && _blackboard.inputSO.move != Vector2.zero && _elapsedTime > _timeToChangeState)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.runState);
+            _stateManager.ChangeState(_stateReferences.runState);
             return;
         }
     }

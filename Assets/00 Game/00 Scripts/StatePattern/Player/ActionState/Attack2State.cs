@@ -7,9 +7,9 @@ public class Attack2State : AttackState
 {
     [SerializeField] private ClipTransition _attack2Anim;
 
-    public override void EnterState(StateManager stateManager, PlayerBlackboard blackboard)
+    public override void EnterState()
     {
-        base.EnterState(stateManager, blackboard);
+        base.EnterState();
         _actionLayer.Play(_attack2Anim);
     }
 

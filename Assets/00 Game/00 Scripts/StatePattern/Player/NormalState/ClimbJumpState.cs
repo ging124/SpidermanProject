@@ -11,9 +11,9 @@ public class ClimbJumpState : NormalState
     [SerializeField] private float _timeToChangeState;
     [SerializeField] private float _climbForce;
 
-    public override void EnterState(StateManager stateManager, PlayerBlackboard blackboard)
+    public override void EnterState()
     {
-        base.EnterState(stateManager, blackboard);
+        base.EnterState();
         _blackboard.character.SetMovementMode(MovementMode.None);
         _blackboard.playerController.rb.isKinematic = false;
         _blackboard.playerController.rb.useGravity = false;
@@ -32,7 +32,7 @@ public class ClimbJumpState : NormalState
 
         if (_elapsedTime > _timeToChangeState)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.onAirState);
+            _stateManager.ChangeState(_stateReferences.onAirState);
             return;
         }
     }

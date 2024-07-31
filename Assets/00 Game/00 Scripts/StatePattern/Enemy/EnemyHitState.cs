@@ -9,9 +9,9 @@ public class EnemyHitState : EnemyNormalState
     [SerializeField] private ClipTransition _hitAnim;
     [SerializeField] private float _timeToIdle = 0.1f;
 
-    public override void EnterState(EnemyStateManager stateManager, EnemyBlackboard blackboard)
+    public override void EnterState()
     {
-        base.EnterState(stateManager, blackboard);
+        base.EnterState();
         _normalBodyLayer.Play(_hitAnim);
         TakeDamage();
     }
@@ -22,12 +22,12 @@ public class EnemyHitState : EnemyNormalState
 
         if (!_blackboard.enemyController.onHit && _elapsedTime > _timeToIdle)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.enemyIdleState);
+            _stateManager.ChangeState(_stateReferences.enemyIdleState);
         }
 
         if(_blackboard.enemyController.currentHP <= 0)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.enemyDeadState);
+            _stateManager.ChangeState(_stateReferences.enemyDeadState);
         }
     }
 

@@ -10,9 +10,9 @@ public class ClimbMovementState : CanMoveState
     [SerializeField] private LinearMixerTransition _climbBlendTree;
     [SerializeField] private ClipTransition _idleClimbAnim;
 
-    public override void EnterState(StateManager stateManager, PlayerBlackboard blackboard)
+    public override void EnterState()
     {
-        base.EnterState(stateManager, blackboard);
+        base.EnterState();
         _blackboard.playerController.transform.DORotate(Quaternion.LookRotation(-_blackboard.playerController.frontWallHit.normal, Vector3.up).eulerAngles, 0.2f);
         _blackboard.character.SetMovementMode(MovementMode.None);
         _blackboard.playerController.rb.isKinematic = false;
@@ -34,19 +34,19 @@ public class ClimbMovementState : CanMoveState
 
         if (!_blackboard.playerController.wallFront)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.exitClimbState);
+            _stateManager.ChangeState(_stateReferences.exitClimbState);
             return;
         }
 
         if (_blackboard.inputSO.buttonJump && _elapsedTime > _timeToChangeState)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.climbJumpState);
+            _stateManager.ChangeState(_stateReferences.climbJumpState);
             return;
         }
 
         if (_blackboard.playerController.movement == Vector3.zero && _blackboard.playerController.wallFront)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.climbState);
+            _stateManager.ChangeState(_stateReferences.climbState);
             return;
         }
     }

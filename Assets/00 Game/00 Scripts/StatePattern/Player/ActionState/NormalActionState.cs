@@ -6,9 +6,9 @@ public class NormalActionState : ActionState
 {
     public float _timeToAttack = 0.15f;
 
-    public override void EnterState(StateManager stateManager, PlayerBlackboard blackboard)
+    public override void EnterState()
     {
-        base.EnterState(stateManager, blackboard);
+        base.EnterState();
     }
 
     public override void UpdateState()
@@ -17,10 +17,10 @@ public class NormalActionState : ActionState
 
         if (_blackboard.inputSO.buttonAttack
             && _blackboard.character.IsGrounded()
-            && ((StateManagerAction)_stateManager).stateManagerMovement.currentState != _stateManager.stateReferences.deadState 
+            && ((StateManagerAction)_stateManager).stateManagerMovement.currentState != _stateReferences.deadState 
             && _elapsedTime > _timeToAttack)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.firstAttackState);
+            _stateManager.ChangeState(_stateReferences.firstAttackState);
             return;
         }
     }

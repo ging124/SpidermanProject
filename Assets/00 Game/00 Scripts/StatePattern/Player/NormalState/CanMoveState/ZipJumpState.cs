@@ -8,9 +8,9 @@ public class ZipJumpState : AirborneMoveState
     [SerializeField] private float _timeToChangeState;
     [SerializeField] private float _jumpForce;
 
-    public override void EnterState(StateManager stateManager, PlayerBlackboard blackboard)
+    public override void EnterState()
     {
-        base.EnterState(stateManager, blackboard);
+        base.EnterState();
         _normalBodyLayer.Play(_ZipJumpAnim);
         _blackboard.character.SetMovementMode(MovementMode.None);
         _blackboard.playerController.rb.useGravity = true;
@@ -33,13 +33,13 @@ public class ZipJumpState : AirborneMoveState
 
         if (!_blackboard.character.IsGrounded() && _elapsedTime > _timeToChangeState)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.onAirState);
+            _stateManager.ChangeState(_stateReferences.onAirState);
             return;
         }
 
         if (_blackboard.character.IsGrounded() && _elapsedTime > _timeToChangeState)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.idleNormalState);
+            _stateManager.ChangeState(_stateReferences.idleNormalState);
             return;
         }
     }

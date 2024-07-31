@@ -12,15 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e96d93878655738479fdeed7f3102fe7, type: 3}
   m_Name: Mission 4
   m_EditorClassIdentifier: 
+  spawnPosition: {x: -11.39, y: 72, z: 0}
+  detectRangeMission: 5
   moneyReward: 0
   expReward: 0
-  waveList:
+  waveListData:
   - enemies:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 11400000, guid: 2c116274eba07184baa370cf5ab20a33, type: 2}
+    - {fileID: 11400000, guid: 2c116274eba07184baa370cf5ab20a33, type: 2}
   - enemies:
-    - {fileID: 0}
+    - {fileID: 11400000, guid: 2c116274eba07184baa370cf5ab20a33, type: 2}
+  enemies: 0
+  waves: 0
+  completeMisison: {fileID: 11400000, guid: 834908bcd332fdc43842767b531cbf84, type: 2}

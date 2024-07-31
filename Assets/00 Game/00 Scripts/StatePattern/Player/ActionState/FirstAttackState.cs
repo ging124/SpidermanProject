@@ -1,8 +1,5 @@
 using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.XR;
 
 public class FirstAttackState : AttackState
 {
@@ -10,16 +7,16 @@ public class FirstAttackState : AttackState
     [SerializeField] private LineRenderer _rightLineRenderer;
 
 
-    public override void EnterState(StateManager stateManager, PlayerBlackboard blackboard)
+    public override void EnterState()
     {
-        base.EnterState(stateManager, blackboard);
+        base.EnterState();
 
         if (_blackboard.playerController.enemyTarget != null)
         {
             DirectionAttack();
         }
         else
-        {   
+        {
             _actionLayer.Play(firstHit.nearAttack.hitAnim);
         }
     }
@@ -30,12 +27,12 @@ public class FirstAttackState : AttackState
 
         if (!_blackboard.inputSO.buttonAttack && _elapsedTime > 0.4f)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.idleActionState);
+            _stateManager.ChangeState(_stateReferences.idleActionState);
         }
 
         if (_blackboard.inputSO.buttonAttack && _elapsedTime > 0.2f)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.meleAttackState);
+            _stateManager.ChangeState(_stateReferences.meleAttackState);
         }
     }
 
@@ -47,14 +44,14 @@ public class FirstAttackState : AttackState
     private void DirectionAttack()
     {
         float range = Vector3.Distance(_blackboard.playerController.enemyTarget.transform.position, _blackboard.playerController.transform.position);
-        if(range >= _blackboard.playerController.mediumAttackRange && range < _blackboard.playerController.farAttackRange)
+        if (range >= _blackboard.playerController.mediumAttackRange && range < _blackboard.playerController.farAttackRange)
         {
             _actionLayer.Play(firstHit.mediumAttack.hitAnim);
             firstHit.mediumAttack.hitAnim.Events.SetCallback("MoveToTarget", MoveToTarget);
             firstHit.mediumAttack.hitAnim.Events.SetCallback("Attack", Attack);
 
         }
-        else if(range >= _blackboard.playerController.farAttackRange)
+        else if (range >= _blackboard.playerController.farAttackRange)
         {
             _actionLayer.Play(((FarHit)firstHit.farAttack).zipAnim);
             ((FarHit)firstHit.farAttack).zipAnim.Events.SetCallback("Zip", Zip);
@@ -81,7 +78,7 @@ public class FirstAttackState : AttackState
         Vector3 endValue = _blackboard.playerController.enemyTarget.transform.position - distance * 0.1f;
         endValue.y = _blackboard.playerController.transform.position.y;
 
-        if(distance.magnitude < 1.5f) return;
+        if (distance.magnitude < 1.5f) return;
 
         _blackboard.playerController.transform.DOMove(endValue, 0.2f);
     }

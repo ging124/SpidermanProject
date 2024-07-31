@@ -1,18 +1,19 @@
 using System;
 using UnityEngine;
 
-[Serializable]
 public abstract class BaseState : MonoBehaviour
 {
-    public float _elapsedTime;
+    [field: SerializeField] public float _elapsedTime { get; private set; }
     [SerializeField] protected StateManager _stateManager;
-    [SerializeField] protected PlayerBlackboard _blackboard;
+    
+    public virtual void InitState(StateManager stateManager, Blackboard blackboard, StateReferences stateReferences)
+    {
+        _stateManager = stateManager;
+    }
 
-    public virtual void EnterState(StateManager stateManager, PlayerBlackboard blackboard)
+    public virtual void EnterState() 
     {
         _elapsedTime = 0;
-        _stateManager = stateManager;
-        _blackboard = blackboard;
     }
 
     public virtual void UpdateState()

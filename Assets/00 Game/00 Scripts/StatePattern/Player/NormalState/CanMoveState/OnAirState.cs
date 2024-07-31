@@ -8,9 +8,9 @@ public class OnAirState : AirborneMoveState
     [SerializeField] private float _timeToDive = 0.5f;
 
 
-    public override void EnterState(StateManager stateManager, PlayerBlackboard blackboard)
+    public override void EnterState()
     {
-        base.EnterState(stateManager, blackboard);
+        base.EnterState();
         _normalBodyLayer.Play(_onAirAnim);
     }
 
@@ -25,31 +25,31 @@ public class OnAirState : AirborneMoveState
 
         if (_blackboard.character.fallingTime > _timeToDive)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.diveState);
+            _stateManager.ChangeState(_stateReferences.diveState);
             return;
         }
 
         if (_blackboard.character.IsGrounded() && _blackboard.character.GetVelocity().magnitude == 0 && _blackboard.inputSO.move == Vector2.zero && _elapsedTime > _timeToChangeState)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.endJumpState);
+            _stateManager.ChangeState(_stateReferences.endJumpState);
             return;
         }
 
         if (_blackboard.character.IsGrounded() && _blackboard.character.GetVelocity().magnitude < 5 && _elapsedTime > _timeToChangeState)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.endJumpToWalkState);
+            _stateManager.ChangeState(_stateReferences.endJumpToWalkState);
             return;
         }
 
         if (_blackboard.character.IsGrounded() && _blackboard.character.GetVelocity().magnitude >= 5 && _elapsedTime > _timeToChangeState)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.endJumpToRunState);
+            _stateManager.ChangeState(_stateReferences.endJumpToRunState);
             return;
         }
 
         if (_blackboard.inputSO.buttonJump && !_blackboard.character.IsGrounded() && _elapsedTime > 0.5f)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.swingState);
+            _stateManager.ChangeState(_stateReferences.swingState);
             return;
         }
     }

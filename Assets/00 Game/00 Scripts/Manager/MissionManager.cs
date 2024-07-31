@@ -1,29 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class MissionManager : MonoBehaviour
 {
-    [SerializeField] MissionManagerSO missionManagerSO;
-    [SerializeField] GameEventListener gameEventListener;
+    [SerializeField] MissionList missionManagerSO;
+    [SerializeField] GameEventListener updateMissionEvent;
+    [SerializeField] GameEventListener changeMissionEvent;
+
 
     private void Awake()
     {
-        missionManagerSO.InstantiateMission(this.transform);
-
-        gameEventListener.Register();
+        InstantiateMission();
+        updateMissionEvent.Register();
+        changeMissionEvent.Register();
     }
 
     private void OnDestroy()
     {
-        gameEventListener.Unregister();
-
+        updateMissionEvent.Unregister();
+        changeMissionEvent.Unregister();
     }
 
-    public void CheckMissionFinished()
+    public void InstantiateMission()
     {
-        missionManagerSO.FinishedMission();
+        missionManagerSO.InstantiateMission(this.transform);
     }
 
     private void CheckMissionFailed()
@@ -31,4 +30,8 @@ public class MissionManager : MonoBehaviour
         missionManagerSO.CheckFailedMission();
     }
 
+    public void UpdateMission()
+    {
+        missionManagerSO.UpdateMission(this.transform);
+    }
 }

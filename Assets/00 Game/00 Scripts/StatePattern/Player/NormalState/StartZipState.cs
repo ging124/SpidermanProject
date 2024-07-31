@@ -14,9 +14,9 @@ public class StartZipState : NormalState
     [SerializeField] private Vector3 zipPoint;
 
 
-    public override void EnterState(StateManager stateManager, PlayerBlackboard blackboard)
+    public override void EnterState()
     {
-        base.EnterState(stateManager, blackboard);
+        base.EnterState();
         _normalBodyLayer.Play(_zipAnim);
         _blackboard.character.SetMovementMode(MovementMode.None);
         _blackboard.playerController.rb.useGravity = true;
@@ -45,12 +45,12 @@ public class StartZipState : NormalState
 
         if (_elapsedTime > _zipTime)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.idleZipState);
+            _stateManager.ChangeState(_stateReferences.idleZipState);
         }
 
         if (_blackboard.inputSO.buttonJump && _elapsedTime > _zipTime - _zipTime * 0.25f)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.zipJumpState);
+            _stateManager.ChangeState(_stateReferences.zipJumpState);
         }
     }
 

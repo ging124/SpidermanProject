@@ -7,9 +7,9 @@ public class EnemyRunState : EnemyCanMoveState
 {
     [SerializeField] ClipTransition _enemyRunAnim;
 
-    public override void EnterState(EnemyStateManager stateManager, EnemyBlackboard blackboard)
+    public override void EnterState()
     {
-        base.EnterState(stateManager, blackboard);
+        base.EnterState();
         _normalBodyLayer.Play(_enemyRunAnim);
     }
 
@@ -19,7 +19,7 @@ public class EnemyRunState : EnemyCanMoveState
 
         if (_blackboard.enemyController.followPlayer == false)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.enemyIdleState);
+            _stateManager.ChangeState(_stateReferences.enemyIdleState);
             _blackboard.enemyController.agent.SetDestination(_blackboard.enemyController.transform.position);
             return;
         }

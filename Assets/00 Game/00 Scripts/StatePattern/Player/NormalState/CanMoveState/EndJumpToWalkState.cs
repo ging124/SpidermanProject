@@ -8,9 +8,9 @@ public class EndJumpToWalkState : AirborneMoveState
     [SerializeField] private ClipTransition _endJumpToWalkAnim;
     [SerializeField] private float _timeToChangeState = 0.5f;
 
-    public override void EnterState(StateManager stateManager, PlayerBlackboard blackboard)
+    public override void EnterState()
     {
-        base.EnterState(stateManager, blackboard);
+        base.EnterState();
         _normalBodyLayer.Play(_endJumpToWalkAnim);
     }
 
@@ -25,19 +25,19 @@ public class EndJumpToWalkState : AirborneMoveState
 
         if (!_blackboard.character.IsGrounded() && _elapsedTime >= _timeToChangeState)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.onAirState);
+            _stateManager.ChangeState(_stateReferences.onAirState);
             return;
         }
 
         if (_blackboard.character.IsGrounded() && _blackboard.playerController.movement == Vector3.zero  && _elapsedTime > _timeToChangeState)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.idleNormalState);
+            _stateManager.ChangeState(_stateReferences.idleNormalState);
             return;
         }
 
         if (_blackboard.character.IsGrounded() && _blackboard.playerController.movement != Vector3.zero && _elapsedTime > _timeToChangeState)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.moveState);
+            _stateManager.ChangeState(_stateReferences.moveState);
             return;
         }
     }

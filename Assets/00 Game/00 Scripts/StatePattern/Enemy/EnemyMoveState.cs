@@ -8,9 +8,9 @@ public class EnemyMoveState : EnemyCanMoveState
     [SerializeField] ClipTransition _enemyMoveAnim;
     private float _timeToIdle;
 
-    public override void EnterState(EnemyStateManager stateManager, EnemyBlackboard blackboard)
+    public override void EnterState()
     {
-        base.EnterState(stateManager, blackboard);
+        base.EnterState();
         _normalBodyLayer.Play(_enemyMoveAnim);
         _timeToIdle = Random.Range(1f, 5f);
     }
@@ -23,7 +23,7 @@ public class EnemyMoveState : EnemyCanMoveState
 
         if(_elapsedTime > _timeToIdle)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.enemyIdleState);
+            _stateManager.ChangeState(_stateReferences.enemyIdleState);
             return;
         }
     }

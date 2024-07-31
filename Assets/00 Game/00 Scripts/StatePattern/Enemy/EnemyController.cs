@@ -1,13 +1,10 @@
 using Animancer;
-using System;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Events;
 
 public class EnemyController : ObjectController, IHitable
 {
     public GameEvent enemyDead;
-    public GameEvent<Enemy> updateQuestProgress;
 
     public float currentHP;
 
@@ -25,11 +22,15 @@ public class EnemyController : ObjectController, IHitable
 
     private void Awake()
     {
-        currentHP = enemyData.maxHP.Value;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         capCollider = this.GetComponent<CapsuleCollider>();
         rigid = this.GetComponent<Rigidbody>();
         agent = this.GetComponent<NavMeshAgent>();
+    }
+
+    private void OnEnable()
+    {
+        currentHP = enemyData.maxHP.Value;
     }
 
     public void FollowPlayer()

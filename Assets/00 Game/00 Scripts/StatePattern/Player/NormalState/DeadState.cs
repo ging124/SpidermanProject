@@ -7,9 +7,9 @@ public class DeadState : NormalState
 {
     [SerializeField] private ClipTransition _deadAnim;
 
-    public override void EnterState(StateManager stateManager, PlayerBlackboard blackboard)
+    public override void EnterState()
     {
-        base.EnterState(stateManager, blackboard);
+        base.EnterState();
         _normalBodyLayer.Play(_deadAnim);
     }
 

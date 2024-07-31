@@ -5,23 +5,24 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/Mission/FightingMission")]
 public class FightingMission : BaseMission
 {
+    [Header("MissionData")]
     public List<Waves> waveListData;
-    public List<Waves> currentWaveList = new List<Waves>();
-    public GameEventListener<Enemy> gameEventListener;
 
-    private void OnEnable()
-    {
-        gameEventListener.Register();
-        currentWaveList = waveListData;
-    }
-    private void OnDisable()
-    {
-        gameEventListener.Unregister();
-    }
+    [Header("MissionProgress")]
+    public int enemies = 0;
+    public int waves = 0;
 
     public override bool CheckCompleteMission()
     {
-        if (waveListData[currentWaveList.Count - 1].enemies.Count == 0)
+        if(waves != waveListData.Count - 1) return false;
+
+        int enemyCount = 0;
+        foreach (Waves wave in waveListData)
+        {
+            enemyCount += wave.enemies.Count;
+        }
+
+        if (enemies == enemyCount)
         {
             return true;
         }
@@ -38,18 +39,35 @@ public class FightingMission : BaseMission
 
     public override void InstantiateMisison(Transform parent)
     {
-        foreach (Waves wave in currentWaveList)
-        {
-            int randomRange = Random.Range(0, wave.enemies.Count);
-            wave.SpawnWave(new Vector3(randomRange, 0, randomRange) + spawnPosition, parent);
-        }
+        enemies = 0;
+        waves = 0;
+
+        SpawnWave(parent, waves);
     }
 
-    public void UpdateEnemyInMission(Enemy enemy)
+    public override void UpdateMission(Transform parent)
     {
-        foreach (Waves wave in currentWaveList)
+        enemies++;
+
+        if(enemies == waveListData[waves].enemies.Count && waves != waveListData.Count - 1)
         {
-            wave.DespawnWave(enemy);
+            waves++;
+            SpawnWave(parent, waves);
+        }
+
+        if (CheckCompleteMission())
+        {
+            completeMisison.Raise();
+        }
+
+    }
+
+    public void SpawnWave(Transform parent, int waves)
+    {
+        foreach (Enemy enemyes in waveListData[waves].enemies)
+        {
+            float randomRange = Random.Range(0, detectRangeMission);
+            enemyes.Spawn(new Vector3(randomRange, 0, randomRange) + spawnPosition, Quaternion.identity, parent);
         }
     }
 }

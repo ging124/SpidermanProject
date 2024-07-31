@@ -1,8 +1,8 @@
 public class MovementState : CanMoveState
 {
-    public override void EnterState(StateManager stateManager, PlayerBlackboard blackboard)
+    public override void EnterState()
     {
-        base.EnterState(stateManager, blackboard);
+        base.EnterState();
     }
 
     public override void UpdateState()
@@ -11,18 +11,18 @@ public class MovementState : CanMoveState
 
         if (!_blackboard.character.IsGrounded())
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.onAirState);
+            _stateManager.ChangeState(_stateReferences.onAirState);
             return;
         }
 
         if (_blackboard.playerController.wallFront)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.climbState);
+            _stateManager.ChangeState(_stateReferences.climbState);
             return;
         }
     }
 
-    public override void ExitState()
+    public override void ExitState()    
     {
         base.ExitState();
     }

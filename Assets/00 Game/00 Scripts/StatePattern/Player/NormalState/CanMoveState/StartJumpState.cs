@@ -10,9 +10,9 @@ public class StartJumpState : AirborneMoveState
     [SerializeField] private float _timeToChangeState = 0.15f;
     [SerializeField] private float _timeToSwing = 0.15f;
 
-    public override void EnterState(StateManager stateManager, PlayerBlackboard blackboard)
+    public override void EnterState()
     {
-        base.EnterState(stateManager, blackboard);
+        base.EnterState();
         _normalBodyLayer.Play(_startJumpAnim);
         Jump();
     }
@@ -28,31 +28,31 @@ public class StartJumpState : AirborneMoveState
 
         if (!_blackboard.character.IsGrounded() && _elapsedTime >= _timeToOnAir)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.onAirState);
+            _stateManager.ChangeState(_stateReferences.onAirState);
             return;
         }
 
         if (_blackboard.character.IsGrounded() && _blackboard.inputSO.move == Vector2.zero && _elapsedTime > _timeToChangeState)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.endJumpState);
+            _stateManager.ChangeState(_stateReferences.endJumpState);
             return;
         }
 
         if (_blackboard.character.IsGrounded() && _blackboard.character.GetSpeed() <= 7.5f && _elapsedTime > _timeToChangeState)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.endJumpToWalkState);
+            _stateManager.ChangeState(_stateReferences.endJumpToWalkState);
             return;
         }
 
         if (_blackboard.character.IsGrounded() && _blackboard.character.GetSpeed() >= 7.5f && _elapsedTime > _timeToChangeState)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.endJumpToRunState);
+            _stateManager.ChangeState(_stateReferences.endJumpToRunState);
             return;
         }
 
         if (_blackboard.inputSO.buttonJump && !_blackboard.character.IsGrounded() && _elapsedTime > _timeToSwing)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.swingState);
+            _stateManager.ChangeState(_stateReferences.swingState);
             return;
         }
     }

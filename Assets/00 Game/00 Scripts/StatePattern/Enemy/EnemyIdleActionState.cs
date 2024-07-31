@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class EnemyIdleActionState : EnemyActionState
 {
-    public override void EnterState(EnemyStateManager stateManager, EnemyBlackboard enemyBlackboard)
+    public override void EnterState()
     {
-        base.EnterState(stateManager, enemyBlackboard);
+        base.EnterState();
     }
 
     public override void UpdateState()
@@ -15,10 +15,10 @@ public class EnemyIdleActionState : EnemyActionState
         base.UpdateState();
 
         if(_blackboard.enemyController.canAttack 
-            && ((EnemyStateManagerAction)_stateManager).stateManagerMovement.currentState != _stateManager.stateReferences.enemyHitState
-            && ((EnemyStateManagerAction)_stateManager).stateManagerMovement.currentState != _stateManager.stateReferences.enemyDeadState)
+            && ((StateManagerAction)_stateManager).stateManagerMovement.currentState != _stateReferences.enemyHitState
+            && ((StateManagerAction)_stateManager).stateManagerMovement.currentState != _stateReferences.enemyDeadState)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.enemyAttack1State);
+            _stateManager.ChangeState(_stateReferences.enemyAttack1State);
         }
     }
 

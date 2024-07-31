@@ -7,9 +7,9 @@ public class EnemyNormalState : EnemyBaseState
 {
     [SerializeField] protected AnimancerLayer _normalBodyLayer;
 
-    public override void EnterState(EnemyStateManager stateManager, EnemyBlackboard blackboard)
+    public override void EnterState()
     {
-        base.EnterState(stateManager, blackboard);
+        base.EnterState();
         _normalBodyLayer = _blackboard.enemyController.animancer.Layers[0];
     }
 

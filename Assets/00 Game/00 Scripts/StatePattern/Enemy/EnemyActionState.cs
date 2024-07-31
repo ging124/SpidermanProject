@@ -8,9 +8,9 @@ public class EnemyActionState : EnemyBaseState
     [SerializeField] protected AnimancerLayer _actionLayer;
     [SerializeField] protected AvatarMask _actionMask;
 
-    public override void EnterState(EnemyStateManager stateManager, EnemyBlackboard blackboard)
+    public override void EnterState()
     {
-        base.EnterState(stateManager, blackboard);
+        base.EnterState();
         _actionLayer = _blackboard.enemyController.animancer.Layers[1];
         _actionLayer.SetMask(_actionMask);
     }

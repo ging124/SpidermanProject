@@ -7,9 +7,9 @@ public class SwimState : CanMoveState
 {
     [SerializeField] private LinearMixerTransition _swimAnim;
 
-    public override void EnterState(StateManager stateManager, PlayerBlackboard blackboard)
+    public override void EnterState()
     {
-        base.EnterState(stateManager, blackboard);
+        base.EnterState();
         _normalBodyLayer.Play(_swimAnim);
         _blackboard.character.SetVelocity(Vector3.zero);
         _blackboard.character.Swim();
@@ -30,7 +30,7 @@ public class SwimState : CanMoveState
         if (_blackboard.inputSO.buttonJump && _elapsedTime > 0.25)
         {
             _blackboard.character.LaunchCharacter(_blackboard.playerController.transform.up * 30, true);
-            _stateManager.ChangeState(_stateManager.stateReferences.onAirState);
+            _stateManager.ChangeState(_stateReferences.onAirState);
             return;
         }
     }
