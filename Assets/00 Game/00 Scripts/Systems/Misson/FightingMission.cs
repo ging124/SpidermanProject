@@ -1,23 +1,13 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObject/Mission/FightingMission")]
+[Serializable]
 public class FightingMission : BaseMission
 {
-    public List<Waves> waveListData;
     public List<Waves> currentWaveList = new List<Waves>();
+    public List<Waves> waveListData = new List<Waves>();
     public GameEventListener<Enemy> gameEventListener;
-
-    private void OnEnable()
-    {
-        gameEventListener.Register();
-        currentWaveList = waveListData;
-    }
-    private void OnDisable()
-    {
-        gameEventListener.Unregister();
-    }
 
     public override bool CheckCompleteMission()
     {
@@ -40,7 +30,7 @@ public class FightingMission : BaseMission
     {
         foreach (Waves wave in currentWaveList)
         {
-            int randomRange = Random.Range(0, wave.enemies.Count);
+            int randomRange = UnityEngine.Random.Range(0, wave.enemies.Count);
             wave.SpawnWave(new Vector3(randomRange, 0, randomRange) + spawnPosition, parent);
         }
     }
