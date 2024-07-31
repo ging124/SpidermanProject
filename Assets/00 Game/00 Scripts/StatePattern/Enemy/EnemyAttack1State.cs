@@ -5,9 +5,9 @@ public class EnemyAttack1State : EnemyAttackState
 {
     [SerializeField] private ClipTransition _attack1Anim;
 
-    public override void EnterState(EnemyStateManager stateManager, EnemyBlackboard blackboard)
+    public override void EnterState()
     {
-        base.EnterState(stateManager, blackboard);
+        base.EnterState();
         _actionLayer.Play(_attack1Anim);
     }
 

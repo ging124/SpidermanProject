@@ -1,13 +1,13 @@
 using Animancer;
 using UnityEngine;
 
-public class NormalState : BaseState
+public class NormalState : PlayerBaseState
 {
     [SerializeField] protected AnimancerLayer _normalBodyLayer;
 
-    public override void EnterState(StateManager stateManager, PlayerBlackboard blackboard)
+    public override void EnterState()
     {
-        base.EnterState(stateManager, blackboard);
+        base.EnterState();
         _normalBodyLayer = _blackboard.playerController.animancer.Layers[0];
     }
 
@@ -21,19 +21,19 @@ public class NormalState : BaseState
 
         if (_blackboard.playerController.onHit)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.hitState);
+            _stateManager.ChangeState(_stateReferences.hitState);
             return;
         }
 
-        if (_blackboard.playerController.onSwim && _elapsedTime > 0.25 && _stateManager.currentState != _stateManager.stateReferences.swimState)
+        if (_blackboard.playerController.onSwim && _elapsedTime > 0.25 && _stateManager.currentState != _stateReferences.swimState)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.swimState);
+            _stateManager.ChangeState(_stateReferences.swimState);
             return;
         }
 
         if (_blackboard.playerController.zipPoint != Vector3.zero && _blackboard.playerController.zipLength <= _blackboard.playerController.maxZipLength && _blackboard.inputSO.buttonZip)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.startZipState);
+            _stateManager.ChangeState(_stateReferences.startZipState);
             return;
         }
     }

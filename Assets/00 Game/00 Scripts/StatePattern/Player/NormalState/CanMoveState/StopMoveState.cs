@@ -8,9 +8,9 @@ public class StopMoveState : MovementState
     [SerializeField] private ClipTransition _stopMoveAnim;
     [SerializeField] private float _timeChangeState = 0.5f;
 
-    public override void EnterState(StateManager stateManager, PlayerBlackboard blackboard)
+    public override void EnterState()
     {
-        base.EnterState(stateManager, blackboard);
+        base.EnterState();
         _normalBodyLayer.Play(_stopMoveAnim);
     }
 
@@ -25,19 +25,19 @@ public class StopMoveState : MovementState
 
         if (_blackboard.inputSO.buttonJump && _blackboard.character.IsGrounded())
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.jumpState);
+            _stateManager.ChangeState(_stateReferences.jumpState);
             return;
         }
 
         if (_blackboard.inputSO.move != Vector2.zero)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.moveState);
+            _stateManager.ChangeState(_stateReferences.moveState);
             return;
         }
 
         if (_blackboard.inputSO.move == Vector2.zero && _elapsedTime > _timeChangeState)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.idleNormalState);
+            _stateManager.ChangeState(_stateReferences.idleNormalState);
             return;
         }
     }

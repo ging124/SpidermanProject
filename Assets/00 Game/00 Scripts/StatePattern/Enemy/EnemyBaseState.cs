@@ -2,26 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class EnemyBaseState : MonoBehaviour
+public abstract class EnemyBaseState : BaseState
 {
-    [SerializeField] protected float _elapsedTime;
-    [SerializeField] protected EnemyStateManager _stateManager;
     [SerializeField] protected EnemyBlackboard _blackboard;
+    [SerializeField] protected EnemyStateReferences _stateReferences;
 
-    public virtual void EnterState(EnemyStateManager stateManager, EnemyBlackboard blackboard)
+    public override void InitState(StateManager stateManager, Blackboard blackboard, StateReferences stateReferences)
     {
-        _elapsedTime = 0;
         _stateManager = stateManager;
-        _blackboard = blackboard;
-    }
-
-    public virtual void UpdateState()
-    {
-        _elapsedTime += Time.deltaTime;
-    }
-
-    public virtual void ExitState()
-    {
-
+        _blackboard = blackboard as EnemyBlackboard;
+        _stateReferences = stateReferences as EnemyStateReferences;
     }
 }

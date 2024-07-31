@@ -7,9 +7,9 @@ public class Attack3State : AttackState
 {
     [SerializeField] private ClipTransition _attack3Anim;
 
-    public override void EnterState(StateManager stateManager, PlayerBlackboard blackboard)
+    public override void EnterState()
     {
-        base.EnterState(stateManager, blackboard);
+        base.EnterState();
         _actionLayer.Play(_attack3Anim);
     }
 
@@ -19,7 +19,7 @@ public class Attack3State : AttackState
 
         if (_blackboard.inputSO.buttonAttack)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.meleAttackState);
+            _stateManager.ChangeState(_stateReferences.meleAttackState);
             return;
         }
     }

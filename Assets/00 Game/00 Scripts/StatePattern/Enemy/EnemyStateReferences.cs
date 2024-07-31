@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyStateReferences : MonoBehaviour
+public class EnemyStateReferences : StateReferences
 {
     public EnemyIdleState enemyIdleState;
     public EnemyIdleCombatState enemyIdleCombatState;

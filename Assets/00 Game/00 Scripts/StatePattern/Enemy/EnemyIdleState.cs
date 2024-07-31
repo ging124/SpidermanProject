@@ -8,9 +8,9 @@ public class EnemyIdleState : EnemyMovementState
     [SerializeField] ClipTransition _idleAnim;
     [SerializeField] float _timeToMove;
 
-    public override void EnterState(EnemyStateManager stateManager, EnemyBlackboard blackboard)
+    public override void EnterState()
     {
-        base.EnterState(stateManager, blackboard);
+        base.EnterState();
         _normalBodyLayer.Play(_idleAnim);
         _timeToMove = Random.Range(5f, 10f);
     }

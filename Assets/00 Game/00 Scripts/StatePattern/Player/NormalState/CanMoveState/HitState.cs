@@ -8,9 +8,9 @@ public class HitState : CanMoveState
     [SerializeField] private ClipTransition _hitAnim;
     [SerializeField] private float _timeToIdle;
 
-    public override void EnterState(StateManager stateManager, PlayerBlackboard blackboard)
+    public override void EnterState()
     {
-        base.EnterState(stateManager, blackboard);
+        base.EnterState();
         _normalBodyLayer.Play(_hitAnim);
         TakeDamage();
     }
@@ -23,13 +23,13 @@ public class HitState : CanMoveState
 
         if (!_blackboard.playerController.onHit && _elapsedTime > _timeToIdle)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.idleNormalState);
+            _stateManager.ChangeState(_stateReferences.idleNormalState);
             return;
         }
 
         if (_blackboard.playerController.playerData.currentHP <= 0)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.deadState);
+            _stateManager.ChangeState(_stateReferences.deadState);
             return;
         }
     }

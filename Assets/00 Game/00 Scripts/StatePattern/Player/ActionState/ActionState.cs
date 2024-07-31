@@ -4,15 +4,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[Serializable]
-public class ActionState : BaseState
+public class ActionState : PlayerBaseState
 {
     [SerializeField] protected AnimancerLayer _actionLayer;
     [SerializeField] protected AvatarMask _actionMask;
 
-    public override void EnterState(StateManager stateManager, PlayerBlackboard blackboard)
+    public override void EnterState()
     {
-        base.EnterState(stateManager, blackboard);
+        base.EnterState();
         _actionLayer = _blackboard.playerController.animancer.Layers[1];
         _actionLayer.SetMask(_actionMask);
     }

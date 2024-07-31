@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class CanMoveState : NormalState
 {
-    public override void EnterState(StateManager stateManager, PlayerBlackboard blackboard)
+    public override void EnterState()
     {
-        base.EnterState(stateManager, blackboard);
+        base.EnterState();
     }
 
     public override void UpdateState()

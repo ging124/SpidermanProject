@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class EnemyCanMoveState : EnemyMovementState
 {
-    public override void EnterState(EnemyStateManager stateManager, EnemyBlackboard blackboard)
+    public override void EnterState()
     {
-        base.EnterState(stateManager, blackboard);
+        base.EnterState();
         _blackboard.enemyController.movement = Random.insideUnitSphere;
     }
 

@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class EnemyMovementState : EnemyNormalState
 {
-    public override void EnterState(EnemyStateManager stateManager, EnemyBlackboard blackboard)
+    public override void EnterState()
     {
-        base.EnterState(stateManager, blackboard);
+        base.EnterState();
     }
 
     public override void UpdateState()
@@ -13,13 +13,13 @@ public class EnemyMovementState : EnemyNormalState
 
         if (_blackboard.enemyController.onHit)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.enemyHitState);
+            _stateManager.ChangeState(_stateReferences.enemyHitState);
             return;
         }
 
         if (_blackboard.enemyController.followPlayer == true)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.enemyRunState);
+            _stateManager.ChangeState(_stateReferences.enemyRunState);
             return;
         }
     }

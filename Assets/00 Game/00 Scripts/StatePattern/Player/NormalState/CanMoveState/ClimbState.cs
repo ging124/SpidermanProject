@@ -8,9 +8,9 @@ public class ClimbState : NormalState
     [SerializeField] private ClipTransition _idleClimbAnim;
     [SerializeField] private float _timeToChangeState;
 
-    public override void EnterState(StateManager stateManager, PlayerBlackboard blackboard)
+    public override void EnterState()
     {
-        base.EnterState(stateManager, blackboard);
+        base.EnterState();
         _blackboard.playerController.transform.DORotate(Quaternion.LookRotation(_blackboard.playerController.transform.forward.projectedOnPlane(Vector3.up), Vector3.up).eulerAngles, 0.2f);
         _blackboard.character.SetMovementMode(MovementMode.None);
         _blackboard.playerController.rb.isKinematic = false;
@@ -29,19 +29,19 @@ public class ClimbState : NormalState
 
         if (!_blackboard.playerController.wallFront)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.exitClimbState);
+            _stateManager.ChangeState(_stateReferences.exitClimbState);
             return;
         }
 
         if(_blackboard.inputSO.buttonJump && _elapsedTime > _timeToChangeState)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.climbJumpState);
+            _stateManager.ChangeState(_stateReferences.climbJumpState);
             return;
         }
 
         if (_blackboard.inputSO.move != Vector2.zero && _blackboard.inputSO.move.y >= 0 && _blackboard.playerController.wallFront)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.climbMovementState);
+            _stateManager.ChangeState(_stateReferences.climbMovementState);
             return;
         }
     }

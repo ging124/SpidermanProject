@@ -1,7 +1,4 @@
 using Animancer;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class IdleActionState : ActionState
@@ -11,9 +8,9 @@ public class IdleActionState : ActionState
     [SerializeField] private ClipTransition _idleActionAnim;
 
 
-    public override void EnterState(StateManager stateManager, PlayerBlackboard blackboard)
+    public override void EnterState()
     {
-        base.EnterState(stateManager, blackboard);
+        base.EnterState();
         _actionLayer.Play(_idleActionAnim);
     }
 
@@ -23,16 +20,16 @@ public class IdleActionState : ActionState
 
         if (_blackboard.inputSO.buttonAttack
             && _blackboard.character.IsGrounded()
-            && ((StateManagerAction)_stateManager).stateManagerMovement.currentState != _stateManager.stateReferences.deadState
+            && ((StateManagerAction)_stateManager).stateManagerMovement.currentState != _stateReferences.deadState
             && _elapsedTime > _timeToAttack)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.firstAttackState);
+            _stateManager.ChangeState(_stateReferences.firstAttackState);
             return;
         }
 
-        if(_elapsedTime > _timeToChangeState || ((StateManagerAction)_stateManager).stateManagerMovement.currentState != _stateManager.stateReferences.idleNormalState)
+        if (_elapsedTime > _timeToChangeState || ((StateManagerAction)_stateManager).stateManagerMovement.currentState != _stateReferences.idleNormalState)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.normalActionState);
+            _stateManager.ChangeState(_stateReferences.normalActionState);
             return;
         }
     }

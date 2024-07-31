@@ -15,9 +15,9 @@ public class SwingState : AirborneMoveState
     [SerializeField] ClipTransition swingAnim;
     [SerializeField] LineRenderer lineRenderer;
 
-    public override void EnterState(StateManager stateManager, PlayerBlackboard blackboard)
+    public override void EnterState()
     {
-        base.EnterState(stateManager, blackboard);
+        base.EnterState();
 
         _normalBodyLayer.Play(swingAnim);
 
@@ -54,7 +54,7 @@ public class SwingState : AirborneMoveState
 
         if (!_blackboard.inputSO.buttonJump || _blackboard.playerController.rb.velocity.magnitude > 60 && _elapsedTime > 0.9f)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.swingJumpState);
+            _stateManager.ChangeState(_stateReferences.swingJumpState);
             return;
         }
     }

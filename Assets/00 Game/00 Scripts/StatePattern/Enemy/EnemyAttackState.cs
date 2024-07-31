@@ -6,9 +6,9 @@ public class EnemyAttackState : EnemyActionState
     //[SerializeField] protected ParticleSystem _attackEffect;
     [SerializeField] protected Transform attackPoint;
 
-    public override void EnterState(EnemyStateManager stateManager, EnemyBlackboard blackboard)
+    public override void EnterState()
     {
-        base.EnterState(stateManager, blackboard);
+        base.EnterState();
         //_attackEffect.Play();
     }
 
@@ -17,8 +17,8 @@ public class EnemyAttackState : EnemyActionState
         base.UpdateState();
 
         if (!_blackboard.enemyController.canAttack && _elapsedTime > _timeChangeState
-            || ((EnemyStateManagerAction)_stateManager).stateManagerMovement.currentState == _stateManager.stateReferences.enemyHitState
-            || ((EnemyStateManagerAction)_stateManager).stateManagerMovement.currentState == _stateManager.stateReferences.enemyDeadState)
+            || ((StateManagerAction)_stateManager).stateManagerMovement.currentState == _stateReferences.enemyHitState
+            || ((StateManagerAction)_stateManager).stateManagerMovement.currentState == _stateReferences.enemyDeadState)
         {
             //_stateManager.ChangeState(_stateManager.stateReferences.enemyIdleActionState);
             return;

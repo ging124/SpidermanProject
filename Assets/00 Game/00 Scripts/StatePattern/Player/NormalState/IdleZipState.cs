@@ -5,9 +5,9 @@ public class IdleZipState : NormalState
 {
     [SerializeField] private ClipTransition _idleZipAnim;
 
-    public override void EnterState(StateManager stateManager, PlayerBlackboard blackboard)
+    public override void EnterState()
     {
-        base.EnterState(stateManager, blackboard);
+        base.EnterState();
         _normalBodyLayer.Play(_idleZipAnim);
     }
 
@@ -22,13 +22,13 @@ public class IdleZipState : NormalState
 
         if (_blackboard.inputSO.move != Vector2.zero)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.runState);
+            _stateManager.ChangeState(_stateReferences.runState);
             return;
         }
 
         if (_blackboard.inputSO.buttonJump)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.zipJumpState);
+            _stateManager.ChangeState(_stateReferences.zipJumpState);
             return;
         }
     }

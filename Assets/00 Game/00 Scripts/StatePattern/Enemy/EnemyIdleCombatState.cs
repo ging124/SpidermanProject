@@ -8,9 +8,9 @@ public class EnemyIdleCombatState : EnemyMovementState
     [SerializeField] ClipTransition _idleCombatAnim;
     [SerializeField] float _timeToIdle;
 
-    public override void EnterState(EnemyStateManager stateManager, EnemyBlackboard blackboard)
+    public override void EnterState()
     {
-        base.EnterState(stateManager, blackboard);
+        base.EnterState();
         _normalBodyLayer.Play(_idleCombatAnim);
     }
 
@@ -20,7 +20,7 @@ public class EnemyIdleCombatState : EnemyMovementState
 
         if (_elapsedTime > _timeToIdle)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.enemyIdleState);
+            _stateManager.ChangeState(_stateReferences.enemyIdleState);
         }
     }
 

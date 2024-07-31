@@ -11,9 +11,9 @@ public class SwingJumpState : AirborneMoveState
     [SerializeField] private float _timeToOnAir = 0.5f;
 
 
-    public override void EnterState(StateManager stateManager, PlayerBlackboard blackboard)
+    public override void EnterState()
     {
-        base.EnterState(stateManager, blackboard);
+        base.EnterState();
         _normalBodyLayer.Play(_swingJumpAnim);
         _blackboard.character.AddForce((_blackboard.character.GetVelocity() + Vector3.up * 10) * _swingJumpForce);
     }
@@ -24,25 +24,25 @@ public class SwingJumpState : AirborneMoveState
 
         if (_blackboard.character.IsGrounded() && _blackboard.character.GetVelocity().magnitude == 0 && _blackboard.inputSO.move == Vector2.zero && _elapsedTime > _timeToChangeState)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.endJumpState);
+            _stateManager.ChangeState(_stateReferences.endJumpState);
             return;
         }
 
         if (_blackboard.character.IsGrounded() && _blackboard.character.GetVelocity().magnitude < 5 && _elapsedTime > _timeToChangeState)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.endJumpToWalkState);
+            _stateManager.ChangeState(_stateReferences.endJumpToWalkState);
             return;
         }
 
         if (_blackboard.character.IsGrounded() && _blackboard.character.GetVelocity().magnitude >= 5 && _elapsedTime > _timeToChangeState)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.endJumpToRunState);
+            _stateManager.ChangeState(_stateReferences.endJumpToRunState);
             return;
         }
 
         if (_elapsedTime > _timeToOnAir)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.onAirState);
+            _stateManager.ChangeState(_stateReferences.onAirState);
             return;
         }
     }

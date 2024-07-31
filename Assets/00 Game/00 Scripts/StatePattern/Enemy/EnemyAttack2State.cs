@@ -5,9 +5,9 @@ public class EnemyAttack2State : EnemyAttackState
 {
     [SerializeField] private ClipTransition _attack2Anim;
 
-    public override void EnterState(EnemyStateManager stateManager, EnemyBlackboard blackboard)
+    public override void EnterState()
     {
-        base.EnterState(stateManager, blackboard);
+        base.EnterState();
         _actionLayer.Play(_attack2Anim);
     }
 
@@ -22,7 +22,7 @@ public class EnemyAttack2State : EnemyAttackState
 
         if (_blackboard.enemyController.canAttack && _elapsedTime > _timeChangeState)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.enemyAttack1State);
+            _stateManager.ChangeState(_stateReferences.enemyAttack1State);
             return;
         }
     }

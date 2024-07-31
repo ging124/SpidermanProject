@@ -12,11 +12,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 049b289c50c07434f96b86a572a8cf73, type: 3}
   m_Name: MainMission
   m_EditorClassIdentifier: 
-  progressingMission: {fileID: 11400000, guid: f607bf1f997a28049b247af8b355871f, type: 2}
+  progressingMission: {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
   listMission:
-  - {fileID: 11400000, guid: f607bf1f997a28049b247af8b355871f, type: 2}
-  - {fileID: 11400000, guid: 5eac17c5da1353a47b2f0f606d3a80bb, type: 2}
-  - {fileID: 11400000, guid: 50cd58f53fb62e14289db3a64b5f042d, type: 2}
-  - {fileID: 11400000, guid: 8ca1a75128467de4fbe3b1e77139467a, type: 2}
-  - {fileID: 11400000, guid: 43ddd8ebca3209a408523b8ef73296af, type: 2}
-  - {fileID: 11400000, guid: 5921e4c6cd90fd940afc2caddc7762ba, type: 2}
+  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
+  - {fileID: 11400000, guid: 5b8e89aa6cdcacf47b3540d5282ebe62, type: 2}
+  - {fileID: 11400000, guid: fbc91539867c0af4f92d6839e0b62624, type: 2}
+  completeMission:
+    gameEvent: {fileID: 11400000, guid: 834908bcd332fdc43842767b531cbf84, type: 2}
+    response:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11400000}
+          m_TargetAssemblyTypeName: MissionManagerSO, Assembly-CSharp
+          m_MethodName: FinishedMission
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  changeProgressingMission: {fileID: 11400000, guid: 09083e75ac811d84d9a0ad73c1b51ce3, type: 2}
