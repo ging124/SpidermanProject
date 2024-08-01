@@ -16,6 +16,7 @@ MonoBehaviour:
   detectRangeMission: 5
   moneyReward: 0
   expReward: 0
+  completeMisison: {fileID: 11400000, guid: e9bf2e8a6ae3fb440a88cc195654f1b4, type: 2}
   waveListData:
   - enemies:
     - {fileID: 11400000, guid: 2c116274eba07184baa370cf5ab20a33, type: 2}
@@ -24,4 +25,3 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 2c116274eba07184baa370cf5ab20a33, type: 2}
   enemies: 0
   waves: 0
-  completeMisison: {fileID: 11400000, guid: 834908bcd332fdc43842767b531cbf84, type: 2}

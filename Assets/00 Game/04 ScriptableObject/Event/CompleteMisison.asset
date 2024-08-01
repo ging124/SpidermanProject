@@ -10,11 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0748995b02ff19943af238bbb84fea7f, type: 3}
-  m_Name: CompleteMission
+  m_Name: CompleteMisison
   m_EditorClassIdentifier: 
-<<<<<<< HEAD:Assets/00 Game/04 ScriptableObject/Event/UpdateMissionProgress.asset
-  listeners: []
-=======
   listeners:
   - gameEvent: {fileID: 11400000}
     response:
@@ -22,14 +19,13 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 11400000, guid: e6c74d41070a74c458a1fc5556909b7e, type: 2}
           m_TargetAssemblyTypeName: MissionList, Assembly-CSharp
-          m_MethodName: FinishedMission
-          m_Mode: 1
+          m_MethodName: UpdateMission
+          m_Mode: 2
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
->>>>>>> d17e3a924d28d42dcc3cb290fb0af7f4e9a42e29:Assets/00 Game/04 ScriptableObject/Event/CompleteMission.asset
