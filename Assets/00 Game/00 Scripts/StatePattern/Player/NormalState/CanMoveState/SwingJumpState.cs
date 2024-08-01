@@ -3,13 +3,11 @@ using DG.Tweening;
 using EasyCharacterMovement;
 using UnityEngine;
 
-public class SwingJumpState : AirborneMoveState
+public class SwingJumpState : OnAirState
 {
     [SerializeField] private ClipTransition _swingJumpAnim;
     [SerializeField] private float _swingJumpForce;
-    [SerializeField] private float _timeToChangeState = 0.5f;
     [SerializeField] private float _timeToOnAir = 0.5f;
-
 
     public override void EnterState()
     {
@@ -18,33 +16,21 @@ public class SwingJumpState : AirborneMoveState
         _blackboard.character.AddForce((_blackboard.character.GetVelocity() + Vector3.up * 10) * _swingJumpForce);
     }
 
-    public override void UpdateState()
+    public override StateStatus UpdateState()
     {
-        base.UpdateState();
-
-        if (_blackboard.character.IsGrounded() && _blackboard.character.GetVelocity().magnitude == 0 && _blackboard.inputSO.move == Vector2.zero && _elapsedTime > _timeToChangeState)
+        StateStatus baseStatus = base.UpdateState();
+        if (baseStatus != StateStatus.Running)
         {
-            _stateManager.ChangeState(_stateReferences.endJumpState);
-            return;
-        }
-
-        if (_blackboard.character.IsGrounded() && _blackboard.character.GetVelocity().magnitude < 5 && _elapsedTime > _timeToChangeState)
-        {
-            _stateManager.ChangeState(_stateReferences.endJumpToWalkState);
-            return;
-        }
-
-        if (_blackboard.character.IsGrounded() && _blackboard.character.GetVelocity().magnitude >= 5 && _elapsedTime > _timeToChangeState)
-        {
-            _stateManager.ChangeState(_stateReferences.endJumpToRunState);
-            return;
+            return baseStatus;
         }
 
         if (_elapsedTime > _timeToOnAir)
         {
-            _stateManager.ChangeState(_stateReferences.onAirState);
-            return;
+            _stateManager.ChangeState(_stateReferences.fallState);
+            return StateStatus.Success;
         }
+
+        return StateStatus.Running;
     }
 
     public override void ExitState()

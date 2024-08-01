@@ -1,6 +1,7 @@
 using Animancer;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public class EnemyMoveState : EnemyCanMoveState
@@ -15,17 +16,23 @@ public class EnemyMoveState : EnemyCanMoveState
         _timeToIdle = Random.Range(1f, 5f);
     }
 
-    public override void UpdateState()
+    public override StateStatus UpdateState()
     {
-        base.UpdateState();
+        StateStatus baseStatus = base.UpdateState();
+        if (baseStatus != StateStatus.Running)
+        {
+            return baseStatus;
+        }
 
         Movement(_blackboard.enemyController.enemyData.moveSpeed.Value);
 
         if(_elapsedTime > _timeToIdle)
         {
             _stateManager.ChangeState(_stateReferences.enemyIdleState);
-            return;
+            return StateStatus.Success;
         }
+
+        return StateStatus.Running;
     }
 
     public override void ExitState()

@@ -15,10 +15,18 @@ public class EnemyActionState : EnemyBaseState
         _actionLayer.SetMask(_actionMask);
     }
 
-    public override void UpdateState()
+    public override StateStatus UpdateState()
     {
-        base.UpdateState();
+        StateStatus baseStatus = base.UpdateState();
+        if (baseStatus != StateStatus.Running)
+        {
+            return baseStatus;
+        }
+
+
         //CanAttack();
+
+        return StateStatus.Success;
     }
 
     public override void ExitState()

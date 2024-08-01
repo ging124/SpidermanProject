@@ -12,17 +12,24 @@ public class EnemyAttackState : EnemyActionState
         //_attackEffect.Play();
     }
 
-    public override void UpdateState()
+    public override StateStatus UpdateState()
     {
-        base.UpdateState();
+        StateStatus baseStatus = base.UpdateState();
+        if (baseStatus != StateStatus.Running)
+        {
+            return baseStatus;
+        }
+
 
         if (!_blackboard.enemyController.canAttack && _elapsedTime > _timeChangeState
             || ((StateManagerAction)_stateManager).stateManagerMovement.currentState == _stateReferences.enemyHitState
             || ((StateManagerAction)_stateManager).stateManagerMovement.currentState == _stateReferences.enemyDeadState)
         {
             //_stateManager.ChangeState(_stateManager.stateReferences.enemyIdleActionState);
-            return;
+            return StateStatus.Success;
         }
+
+        return StateStatus.Running;
     }
 
     public override void ExitState()

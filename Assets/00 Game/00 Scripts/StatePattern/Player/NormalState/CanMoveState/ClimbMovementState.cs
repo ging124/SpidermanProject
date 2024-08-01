@@ -3,7 +3,7 @@ using DG.Tweening;
 using EasyCharacterMovement;
 using UnityEngine;
 
-public class ClimbMovementState : CanMoveState
+public class ClimbMovementState : NormalState
 {
     [SerializeField] private float _climbSpeed;
     [SerializeField] private float _timeToChangeState;
@@ -20,13 +20,12 @@ public class ClimbMovementState : CanMoveState
         _normalBodyLayer.Play(_climbBlendTree);
     }
 
-    public override void UpdateState()
+    public override StateStatus UpdateState()
     {
-        base.UpdateState();
-
-        if (_stateManager.currentState != this)
+        StateStatus baseStatus = base.UpdateState();
+        if (baseStatus != StateStatus.Running)
         {
-            return;
+            return baseStatus;
         }
 
         Movement();
@@ -35,20 +34,22 @@ public class ClimbMovementState : CanMoveState
         if (!_blackboard.playerController.wallFront)
         {
             _stateManager.ChangeState(_stateReferences.exitClimbState);
-            return;
+            return StateStatus.Success;
         }
 
         if (_blackboard.inputSO.buttonJump && _elapsedTime > _timeToChangeState)
         {
             _stateManager.ChangeState(_stateReferences.climbJumpState);
-            return;
+            return StateStatus.Success;
         }
 
         if (_blackboard.playerController.movement == Vector3.zero && _blackboard.playerController.wallFront)
         {
             _stateManager.ChangeState(_stateReferences.climbState);
-            return;
+            return StateStatus.Success;
         }
+
+        return StateStatus.Running;
     }
 
     public override void ExitState()
@@ -61,14 +62,14 @@ public class ClimbMovementState : CanMoveState
         base.ExitState();
     }
 
-    protected override void Movement()
+    protected void Movement()
     {
         GetInput();
 
         _blackboard.playerController.rb.velocity = _blackboard.playerController.movement.normalized * _climbSpeed * Time.deltaTime * 20;
     }
 
-    protected override void GetInput()
+    protected void GetInput()
     {
         Vector2 input = _blackboard.inputSO.move;
 

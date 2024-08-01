@@ -9,28 +9,30 @@ public class IdleZipState : NormalState
     {
         base.EnterState();
         _normalBodyLayer.Play(_idleZipAnim);
+        _blackboard.character.SetMovementDirection(Vector3.zero);
     }
 
-    public override void UpdateState()
+    public override StateStatus UpdateState()
     {
-        base.UpdateState();
-
-        if (_stateManager.currentState != this)
+        StateStatus baseStatus = base.UpdateState();
+        if (baseStatus != StateStatus.Running)
         {
-            return;
+            return baseStatus;
         }
 
         if (_blackboard.inputSO.move != Vector2.zero)
         {
             _stateManager.ChangeState(_stateReferences.runState);
-            return;
+            return StateStatus.Success;
         }
 
         if (_blackboard.inputSO.buttonJump)
         {
             _stateManager.ChangeState(_stateReferences.zipJumpState);
-            return;
+            return StateStatus.Success;
         }
+
+        return StateStatus.Running;
     }
 
     public override void ExitState()

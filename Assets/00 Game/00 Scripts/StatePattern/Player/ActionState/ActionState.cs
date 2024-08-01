@@ -15,16 +15,4 @@ public class ActionState : PlayerBaseState
         _actionLayer = _blackboard.playerController.animancer.Layers[1];
         _actionLayer.SetMask(_actionMask);
     }
-
-    public override void UpdateState()
-    {
-
-        base.UpdateState();
-    }
-
-    public override void ExitState()
-    {
-        base.ExitState();
-    }
-
 }

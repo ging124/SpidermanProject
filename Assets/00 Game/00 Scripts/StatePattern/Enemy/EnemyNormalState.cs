@@ -13,11 +13,6 @@ public class EnemyNormalState : EnemyBaseState
         _normalBodyLayer = _blackboard.enemyController.animancer.Layers[0];
     }
 
-    public override void UpdateState()
-    {
-        base.UpdateState();
-    }
-
     public override void ExitState()
     {
         base.ExitState();

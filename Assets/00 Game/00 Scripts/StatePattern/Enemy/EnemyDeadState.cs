@@ -12,15 +12,21 @@ public class EnemyDeadState : EnemyNormalState
         StartCoroutine(PlayDeadEffect());
     }
 
-    public override void UpdateState()
+    public override StateStatus UpdateState()
     {
-        base.UpdateState();
+        StateStatus baseStatus = base.UpdateState();
+        if (baseStatus != StateStatus.Running)
+        {
+            return baseStatus;
+        }
 
         if (_blackboard.enemyController.currentHP == _blackboard.enemyController.enemyData.maxHP.Value)
         {
             _stateManager.ChangeState(_stateReferences.enemyIdleState);
-            return;
+            return StateStatus.Success;
         }
+
+        return StateStatus.Running;
     }
 
     public override void ExitState()

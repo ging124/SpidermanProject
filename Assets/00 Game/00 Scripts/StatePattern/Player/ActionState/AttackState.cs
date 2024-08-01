@@ -21,10 +21,6 @@ public class AttackState : ActionState
         }
     }
 
-    public override void UpdateState()
-    {
-        base.UpdateState();
-    }
 
     public override void ExitState()
     {
@@ -42,5 +38,10 @@ public class AttackState : ActionState
         
         var damage = _blackboard.playerController.playerData.RandomDamage(_blackboard.playerController.playerData.attackDamage.Value);
         enemyComponent.OnHit(damage);
+    }
+
+    public void MoveToTarget()
+    {
+        _blackboard.playerController.transform.DOMove(Vector3.MoveTowards(_blackboard.playerController.enemyTarget.transform.position, _blackboard.playerController.transform.position, .95f), 0.2f);
     }
 }

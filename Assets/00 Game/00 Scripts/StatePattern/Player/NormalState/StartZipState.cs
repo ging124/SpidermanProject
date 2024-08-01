@@ -34,24 +34,27 @@ public class StartZipState : NormalState
         StartZip();
     }
 
-    public override void UpdateState()
+    public override StateStatus UpdateState()
     {
-        base.UpdateState();
-
-        if (_stateManager.currentState != this)
+        StateStatus baseStatus = base.UpdateState();
+        if (baseStatus != StateStatus.Running)
         {
-            return;
+            return baseStatus;
         }
 
         if (_elapsedTime > _zipTime)
         {
             _stateManager.ChangeState(_stateReferences.idleZipState);
+            return StateStatus.Success;
         }
 
         if (_blackboard.inputSO.buttonJump && _elapsedTime > _zipTime - _zipTime * 0.25f)
         {
             _stateManager.ChangeState(_stateReferences.zipJumpState);
+            return StateStatus.Success;
         }
+
+        return StateStatus.Running;
     }
 
     public override void ExitState()
@@ -69,7 +72,7 @@ public class StartZipState : NormalState
     public void Zip()
     {
         _blackboard.transform.DOLookAt(zipPoint, 0.2f, AxisConstraint.Y);
-        _blackboard.transform.DOMove(zipPoint + Vector3.up, _zipTime);
+        _blackboard.transform.DOMove(zipPoint, _zipTime);
     }
 
     public void StartZip()

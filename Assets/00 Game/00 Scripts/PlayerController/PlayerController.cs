@@ -3,6 +3,7 @@ using DG.Tweening;
 using EasyCharacterMovement;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem.HID;
 using UnityEngine.UI;
 
 public class PlayerController : ObjectController
@@ -18,6 +19,7 @@ public class PlayerController : ObjectController
 
     public Collider[] hitEnemy;
     public Collider enemyTarget;
+    RaycastHit hit;
 
 
     public Transform leftLeg;
@@ -45,16 +47,17 @@ public class PlayerController : ObjectController
 
     [Header("----Component----")]
     public Player playerData;
-    public Animator anim;
     public Character character;
     public AnimancerComponent animancer;
     public Rigidbody rb;
     public Transform cam;
+    public InputSO inputSO;
 
     void Awake()
     {
-        rb = this.GetComponent<Rigidbody>();
         cam = GameObject.FindWithTag("MainCamera").GetComponent<Transform>();
+        rb = this.GetComponent<Rigidbody>();
+        animancer = this.GetComponent<AnimancerComponent>();
         playerData.currentHP = playerData.maxHP.Value;
     }
 
@@ -79,12 +82,14 @@ public class PlayerController : ObjectController
         Gizmos.DrawSphere(zipPointDetection.point, zipDetectionRange);
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(zipPoint, zipDetectionRange);
-        Gizmos.DrawWireSphere(this.transform.position, this.attackRangeDetection);
+        Gizmos.DrawSphere(transform.position + movement.normalized * 10, 1);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(hit.transform.position, 1);
     }
 
     public void EnemyCheck()
     {
-        hitEnemy = Physics.OverlapSphere(this.transform.position, this.attackRangeDetection, this.enemyLayer);
+        /*hitEnemy = Physics.OverlapSphere(this.transform.position, this.attackRangeDetection, this.enemyLayer);
 
         if (hitEnemy.Length > 0)
         {
@@ -108,8 +113,16 @@ public class PlayerController : ObjectController
         else
         {
             this.enemyTarget = null;
-        }
+        }*/
 
+        if (Physics.SphereCast(transform.position, 1, movement.normalized, out hit, attackRangeDetection, enemyLayer))
+        {
+            if (hit.transform.GetComponent<IHitable>() != null)
+            {
+                enemyTarget = hit.collider;
+            }
+        }
+        Debug.DrawRay(transform.position, movement.normalized, Color.red);
     }
 
     public void WallCheck()

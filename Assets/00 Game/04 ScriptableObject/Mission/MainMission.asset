@@ -18,7 +18,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5b8e89aa6cdcacf47b3540d5282ebe62, type: 2}
   - {fileID: 11400000, guid: fbc91539867c0af4f92d6839e0b62624, type: 2}
   completeMission:
-    gameEvent: {fileID: 11400000, guid: 834908bcd332fdc43842767b531cbf84, type: 2}
+    gameEvent: {fileID: 11400000, guid: e9bf2e8a6ae3fb440a88cc195654f1b4, type: 2}
     response:
       m_PersistentCalls:
         m_Calls:

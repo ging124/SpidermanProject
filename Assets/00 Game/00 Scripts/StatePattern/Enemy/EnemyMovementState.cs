@@ -7,21 +7,27 @@ public class EnemyMovementState : EnemyNormalState
         base.EnterState();
     }
 
-    public override void UpdateState()
+    public override StateStatus UpdateState()
     {
-        base.UpdateState();
+        StateStatus baseStatus = base.UpdateState();
+        if (baseStatus != StateStatus.Running)
+        {
+            return baseStatus;
+        }
 
         if (_blackboard.enemyController.onHit)
         {
             _stateManager.ChangeState(_stateReferences.enemyHitState);
-            return;
+            return StateStatus.Success;
         }
 
         if (_blackboard.enemyController.followPlayer == true)
         {
             _stateManager.ChangeState(_stateReferences.enemyRunState);
-            return;
+            return StateStatus.Success;
         }
+
+        return StateStatus.Running;
     }
 
     public override void ExitState()

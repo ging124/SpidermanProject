@@ -1,19 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Windows;
 
 public class CanMoveState : NormalState
 {
-    public override void EnterState()
-    {
-        base.EnterState();
-    }
-
-    public override void UpdateState()
-    {
-        base.UpdateState();
-    }
-
     public override void ExitState()
     {
         _blackboard.character.SetMovementDirection(Vector3.zero);
@@ -22,8 +13,6 @@ public class CanMoveState : NormalState
 
     protected virtual void Movement()
     {
-        GetInput();
-
         _blackboard.character.SetMovementDirection(_blackboard.playerController.movement.normalized);
     }
 

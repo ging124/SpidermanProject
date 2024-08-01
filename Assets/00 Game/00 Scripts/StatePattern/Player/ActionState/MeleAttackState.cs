@@ -15,30 +15,29 @@ public class MeleAttackState : AttackState
         base.EnterState();
 
         CountCombo();
-        _actionLayer.Play(listCombo[combo].hitList[hit].hitAnim);
-        listCombo[combo].hitList[hit].hitAnim.Events.SetCallback("Attack", Attack);
-    }
-
-    public override void UpdateState()
-    {
-        base.UpdateState();
-
-        if (!_blackboard.inputSO.buttonAttack && _elapsedTime > listCombo[combo].hitList[hit].timeEndAttack)
+        _actionLayer.Play(listCombo[combo].hitList[hit].hitAnim).Events.OnEnd = () =>
         {
             ResetCombo();
             _stateManager.ChangeState(_stateReferences.idleActionState);
+        };
+        listCombo[combo].hitList[hit].hitAnim.Events.SetCallback("Attack", Attack);
+    }
+
+    public override StateStatus UpdateState()
+    {
+        StateStatus baseStatus = base.UpdateState();
+        if (baseStatus != StateStatus.Running)
+        {
+            return baseStatus;
         }
 
         if (_blackboard.inputSO.buttonAttack && hit != listCombo[combo].hitList.Count - 1 && _elapsedTime > listCombo[combo].hitList[hit].timeNextAttack)
         {
             _stateManager.ChangeState(_stateReferences.meleAttackState);
+            return StateStatus.Success;
         }
 
-        if (_blackboard.inputSO.buttonAttack && hit == listCombo[combo].hitList.Count - 1  && _elapsedTime > listCombo[combo].hitList[hit].timeNextAttack
-            || _blackboard.inputSO.buttonAttack && EnemyTargetDistance() >= _blackboard.playerController.mediumAttackRange && _elapsedTime > listCombo[combo].hitList[hit].timeNextAttack)
-        {
-            _stateManager.ChangeState(_stateReferences.firstAttackState);
-        }
+        return StateStatus.Running;
     }
 
     public override void ExitState()

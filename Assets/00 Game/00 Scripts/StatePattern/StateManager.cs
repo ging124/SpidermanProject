@@ -5,21 +5,21 @@ using UnityEngine;
 public class StateManager : MonoBehaviour
 {
     [SerializeField] private bool _isAIControlled = false;
-    [SerializeField] private BaseState startState;
+    [SerializeField] private BaseState _startState;
     [field: SerializeField] public BaseState currentState { get; private set; }
-    [SerializeField] private StateReferences stateReferences;
-    [SerializeField] private Blackboard blackboard;
+    [SerializeField] private StateReferences _stateReferences;
+    [SerializeField] private Blackboard _blackboard;
 
     public void Init(bool isAIController)
     {
-        blackboard = transform.parent.GetComponent<Blackboard>();
+        _blackboard = transform.parent.GetComponent<Blackboard>();
         _isAIControlled = transform.parent.GetComponent<BehaviourTreeOwner>() != null;
         foreach (Transform stateTransform in this.transform)
         {
             var state = stateTransform.GetComponent<BaseState>();
-            state.InitState(this, blackboard, stateReferences);
+            state.InitState(this, _blackboard, _stateReferences);
         }
-        currentState = startState;
+        currentState = _startState;
         currentState.EnterState();
     }
 
@@ -28,24 +28,39 @@ public class StateManager : MonoBehaviour
         Init(_isAIControlled);
     }
 
-    public virtual void ChangeState(BaseState state)
+    public bool ChangeState(BaseState state, bool force = false)
     {
-        if (_isAIControlled)
+        if (_isAIControlled && !force)
         {
-            return;
+            return false;
         }
 
         currentState.ExitState();
         currentState = state;
         currentState.EnterState();
+
+        return true;
     }
 
     public virtual void Update()
     {
-        currentState.UpdateState();
+        if (!_isAIControlled)
+            OnUpdate();
     }
 
-    public virtual void FixedUpdate()
+    public StateStatus OnUpdate()
+    {
+        currentState.ConsistentUpdateState();
+        return currentState.UpdateState();
+    }
+
+    private void FixedUpdate()
+    {
+        if (!_isAIControlled)
+            OnFixedUpdate();
+    }
+
+    public void OnFixedUpdate()
     {
         currentState.FixedUpdateState();
     }

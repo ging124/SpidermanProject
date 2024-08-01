@@ -2,7 +2,7 @@ using Animancer;
 using EasyCharacterMovement;
 using UnityEngine;
 
-public class ZipJumpState : AirborneMoveState
+public class ZipJumpState : OnAirState
 {
     [SerializeField] private ClipTransition _ZipJumpAnim;
     [SerializeField] private float _timeToChangeState;
@@ -22,26 +22,21 @@ public class ZipJumpState : AirborneMoveState
 
     }
 
-    public override void UpdateState()
+    public override StateStatus UpdateState()
     {
-        base.UpdateState();
-
-        if (_stateManager.currentState != this)
+        StateStatus baseStatus = base.UpdateState();
+        if (baseStatus != StateStatus.Running)
         {
-            return;
+            return baseStatus;
         }
 
         if (!_blackboard.character.IsGrounded() && _elapsedTime > _timeToChangeState)
         {
-            _stateManager.ChangeState(_stateReferences.onAirState);
-            return;
+            _stateManager.ChangeState(_stateReferences.fallState);
+            return StateStatus.Success;
         }
 
-        if (_blackboard.character.IsGrounded() && _elapsedTime > _timeToChangeState)
-        {
-            _stateManager.ChangeState(_stateReferences.idleNormalState);
-            return;
-        }
+        return StateStatus.Running;
     }
 
     public override void ExitState()

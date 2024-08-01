@@ -5,108 +5,53 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExitClimbState : CanMoveState
+public class ExitClimbState : NormalState
 {
-    [SerializeField] private float _climbSpeed;
-    [SerializeField] private LinearMixerTransition _exitClimbAnim;
+    [SerializeField] private ClipTransition _exitClimbAnim;
     [SerializeField] private float _timeToChangeState = 0.25f;
 
     public override void EnterState()
     {
         base.EnterState();
-        _blackboard.character.SetMovementMode(MovementMode.None);
-        _blackboard.playerController.rb.isKinematic = false;
-        _blackboard.playerController.rb.useGravity = false;
-        _blackboard.playerController.rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+        _blackboard.character.useRootMotion = true;
+        _blackboard.character.SetRotationMode(RotationMode.OrientWithRootMotion);
         _normalBodyLayer.Play(_exitClimbAnim);
     }
         
-    public override void UpdateState()
+    public override StateStatus UpdateState()
     {
-        base.UpdateState();
-
-        if (_stateManager.currentState != this)
+        StateStatus baseStatus = base.UpdateState();
+        if (baseStatus != StateStatus.Running)
         {
-            return;
+            return baseStatus;
         }
-
-        Movement();
-        Animation();
 
         if (_blackboard.playerController.wallFront)
         {
             _stateManager.ChangeState(_stateReferences.climbState);
-            return;
+            return StateStatus.Success;
         }
-
-        if (!_blackboard.playerController.wallFront && _blackboard.inputSO.buttonJump && _elapsedTime > _timeToChangeState)
-        {
-            _stateManager.ChangeState(_stateReferences.jumpState);
-            return;
-        }
-
+            
         if (!_blackboard.playerController.wallFront && _blackboard.character.IsGrounded() && _elapsedTime > _timeToChangeState)
         {
-            _stateManager.ChangeState(_stateReferences.onAirState);
-            return;
-        }
-
-        if (!_blackboard.playerController.wallFront && _blackboard.inputSO.move == Vector2.zero && _elapsedTime > _timeToChangeState)
-        {
-            _stateManager.ChangeState(_stateReferences.stopRunState);
-            return;
+            _stateManager.ChangeState(_stateReferences.fallState);
+            return StateStatus.Success;
         }
 
         if (!_blackboard.playerController.wallFront && _blackboard.inputSO.move != Vector2.zero && _elapsedTime > _timeToChangeState)
         {
             _stateManager.ChangeState(_stateReferences.runState);
-            return;
+            return StateStatus.Success;
         }
+
+        return StateStatus.Running;
     }
 
     public override void ExitState()
     {
-        Vector3 velocity = _blackboard.playerController.rb.velocity;
+        _blackboard.character.useRootMotion = false;
         _blackboard.character.SetRotationMode(RotationMode.OrientToMovement);
-        _blackboard.character.SetMovementMode(MovementMode.Walking);
-        _blackboard.playerController.rb.isKinematic = true;
-        _blackboard.playerController.rb.constraints = RigidbodyConstraints.None;
-        _blackboard.character.SetVelocity(velocity + _blackboard.playerController.transform.forward * 15);
         base.ExitState();
     }
 
-    protected override void Movement()
-    {
-        GetInput();
-
-        _blackboard.playerController.rb.velocity = _blackboard.playerController.movement.normalized * _climbSpeed * Time.deltaTime * 20;
-    }
-
-    protected override void GetInput()
-    {
-        Vector2 input = _blackboard.inputSO.move;
-
-        if (input.y < 0)
-        {
-            input = new Vector2(1, 0);
-        }
-
-        Vector3 vertical = _blackboard.playerController.transform.up * input.y;
-        Vector3 horizontal = _blackboard.playerController.transform.right * input.x;
-        _blackboard.playerController.movement = horizontal + vertical;
-        _blackboard.playerController.movement = Vector3.ProjectOnPlane(_blackboard.playerController.movement, _blackboard.playerController.frontWallHit.normal);
-    }
-
-    private void Animation()
-    {
-        if (_blackboard.playerController.movement.magnitude == 0)
-        {
-            _exitClimbAnim.State.Parameter = Mathf.Lerp(_exitClimbAnim.State.Parameter, 90, 40 * Time.deltaTime);
-        }
-        else
-        {
-            _exitClimbAnim.State.Parameter = Mathf.Lerp(_exitClimbAnim.State.Parameter, Vector3.Angle(_blackboard.playerController.transform.right, _blackboard.playerController.movement.normalized), 40 * Time.deltaTime);
-        }
-
-    }
 }

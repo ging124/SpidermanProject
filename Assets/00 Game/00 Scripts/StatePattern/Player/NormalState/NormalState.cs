@@ -11,9 +11,13 @@ public class NormalState : PlayerBaseState
         _normalBodyLayer = _blackboard.playerController.animancer.Layers[0];
     }
 
-    public override void UpdateState()
+    public override StateStatus UpdateState()
     {
-        base.UpdateState();
+        StateStatus baseStatus = base.UpdateState();
+        if (baseStatus != StateStatus.Running)
+        {
+            return baseStatus;
+        }
 
         _blackboard.playerController.WallCheck();
         _blackboard.playerController.ZipPointCheck();
@@ -22,20 +26,22 @@ public class NormalState : PlayerBaseState
         if (_blackboard.playerController.onHit)
         {
             _stateManager.ChangeState(_stateReferences.hitState);
-            return;
+            return StateStatus.Success;
         }
 
         if (_blackboard.playerController.onSwim && _elapsedTime > 0.25 && _stateManager.currentState != _stateReferences.swimState)
         {
             _stateManager.ChangeState(_stateReferences.swimState);
-            return;
+            return StateStatus.Success;
         }
 
         if (_blackboard.playerController.zipPoint != Vector3.zero && _blackboard.playerController.zipLength <= _blackboard.playerController.maxZipLength && _blackboard.inputSO.buttonZip)
         {
             _stateManager.ChangeState(_stateReferences.startZipState);
-            return;
+            return StateStatus.Success;
         }
+
+        return StateStatus.Running;
     }
 
     public override void ExitState()

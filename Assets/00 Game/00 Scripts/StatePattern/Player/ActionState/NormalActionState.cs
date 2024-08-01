@@ -11,18 +11,15 @@ public class NormalActionState : ActionState
         base.EnterState();
     }
 
-    public override void UpdateState()
+    public override StateStatus UpdateState()
     {
-        base.UpdateState();
-
-        if (_blackboard.inputSO.buttonAttack
-            && _blackboard.character.IsGrounded()
-            && ((StateManagerAction)_stateManager).stateManagerMovement.currentState != _stateReferences.deadState 
-            && _elapsedTime > _timeToAttack)
+        StateStatus baseStatus = base.UpdateState();
+        if (baseStatus != StateStatus.Running)
         {
-            _stateManager.ChangeState(_stateReferences.firstAttackState);
-            return;
+            return baseStatus;
         }
+
+        return StateStatus.Running;
     }
 
     public override void ExitState()

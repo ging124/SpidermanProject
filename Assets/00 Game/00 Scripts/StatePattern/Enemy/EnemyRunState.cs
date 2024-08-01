@@ -13,21 +13,27 @@ public class EnemyRunState : EnemyCanMoveState
         _normalBodyLayer.Play(_enemyRunAnim);
     }
 
-    public override void UpdateState()
+    public override StateStatus UpdateState()
     {
-        base.UpdateState();
+        StateStatus baseStatus = base.UpdateState();
+        if (baseStatus != StateStatus.Running)
+        {
+            return baseStatus;
+        }
 
         if (_blackboard.enemyController.followPlayer == false)
         {
             _stateManager.ChangeState(_stateReferences.enemyIdleState);
             _blackboard.enemyController.agent.SetDestination(_blackboard.enemyController.transform.position);
-            return;
+            return StateStatus.Success;
         }
         else
         {
             _blackboard.enemyController.movement = _blackboard.enemyController.player.transform.position - _blackboard.enemyController.transform.position;
             Movement(_blackboard.enemyController.player.transform.position);
         }
+
+        return StateStatus.Running;
     }
 
     public override void ExitState()

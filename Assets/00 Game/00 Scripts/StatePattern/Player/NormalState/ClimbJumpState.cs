@@ -21,20 +21,21 @@ public class ClimbJumpState : NormalState
         _blackboard.playerController.rb.velocity = _blackboard.playerController.frontWallHit.normal * _climbForce;
     }
 
-    public override void UpdateState()
+    public override StateStatus UpdateState()
     {
-        base.UpdateState();
-
-        if (_stateManager.currentState != this)
+        StateStatus baseStatus = base.UpdateState();
+        if (baseStatus != StateStatus.Running)
         {
-            return;
+            return baseStatus;
         }
 
         if (_elapsedTime > _timeToChangeState)
         {
-            _stateManager.ChangeState(_stateReferences.onAirState);
-            return;
+            _stateManager.ChangeState(_stateReferences.fallState);
+            return StateStatus.Success;
         }
+
+        return StateStatus.Running;
     }
 
     public override void ExitState()

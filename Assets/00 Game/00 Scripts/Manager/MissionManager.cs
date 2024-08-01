@@ -6,7 +6,6 @@ public class MissionManager : MonoBehaviour
     [SerializeField] GameEventListener updateMissionEvent;
     [SerializeField] GameEventListener changeMissionEvent;
 
-
     private void Awake()
     {
         InstantiateMission();

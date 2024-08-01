@@ -3,7 +3,7 @@ using DG.Tweening;
 using EasyCharacterMovement;
 using UnityEngine;
 
-public class IdleNormalState : MovementState
+public class IdleNormalState : GroundState
 {
     [SerializeField] private ClipTransition _idleNormalAnim;
 
@@ -11,29 +11,30 @@ public class IdleNormalState : MovementState
     {
         base.EnterState();
         _normalBodyLayer.Play(_idleNormalAnim);
+        _blackboard.character.SetMovementDirection(Vector3.zero);
         _blackboard.playerController.transform.DORotate(Quaternion.LookRotation(_blackboard.playerController.transform.forward.projectedOnPlane(Vector3.up), Vector3.up).eulerAngles, 0.2f);
     }
 
-    public override void UpdateState()
+    public override StateStatus UpdateState()
     {
-        base.UpdateState();
+        StateStatus baseStatus = base.UpdateState();
+        if (baseStatus != StateStatus.Running)
+        {
+            return baseStatus;
+        }
 
         if (_stateManager.currentState != this)
         {
-            return;
-        }
-
-        if (_blackboard.inputSO.buttonJump && _blackboard.character.IsGrounded())
-        {
-            _stateManager.ChangeState(_stateReferences.jumpState);
-            return;
+            return StateStatus.Success;
         }
 
         if (_blackboard.inputSO.move != Vector2.zero)
         {
-            _stateManager.ChangeState(_stateReferences.moveState);
-            return;
+            _stateManager.ChangeState(_stateReferences.runState);
+            return StateStatus.Success;
         }
+
+        return StateStatus.Running;
     }
 
     public override void ExitState()

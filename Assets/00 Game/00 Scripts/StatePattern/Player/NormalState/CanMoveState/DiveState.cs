@@ -1,7 +1,7 @@
 using Animancer;
 using UnityEngine;
 
-public class DiveState : AirborneMoveState
+public class DiveState : OnAirState
 {
     [SerializeField] private ClipTransition _onAirAnim;
 
@@ -11,27 +11,21 @@ public class DiveState : AirborneMoveState
         _normalBodyLayer.Play(_onAirAnim);
     }
 
-    public override void UpdateState()
+    public override StateStatus UpdateState()
     {
-        base.UpdateState();
-
-        if (_blackboard.character.IsGrounded() && _blackboard.character.GetVelocity().magnitude == 0 && _blackboard.inputSO.move == Vector2.zero)
+        StateStatus baseStatus = base.UpdateState();
+        if (baseStatus != StateStatus.Running)
         {
-            _stateManager.ChangeState(_stateReferences.endJumpState);
-            return;
-        }
-
-        if (_blackboard.character.IsGrounded() && _blackboard.character.GetVelocity().magnitude != 0)
-        {
-            _stateManager.ChangeState(_stateReferences.endJumpToRunState);
-            return;
+            return baseStatus;
         }
 
         if (_blackboard.inputSO.buttonJump && !_blackboard.character.IsGrounded())
         {
             _stateManager.ChangeState(_stateReferences.swingState);
-            return;
+            return StateStatus.Success;
         }
+
+        return StateStatus.Running;
     }
 
     public override void ExitState()

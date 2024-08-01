@@ -6,21 +6,19 @@ public class PlayerStateReferences : StateReferences
 {
     [Header("MovementState")]
     public IdleNormalState idleNormalState;
-    public MoveState moveState;
     public RunState runState;
-    public StopMoveState stopMoveState;
     public StopRunState stopRunState;
+    public LandState landState;
+    public LandLowState landLowState;
+    public LandHighState landHighState;
     public StartJumpState jumpState;
-    public OnAirState onAirState;
-    public EndJumpState endJumpState;
-    public EndJumpToWalkState endJumpToWalkState;
-    public EndJumpToRunState endJumpToRunState;
+    public FallState fallState;
     public HitState hitState;
     public DeadState deadState;
     public SwingState swingState;
     public DiveState diveState;
     public SwingJumpState swingJumpState;
-    public ClimbState climbState;
+    public ClimbIdleState climbState;
     public ClimbJumpState climbJumpState;
     public ClimbMovementState climbMovementState;
     public ExitClimbState exitClimbState;
@@ -29,10 +27,11 @@ public class PlayerStateReferences : StateReferences
     public ZipJumpState zipJumpState;
     public SwimState swimState;
 
-
     [Header("ActionState")]
     public NormalActionState normalActionState;
     public IdleActionState idleActionState;
     public MeleAttackState meleAttackState;
-    public FirstAttackState firstAttackState;
+    public NearAttackState nearAttackState;
+    public MediumAttackState mediumAttackState;
+    public FarAttackState farAttackState;
 }

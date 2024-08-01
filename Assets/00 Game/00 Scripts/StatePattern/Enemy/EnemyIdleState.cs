@@ -15,15 +15,21 @@ public class EnemyIdleState : EnemyMovementState
         _timeToMove = Random.Range(5f, 10f);
     }
 
-    public override void UpdateState()
+    public override StateStatus UpdateState()
     {
-        base.UpdateState();
+        StateStatus baseStatus = base.UpdateState();
+        if (baseStatus != StateStatus.Running)
+        {
+            return baseStatus;
+        }
 
         /*if (_elapsedTime > _timeToMove)
         {
             _stateManager.ChangeState(_stateManager.stateReferences.enemyMoveState);
             return;
         }*/
+
+        return StateStatus.Running;
     }
 
     public override void ExitState()

@@ -15,23 +15,29 @@ public class HitState : CanMoveState
         TakeDamage();
     }
 
-    public override void UpdateState()
+    public override StateStatus UpdateState()
     {
-        base.UpdateState();
+        StateStatus baseStatus = base.UpdateState();
+        if (baseStatus != StateStatus.Running)
+        {
+            return baseStatus;
+        }
 
         Movement();
 
         if (!_blackboard.playerController.onHit && _elapsedTime > _timeToIdle)
         {
             _stateManager.ChangeState(_stateReferences.idleNormalState);
-            return;
+            return StateStatus.Success;
         }
 
         if (_blackboard.playerController.playerData.currentHP <= 0)
         {
             _stateManager.ChangeState(_stateReferences.deadState);
-            return;
+            return StateStatus.Success;
         }
+
+        return StateStatus.Running;
     }
 
     public override void ExitState()

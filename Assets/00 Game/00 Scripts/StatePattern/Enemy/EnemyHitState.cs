@@ -1,4 +1,5 @@
 using Animancer;
+using NodeCanvas.Framework;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -16,19 +17,27 @@ public class EnemyHitState : EnemyNormalState
         TakeDamage();
     }
 
-    public override void UpdateState()
+    public override StateStatus UpdateState()
     {
-        base.UpdateState();
+        StateStatus baseStatus = base.UpdateState();
+        if (baseStatus != StateStatus.Running)
+        {
+            return baseStatus;
+        }
 
         if (!_blackboard.enemyController.onHit && _elapsedTime > _timeToIdle)
         {
             _stateManager.ChangeState(_stateReferences.enemyIdleState);
+            return StateStatus.Success;
         }
 
         if(_blackboard.enemyController.currentHP <= 0)
         {
             _stateManager.ChangeState(_stateReferences.enemyDeadState);
+            return StateStatus.Success;
         }
+
+        return StateStatus.Running;
     }
 
     public override void ExitState()

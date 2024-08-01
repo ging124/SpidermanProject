@@ -15,13 +15,12 @@ public class SwimState : CanMoveState
         _blackboard.character.Swim();
     }
 
-    public override void UpdateState()
+    public override StateStatus UpdateState()
     {
-        base.UpdateState();
-
-        if (_stateManager.currentState != this)
+        StateStatus baseStatus = base.UpdateState();
+        if (baseStatus != StateStatus.Running)
         {
-            return;
+            return baseStatus;
         }
 
         Movement();
@@ -30,9 +29,11 @@ public class SwimState : CanMoveState
         if (_blackboard.inputSO.buttonJump && _elapsedTime > 0.25)
         {
             _blackboard.character.LaunchCharacter(_blackboard.playerController.transform.up * 30, true);
-            _stateManager.ChangeState(_stateReferences.onAirState);
-            return;
+            _stateManager.ChangeState(_stateReferences.fallState);
+            return StateStatus.Success;
         }
+
+        return StateStatus.Running;
     }
 
     public override void ExitState()

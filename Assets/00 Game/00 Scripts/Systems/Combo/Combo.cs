@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObject/Attack/Combo")]
-public class Combo : ScriptableObject
+[Serializable]
+public class Combo
 {
     public List<Hit> hitList;
 }

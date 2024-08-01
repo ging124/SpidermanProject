@@ -11,20 +11,21 @@ public class EnemyAttack1State : EnemyAttackState
         _actionLayer.Play(_attack1Anim);
     }
 
-    public override void UpdateState()
+    public override StateStatus UpdateState()
     {
-        base.UpdateState();
-
-        if (_stateManager.currentState != this)
+        StateStatus baseStatus = base.UpdateState();
+        if (baseStatus != StateStatus.Running)
         {
-            return;
+            return baseStatus;
         }
 
         if (_blackboard.enemyController.canAttack && _elapsedTime > _timeChangeState)
         {
             //_stateManager.ChangeState(_stateManager.stateReferences.enemyAttack2State);
-            return;
+            return StateStatus.Success;
         }
+
+        return StateStatus.Running;
     }
 
     public override void ExitState()

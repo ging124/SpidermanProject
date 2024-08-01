@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StopRunState : MovementState
+public class StopRunState : GroundState
 {
     [SerializeField] private ClipTransition _stopRunAnim;
     [SerializeField] private float _timeChangeState = 0.5f;
@@ -14,32 +14,27 @@ public class StopRunState : MovementState
         _normalBodyLayer.Play(_stopRunAnim);
     }
 
-    public override void UpdateState()
+    public override StateStatus UpdateState()
     {
-        base.UpdateState();
-
-        if (_stateManager.currentState != this)
+        StateStatus baseStatus = base.UpdateState();
+        if (baseStatus != StateStatus.Running)
         {
-            return;
-        }
-
-        if (_blackboard.inputSO.buttonJump && _blackboard.character.IsGrounded())
-        {
-            _stateManager.ChangeState(_stateReferences.jumpState);
-            return;
+            return baseStatus;
         }
 
         if (_blackboard.inputSO.move != Vector2.zero)
         {
-            _stateManager.ChangeState(_stateReferences.moveState);
-            return;
+            _stateManager.ChangeState(_stateReferences.runState);
+            return StateStatus.Success;
         }
 
         if (_blackboard.inputSO.move == Vector2.zero && _elapsedTime > _timeChangeState)
         {
             _stateManager.ChangeState(_stateReferences.idleNormalState);
-            return;
+            return StateStatus.Success;
         }
+
+        return StateStatus.Running;
     }
 
     public override void ExitState()

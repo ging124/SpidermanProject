@@ -8,11 +8,6 @@ public class EnemyCanMoveState : EnemyMovementState
         _blackboard.enemyController.movement = Random.insideUnitSphere;
     }
 
-    public override void UpdateState()
-    {
-        base.UpdateState();
-    }
-
     public override void ExitState()
     {
         base.ExitState();

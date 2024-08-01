@@ -3,7 +3,7 @@ using DG.Tweening;
 using EasyCharacterMovement;
 using UnityEngine;
 
-public class SwingState : AirborneMoveState
+public class SwingState : OnAirState
 {
     [SerializeField] float swingSpeed;
     [SerializeField] float maxDistance;
@@ -46,17 +46,23 @@ public class SwingState : AirborneMoveState
         Swing();
     }
 
-    public override void UpdateState()
+    public override StateStatus UpdateState()
     {
-        base.UpdateState();
+        StateStatus baseStatus = base.UpdateState();
+        if (baseStatus != StateStatus.Running)
+        {
+            return baseStatus;
+        }
 
         DrawRope();
 
         if (!_blackboard.inputSO.buttonJump || _blackboard.playerController.rb.velocity.magnitude > 60 && _elapsedTime > 0.9f)
         {
             _stateManager.ChangeState(_stateReferences.swingJumpState);
-            return;
+            return StateStatus.Success;
         }
+
+        return StateStatus.Running;
     }
 
     public override void FixedUpdateState()

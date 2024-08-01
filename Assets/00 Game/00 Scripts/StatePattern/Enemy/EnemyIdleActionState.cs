@@ -10,16 +10,23 @@ public class EnemyIdleActionState : EnemyActionState
         base.EnterState();
     }
 
-    public override void UpdateState()
+    public override StateStatus UpdateState()
     {
-        base.UpdateState();
+        StateStatus baseStatus = base.UpdateState();
+        if (baseStatus != StateStatus.Running)
+        {
+            return baseStatus;
+        }
 
-        if(_blackboard.enemyController.canAttack 
+        if (_blackboard.enemyController.canAttack 
             && ((StateManagerAction)_stateManager).stateManagerMovement.currentState != _stateReferences.enemyHitState
             && ((StateManagerAction)_stateManager).stateManagerMovement.currentState != _stateReferences.enemyDeadState)
         {
             _stateManager.ChangeState(_stateReferences.enemyAttack1State);
+            return StateStatus.Success;
         }
+
+        return StateStatus.Running;
     }
 
     public override void ExitState()

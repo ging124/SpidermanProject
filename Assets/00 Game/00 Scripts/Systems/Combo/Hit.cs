@@ -2,11 +2,10 @@ using Animancer;
 using System;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObject/Attack/Hit")]
-public class Hit : ScriptableObject
+[Serializable]
+public class Hit
 {
     public float timeNextAttack;
-    public float timeEndAttack;
     public ClipTransition hitAnim;
 }
 
