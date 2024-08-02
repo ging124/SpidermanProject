@@ -9,15 +9,11 @@ public class FarAttackState : AttackState
     [SerializeField] private Hit _farHit;
     [SerializeField] private LineRenderer _rightLineRenderer;
 
-
     public override void EnterState()
     {
         base.EnterState();
 
-        _actionLayer.Play(_farHit.hitAnim).Events.OnEnd = () =>
-        {
-            _stateManager.ChangeState(_stateReferences.idleActionState);
-        };
+        _actionLayer.Play(_zipAnim);
     }
 
     public override StateStatus UpdateState()
@@ -46,6 +42,16 @@ public class FarAttackState : AttackState
     {
         _rightLineRenderer.positionCount = 2;
         _blackboard.playerController.SetLineRenderer(_rightLineRenderer, _blackboard.playerController.rightHand, _blackboard.playerController.enemyTarget.transform.position);
+    }
+
+    public override void MoveToTarget()
+    {
+        _rightLineRenderer.positionCount = 0;
+        base.MoveToTarget();
+        _actionLayer.Play(_farHit.hitAnim).Events.OnEnd = () =>
+        {
+            _stateManager.ChangeState(_stateReferences.idleActionState);
+        };
     }
 
 }

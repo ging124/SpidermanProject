@@ -18,9 +18,10 @@ public class AttackState : ActionState
             Vector3 distance = _blackboard.playerController.enemyTarget.transform.position - _blackboard.playerController.transform.position;
             Vector3 endValue = _blackboard.playerController.enemyTarget.transform.position - distance * 0.1f;
             _blackboard.playerController.transform.DOLookAt(endValue, 0.2f, AxisConstraint.Y);
+
+            if (distance.magnitude < 0.5f) _blackboard.character.useRootMotion = false;
         }
     }
-
 
     public override void ExitState()
     {
@@ -40,8 +41,11 @@ public class AttackState : ActionState
         enemyComponent.OnHit(damage);
     }
 
-    public void MoveToTarget()
+    public virtual void MoveToTarget()
     {
-        _blackboard.playerController.transform.DOMove(Vector3.MoveTowards(_blackboard.playerController.enemyTarget.transform.position, _blackboard.playerController.transform.position, .95f), 0.2f);
+        Vector3 target = Vector3.MoveTowards(_blackboard.playerController.enemyTarget.transform.position, _blackboard.playerController.transform.position, .95f);
+        target.y = _blackboard.playerController.transform.position.y;
+        _blackboard.playerController.transform.DOLookAt(_blackboard.playerController.enemyTarget.transform.position, 0.2f, AxisConstraint.Y);
+        _blackboard.playerController.transform.DOMove(target, 0.2f);
     }
 }

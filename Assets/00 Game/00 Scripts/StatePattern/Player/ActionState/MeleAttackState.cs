@@ -2,6 +2,7 @@ using Animancer;
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MeleAttackState : AttackState
@@ -31,10 +32,37 @@ public class MeleAttackState : AttackState
             return baseStatus;
         }
 
-        if (_blackboard.inputSO.buttonAttack && hit != listCombo[combo].hitList.Count - 1 && _elapsedTime > listCombo[combo].hitList[hit].timeNextAttack)
+        if (_blackboard.inputSO.buttonAttack && _elapsedTime > listCombo[combo].hitList[hit].timeNextAttack && _blackboard.playerController.enemyTarget == null)
         {
             _stateManager.ChangeState(_stateReferences.meleAttackState);
             return StateStatus.Success;
+        }
+
+        if (_blackboard.inputSO.buttonAttack && _blackboard.playerController.enemyTarget != null && _elapsedTime > listCombo[combo].hitList[hit].timeNextAttack)
+        {
+            Vector3 player = _blackboard.playerController.transform.position;
+            Vector3 target = _blackboard.playerController.enemyTarget.transform.position;
+            float distance = Vector3.Distance(player, target);
+            if (distance >= _blackboard.playerController.farAttackRange)
+            {
+                _stateManager.ChangeState(_stateReferences.farAttackState);
+                return StateStatus.Success;
+            }
+            else if (distance >= _blackboard.playerController.mediumAttackRange && distance < _blackboard.playerController.farAttackRange)
+            {
+                _stateManager.ChangeState(_stateReferences.mediumAttackState);
+                return StateStatus.Success;
+            }
+            else if (distance >= _blackboard.playerController.nearAttackRange && distance < _blackboard.playerController.mediumAttackRange)
+            {
+                _stateManager.ChangeState(_stateReferences.nearAttackState);
+                return StateStatus.Success;
+            }
+            else
+            {
+                _stateManager.ChangeState(_stateReferences.meleAttackState);
+                return StateStatus.Success;
+            }
         }
 
         return StateStatus.Running;
@@ -71,17 +99,5 @@ public class MeleAttackState : AttackState
     {
         hit = 0;
         combo = -1;
-    }
-
-    public float EnemyTargetDistance()
-    {
-        if (_blackboard.playerController.enemyTarget == null)
-        {
-            return 0;
-        }
-        else
-        {
-            return Vector3.Distance(_blackboard.playerController.enemyTarget.transform.position, _blackboard.playerController.transform.position);
-        }
     }
 }

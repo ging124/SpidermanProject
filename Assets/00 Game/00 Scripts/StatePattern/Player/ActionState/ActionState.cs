@@ -15,4 +15,21 @@ public class ActionState : PlayerBaseState
         _actionLayer = _blackboard.playerController.animancer.Layers[1];
         _actionLayer.SetMask(_actionMask);
     }
+
+    public override StateStatus UpdateState()
+    {
+        StateStatus baseStatus = base.UpdateState();
+        if (baseStatus != StateStatus.Running)
+        {
+            return baseStatus;
+        }
+
+        if (((StateManagerAction)_stateManager).stateManagerMovement.currentState == _stateReferences.deadState)
+        {
+            _stateManager.ChangeState(_stateReferences.normalActionState);
+            return StateStatus.Success;
+        }
+
+        return StateStatus.Running;
+    }
 }

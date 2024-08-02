@@ -4,25 +4,22 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/Mission/MissionList")]
 public class MissionList : ScriptableObject
 {
-    public BaseMission progressingMission;
+    public int currentMissionIndex = 0;
     public List<BaseMission> listMission = new List<BaseMission>();
-    public Queue<BaseMission> holdingMission;
 
     public GameEventListener completeMission;
     public GameEvent changeProgressingMission;
 
     private void OnValidate()
     {
-        holdingMission = new Queue<BaseMission>(listMission);
-
-        if (holdingMission.Count > 0) progressingMission = holdingMission.Dequeue();
+        currentMissionIndex = 0;
     }
 
     public void FinishedMission()
     {
-        if (holdingMission.Count > 0)
+        if (listMission.Count > 0)
         {
-            progressingMission = holdingMission.Dequeue();
+            currentMissionIndex++;
             changeProgressingMission.Raise();
         }
     }
@@ -34,14 +31,17 @@ public class MissionList : ScriptableObject
 
     public void InstantiateMission(Transform parent)
     {
-        if(progressingMission != null)
+        if (currentMissionIndex != listMission.Count)
         {
-            progressingMission.InstantiateMisison(parent);
+            listMission[currentMissionIndex].InstantiateMisison(parent);
         }
     }
 
     public void UpdateMission(Transform parent)
     {
-        progressingMission.UpdateMission(parent);
+        if (currentMissionIndex != listMission.Count)
+        {
+            listMission[currentMissionIndex].UpdateMission(parent);
+        }
     }
 }

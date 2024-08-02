@@ -1,14 +1,16 @@
+using Animancer;
 using System.Collections;
 using UnityEngine;
 
 public class EnemyDeadState : EnemyNormalState
 {
-
+    [SerializeField] private ClipTransition deadAnim;
     public override void EnterState()
     {
         base.EnterState();
         _blackboard.enemyController.capCollider.isTrigger = true;
         _blackboard.enemyController.rigid.isKinematic = true;
+        _normalBodyLayer.Play(deadAnim);
         StartCoroutine(PlayDeadEffect());
     }
 

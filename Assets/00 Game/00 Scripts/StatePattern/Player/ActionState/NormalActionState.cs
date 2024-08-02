@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NormalActionState : ActionState
 {
-    public float _timeToAttack = 0.15f;
+    [SerializeField] private float _timeToAttack = 0.15f;
 
     public override void EnterState()
     {
@@ -17,6 +17,41 @@ public class NormalActionState : ActionState
         if (baseStatus != StateStatus.Running)
         {
             return baseStatus;
+        }
+
+        if(_blackboard.inputSO.buttonAttack && _elapsedTime > _timeToAttack && ((StateManagerAction)_stateManager).stateManagerMovement.currentState != _stateReferences.deadState)
+        {
+            if (_blackboard.playerController.enemyTarget == null)
+            {
+                _stateManager.ChangeState(_stateReferences.meleAttackState);
+                return StateStatus.Success;
+            }
+            else
+            {
+                Vector3 player = _blackboard.playerController.transform.position;
+                Vector3 target = _blackboard.playerController.enemyTarget.transform.position;
+                float distance = Vector3.Distance(player, target);
+                if (distance >= _blackboard.playerController.farAttackRange)
+                {
+                    _stateManager.ChangeState(_stateReferences.farAttackState);
+                    return StateStatus.Success;
+                }
+                else if (distance >= _blackboard.playerController.mediumAttackRange && distance < _blackboard.playerController.farAttackRange)
+                {
+                    _stateManager.ChangeState(_stateReferences.mediumAttackState);
+                    return StateStatus.Success;
+                }
+                else if (distance >= _blackboard.playerController.nearAttackRange && distance < _blackboard.playerController.mediumAttackRange)
+                {
+                    _stateManager.ChangeState(_stateReferences.nearAttackState);
+                    return StateStatus.Success;
+                }
+                else
+                {
+                    _stateManager.ChangeState(_stateReferences.meleAttackState);
+                    return StateStatus.Success;
+                }
+            }
         }
 
         return StateStatus.Running;

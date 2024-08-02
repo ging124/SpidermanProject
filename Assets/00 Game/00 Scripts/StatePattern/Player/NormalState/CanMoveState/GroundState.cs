@@ -15,6 +15,12 @@ public class GroundState : NormalState
             return baseStatus;
         }
 
+        if (_blackboard.playerController.onHit)
+        {
+            _stateManager.ChangeState(_stateReferences.hitState);
+            return StateStatus.Success;
+        }
+
         if (_blackboard.inputSO.buttonJump && _blackboard.character.IsGrounded())
         {
             _stateManager.ChangeState(_stateReferences.jumpState);

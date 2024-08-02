@@ -31,7 +31,13 @@ public class EnemyHitState : EnemyNormalState
             return StateStatus.Success;
         }
 
-        if(_blackboard.enemyController.currentHP <= 0)
+        if (_blackboard.enemyController.onHit && _elapsedTime > _timeToIdle)
+        {
+            _stateManager.ChangeState(_stateReferences.enemyHitState);
+            return StateStatus.Success;
+        }
+
+        if (_blackboard.enemyController.currentHP <= 0)
         {
             _stateManager.ChangeState(_stateReferences.enemyDeadState);
             return StateStatus.Success;
@@ -50,7 +56,7 @@ public class EnemyHitState : EnemyNormalState
         /*_hitEffect.transform.right = Vector3.Lerp(_hitEffect.transform.right, _blackboard.enemyController.transform.position - _blackboard.enemyController.player.transform.position, rotateSpeed);
         _hitEffect.Play();*/
         _blackboard.enemyController.currentHP -= _blackboard.enemyController.hitDamage;
-        _blackboard.uIEnemyBlackboard.enemyHPBar.EnemyHPChange(_blackboard.enemyController.currentHP, _blackboard.enemyController.enemyData.maxHP.Value);
+        _blackboard.enemyController.uIEnemyBlackboard.enemyHPBar.EnemyHPChange(_blackboard.enemyController.currentHP, _blackboard.enemyController.enemyData.maxHP.Value);
         //var damageText = Instantiate(_blackboard.enemyController.enemyData.damageText, _rectTransform.position, Quaternion.identity ,_rectTransform);
         //damageText.GetComponent<DamageFloat>().damageText.text = _blackboard.enemyController.hitDamage.ToString();
 

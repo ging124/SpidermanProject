@@ -9,7 +9,6 @@ public class EnemyController : ObjectController, IHitable
     public float currentHP;
 
     public bool canAttack;
-    public bool followPlayer;
 
     public Enemy enemyData;
 
@@ -19,6 +18,7 @@ public class EnemyController : ObjectController, IHitable
     public AnimancerComponent animancer;
     public EnemyBlackboard enemyBlackboard;
     public NavMeshAgent agent;
+    public UIEnemyBlackboard uIEnemyBlackboard;
 
     private void Awake()
     {
@@ -31,13 +31,25 @@ public class EnemyController : ObjectController, IHitable
     private void OnEnable()
     {
         currentHP = enemyData.maxHP.Value;
+        uIEnemyBlackboard.enemyHPBar.EnemyHPChange(currentHP, enemyData.maxHP.Value);
     }
 
-    public void FollowPlayer()
+    private void OnDrawGizmos()
     {
-        if (!followPlayer)
+        Gizmos.DrawWireSphere(this.transform.position, enemyData.dectectionRange);
+    }
+
+
+    public bool PlayerDetection()
+    {
+        Collider[] playerDetection = Physics.OverlapSphere(this.transform.position, enemyData.dectectionRange, enemyData.playerLayer);
+        if (playerDetection.Length != 0)
         {
-            followPlayer = true;
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 }

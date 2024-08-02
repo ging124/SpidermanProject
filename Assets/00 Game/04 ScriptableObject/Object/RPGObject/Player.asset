@@ -16,5 +16,5 @@ MonoBehaviour:
   attackDamage: {fileID: 11400000, guid: 05686614ac807d342b9009e8a2548199, type: 2}
   moveSpeed: {fileID: 11400000, guid: 28d0e2c9ce49a4a41b9ccdae461c5dbb, type: 2}
   _randomDamageRange: 0.2
-  currentHP: 0
+  currentHP: 100
   jumpHeight: {fileID: 11400000, guid: 43cf8046126545843886022dd7bbd91d, type: 2}

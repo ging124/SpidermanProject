@@ -12,26 +12,6 @@ public class EnemyAttackState : EnemyActionState
         //_attackEffect.Play();
     }
 
-    public override StateStatus UpdateState()
-    {
-        StateStatus baseStatus = base.UpdateState();
-        if (baseStatus != StateStatus.Running)
-        {
-            return baseStatus;
-        }
-
-
-        if (!_blackboard.enemyController.canAttack && _elapsedTime > _timeChangeState
-            || ((StateManagerAction)_stateManager).stateManagerMovement.currentState == _stateReferences.enemyHitState
-            || ((StateManagerAction)_stateManager).stateManagerMovement.currentState == _stateReferences.enemyDeadState)
-        {
-            //_stateManager.ChangeState(_stateManager.stateReferences.enemyIdleActionState);
-            return StateStatus.Success;
-        }
-
-        return StateStatus.Running;
-    }
-
     public override void ExitState()
     {
         base.ExitState();
@@ -40,15 +20,12 @@ public class EnemyAttackState : EnemyActionState
 
     public virtual void Attack()
     {
-        Collider[] hitPlayer = Physics.OverlapSphere(attackPoint.transform.position, _blackboard.enemyController.enemyData.attackRange, _blackboard.enemyController.enemyData.playerLayer);
-        foreach (Collider player in hitPlayer)
-        {
-            player.GetComponent<PlayerController>().OnHit(_blackboard.enemyController.enemyData.RandomDamage(_blackboard.enemyController.enemyData.attackDamage.Value));
-        }
+        if (_blackboard.enemyController.player == null) return;
+
+        var targetComponent = _blackboard.enemyController.player.GetComponent<IHitable>();
+
+        var damage = _blackboard.enemyController.enemyData.RandomDamage(_blackboard.enemyController.enemyData.attackDamage.Value);
+        targetComponent.OnHit(damage);
     }
-/*
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.DrawWireSphere(attackPoint.transform.position, _blackboard.enemyController.enemyData.attackRange);
-    }*/
+
 }

@@ -23,12 +23,6 @@ public class NormalState : PlayerBaseState
         _blackboard.playerController.ZipPointCheck();
         _blackboard.playerController.EnemyCheck();
 
-        if (_blackboard.playerController.onHit)
-        {
-            _stateManager.ChangeState(_stateReferences.hitState);
-            return StateStatus.Success;
-        }
-
         if (_blackboard.playerController.onSwim && _elapsedTime > 0.25 && _stateManager.currentState != _stateReferences.swimState)
         {
             _stateManager.ChangeState(_stateReferences.swimState);

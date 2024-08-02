@@ -16,13 +16,13 @@ MonoBehaviour:
   attackDamage: {fileID: 11400000, guid: 33ebcdc7a1d1d6441a6986a553511a1f, type: 2}
   moveSpeed: {fileID: 11400000, guid: 68396926d3f876d41a90016312eae49d, type: 2}
   _randomDamageRange: 0.2
-  dectectionRange: 0
+  dectectionRange: 7
   rotateSpeed: 0
   canAttackMaxDistance: 0
   attackRange: 0
   playerLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   damageText: {fileID: 0}
   enemyDeadEffect: {fileID: 0}
   enemyPrefab: {fileID: 1685392847421013538, guid: 4d4ac4109d49d00419f83e888518c416, type: 3}

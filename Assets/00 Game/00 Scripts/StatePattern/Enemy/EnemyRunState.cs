@@ -6,6 +6,7 @@ using UnityEngine;
 public class EnemyRunState : EnemyCanMoveState
 {
     [SerializeField] ClipTransition _enemyRunAnim;
+    private float _timeToIdle;
 
     public override void EnterState()
     {
@@ -21,16 +22,10 @@ public class EnemyRunState : EnemyCanMoveState
             return baseStatus;
         }
 
-        if (_blackboard.enemyController.followPlayer == false)
+        if (_elapsedTime > _timeToIdle)
         {
             _stateManager.ChangeState(_stateReferences.enemyIdleState);
-            _blackboard.enemyController.agent.SetDestination(_blackboard.enemyController.transform.position);
             return StateStatus.Success;
-        }
-        else
-        {
-            _blackboard.enemyController.movement = _blackboard.enemyController.player.transform.position - _blackboard.enemyController.transform.position;
-            Movement(_blackboard.enemyController.player.transform.position);
         }
 
         return StateStatus.Running;
