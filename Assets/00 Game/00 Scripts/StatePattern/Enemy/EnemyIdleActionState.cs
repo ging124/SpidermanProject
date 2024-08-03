@@ -18,12 +18,11 @@ public class EnemyIdleActionState : EnemyActionState
             return baseStatus;
         }
 
-        if (_blackboard.enemyController.canAttack 
+        if (_blackboard.enemyController.canAttack
             && ((StateManagerAction)_stateManager).stateManagerMovement.currentState != _stateReferences.enemyHitState
             && ((StateManagerAction)_stateManager).stateManagerMovement.currentState != _stateReferences.enemyDeadState)
         {
             _stateManager.ChangeState(_stateReferences.enemyAttack1State);
-            return StateStatus.Success;
         }
 
         return StateStatus.Running;

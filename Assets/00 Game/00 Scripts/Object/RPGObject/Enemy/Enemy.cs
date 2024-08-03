@@ -10,6 +10,7 @@ public class Enemy : RPGObject, IFactory
     public float rotateSpeed;
     public float canAttackMaxDistance;
     public float attackRange;
+
     public LayerMask playerLayer;
 
     public GameObject damageText;

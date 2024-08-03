@@ -29,7 +29,8 @@ public class NormalState : PlayerBaseState
             return StateStatus.Success;
         }
 
-        if (_blackboard.playerController.zipPoint != Vector3.zero && _blackboard.playerController.zipLength <= _blackboard.playerController.maxZipLength && _blackboard.inputSO.buttonZip)
+        if (_blackboard.playerController.zipPoint != Vector3.zero
+            && _blackboard.playerController.zipLength <= _blackboard.playerController.maxZipLength && _blackboard.inputSO.buttonZip)
         {
             _stateManager.ChangeState(_stateReferences.startZipState);
             return StateStatus.Success;

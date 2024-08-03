@@ -18,7 +18,7 @@ public class ObjectController : MonoBehaviour, IHitable
 
     public IEnumerator SetOnHitFalse()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return 0;
         this.onHit = false;
         this.hitDamage = 0;
     }

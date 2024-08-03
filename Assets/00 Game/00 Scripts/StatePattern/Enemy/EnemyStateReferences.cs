@@ -5,7 +5,6 @@ using UnityEngine;
 public class EnemyStateReferences : StateReferences
 {
     public EnemyIdleState enemyIdleState;
-    public EnemyIdleCombatState enemyIdleCombatState;
     public EnemyMoveState enemyMoveState;
     public EnemyRunState enemyRunState;
     public EnemyHitState enemyHitState;

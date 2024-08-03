@@ -23,11 +23,11 @@ public class EnemyIdleState : EnemyMovementState
             return baseStatus;
         }
 
-        /*if (_elapsedTime > _timeToMove)
+        if (_elapsedTime > _timeToMove)
         {
-            _stateManager.ChangeState(_stateManager.stateReferences.enemyMoveState);
-            return;
-        }*/
+            _stateManager.ChangeState(_stateReferences.enemyMoveState);
+            return StateStatus.Success;
+        }
 
         return StateStatus.Running;
     }

@@ -15,9 +15,17 @@ public class EnemyMovementState : EnemyNormalState
             return baseStatus;
         }
 
+        PlayerDetection();
+
         if (_blackboard.enemyController.onHit)
         {
             _stateManager.ChangeState(_stateReferences.enemyHitState);
+            return StateStatus.Success;
+        }
+
+        if (_blackboard.enemyController.followPlayer == true && _stateManager.currentState != _stateReferences.enemyRunState)
+        {
+            _stateManager.ChangeState(_stateReferences.enemyRunState);
             return StateStatus.Success;
         }
 
@@ -29,5 +37,21 @@ public class EnemyMovementState : EnemyNormalState
         base.ExitState();
     }
 
-    
+    public void PlayerDetection()
+    {
+        Collider[] playerDetection = Physics.OverlapSphere(_blackboard.enemyController.transform.position, _blackboard.enemyController.enemyData.dectectionRange, _blackboard.enemyController.enemyData.playerLayer);
+        if (playerDetection.Length != 0)
+        {
+            _blackboard.enemyController.followPlayer = true;
+        }
+        else
+        {
+            _blackboard.enemyController.followPlayer = false;
+        }
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(_blackboard.enemyController.transform.position, _blackboard.enemyController.enemyData.dectectionRange);
+    }
 }

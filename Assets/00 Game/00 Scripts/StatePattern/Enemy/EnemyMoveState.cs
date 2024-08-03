@@ -13,6 +13,7 @@ public class EnemyMoveState : EnemyCanMoveState
     {
         base.EnterState();
         _normalBodyLayer.Play(_enemyMoveAnim);
+        _timeToIdle = Random.Range(1f, 5f);
     }
 
     public override StateStatus UpdateState()
@@ -23,7 +24,10 @@ public class EnemyMoveState : EnemyCanMoveState
             return baseStatus;
         }
 
-        if(_elapsedTime > _timeToIdle)
+        Movement(_blackboard.enemyController.enemyData.moveSpeed.Value);
+
+
+        if (_elapsedTime > _timeToIdle)
         {
             _stateManager.ChangeState(_stateReferences.enemyIdleState);
             return StateStatus.Success;
