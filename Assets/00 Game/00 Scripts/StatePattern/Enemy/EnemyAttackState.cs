@@ -2,14 +2,33 @@ using UnityEngine;
 
 public class EnemyAttackState : EnemyActionState
 {
-    [SerializeField] protected float _timeChangeState = 0.25f;
     //[SerializeField] protected ParticleSystem _attackEffect;
-    [SerializeField] protected Transform attackPoint;
+    [SerializeField] protected float _timeChangeState = 0.25f;
+
 
     public override void EnterState()
     {
         base.EnterState();
         //_attackEffect.Play();
+    }
+
+    public override StateStatus UpdateState()
+    {
+        StateStatus baseStatus = base.UpdateState();
+        if (baseStatus != StateStatus.Running)
+        {
+            return baseStatus;
+        }
+
+        if (!_blackboard.enemyController.canAttack && _elapsedTime > _timeChangeState
+            || ((StateManagerAction)_stateManager).stateManagerMovement.currentState == _stateReferences.enemyHitState
+            || ((StateManagerAction)_stateManager).stateManagerMovement.currentState == _stateReferences.enemyDeadState)
+        {
+            _stateManager.ChangeState(_stateReferences.enemyIdleActionState);
+            return StateStatus.Success;
+        }
+
+        return StateStatus.Running;
     }
 
     public override void ExitState()
@@ -27,5 +46,4 @@ public class EnemyAttackState : EnemyActionState
         var damage = _blackboard.enemyController.enemyData.RandomDamage(_blackboard.enemyController.enemyData.attackDamage.Value);
         targetComponent.OnHit(damage);
     }
-
 }

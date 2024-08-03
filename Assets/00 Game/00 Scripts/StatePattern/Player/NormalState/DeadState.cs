@@ -12,6 +12,10 @@ public class DeadState : NormalState
         base.EnterState();
         _normalBodyLayer.Play(_deadAnim);
     }
+    public override StateStatus UpdateState()
+    {
+        return StateStatus.Running;
+    }
 
     public override void ExitState()
     {

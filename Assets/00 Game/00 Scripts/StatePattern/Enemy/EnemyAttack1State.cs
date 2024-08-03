@@ -21,12 +21,13 @@ public class EnemyAttack1State : EnemyAttackState
 
         if (_blackboard.enemyController.canAttack && _elapsedTime > _timeChangeState)
         {
-            //_stateManager.ChangeState(_stateManager.stateReferences.enemyAttack2State);
+            _stateManager.ChangeState(_stateReferences.enemyAttack2State);
             return StateStatus.Success;
         }
 
         return StateStatus.Running;
     }
+
 
     public override void ExitState()
     {

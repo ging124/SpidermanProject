@@ -16,11 +16,6 @@ public class EnemyDeadState : EnemyNormalState
 
     public override StateStatus UpdateState()
     {
-        StateStatus baseStatus = base.UpdateState();
-        if (baseStatus != StateStatus.Running)
-        {
-            return baseStatus;
-        }
 
         if (_blackboard.enemyController.currentHP == _blackboard.enemyController.enemyData.maxHP.Value)
         {

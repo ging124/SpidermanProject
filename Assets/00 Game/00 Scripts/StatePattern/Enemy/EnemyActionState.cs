@@ -23,10 +23,9 @@ public class EnemyActionState : EnemyBaseState
             return baseStatus;
         }
 
+        CanAttack();
 
-        //CanAttack();
-
-        return StateStatus.Success;
+        return StateStatus.Running;
     }
 
     public override void ExitState()
@@ -34,7 +33,7 @@ public class EnemyActionState : EnemyBaseState
         base.ExitState();
     }
 
-    /*public virtual void CanAttack()
+    public virtual void CanAttack()
     {
         if (Physics.Raycast(_blackboard.enemyController.transform.position, _blackboard.enemyController.transform.forward, _blackboard.enemyController.enemyData.canAttackMaxDistance, _blackboard.enemyController.enemyData.playerLayer))
         {
@@ -44,10 +43,10 @@ public class EnemyActionState : EnemyBaseState
         {
             _blackboard.enemyController.canAttack = false;
         }
-    }*/
+    }
 
-    /*void OnDrawGizmosSelected()
+    void OnDrawGizmosSelected()
     {
         Gizmos.DrawRay(_blackboard.enemyController.transform.position, _blackboard.enemyController.transform.forward);
-    }*/
+    }
 }

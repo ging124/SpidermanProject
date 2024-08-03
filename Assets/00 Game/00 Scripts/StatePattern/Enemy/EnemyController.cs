@@ -8,9 +8,11 @@ public class EnemyController : ObjectController, IHitable
 
     public float currentHP;
 
+    public Enemy enemyData;
+
+    public bool followPlayer;
     public bool canAttack;
 
-    public Enemy enemyData;
 
     public PlayerController player;
     public CapsuleCollider capCollider;
@@ -37,19 +39,5 @@ public class EnemyController : ObjectController, IHitable
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(this.transform.position, enemyData.dectectionRange);
-    }
-
-
-    public bool PlayerDetection()
-    {
-        Collider[] playerDetection = Physics.OverlapSphere(this.transform.position, enemyData.dectectionRange, enemyData.playerLayer);
-        if (playerDetection.Length != 0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
     }
 }

@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 049b289c50c07434f96b86a572a8cf73, type: 3}
   m_Name: MainMission
   m_EditorClassIdentifier: 
-  progressingMission: {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
+  currentMissionIndex: 0
   listMission:
   - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
-  - {fileID: 11400000, guid: 5b8e89aa6cdcacf47b3540d5282ebe62, type: 2}
+  - {fileID: 11400000, guid: f607bf1f997a28049b247af8b355871f, type: 2}
   - {fileID: 11400000, guid: fbc91539867c0af4f92d6839e0b62624, type: 2}
+  - {fileID: 11400000, guid: 5b8e89aa6cdcacf47b3540d5282ebe62, type: 2}
   completeMission:
     gameEvent: {fileID: 11400000, guid: e9bf2e8a6ae3fb440a88cc195654f1b4, type: 2}
     response:
