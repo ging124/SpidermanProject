@@ -1,7 +1,9 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
-
-public class BaseMission : ScriptableObject
+[Serializable]
+public class BaseMission
 {
     [Header("CreateMission")]
     public Vector3 spawnPosition;
@@ -14,6 +16,8 @@ public class BaseMission : ScriptableObject
     [Header("ChangeMissionEvent")]
     public GameEvent completeMisison;
 
+    public List<MissionSteps> missionSteps = new List<MissionSteps>();
+    public int currentMissionStepsIndex = 0;
 
     public virtual bool CheckCompleteMission()
     {

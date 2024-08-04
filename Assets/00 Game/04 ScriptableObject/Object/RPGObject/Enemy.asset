@@ -18,7 +18,7 @@ MonoBehaviour:
   _randomDamageRange: 0.2
   dectectionRange: 7
   rotateSpeed: 30
-  canAttackMaxDistance: 5.89
+  canAttackMaxDistance: 3
   attackRange: 3
   playerLayer:
     serializedVersion: 2

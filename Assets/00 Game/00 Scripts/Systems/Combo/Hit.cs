@@ -7,5 +7,8 @@ public class Hit
 {
     public float timeNextAttack;
     public ClipTransition hitAnim;
+
 }
+
+
 

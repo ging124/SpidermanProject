@@ -10,7 +10,6 @@ public class EnemyRunState : EnemyCanMoveState
     public override void EnterState()
     {
         base.EnterState();
-        Debug.Log("Run");
         _normalBodyLayer.Play(_enemyRunAnim);
     }
 
@@ -22,10 +21,10 @@ public class EnemyRunState : EnemyCanMoveState
             return baseStatus;
         }
 
-        if (_blackboard.enemyController.followPlayer == false)
+        if (_blackboard.enemyController.followPlayer == false
+            || Vector3.Distance(_blackboard.enemyController.transform.position, _blackboard.enemyController.player.transform.position) < 1.5f)
         {
             _stateManager.ChangeState(_stateReferences.enemyIdleState);
-            _blackboard.enemyController.agent.SetDestination(_blackboard.enemyController.transform.position);
             return StateStatus.Success;
         }
         else
@@ -39,6 +38,7 @@ public class EnemyRunState : EnemyCanMoveState
 
     public override void ExitState()
     {
+        _blackboard.enemyController.agent.SetDestination(_blackboard.enemyController.transform.position);
         base.ExitState();
     }
 }

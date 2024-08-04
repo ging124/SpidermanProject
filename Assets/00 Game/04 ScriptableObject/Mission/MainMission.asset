@@ -14,10 +14,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentMissionIndex: 0
   listMission:
-  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
-  - {fileID: 11400000, guid: f607bf1f997a28049b247af8b355871f, type: 2}
-  - {fileID: 11400000, guid: fbc91539867c0af4f92d6839e0b62624, type: 2}
-  - {fileID: 11400000, guid: 5b8e89aa6cdcacf47b3540d5282ebe62, type: 2}
+  - spawnPosition: {x: 0, y: 0, z: 0}
+    detectRangeMission: 0
+    moneyReward: 0
+    expReward: 0
+    completeMisison: {fileID: 11400000, guid: e9bf2e8a6ae3fb440a88cc195654f1b4, type: 2}
+    missionSteps: []
+    currentMissionStepsIndex: 0
+  - spawnPosition: {x: 0, y: 0, z: 0}
+    detectRangeMission: 0
+    moneyReward: 0
+    expReward: 0
+    completeMisison: {fileID: 11400000, guid: e9bf2e8a6ae3fb440a88cc195654f1b4, type: 2}
+    missionSteps: []
+    currentMissionStepsIndex: 0
+  - spawnPosition: {x: 0, y: 0, z: 0}
+    detectRangeMission: 0
+    moneyReward: 0
+    expReward: 0
+    completeMisison: {fileID: 11400000, guid: e9bf2e8a6ae3fb440a88cc195654f1b4, type: 2}
+    missionSteps: []
+    currentMissionStepsIndex: 0
+  - spawnPosition: {x: 0, y: 0, z: 0}
+    detectRangeMission: 0
+    moneyReward: 0
+    expReward: 0
+    completeMisison: {fileID: 11400000, guid: e9bf2e8a6ae3fb440a88cc195654f1b4, type: 2}
+    missionSteps: []
+    currentMissionStepsIndex: 0
   completeMission:
     gameEvent: {fileID: 11400000, guid: e9bf2e8a6ae3fb440a88cc195654f1b4, type: 2}
     response:

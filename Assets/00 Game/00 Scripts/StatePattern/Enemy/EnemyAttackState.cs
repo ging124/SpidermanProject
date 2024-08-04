@@ -21,10 +21,16 @@ public class EnemyAttackState : EnemyActionState
         }
 
         if (!_blackboard.enemyController.canAttack && _elapsedTime > _timeChangeState
-            || ((StateManagerAction)_stateManager).stateManagerMovement.currentState == _stateReferences.enemyHitState
-            || ((StateManagerAction)_stateManager).stateManagerMovement.currentState == _stateReferences.enemyDeadState)
+            || _stateManager.currentState == _stateReferences.enemyHitState
+            || _stateManager.currentState == _stateReferences.enemyDeadState)
         {
-            _stateManager.ChangeState(_stateReferences.enemyIdleActionState);
+            _stateManager.ChangeState(_stateReferences.enemyIdleState);
+            return StateStatus.Success;
+        }
+
+        if (_blackboard.enemyController.onHit)
+        {
+            _stateManager.ChangeState(_stateReferences.enemyHitState);
             return StateStatus.Success;
         }
 

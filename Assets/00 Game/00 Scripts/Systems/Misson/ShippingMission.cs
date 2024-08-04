@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "ScriptableObject/Mission/ShippingMission")]
-public class ShippingMission : BaseMission
+public class ShippingMission : MissionSteps
 {
     [Header("MissionData")]
     public List<ShippingPointPosition> listShippingPointPosition;
@@ -10,7 +10,7 @@ public class ShippingMission : BaseMission
     [Header("MissionProgress")]
     public int point = 0;
 
-    public override bool CheckCompleteMission()
+    public override bool CheckCompleteStep()
     {
         if (point == listShippingPointPosition.Count)
         {
@@ -22,25 +22,25 @@ public class ShippingMission : BaseMission
         }
     }
 
-    public override bool CheckFailedMission()
+    public override bool CheckFailedStep()
     {
         return true;
     }
 
-    public override void InstantiateMisison(Transform parent)
+    public override void InstantiateStep(Transform parent)
     {
         point = 0;
 
         SpawnWave(parent);
     }
 
-    public override void UpdateMission(Transform parent)
+    public override void UpdateStep(Transform parent)
     {
         point++;
 
-        if (CheckCompleteMission())
+        if (CheckCompleteStep())
         {
-            completeMisison.Raise();
+            completeStep.Raise();
         }
 
     }

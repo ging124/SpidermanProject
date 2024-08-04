@@ -10,7 +10,6 @@ public class EnemyStateReferences : StateReferences
     public EnemyHitState enemyHitState;
     public EnemyDeadState enemyDeadState;
 
-    public EnemyIdleActionState enemyIdleActionState;
     public EnemyAttack1State enemyAttack1State;
     public EnemyAttack2State enemyAttack2State;
 }

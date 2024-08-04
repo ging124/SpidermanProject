@@ -9,10 +9,10 @@ public class EnemyController : ObjectController, IHitable
     public float currentHP;
 
     public Enemy enemyData;
+    public EnemyManager enemyManager;
 
     public bool followPlayer;
     public bool canAttack;
-
 
     public PlayerController player;
     public CapsuleCollider capCollider;
@@ -34,10 +34,11 @@ public class EnemyController : ObjectController, IHitable
     {
         currentHP = enemyData.maxHP.Value;
         uIEnemyBlackboard.enemyHPBar.EnemyHPChange(currentHP, enemyData.maxHP.Value);
+        enemyManager.Add(enemyData);
     }
 
-    private void OnDrawGizmos()
+    private void OnDisable()
     {
-        Gizmos.DrawWireSphere(this.transform.position, enemyData.dectectionRange);
+        enemyManager.Remove(enemyData);
     }
 }

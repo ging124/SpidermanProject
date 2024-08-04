@@ -13,10 +13,7 @@ MonoBehaviour:
   m_Name: Mission 6
   m_EditorClassIdentifier: 
   spawnPosition: {x: -11.39, y: 71, z: 0}
-  detectRangeMission: 10
-  moneyReward: 0
-  expReward: 0
-  completeMisison: {fileID: 11400000, guid: e9bf2e8a6ae3fb440a88cc195654f1b4, type: 2}
+  completeStep: {fileID: 11400000, guid: 03df3802ee641204b83f5965c49546ef, type: 2}
   listShippingPointPosition:
   - position: {x: -5, y: 71, z: -5}
     shippingPoint: {fileID: 11400000, guid: 4c994c9ee8d912449873542d1b625f98, type: 2}

@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class FightingMission : BaseMission
+public class FightingMission : MissionSteps
 {
 
     [Header("MissionData")]
     public List<Waves> waveListData;
+    public float fightingMissionRange;
 
     [Header("MissionProgress")]
     public int enemies = 0;
     public int waves = 0;
 
-    public override bool CheckCompleteMission()
+    public override bool CheckCompleteStep()
     {
         if(waves != waveListData.Count - 1) return false;
 
@@ -33,12 +34,12 @@ public class FightingMission : BaseMission
         }
     }
 
-    public override bool CheckFailedMission()
+    public override bool CheckFailedStep()
     {
         return true;
     }
 
-    public override void InstantiateMisison(Transform parent)
+    public override void InstantiateStep(Transform parent)
     {
 
         enemies = 0;
@@ -47,7 +48,7 @@ public class FightingMission : BaseMission
         SpawnWave(parent, waves);
     }
 
-    public override void UpdateMission(Transform parent)
+    public override void UpdateStep(Transform parent)
     {
         enemies++;
 
@@ -57,9 +58,9 @@ public class FightingMission : BaseMission
             SpawnWave(parent, waves);
         }
 
-        if (CheckCompleteMission())
+        if (CheckCompleteStep())
         {
-            completeMisison.Raise();
+            completeStep.Raise();
         }
 
     }
@@ -68,7 +69,7 @@ public class FightingMission : BaseMission
     {
         foreach (Enemy enemyes in waveListData[waves].enemies)
         {
-            float randomRange = UnityEngine.Random.Range(0, detectRangeMission);
+            float randomRange = UnityEngine.Random.Range(0, fightingMissionRange);
             enemyes.Spawn(new Vector3(randomRange, 0, randomRange) + spawnPosition, Quaternion.identity, parent);
         }
     }

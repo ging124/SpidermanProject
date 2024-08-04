@@ -48,7 +48,6 @@ public class HitState : CanMoveState
     public void TakeDamage()
     {
         int damageValue = _blackboard.playerController.hitDamage;
-        Debug.Log(damageValue);
         _blackboard.playerController.currentHP -= damageValue;
 
         if (_blackboard.playerController.currentHP <= 0)
