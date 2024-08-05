@@ -7,17 +7,12 @@ public class BaseMission
 {
     [Header("CreateMission")]
     public Vector3 spawnPosition;
-    public float detectRangeMission;
 
-    [Header("RewardMission")]
-    public float moneyReward;
-    public float expReward;
-
-    [Header("ChangeMissionEvent")]
-    public GameEvent completeMisison;
+    [Header("ChangeStepEvent")]
+    public GameEvent completeStep;
 
     public List<MissionSteps> missionSteps = new List<MissionSteps>();
-    public int currentMissionStepsIndex = 0;
+    public int currentStepsIndex = 0;
 
     public virtual bool CheckCompleteMission()
     {
@@ -36,10 +31,17 @@ public class BaseMission
 
     public virtual void InstantiateMisison(Transform parent)
     {
+        if (currentStepsIndex != missionSteps.Count)
+        {
+            missionSteps[currentStepsIndex].InstantiateStep(spawnPosition, parent);
+        }
     }
 
     public virtual void UpdateMission(Transform parent)
     {
-
+        if (currentStepsIndex != missionSteps.Count)
+        {
+            missionSteps[currentStepsIndex].UpdateStep(parent);
+        }
     }
 }

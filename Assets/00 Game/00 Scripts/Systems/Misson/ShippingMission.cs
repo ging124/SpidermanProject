@@ -27,7 +27,7 @@ public class ShippingMission : MissionSteps
         return true;
     }
 
-    public override void InstantiateStep(Transform parent)
+    public override void InstantiateStep(Vector3 position, Transform parent)
     {
         point = 0;
 

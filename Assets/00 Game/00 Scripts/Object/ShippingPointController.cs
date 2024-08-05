@@ -11,9 +11,8 @@ public class ShippingPointController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("lul");
-            /*shippingDone?.Raise();
-            shippingPoint.Despawn(this.gameObject);*/
+            shippingDone?.Raise();
+            shippingPoint.Despawn(this.gameObject);
         }
     }
 }

@@ -14,34 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentMissionIndex: 0
   listMission:
-  - spawnPosition: {x: 0, y: 0, z: 0}
-    detectRangeMission: 0
-    moneyReward: 0
-    expReward: 0
-    completeMisison: {fileID: 11400000, guid: e9bf2e8a6ae3fb440a88cc195654f1b4, type: 2}
-    missionSteps: []
-    currentMissionStepsIndex: 0
-  - spawnPosition: {x: 0, y: 0, z: 0}
-    detectRangeMission: 0
-    moneyReward: 0
-    expReward: 0
-    completeMisison: {fileID: 11400000, guid: e9bf2e8a6ae3fb440a88cc195654f1b4, type: 2}
-    missionSteps: []
-    currentMissionStepsIndex: 0
-  - spawnPosition: {x: 0, y: 0, z: 0}
-    detectRangeMission: 0
-    moneyReward: 0
-    expReward: 0
-    completeMisison: {fileID: 11400000, guid: e9bf2e8a6ae3fb440a88cc195654f1b4, type: 2}
-    missionSteps: []
-    currentMissionStepsIndex: 0
-  - spawnPosition: {x: 0, y: 0, z: 0}
-    detectRangeMission: 0
-    moneyReward: 0
-    expReward: 0
-    completeMisison: {fileID: 11400000, guid: e9bf2e8a6ae3fb440a88cc195654f1b4, type: 2}
-    missionSteps: []
-    currentMissionStepsIndex: 0
+  - spawnPosition: {x: -5, y: 71, z: -5}
+    completeStep: {fileID: 11400000, guid: 3c64bcd9add7fc34a90f9eb544730ff0, type: 2}
+    missionSteps:
+    - {fileID: 11400000, guid: d6bf8ea0681c6c843b1db058d4a1f22e, type: 2}
+    - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
+    currentStepsIndex: 0
   completeMission:
     gameEvent: {fileID: 11400000, guid: e9bf2e8a6ae3fb440a88cc195654f1b4, type: 2}
     response:

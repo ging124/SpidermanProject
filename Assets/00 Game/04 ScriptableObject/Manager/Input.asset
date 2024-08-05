@@ -17,6 +17,6 @@ MonoBehaviour:
   buttonJump: 0
   buttonRoll: 0
   buttonAttack: 0
-  buttonSwing: 0
   buttonZip: 0
+  buttonDodge: 0
   disableInput: 0

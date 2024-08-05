@@ -12,6 +12,7 @@ public class LandLowState : GroundState
     public override void EnterState()
     {
         base.EnterState();
+        _blackboard.character.SetMovementDirection(Vector3.zero);
         _normalBodyLayer.Play(_landLowAnim);
     }
 
@@ -22,9 +23,6 @@ public class LandLowState : GroundState
         {
             return baseStatus;
         }
-
-        if (_blackboard.playerController.movement.magnitude > 0.1f) _blackboard.character.SetMovementDirection(_blackboard.playerController.movement);
-        else _blackboard.character.SetMovementDirection(_blackboard.playerController.transform.forward);
 
         if (_blackboard.character.IsGrounded() && _blackboard.playerController.movement == Vector3.zero  && _elapsedTime > _timeToChangeState)
         {

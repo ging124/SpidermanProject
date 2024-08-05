@@ -15,9 +15,9 @@ public class GroundState : NormalState
             return baseStatus;
         }
 
-        if (_blackboard.playerController.onHit)
+        if (_stateManager.currentState != _stateReferences.dodgeState && _blackboard.inputSO.buttonDodge)
         {
-            _stateManager.ChangeState(_stateReferences.hitState);
+            _stateManager.ChangeState(_stateReferences.dodgeState);
             return StateStatus.Success;
         }
 

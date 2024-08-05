@@ -12,11 +12,18 @@ public class InputSO : ScriptableObject
     public bool buttonRoll;
     public bool buttonAttack;
     public bool buttonZip;
+    public bool buttonDodge;
+
 
     public bool disableInput;
 
     public void DisableInput(bool disable)
     {
         disableInput = disable;
+    }
+
+    private void OnValidate()
+    {
+        buttonRoll = false;
     }
 }

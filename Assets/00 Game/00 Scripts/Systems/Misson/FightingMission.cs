@@ -5,6 +5,8 @@ using UnityEngine;
 [Serializable]
 public class FightingMission : MissionSteps
 {
+    [Header("CreateStep")]
+    public Vector3 spawnPosition;
 
     [Header("MissionData")]
     public List<Waves> waveListData;
@@ -39,8 +41,9 @@ public class FightingMission : MissionSteps
         return true;
     }
 
-    public override void InstantiateStep(Transform parent)
+    public override void InstantiateStep(Vector3 position, Transform parent)
     {
+        spawnPosition = position;
 
         enemies = 0;
         waves = 0;

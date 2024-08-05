@@ -8,11 +8,18 @@ using UnityEngine.UI;
 
 public class PlayerController : ObjectController
 {
-    [Header("----InputValue----")]
+    [Header("----PlayerController----")]
     public LayerMask enemyLayer;
+    public float currentHP;
 
+    [Header("----Model----")]
+    public Transform modelHolder;
+    public Skin currentSkin;
+    public Transform leftHand;
+    public Transform rightHand;
+    public SkinnedMeshRenderer skinnedMeshRenderer;
 
-    [Header("----WallRunValue----")]
+    [Header("----AttackValue----")]
     public float attackRangeDetection;
     public float nearAttackRange;
     public float mediumAttackRange;
@@ -21,11 +28,6 @@ public class PlayerController : ObjectController
     public Collider[] hitEnemy;
     public Collider enemyTarget;
     RaycastHit hit;
-
-    public Transform leftLeg;
-    public Transform rightLeg;
-    public Transform leftHand;
-    public Transform rightHand;
 
     [Header("----WallRunValue----")]
     public LayerMask wallLayer;
@@ -45,7 +47,9 @@ public class PlayerController : ObjectController
     public bool wallFront;
     public Vector3 zipPoint;
 
-    public float currentHP;
+    [Header("----GameEvent----")]
+    [SerializeField] private GameEventListener<Item> changeSkin; 
+
 
     [Header("----Component----")]
     public Player playerData;
@@ -53,7 +57,6 @@ public class PlayerController : ObjectController
     public AnimancerComponent animancer;
     public Rigidbody rb;
     public Transform cam;
-    public InputSO inputSO;
 
     void Awake()
     {
@@ -61,6 +64,58 @@ public class PlayerController : ObjectController
         rb = this.GetComponent<Rigidbody>();
         animancer = this.GetComponent<AnimancerComponent>();
         currentHP = playerData.maxHP.Value;
+        InnitSkin();
+    }
+
+    private void OnEnable()
+    {
+        changeSkin.Register();
+    }
+
+    private void OnDisable()
+    {
+        changeSkin.Unregister();
+    }
+
+    void InnitSkin()
+    {
+        var currentModel= modelHolder.GetComponentInChildren<SkinController>();
+        var skin = currentSkin.Spawn(this.transform.position, this.transform.rotation, modelHolder);
+
+        animancer.Animator.avatar = currentSkin.avatar;
+        skinnedMeshRenderer = skin.GetComponentInChildren<SkinnedMeshRenderer>();
+        Transform[] bones = skinnedMeshRenderer.bones;
+
+        foreach (Transform bone in bones)
+        {
+            if (bone.name.ToLower().Contains("lefthand"))
+            {
+                leftHand = bone.transform;
+            }
+
+            if (bone.name.ToLower().Contains("righthand"))
+            {
+                rightHand = bone.transform;
+            }
+
+            if (bone.name.ToLower().Contains("hand_l"))
+            {
+                leftHand = bone.transform;
+            }
+
+            if (bone.name.ToLower().Contains("hand_r"))
+            {
+                rightHand = bone.transform;
+            }
+        }
+    }
+
+    public void ChangeSkin(Item item)
+    {
+        var skin = modelHolder.GetComponentInChildren<SkinController>();
+        currentSkin.Despawn(skin.gameObject);
+        currentSkin = (Skin)item;
+        InnitSkin();
     }
 
     private void OnTriggerEnter(Collider other)

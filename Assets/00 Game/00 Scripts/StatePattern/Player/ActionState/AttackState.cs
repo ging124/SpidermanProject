@@ -23,6 +23,24 @@ public class AttackState : ActionState
         }
     }
 
+    public override StateStatus UpdateState()
+    {
+        StateStatus baseStatus = base.UpdateState();
+        if (baseStatus != StateStatus.Running)
+        {
+            return baseStatus;
+        }
+
+        if (((StateManagerAction)_stateManager).stateManagerMovement.currentState == _stateReferences.dodgeState)
+        {
+            _stateReferences.meleAttackState.ResetCombo();
+            _stateManager.ChangeState(_stateReferences.normalActionState);
+            return StateStatus.Success;
+        }
+
+        return StateStatus.Running;
+    }
+
     public override void ExitState()
     {
         _blackboard.character.useRootMotion = false;

@@ -11,7 +11,7 @@ public class HitState : CanMoveState
     public override void EnterState()
     {
         base.EnterState();
-        _normalBodyLayer.Play(_hitAnim);
+        _normalBodyLayer.Play(_hitAnim, 0.25f, FadeMode.FromStart);
         TakeDamage();
     }
 

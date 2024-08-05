@@ -3,9 +3,6 @@ using UnityEngine;
 
 public class MissionSteps : ScriptableObject
 {
-    [Header("CreateStep")]
-    public Vector3 spawnPosition;
-
     [Header("ChangeMissionEvent")]
     public GameEvent completeStep;
 
@@ -24,7 +21,7 @@ public class MissionSteps : ScriptableObject
         return false;
     }
 
-    public virtual void InstantiateStep(Transform parent)
+    public virtual void InstantiateStep(Vector3 position, Transform parent)
     {
     }
 

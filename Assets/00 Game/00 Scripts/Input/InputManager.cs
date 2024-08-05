@@ -16,6 +16,7 @@ public class InputManager : MonoBehaviour
     [SerializeField] private KeyCode _jumpKey;
     [SerializeField] private KeyCode _zipKey;
     [SerializeField] private KeyCode _attackKey;
+    [SerializeField] private KeyCode _dodgeKey;
 
 
     [Header("Input value(Readonly)")]
@@ -86,6 +87,16 @@ public class InputManager : MonoBehaviour
             if (Input.GetKeyUp(_jumpKey))
             {
                 ButtonJumpUp();
+            }
+
+            if (Input.GetKeyDown(_dodgeKey))
+            {
+                ButtonDodgeDown();
+            }
+
+            if (Input.GetKeyUp(_dodgeKey))
+            {
+                ButtonDodgeUp();
             }
 
             if (Input.GetKeyUp(_zipKey))
@@ -248,13 +259,23 @@ public class InputManager : MonoBehaviour
     public void ButtonZip()
     {
         inputSO.buttonZip = true;
-        StartCoroutine(ButtonJumpZip());
+        StartCoroutine(ButtonZipFalse());
     }
 
-    IEnumerator ButtonJumpZip()
+    IEnumerator ButtonZipFalse()
     {
         yield return 0;
         inputSO.buttonZip = false;
+    }
+
+    public void ButtonDodgeDown()
+    {
+        inputSO.buttonDodge = true;
+    }
+
+    public void ButtonDodgeUp()
+    {
+        inputSO.buttonDodge = false;
     }
 }
 
