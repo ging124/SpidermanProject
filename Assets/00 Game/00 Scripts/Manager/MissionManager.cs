@@ -3,19 +3,19 @@ using UnityEngine;
 public class MissionManager : MonoBehaviour
 {
     [SerializeField] MissionList missionManagerSO;
-    [SerializeField] GameEventListener updateMissionEvent;
+    [SerializeField] GameEventListener updateStepEvent;
     [SerializeField] GameEventListener changeMissionEvent;
 
     private void Awake()
     {
         InstantiateMission();
-        updateMissionEvent.Register();
+        updateStepEvent.Register();
         changeMissionEvent.Register();
     }
 
     private void OnDestroy()
     {
-        updateMissionEvent.Unregister();
+        updateStepEvent.Unregister();
         changeMissionEvent.Unregister();
     }
 
@@ -29,8 +29,8 @@ public class MissionManager : MonoBehaviour
         missionManagerSO.CheckFailedMission();
     }
 
-    public void UpdateMission()
+    public void UpdateStep()
     {
-        missionManagerSO.UpdateMission(this.transform);
+        missionManagerSO.UpdateStep(this.transform);
     }
 }

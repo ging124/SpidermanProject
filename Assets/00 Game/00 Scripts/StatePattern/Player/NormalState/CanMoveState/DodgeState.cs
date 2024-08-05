@@ -6,7 +6,9 @@ using UnityEngine;
 
 public class DodgeState : NormalState
 {
-    [SerializeField] private ClipTransition _dodgeAnim;
+    [SerializeField] private ClipTransition _dodgeLAnim;
+    [SerializeField] private ClipTransition _dodgeRAnim;
+
     [SerializeField] private ClipTransition _dodgeBackAnim;
 
     [SerializeField] private float _timeToIdle;
@@ -55,11 +57,22 @@ public class DodgeState : NormalState
         {
             Vector2 input = _blackboard.inputSO.move;
             Vector3 horizontal = _blackboard.playerController.cam.transform.right * input.x;
-            _normalBodyLayer.Play(_dodgeAnim, 0.25f, FadeMode.FromStart).Events.OnEnd = () =>
+            if(input.x >= 0)
             {
-                _stateManager.ChangeState(_stateReferences.idleNormalState);
+                _normalBodyLayer.Play(_dodgeRAnim, 0.25f, FadeMode.FromStart).Events.OnEnd = () =>
+                {
+                    _stateManager.ChangeState(_stateReferences.idleNormalState);
 
-            };
+                };
+            }
+            else
+            {
+                _normalBodyLayer.Play(_dodgeLAnim, 0.25f, FadeMode.FromStart).Events.OnEnd = () =>
+                {
+                    _stateManager.ChangeState(_stateReferences.idleNormalState);
+
+                };
+            }
             _blackboard.playerController.transform.DOMove(_blackboard.playerController.transform.position + horizontal, 0.2f);
         }
     }

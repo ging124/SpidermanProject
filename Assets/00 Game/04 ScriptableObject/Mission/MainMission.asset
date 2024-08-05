@@ -38,3 +38,4 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
   changeProgressingMission: {fileID: 11400000, guid: 09083e75ac811d84d9a0ad73c1b51ce3, type: 2}
+  changeProgressingStep: {fileID: 11400000, guid: ca7a9c6b2cd475f42b6824e7517ffa3b, type: 2}

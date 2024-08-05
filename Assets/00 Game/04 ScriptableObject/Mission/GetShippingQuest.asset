@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4866f7615532caf4fa9549bf9c4d9aa9, type: 3}
   m_Name: GetShippingQuest
   m_EditorClassIdentifier: 
-  completeStep: {fileID: 11400000, guid: 3c64bcd9add7fc34a90f9eb544730ff0, type: 2}
+  completeStep: {fileID: 11400000, guid: 03df3802ee641204b83f5965c49546ef, type: 2}
   getShippingPoint: {fileID: 11400000, guid: e950e4e4d6f75084ea281b0cdba45469, type: 2}
-  position: {x: 0, y: 0, z: 0}
+  spawnPosition: {x: -5, y: 71, z: -5}
   point: 0

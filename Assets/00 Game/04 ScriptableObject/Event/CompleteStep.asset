@@ -17,7 +17,7 @@ MonoBehaviour:
     response:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 11500000, guid: 534f47672c028264899dfb9394ebc59b, type: 3}
+        - m_Target: {fileID: 11400000, guid: e6c74d41070a74c458a1fc5556909b7e, type: 2}
           m_TargetAssemblyTypeName: MissionList, Assembly-CSharp
           m_MethodName: FinishedMission
           m_Mode: 1
