@@ -10,6 +10,7 @@ public class AttackState : ActionState
     public override void EnterState()
     {
         base.EnterState();
+        _blackboard.playerController.zipIconImage.gameObject.SetActive(false);
         _blackboard.character.useRootMotion = true;
         _blackboard.character.SetRotationMode(RotationMode.OrientWithRootMotion);
 

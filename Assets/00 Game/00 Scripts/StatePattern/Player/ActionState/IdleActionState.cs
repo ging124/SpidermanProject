@@ -7,7 +7,6 @@ public class IdleActionState : ActionState
     [SerializeField] private float _timeToChangeState;
     [SerializeField] private ClipTransition _idleActionAnim;
 
-
     public override void EnterState()
     {
         base.EnterState();
@@ -28,7 +27,8 @@ public class IdleActionState : ActionState
             return StateStatus.Success;
         }
 
-        if (_blackboard.inputSO.buttonAttack && _elapsedTime > _timeToAttack
+        if (_blackboard.inputSO.buttonAttack && _elapsedTime > _timeToAttack 
+            && _blackboard.character.IsGrounded()
             && ((StateManagerAction)_stateManager).stateManagerMovement != _stateReferences.deadState)
         {
             if (_blackboard.playerController.enemyTarget == null)
@@ -63,6 +63,16 @@ public class IdleActionState : ActionState
                 }
             }
         }
+
+
+        if (_blackboard.inputSO.buttonGadget
+            && _blackboard.character.IsGrounded()
+            && ((StateManagerAction)_stateManager).stateManagerMovement.currentState != _stateReferences.deadState)
+        {
+            _stateManager.ChangeState(_stateReferences.webShooterState);
+            return StateStatus.Success;
+        }
+
 
         return StateStatus.Running;
     }

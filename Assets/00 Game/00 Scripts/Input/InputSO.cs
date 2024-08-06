@@ -13,6 +13,8 @@ public class InputSO : ScriptableObject
     public bool buttonAttack;
     public bool buttonZip;
     public bool buttonDodge;
+    public bool buttonGadget;
+    public bool buttonUltimate;
 
 
     public bool disableInput;

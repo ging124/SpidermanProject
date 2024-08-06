@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   iconSavePath: BattleDrakeCreations/SimpleIconCreator/Icons/
   settingsSavePath: BattleDrakeCreations/SimpleIconCreator/PreviewSettings/
-  objectPosition: {x: 0.01953125, y: -1.5820312, z: 0}
-  objectRotation: {x: 0.70266765, y: 182.10954, z: 0.025882408}
-  previewFOV: 5.666659
+  objectPosition: {x: -0.0078125, y: 0.0078125, z: 0}
+  objectRotation: {x: 7.7343826, y: 180.0001, z: -0.00000035706853}
+  previewFOV: 6.6666503
   lightOneColor: {r: 1, g: 1, b: 1, a: 1}
   lightOneIntensity: 1
   lightTwoColor: {r: 1, g: 1, b: 1, a: 1}

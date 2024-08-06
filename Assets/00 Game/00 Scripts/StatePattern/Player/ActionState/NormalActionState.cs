@@ -19,7 +19,9 @@ public class NormalActionState : ActionState
             return baseStatus;
         }
 
-        if(_blackboard.inputSO.buttonAttack && _elapsedTime > _timeToAttack && ((StateManagerAction)_stateManager).stateManagerMovement.currentState != _stateReferences.deadState)
+        if(_blackboard.inputSO.buttonAttack && _elapsedTime > _timeToAttack
+            && _blackboard.character.IsGrounded()
+            && ((StateManagerAction)_stateManager).stateManagerMovement.currentState != _stateReferences.deadState)
         {
             if (_blackboard.playerController.enemyTarget == null)
             {
@@ -52,6 +54,22 @@ public class NormalActionState : ActionState
                     return StateStatus.Success;
                 }
             }
+        }
+
+        if(_blackboard.inputSO.buttonGadget 
+            && _blackboard.character.IsGrounded()
+            && ((StateManagerAction)_stateManager).stateManagerMovement.currentState != _stateReferences.deadState)
+        {
+            _stateManager.ChangeState(_stateReferences.webShooterState);
+            return StateStatus.Success;
+        }
+
+        if (_blackboard.inputSO.buttonUltimate
+            && _blackboard.character.IsGrounded()
+            && ((StateManagerAction)_stateManager).stateManagerMovement.currentState != _stateReferences.deadState)
+        {
+            _stateManager.ChangeState(_stateReferences.ultimateAttackState);
+            return StateStatus.Success;
         }
 
         return StateStatus.Running;

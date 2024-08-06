@@ -35,4 +35,6 @@ public class PlayerStateReferences : StateReferences
     public NearAttackState nearAttackState;
     public MediumAttackState mediumAttackState;
     public FarAttackState farAttackState;
+    public WebShooterState webShooterState;
+    public UltimateAttackState ultimateAttackState;
 }

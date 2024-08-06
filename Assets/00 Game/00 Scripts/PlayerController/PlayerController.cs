@@ -12,6 +12,10 @@ public class PlayerController : ObjectController
     public LayerMask enemyLayer;
     public float currentHP;
 
+    [Header("----Effect----")]
+    public ParticleSystem ultimateSkill;
+
+
     [Header("----Model----")]
     public Transform modelHolder;
     public Skin currentSkin;

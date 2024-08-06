@@ -17,6 +17,9 @@ public class InputManager : MonoBehaviour
     [SerializeField] private KeyCode _zipKey;
     [SerializeField] private KeyCode _attackKey;
     [SerializeField] private KeyCode _dodgeKey;
+    [SerializeField] private KeyCode _gadgetKey;
+    [SerializeField] private KeyCode _ultimateKey;
+
 
 
     [Header("Input value(Readonly)")]
@@ -107,6 +110,16 @@ public class InputManager : MonoBehaviour
             if(Input.GetKey(_attackKey))
             {
                 ButtonAttack();
+            }
+
+            if (Input.GetKey(_gadgetKey))
+            {
+                ButtonGadget();
+            }
+
+            if (Input.GetKey(_ultimateKey))
+            {
+                ButtonUltimate();
             }
         }
 #endif
@@ -268,6 +281,18 @@ public class InputManager : MonoBehaviour
         inputSO.buttonZip = false;
     }
 
+    public void ButtonGadget()
+    {
+        inputSO.buttonGadget = true;
+        StartCoroutine(ButtonGadgetFalse());
+    }
+
+    IEnumerator ButtonGadgetFalse()
+    {
+        yield return 0;
+        inputSO.buttonGadget = false;
+    }
+
     public void ButtonDodgeDown()
     {
         inputSO.buttonDodge = true;
@@ -276,6 +301,18 @@ public class InputManager : MonoBehaviour
     public void ButtonDodgeUp()
     {
         inputSO.buttonDodge = false;
+    }
+
+    public void ButtonUltimate()
+    {
+        inputSO.buttonUltimate = true;
+        StartCoroutine(ButtonUltimateFalse());
+    }
+
+    IEnumerator ButtonUltimateFalse()
+    {
+        yield return 0;
+        inputSO.buttonUltimate = false;
     }
 }
 
