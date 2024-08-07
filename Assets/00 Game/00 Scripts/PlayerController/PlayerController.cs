@@ -198,14 +198,17 @@ public class PlayerController : ObjectController
     {
         if (Physics.SphereCast(this.cam.position, this.zipDetectionRange, this.cam.forward, out this.zipPointDetection, this.zipDetectionLength, this.wallLayer))
         {
-            var wallScript = this.zipPointDetection.transform.GetComponent<WallScript>();
-            this.zipPoint = wallScript.GetZipPoint(this.zipPointDetection.point);
+            WallScript wallScript;
+            if (this.zipPointDetection.transform.TryGetComponent<WallScript>(out wallScript))
+            {
+                this.zipPoint = wallScript.GetZipPoint(this.zipPointDetection.point);
+                Debug.Log("Zip");
+            }
+            else
+            {
+                this.zipPoint = Vector3.zero;
+            }
         }
-        else
-        {
-            this.zipPoint = Vector3.zero;
-        }
-
         if (this.zipPoint != Vector3.zero && this.zipLength < this.maxZipLength)
         {
             this.zipIconImage.gameObject.SetActive(true);

@@ -331,6 +331,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemData: {fileID: 0}
+  playerController: {fileID: 0}
 --- !u!1 &5510820524849641406
 GameObject:
   m_ObjectHideFlags: 0
