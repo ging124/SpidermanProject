@@ -1,23 +1,20 @@
 using Animancer;
 using DG.Tweening;
-using NodeCanvas.Framework;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.MLAgents;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyHitState : EnemyNormalState
 {
-    [SerializeField] private ClipTransition _hitAnim;
-    [SerializeField] private float _timeToIdle = 0.1f;
+    [SerializeField] private ClipTransition[] _hitAnimList;
 
     public override void EnterState()
     {
         base.EnterState();
         _blackboard.enemyController.agent.enabled = false;
         Debug.Log("Knockback");
-        _normalBodyLayer.Play(_hitAnim, 0.25f, FadeMode.FromStart);
+        _normalBodyLayer.Play(_hitAnimList[Random.Range(0, _hitAnimList.Length - 1)], 0.25f, FadeMode.FromStart).Events.OnEnd = () =>
+        {
+            _stateManager.ChangeState(_stateReferences.enemyIdleState);
+        };
         TakeDamage();
     }
 
@@ -32,12 +29,6 @@ public class EnemyHitState : EnemyNormalState
         if (_blackboard.enemyController.onHit && _elapsedTime > 0.1f)
         {
             _stateManager.ChangeState(_stateReferences.enemyHitState);
-            return StateStatus.Success;
-        }
-
-        if (!_blackboard.enemyController.onHit && _elapsedTime > _timeToIdle)
-        {
-            _stateManager.ChangeState(_stateReferences.enemyIdleState);
             return StateStatus.Success;
         }
 

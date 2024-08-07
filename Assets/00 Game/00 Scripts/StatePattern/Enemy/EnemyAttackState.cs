@@ -20,9 +20,7 @@ public class EnemyAttackState : EnemyActionState
             return baseStatus;
         }
 
-        if (!_blackboard.enemyController.canAttack && _elapsedTime > _timeChangeState
-            || _stateManager.currentState == _stateReferences.enemyHitState
-            || _stateManager.currentState == _stateReferences.enemyDeadState)
+        if (!_blackboard.enemyController.canAttack && _elapsedTime > _timeChangeState)
         {
             _stateManager.ChangeState(_stateReferences.enemyIdleState);
             return StateStatus.Success;

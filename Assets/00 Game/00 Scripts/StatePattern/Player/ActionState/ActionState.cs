@@ -29,6 +29,21 @@ public class ActionState : PlayerBaseState
             _stateManager.ChangeState(_stateReferences.normalActionState);
             return StateStatus.Success;
         }
+        else
+        {
+            if (_blackboard.inputSO.buttonGadget && _blackboard.character.IsGrounded()
+                && _stateManager.currentState != _stateReferences.webShooterState)
+            {
+                _stateManager.ChangeState(_stateReferences.webShooterState);
+                return StateStatus.Success;
+            }
+
+            if (_blackboard.inputSO.buttonUltimate && _blackboard.character.IsGrounded())
+            {
+                _stateManager.ChangeState(_stateReferences.ultimateAttackState);
+                return StateStatus.Success;
+            }
+        }
 
         return StateStatus.Running;
     }

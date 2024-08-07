@@ -1,6 +1,4 @@
 using Animancer;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WebShooterState : ActionState
@@ -12,7 +10,10 @@ public class WebShooterState : ActionState
     public override void EnterState()
     {
         base.EnterState();
-        RunAnimation();
+        _actionLayer.Play(_webShooterAnim, 0.25f, FadeMode.FromStart).Events.OnEnd = () =>
+        {
+            _stateManager.ChangeState(_stateReferences.idleActionState);
+        };
     }
 
     public override StateStatus UpdateState()
@@ -38,43 +39,16 @@ public class WebShooterState : ActionState
         base.ExitState();
     }
 
-    public void Shooting()
-    {
-        if (_blackboard.playerController.enemyTarget != null)
-        {
-            _webBullet.Spawn(_blackboard.playerController.leftHand.position, _blackboard.transform.rotation, null);
-        }
-        else
-        {
-            _webBullet.Spawn(_blackboard.playerController.leftHand.position, _blackboard.transform.rotation, null);
-        }
-    }
-
     public void ShootingLeftHand()
     {
+        if (_blackboard.playerController.enemyTarget != null) _blackboard.playerController.transform.LookAt(_blackboard.playerController.enemyTarget.transform.position);
+
         _webBullet.Spawn(_blackboard.playerController.leftHand.position, _blackboard.transform.rotation, null);
     }
 
     public void ShootingRightHand()
     {
+        //_blackboard.playerController.transform.LookAt(_blackboard.playerController.enemyTarget.transform.position);
         _webBullet.Spawn(_blackboard.playerController.rightHand.position, _blackboard.transform.rotation, null);
-    }
-
-    public void RunAnimation()
-    {
-        if(((StateManagerAction)_stateManager).stateManagerMovement.currentState != _stateReferences.idleNormalState)
-        {
-            _actionLayer.Play(_webShooterAnim, 0.25f, FadeMode.FromStart).Events.OnEnd = () =>
-            {
-                _stateManager.ChangeState(_stateReferences.idleActionState);
-            };
-        }
-        else
-        {
-            _blackboard.playerController.animancer.Layers[1].Play(_webShooterAnim, 0.25f, FadeMode.FromStart).Events.OnEnd = () =>
-            {
-                _stateManager.ChangeState(_stateReferences.idleActionState);
-            };
-        }
     }
 }

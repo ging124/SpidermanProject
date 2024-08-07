@@ -56,22 +56,6 @@ public class NormalActionState : ActionState
             }
         }
 
-        if(_blackboard.inputSO.buttonGadget 
-            && _blackboard.character.IsGrounded()
-            && ((StateManagerAction)_stateManager).stateManagerMovement.currentState != _stateReferences.deadState)
-        {
-            _stateManager.ChangeState(_stateReferences.webShooterState);
-            return StateStatus.Success;
-        }
-
-        if (_blackboard.inputSO.buttonUltimate
-            && _blackboard.character.IsGrounded()
-            && ((StateManagerAction)_stateManager).stateManagerMovement.currentState != _stateReferences.deadState)
-        {
-            _stateManager.ChangeState(_stateReferences.ultimateAttackState);
-            return StateStatus.Success;
-        }
-
         return StateStatus.Running;
     }
 

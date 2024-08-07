@@ -21,7 +21,10 @@ public class GroundState : NormalState
             return StateStatus.Success;
         }
 
-        if (_blackboard.inputSO.buttonJump && _blackboard.character.IsGrounded())
+        if (_blackboard.inputSO.buttonJump && _blackboard.character.IsGrounded()
+            && ((StateManagerMovement)_stateManager).stateManagerAction.currentState != _stateReferences.webShooterState
+            && ((StateManagerMovement)_stateManager).stateManagerAction.currentState != _stateReferences.ultimateAttackState
+            && ((StateManagerMovement)_stateManager).stateManagerAction.currentState.GetType().BaseType != typeof(AttackState))
         {
             _stateManager.ChangeState(_stateReferences.jumpState);
             return StateStatus.Success;

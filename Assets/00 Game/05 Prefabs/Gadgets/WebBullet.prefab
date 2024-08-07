@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4681290405634733865}
   - component: {fileID: 3579043354350490427}
   - component: {fileID: 5807032150017885163}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: WebBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.05, y: 0.01, z: 0.43}
+  m_LocalScale: {x: 0.1, y: 0.05, z: 0.43}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 517988069035135473}
@@ -50,7 +50,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -96,7 +96,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemData: {fileID: 0}
-  target: {x: 0, y: 0, z: 0}
   rigid: {fileID: 0}
   flySpeed: 30
 --- !u!1 &5754945304256605870
@@ -110,7 +109,7 @@ GameObject:
   - component: {fileID: 517988069035135473}
   - component: {fileID: 2785417620409000437}
   - component: {fileID: 7077966584754376180}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}

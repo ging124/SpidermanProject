@@ -13,7 +13,7 @@ public class PlayerController : ObjectController
     public float currentHP;
 
     [Header("----Effect----")]
-    public ParticleSystem ultimateSkill;
+    public float ultimateRange;
 
 
     [Header("----Model----")]
@@ -144,7 +144,10 @@ public class PlayerController : ObjectController
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(zipPoint, zipDetectionRange);
         Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(hit.transform.position, 1);
+        //Gizmos.DrawSphere(hit.transform.position, 1);
+
+        Gizmos.DrawWireSphere(this.transform.position, ultimateRange);
+
     }
 
     public void EnemyCheck()

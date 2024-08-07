@@ -1,16 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class WebBulletController : ItemWorld
 {
-    public Vector3 target;
     public Rigidbody rigid;
     public float flySpeed;
 
     private void Awake()
     {
         rigid = this.GetComponent<Rigidbody>();
+        Invoke(nameof(DestroyBullet), 10);
     }
 
     private void Update()
@@ -18,16 +19,18 @@ public class WebBulletController : ItemWorld
         rigid.MovePosition(this.transform.position + this.transform.forward * flySpeed * Time.deltaTime);
     }
 
-    void Shoot()
+    private void DestroyBullet()
     {
-        if(target != Vector3.zero)
+        itemData.Despawn(this.gameObject);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        IHitable hitable;
+        if (other.gameObject.TryGetComponent<IHitable>(out hitable))
         {
-            transform.LookAt(target);
-            transform.position = Vector3.Lerp(transform.position, target, 0.2f);
-        }
-        else
-        {
-            rigid.AddForce(this.transform.forward);
+            hitable.OnHit(5);
+            DestroyBullet();
         }
     }
 }

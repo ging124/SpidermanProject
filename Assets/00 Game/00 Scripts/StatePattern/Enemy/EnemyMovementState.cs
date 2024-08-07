@@ -32,9 +32,9 @@ public class EnemyMovementState : EnemyNormalState
             return StateStatus.Success;
         }
 
-        if (_blackboard.enemyController.canAttack = true
-           && _stateManager.currentState.GetType().BaseType != typeof(EnemyAttackState))
+        if (_blackboard.enemyController.canAttack && _stateManager.currentState.GetType().BaseType != typeof(EnemyAttackState))
         {
+            Debug.Log("Attack");
             _stateManager.ChangeState(_stateReferences.enemyAttack1State);
         }
 
@@ -75,6 +75,5 @@ public class EnemyMovementState : EnemyNormalState
     {
         Gizmos.DrawWireSphere(_blackboard.enemyController.transform.position, _blackboard.enemyController.enemyData.dectectionRange);
         Gizmos.DrawWireSphere(_blackboard.enemyController.transform.position, _blackboard.enemyController.enemyData.canAttackMaxDistance);
-
     }
 }
