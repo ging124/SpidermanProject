@@ -7,9 +7,12 @@ using UnityEngine;
 public class WallScript : MonoBehaviour
 {
     public MeshCollider meshCollider;
+    public float highDetect = 0.1f;
     public List<Vector3> verticesList = new List<Vector3>();
 
-    public List<Vector3> egdesList = new List<Vector3>();
+    public float debugPointRadius;
+    public int debugTextSize;
+
 
     /*public GameObject testPrefab;
     public List<GameObject> lists = new List<GameObject>();*/
@@ -27,29 +30,10 @@ public class WallScript : MonoBehaviour
             vertexTransform = this.transform.rotation * vertexTransform;
             vertexTransform += this.transform.position;
 
-            if (!verticesList.Contains(vertexTransform) && vertices[i].y > 0.1)
+            if (!verticesList.Contains(vertexTransform) && vertices[i].y > highDetect)
             {
                 verticesList.Add(vertexTransform);
                 //lists.Add(Instantiate(testPrefab, vertexTransform, Quaternion.identity, transform));
-            }
-        }
-    }
-
-    [ContextMenu("GetEdges")]
-    public void GetEdges()
-    {
-        if (verticesList.Count == 1) return;
-        if (verticesList.Count == 7) verticesList.Remove(verticesList[6]);
-
-        for (int i = 0; i < verticesList.Count; i++)
-        {
-            if (i == verticesList.Count - 1)
-            {
-                Debug.DrawLine(verticesList[i], verticesList[0], Color.blue);
-            }
-            else
-            {
-                Debug.DrawLine(verticesList[i], verticesList[i + 1], Color.blue);
             }
         }
     }
@@ -96,14 +80,22 @@ public class WallScript : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        
+    }
+
+    private void OnDrawGizmosSelected()
+    {
         Gizmos.color = Color.blue;
+        GUIStyle style = new GUIStyle();
+        style.normal.textColor = Color.black;
+        style.fontSize = debugTextSize;
 
         int index = 0;
 
         foreach (var verticies in verticesList)
         {
-            Handles.Label(verticies, index.ToString());
-            Gizmos.DrawSphere(verticies, 1);
+            Handles.Label(verticies + Vector3.up * 0.5f, index.ToString(), style);
+            Gizmos.DrawSphere(verticies, debugPointRadius);
             index++;
         }
 
