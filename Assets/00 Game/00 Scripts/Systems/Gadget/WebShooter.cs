@@ -7,6 +7,10 @@ using UnityEngine;
 public class WebShooter : Gadget
 {
     public ClipTransition webShooterAnim;
+    public GameObject webBulletPrefab;
 
-
+    public override void StartGadget(PlayerController playerController)
+    {
+        playerController.animancer.Play(webShooterAnim);
+    }
 }

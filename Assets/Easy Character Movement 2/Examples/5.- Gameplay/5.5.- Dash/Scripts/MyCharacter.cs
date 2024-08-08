@@ -131,7 +131,7 @@ namespace EasyCharacterMovement.Examples.Gameplay.DashExample
             if (!IsDashing())
                 return;
 
-            // Update dashing time and if completed, stops dashing
+            // Update dashing _time and if completed, stops dashing
 
             _dashingTime += deltaTime;
             if (_dashingTime > dashDuration)

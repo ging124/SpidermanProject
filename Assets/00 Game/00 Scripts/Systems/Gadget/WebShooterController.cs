@@ -9,14 +9,14 @@ public class WebShooterController : GadgetController
 
     /*public void ShootingLeftHand()
     {
-        if (_blackboard.playerController.enemyTarget != null) _blackboard.playerController.transform.LookAt(_blackboard.playerController.enemyTarget.transform.position);
+        if (_blackboard._playerController.enemyTarget != null) _blackboard._playerController.transform.LookAt(_blackboard._playerController.enemyTarget.transform.position);
 
         _webBullet.Spawn(_blackboard.playerSkin.leftHand.position, _blackboard.transform.rotation, null);
     }
 
     public void ShootingRightHand()
     {
-        //_blackboard.playerController.transform.LookAt(_blackboard.playerController.enemyTarget.transform.position);
+        //_blackboard._playerController.transform.LookAt(_blackboard._playerController.enemyTarget.transform.position);
         _webBullet.Spawn(_blackboard.playerSkin.rightHand.position, _blackboard.transform.rotation, null);
     }*/
 }

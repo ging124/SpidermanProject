@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 namespace EasyCharacterMovement.Examples.Gameplay.ChangeGravityDirectionExample
 {
     /// <summary>
-    /// This example shows how to extend a Character to change Gravity direction at run-time.
+    /// This example shows how to extend a Character to change Gravity direction at run-_time.
     /// </summary>
 
     public class MyCharacter : Character

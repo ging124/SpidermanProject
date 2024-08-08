@@ -161,4 +161,5 @@ public class PlayerController : ObjectController
         lineRenderer.SetPosition(0, hand.position);
         lineRenderer.SetPosition(1, zipPoint);
     }
+
 }

@@ -6,7 +6,7 @@ public class GadgetController : ItemWorld
 {
     public PlayerController playerController;
 
-    private void Update()
+    protected virtual void Update()
     {
         FollowPlayer();
     }
@@ -18,7 +18,7 @@ public class GadgetController : ItemWorld
             Vector3 gadgetPoint = new Vector3(1, 2, 0);
             this.transform.position = Vector3.Lerp(this.transform.position, playerController.transform.position + gadgetPoint, 10f * Time.deltaTime);
             this.transform.LookAt(playerController.transform.forward + this.transform.position);
-            //this.transform.LookAt(playerController.transform);
+            //this.transform.LookAt(_playerController.transform);
         }
     }
 }

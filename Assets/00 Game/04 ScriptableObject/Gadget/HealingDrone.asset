@@ -15,4 +15,7 @@ MonoBehaviour:
   prefabItemWorld: {fileID: 3686802298756970426, guid: 40777b08bca8e174d961fb64b536e415, type: 3}
   image: {fileID: 21300000, guid: c1f4f96b8dd575f43947905c50c634be, type: 3}
   changeItem: {fileID: 11400000, guid: 11e2cff2341bca240b12a41a1667e338, type: 2}
+  durationGadget: 6
   skillIcon: {fileID: 21300000, guid: 9521306b3ca819f4cabf639a7b28ed2e, type: 2}
+  playerController: {fileID: 0}
+  hpRegen: 1
