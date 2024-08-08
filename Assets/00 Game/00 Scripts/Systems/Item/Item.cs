@@ -9,6 +9,9 @@ public abstract  class Item : ScriptableObject, IFactory
     public Sprite image;
     public Queue<GameObject> poolItemWorld = new Queue<GameObject>();
 
+    public GameEvent<Item> changeItem;
+
+
     public virtual GameObject Spawn(Vector3 position, Quaternion rotation, Transform parent = default)
     {
         if (poolItemWorld.Count > 0)

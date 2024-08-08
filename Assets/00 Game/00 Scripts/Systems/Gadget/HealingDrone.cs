@@ -2,10 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealingDrone : GadgetController
+[CreateAssetMenu(menuName = "ScriptableObject/Gadget/HealingDrone")]
+public class HealingDrone : Gadget
 {
-    public override void GadgetActive()
-    {
 
-    }
 }

@@ -32,9 +32,9 @@ public class ActionState : PlayerBaseState
         else
         {
             if (_blackboard.inputSO.buttonGadget && _blackboard.character.IsGrounded()
-                && _stateManager.currentState != _stateReferences.webShooterState)
+                && _stateManager.currentState != _stateReferences.useGadgetState)
             {
-                _stateManager.ChangeState(_stateReferences.webShooterState);
+                _stateManager.ChangeState(_stateReferences.useGadgetState);
                 return StateStatus.Success;
             }
 

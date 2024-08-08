@@ -22,7 +22,7 @@ public class GroundState : NormalState
         }
 
         if (_blackboard.inputSO.buttonJump && _blackboard.character.IsGrounded()
-            && ((StateManagerMovement)_stateManager).stateManagerAction.currentState != _stateReferences.webShooterState
+            && ((StateManagerMovement)_stateManager).stateManagerAction.currentState != _stateReferences.useGadgetState
             && ((StateManagerMovement)_stateManager).stateManagerAction.currentState != _stateReferences.ultimateAttackState
             && ((StateManagerMovement)_stateManager).stateManagerAction.currentState.GetType().BaseType != typeof(AttackState))
         {

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayerGadget : MonoBehaviour
 {
-    [SerializeField] Gadget currentGadget;
+    public Gadget currentGadget;
+
     [SerializeField] PlayerController playerController;
 
     private void Awake()
@@ -14,7 +15,7 @@ public class PlayerGadget : MonoBehaviour
 
     private void InnitGadget()
     {
-        var gadget = currentGadget.Spawn(playerController.transform.position + new Vector3(1, 2, 0), this.transform.rotation, null);
-        gadget.GetComponent<GadgetController>().playerController = playerController;
+        /*var gadget = currentGadget.Spawn(playerController.transform.position + new Vector3(1, 2, 0), this.transform.rotation, null);
+        gadget.GetComponent<GadgetController>().playerController = playerController;*/
     }
 }

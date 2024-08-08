@@ -6,8 +6,6 @@ public class UIItemSlot : MonoBehaviour
     [SerializeField] private Item _itemData;
     [SerializeField] private Image _image;
 
-    [SerializeField] private GameEvent<Item> changeSkin;
-
 
     private void Start()
     {
@@ -19,9 +17,8 @@ public class UIItemSlot : MonoBehaviour
         _itemData = item; 
     }
 
-    public void ChangeSkin()
+    public void ChangeItem()
     {
-        Debug.Log("ChangeSkin");
-        changeSkin?.Raise(_itemData);
+        _itemData.changeItem?.Raise(_itemData);
     }
 }

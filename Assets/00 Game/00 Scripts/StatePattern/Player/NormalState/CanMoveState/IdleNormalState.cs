@@ -29,7 +29,7 @@ public class IdleNormalState : GroundState
         }
 
         if (_blackboard.inputSO.move != Vector2.zero && _stateManager.currentState
-            && ((StateManagerMovement)_stateManager).stateManagerAction.currentState != _stateReferences.webShooterState
+            && ((StateManagerMovement)_stateManager).stateManagerAction.currentState != _stateReferences.useGadgetState
             && ((StateManagerMovement)_stateManager).stateManagerAction.currentState != _stateReferences.ultimateAttackState)
         {
             _stateManager.ChangeState(_stateReferences.runState);

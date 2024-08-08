@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabItemWorld: {fileID: 7566480967399464912, guid: 17a64daf109b1d040abfc0d33f1e392b, type: 3}
   image: {fileID: 21300000, guid: 439dc2ecc9fca4b4f90e4a177c192493, type: 3}
+  changeItem: {fileID: 11400000, guid: 239382e779b745d40a0a242a28031f6a, type: 2}
   avatar: {fileID: 9000000, guid: 3c6ef0dad7946e04e83fe020a4784783, type: 3}

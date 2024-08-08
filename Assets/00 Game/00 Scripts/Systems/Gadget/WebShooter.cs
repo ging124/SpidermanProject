@@ -1,12 +1,12 @@
+using Animancer;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WebShooter : GadgetController
+[CreateAssetMenu(menuName = "ScriptableObject/Gadget/WebShooter")]
+public class WebShooter : Gadget
 {
+    public ClipTransition webShooterAnim;
 
-    public override void GadgetActive()
-    {
 
-    }
 }

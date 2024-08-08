@@ -25,7 +25,7 @@ public class RunState : GroundState
         Movement();
         _runBlendTree.State.Parameter = Mathf.Lerp(_runBlendTree.State.Parameter, _blackboard.character.GetSpeed(), 40 * Time.deltaTime);
 
-        if (((StateManagerMovement)_stateManager).stateManagerAction.currentState == _stateReferences.webShooterState
+        if (((StateManagerMovement)_stateManager).stateManagerAction.currentState == _stateReferences.useGadgetState
             || ((StateManagerMovement)_stateManager).stateManagerAction.currentState == _stateReferences.ultimateAttackState)
         {
             _stateManager.ChangeState(_stateReferences.idleNormalState);

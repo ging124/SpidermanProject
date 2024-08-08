@@ -11,11 +11,6 @@ public class GadgetController : ItemWorld
         FollowPlayer();
     }
 
-    public virtual void GadgetActive()
-    {
-
-    }
-
     public void FollowPlayer()
     {
         if (playerController != null && this.transform.position != playerController.transform.position)

@@ -69,7 +69,7 @@ public class IdleActionState : ActionState
             && _blackboard.character.IsGrounded()
             && ((StateManagerAction)_stateManager).stateManagerMovement.currentState != _stateReferences.deadState)
         {
-            _stateManager.ChangeState(_stateReferences.webShooterState);
+            _stateManager.ChangeState(_stateReferences.useGadgetState);
             return StateStatus.Success;
         }
 

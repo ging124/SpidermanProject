@@ -123,7 +123,7 @@ public class SwingState : OnAirState
     {
         if (!joint) return;
 
-        lineRenderer.SetPosition(0, _blackboard.playerController.rightHand.position);
+        lineRenderer.SetPosition(0, _blackboard.playerSkin.rightHand.position);
         lineRenderer.SetPosition(1, swingPoint);
     }
 }

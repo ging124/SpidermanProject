@@ -15,14 +15,6 @@ public class PlayerController : ObjectController
     [Header("----Effect----")]
     public float ultimateRange;
 
-
-    [Header("----Model----")]
-    public Transform modelHolder;
-    public Skin currentSkin;
-    public Transform leftHand;
-    public Transform rightHand;
-    public SkinnedMeshRenderer skinnedMeshRenderer;
-
     [Header("----AttackValue----")]
     public float attackRangeDetection;
     public float nearAttackRange;
@@ -51,10 +43,6 @@ public class PlayerController : ObjectController
     public bool wallFront;
     public Vector3 zipPoint;
 
-    [Header("----GameEvent----")]
-    [SerializeField] private GameEventListener<Item> changeSkin; 
-
-
     [Header("----Component----")]
     public Player playerData;
     public Character character;
@@ -68,58 +56,6 @@ public class PlayerController : ObjectController
         rb = this.GetComponent<Rigidbody>();
         animancer = this.GetComponent<AnimancerComponent>();
         currentHP = playerData.maxHP.Value;
-        InnitSkin();
-    }
-
-    private void OnEnable()
-    {
-        changeSkin.Register();
-    }
-
-    private void OnDisable()
-    {
-        changeSkin.Unregister();
-    }
-
-    void InnitSkin()
-    {
-        var currentModel= modelHolder.GetComponentInChildren<SkinController>();
-        var skin = currentSkin.Spawn(this.transform.position, this.transform.rotation, modelHolder);
-
-        animancer.Animator.avatar = currentSkin.avatar;
-        skinnedMeshRenderer = skin.GetComponentInChildren<SkinnedMeshRenderer>();
-        Transform[] bones = skinnedMeshRenderer.bones;
-
-        foreach (Transform bone in bones)
-        {
-            if (bone.name.ToLower().Contains("lefthand"))
-            {
-                leftHand = bone.transform;
-            }
-
-            if (bone.name.ToLower().Contains("righthand"))
-            {
-                rightHand = bone.transform;
-            }
-
-            if (bone.name.ToLower().Contains("hand_l"))
-            {
-                leftHand = bone.transform;
-            }
-
-            if (bone.name.ToLower().Contains("hand_r"))
-            {
-                rightHand = bone.transform;
-            }
-        }
-    }
-
-    public void ChangeSkin(Item item)
-    {
-        var skin = modelHolder.GetComponentInChildren<SkinController>();
-        currentSkin.Despawn(skin.gameObject);
-        currentSkin = (Skin)item;
-        InnitSkin();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -147,7 +83,6 @@ public class PlayerController : ObjectController
         //Gizmos.DrawSphere(hit.transform.position, 1);
 
         Gizmos.DrawWireSphere(this.transform.position, ultimateRange);
-
     }
 
     public void EnemyCheck()

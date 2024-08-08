@@ -2,11 +2,14 @@ using Animancer;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class HitState : CanMoveState
 {
     [SerializeField] private ClipTransition _hitAnim;
     [SerializeField] private float _timeToIdle;
+
+    [SerializeField] private UnityEvent<float, float> playerHit;
 
     public override void EnterState()
     {
@@ -49,6 +52,7 @@ public class HitState : CanMoveState
     {
         int damageValue = _blackboard.playerController.hitDamage;
         _blackboard.playerController.currentHP -= damageValue;
+        playerHit.Invoke(_blackboard.playerController.currentHP, _blackboard.playerController.playerData.maxHP.Value);
 
         if (_blackboard.playerController.currentHP <= 0)
         {

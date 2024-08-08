@@ -6,7 +6,7 @@ public class UIBase : MonoBehaviour
 {
     protected virtual void Awake()
     {
-        this.gameObject.SetActive(false);
+        CloseUI();
     }
 
     public void OpenUI()

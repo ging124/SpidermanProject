@@ -80,9 +80,7 @@ public class StartZipState : NormalState
         _leftLineRenderer.positionCount = 2;
         _rightLineRenderer.positionCount = 2;
 
-        _blackboard.playerController.SetLineRenderer(_leftLineRenderer, _blackboard.playerController.leftHand, zipPoint);
-        _blackboard.playerController.SetLineRenderer(_rightLineRenderer, _blackboard.playerController.rightHand, zipPoint);
+        _blackboard.playerController.SetLineRenderer(_leftLineRenderer, _blackboard.playerSkin.leftHand, zipPoint);
+        _blackboard.playerController.SetLineRenderer(_rightLineRenderer, _blackboard.playerSkin.rightHand, zipPoint);
     }
-
-    
 }

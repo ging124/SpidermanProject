@@ -7,12 +7,16 @@ using UnityEngine;
 public class WallScript : MonoBehaviour
 {
     public MeshCollider meshCollider;
+
     public float highDetect = 0.1f;
     public List<Vector3> verticesList = new List<Vector3>();
 
-    public float debugPointRadius;
-    public int debugTextSize;
+    public float debugPointRadius = 0.18f;
+    public int debugTextSize = 24;
+    public int debugTextHeight = 3;
+    public int debugLinethickness = 3;
 
+    public float debugPointHeight = 1;
 
     /*public GameObject testPrefab;
     public List<GameObject> lists = new List<GameObject>();*/
@@ -25,13 +29,50 @@ public class WallScript : MonoBehaviour
         Vector3[] vertices = meshCollider.sharedMesh.vertices;
         for (int i = 0; i < vertices.Length; i++)
         {
-            var vertexTransform = vertices[i];
-            vertexTransform.Scale(this.transform.lossyScale);
-            vertexTransform = this.transform.rotation * vertexTransform;
-            vertexTransform += this.transform.position;
+            var vertexTransform = transform.TransformPoint(vertices[i]);
 
-            if (!verticesList.Contains(vertexTransform) && vertices[i].y > highDetect)
+            int flag = 1;
+
+            Vector3 direction1 = -Vector3.up + Vector3.right;
+
+            if (Physics.Raycast(vertexTransform + Vector3.up * debugPointHeight, direction1, 2))
             {
+                flag++;
+            }
+
+            Vector3 direction2 = -Vector3.up + Vector3.forward;
+
+            if (Physics.Raycast(vertexTransform + Vector3.up * debugPointHeight, direction2, 2))
+            {
+                flag++;
+            }
+
+            Vector3 direction3 = -Vector3.up - Vector3.right;
+
+            if (Physics.Raycast(vertexTransform + Vector3.up * debugPointHeight, direction3, 2))
+            {
+                flag++;
+            }
+
+            Vector3 direction4 = -Vector3.up - Vector3.forward;
+
+            if (Physics.Raycast(vertexTransform + Vector3.up * debugPointHeight, direction4, 2))
+            {
+                flag++;
+            }
+
+            Vector3 direction5 = -Vector3.up;
+
+            if (Physics.Raycast(vertexTransform + Vector3.up * debugPointHeight, direction5, 2))
+            {
+                flag++;
+            }
+
+            //RaycastHit hit;
+            if (!verticesList.Contains(vertexTransform) && vertices[i].y > highDetect
+                && flag == 4)
+            {
+                //Debug.Log(hit.collider.name);
                 verticesList.Add(vertexTransform);
                 //lists.Add(Instantiate(testPrefab, vertexTransform, Quaternion.identity, transform));
             }
@@ -78,11 +119,6 @@ public class WallScript : MonoBehaviour
         return Vector3.Project((p - a), (b - a)) + a;
     }
 
-    private void OnDrawGizmos()
-    {
-        
-    }
-
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.blue;
@@ -94,7 +130,7 @@ public class WallScript : MonoBehaviour
 
         foreach (var verticies in verticesList)
         {
-            Handles.Label(verticies + Vector3.up * 0.5f, index.ToString(), style);
+            Handles.Label(verticies + Vector3.up * debugTextHeight, index.ToString(), style);
             Gizmos.DrawSphere(verticies, debugPointRadius);
             index++;
         }
@@ -105,12 +141,46 @@ public class WallScript : MonoBehaviour
         {
             if (i == verticesList.Count - 1)
             {
-                Gizmos.DrawLine(verticesList[i], verticesList[0]);
+                Handles.DrawLine(verticesList[i], verticesList[0], debugLinethickness);
             }
             else
             {
-                Gizmos.DrawLine(verticesList[i], verticesList[i + 1]);
+                Handles.DrawLine(verticesList[i], verticesList[i + 1], debugLinethickness);
             }
+
+            Vector3 direction1 = - Vector3.up + Vector3.right;
+
+            DebugRayDetection(verticesList[i], direction1);
+
+            Vector3 direction2 = - Vector3.up + Vector3.forward;
+
+            DebugRayDetection(verticesList[i], direction2);
+
+            Vector3 direction3 = -Vector3.up - Vector3.right;
+
+            DebugRayDetection(verticesList[i], direction3);
+
+            Vector3 direction4 = -Vector3.up - Vector3.forward;
+
+            DebugRayDetection(verticesList[i], direction4);
+
+            Vector3 direction6 = -Vector3.up;
+
+            DebugRayDetection(verticesList[i], direction6);
+        }
+    }
+
+    void DebugRayDetection(Vector3 point, Vector3 direction)
+    {
+        Vector3 direction1 = direction;
+
+        if (Physics.Raycast(point + Vector3.up * debugPointHeight, direction1, 2))
+        {
+            Debug.DrawRay(point + Vector3.up * debugPointHeight, direction1, Color.red);
+        }
+        else
+        {
+            Debug.DrawRay(point + Vector3.up * debugPointHeight, direction1, Color.green);
         }
     }
 }

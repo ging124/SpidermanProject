@@ -199,7 +199,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6170063463012447072}
         m_TargetAssemblyTypeName: UIItemSlot, Assembly-CSharp
-        m_MethodName: ChangeSkin
+        m_MethodName: ChangeItem
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -223,4 +223,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _itemData: {fileID: 0}
   _image: {fileID: 2855831741427934011}
-  changeSkin: {fileID: 11400000, guid: 239382e779b745d40a0a242a28031f6a, type: 2}

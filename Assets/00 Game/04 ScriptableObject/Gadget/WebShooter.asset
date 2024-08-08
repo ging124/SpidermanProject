@@ -9,9 +9,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 599bb31570c155a468988c16f38431b0, type: 3}
+  m_Script: {fileID: 11500000, guid: 09a8cab5b0da6ab439e4a713b4d50b5e, type: 3}
   m_Name: WebShooter
   m_EditorClassIdentifier: 
   prefabItemWorld: {fileID: 8088195521736641369, guid: edca070f8782f704d9b7454be11bfeeb, type: 3}
   image: {fileID: 21300000, guid: 4a25fab302adfc649b895b4d9e6a35b8, type: 3}
+  changeItem: {fileID: 11400000, guid: 11e2cff2341bca240b12a41a1667e338, type: 2}
   skillIcon: {fileID: 21300000, guid: 66f22f68a23eb4840a8b711df0acd120, type: 2}
+  webShooterAnim:
+    _FadeDuration: 0.25
+    _Events:
+      _NormalizedTimes: []
+      _Callbacks: []
+      _Names: []
+    _Clip: {fileID: 7400000, guid: e278ac8b998bdb5478910d5bd9c51bcc, type: 2}
+    _Speed: 1
+    _NormalizedStartTime: NaN
