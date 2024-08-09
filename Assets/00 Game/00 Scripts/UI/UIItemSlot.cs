@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class UIItemSlot : MonoBehaviour
 {
-    [SerializeField] private Item _itemData;
+    [SerializeField] private InventoryItem _itemData;
     [SerializeField] private Image _image;
 
 
@@ -14,7 +14,7 @@ public class UIItemSlot : MonoBehaviour
 
     public void SetData(Item item)
     {
-        _itemData = item; 
+        _itemData = (InventoryItem)item; 
     }
 
     public void ChangeItem()

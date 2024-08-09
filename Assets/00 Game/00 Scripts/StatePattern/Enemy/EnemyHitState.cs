@@ -32,7 +32,7 @@ public class EnemyHitState : EnemyNormalState
             return StateStatus.Success;
         }
 
-        if (_blackboard.enemyController.currentHP <= 0)
+        if (_blackboard.enemyController.enemyData.currentHp <= 0)
         {
             _stateManager.ChangeState(_stateReferences.enemyDeadState);
             return StateStatus.Success;
@@ -52,16 +52,12 @@ public class EnemyHitState : EnemyNormalState
         _blackboard.enemyController.transform.LookAt(new Vector3(_blackboard.enemyController.player.transform.position.x, transform.position.y, _blackboard.enemyController.player.transform.position.z));
         _blackboard.enemyController.transform.DOMove(_blackboard.enemyController.transform.position - (_blackboard.enemyController.transform.forward / 2), 0.2f).SetDelay(0.1f);
 
-        /*_hitEffect.transform.right = Vector3.Lerp(_hitEffect.transform.right, _blackboard.enemyController.transform.position - _blackboard.enemyController.player.transform.position, rotateSpeed);
-        _hitEffect.Play();*/
-        _blackboard.enemyController.currentHP -= _blackboard.enemyController.hitDamage;
-        _blackboard.enemyController.uIEnemyBlackboard.enemyHPBar.EnemyHPChange(_blackboard.enemyController.currentHP, _blackboard.enemyController.enemyData.maxHP.Value);
-        //var damageText = Instantiate(_blackboard.enemyController.enemyData.damageText, _rectTransform.position, Quaternion.identity ,_rectTransform);
-        //damageText.GetComponent<DamageFloat>().damageText.text = _blackboard.enemyController.hitDamage.ToString();
+        _blackboard.enemyController.enemyData.currentHp -= _blackboard.enemyController.hitDamage;
+        _blackboard.enemyController.uIEnemyBlackboard.enemyHPBar.EnemyHPChange(_blackboard.enemyController.enemyData.currentHp, _blackboard.enemyController.enemyData.maxHP.Value);
 
-        if (_blackboard.enemyController.currentHP <= 0)
+        if (_blackboard.enemyController.enemyData.currentHp <= 0)
         {
-            _blackboard.enemyController.currentHP = 0;
+            _blackboard.enemyController.enemyData.currentHp = 0;
         }
     }
 }

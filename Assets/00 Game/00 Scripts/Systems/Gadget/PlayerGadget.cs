@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class PlayerGadget : MonoBehaviour
 {
@@ -8,6 +9,19 @@ public class PlayerGadget : MonoBehaviour
 
     [SerializeField] private PlayerController _playerController;
     [SerializeField] private GameEvent<Item> _innitGadget;
+
+    [SerializeField] private GameEventListener<Item> _changeGadget;
+
+    public void OnEnable()
+    {
+        _changeGadget.Register();
+    }
+
+    public void OnDisable()
+    {
+        _changeGadget.Unregister();
+    }
+
 
     private void Start()
     {
@@ -17,7 +31,10 @@ public class PlayerGadget : MonoBehaviour
     private void InnitGadget()
     {
         _innitGadget.Raise(currentGadget);
-        /*var gadget = currentGadget.Spawn(_playerController.transform.position + new Vector3(1, 2, 0), this.transform.rotation, null);
-        gadget.GetComponent<GadgetController>()._playerController = _playerController;*/
+    }
+
+    public void ChangeGadget(Item item)
+    {
+        currentGadget = (Gadget)item;
     }
 }

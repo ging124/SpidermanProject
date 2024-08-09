@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -5,18 +6,14 @@ using UnityEngine;
 
 public class WebBulletController : ItemWorld
 {
-    public Rigidbody rigid;
-    public float flySpeed;
+    public EnemyController target;
+    public float stunLockDuration;
+    private float flyDuration = 0.3f;
 
-    private void Awake()
-    {
-        rigid = this.GetComponent<Rigidbody>();
-        Invoke(nameof(DestroyBullet), 10);
-    }
 
-    private void Update()
+    private void OnEnable()
     {
-        rigid.MovePosition(this.transform.position + this.transform.forward * flySpeed * Time.deltaTime);
+        Shoot();
     }
 
     private void DestroyBullet()
@@ -24,13 +21,23 @@ public class WebBulletController : ItemWorld
         itemData.Despawn(this.gameObject);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void Shoot()
     {
-        IHitable hitable;
-        if (other.gameObject.TryGetComponent<IHitable>(out hitable))
+        if (target != null)
         {
-            hitable.OnHit(5);
-            DestroyBullet();
+            this.transform.DOMove(target.transform.position, flyDuration).onComplete = () =>
+            {
+                target.stunLockDuration = this.stunLockDuration; 
+                DestroyBullet();
+            };
+        }
+        else
+        {
+            this.transform.DOMove(this.transform.position + this.transform.forward * 10, flyDuration).onComplete = () =>
+            {
+                DestroyBullet();
+            };
         }
     }
+    
 }

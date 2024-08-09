@@ -6,7 +6,7 @@ public class EnemyController : ObjectController, IHitable
 {
     public GameEvent enemyDead;
 
-    public float currentHP;
+    public float stunLockDuration = 0;
 
     public Enemy enemyData;
     public EnemyManager enemyManager;
@@ -28,17 +28,17 @@ public class EnemyController : ObjectController, IHitable
         capCollider = this.GetComponent<CapsuleCollider>();
         rigid = this.GetComponent<Rigidbody>();
         agent = this.GetComponent<NavMeshAgent>();
+        enemyData = Instantiate(enemyData);
     }
 
     private void OnEnable()
     {
-        currentHP = enemyData.maxHP.Value;
-        uIEnemyBlackboard.enemyHPBar.EnemyHPChange(currentHP, enemyData.maxHP.Value);
-        enemyManager.Add(enemyData);
+        uIEnemyBlackboard.enemyHPBar.EnemyHPChange(enemyData.currentHp, enemyData.maxHP.Value);
+        //enemyManager.Add(enemyData);
     }
 
-    private void OnDisable()
+    /*private void OnDisable()
     {
         enemyManager.Remove(enemyData);
-    }
+    }*/
 }

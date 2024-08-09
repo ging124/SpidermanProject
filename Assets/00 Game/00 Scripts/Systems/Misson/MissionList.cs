@@ -4,12 +4,11 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/Mission/MissionList")]
 public class MissionList : ScriptableObject
 {
-    public int currentMissionIndex = 0;
     public List<BaseMission> listMission = new List<BaseMission>();
+    public int currentMissionIndex = 0;
 
     public GameEventListener completeMission;
     public GameEvent changeProgressingMission;
-    public GameEvent changeProgressingStep;
 
     private void OnValidate()
     {
@@ -25,15 +24,6 @@ public class MissionList : ScriptableObject
         }
     }
 
-    public void FinishedStep()
-    {
-        if (listMission[currentMissionIndex].missionSteps.Count > 0)
-        {
-            listMission[currentMissionIndex].currentStepsIndex++;
-            changeProgressingStep.Raise();
-        }
-    }
-
     public void CheckFailedMission()
     {
         Debug.Log("Failed Mission");
@@ -46,27 +36,17 @@ public class MissionList : ScriptableObject
 
     public void InstantiateMission(Transform parent)
     {
-        if (currentMissionIndex != listMission.Count)
+        if (listMission[currentMissionIndex] != null)
         {
-            listMission[currentMissionIndex].InstantiateMisison(parent);
+            listMission[currentMissionIndex].InstantiateMission(parent);
         }
     }
 
     public void UpdateMission(Transform parent)
     {
-        if (currentMissionIndex != listMission.Count)
+        if (listMission[currentMissionIndex] != null)
         {
             listMission[currentMissionIndex].UpdateMission(parent);
-        }
-    }
-
-    public void UpdateStep(Transform parent)
-    {
-        if (listMission[currentMissionIndex].currentStepsIndex != listMission[currentMissionIndex].missionSteps.Count)
-        {
-            Debug.Log("Debug");
-            var step = listMission[currentMissionIndex].currentStepsIndex;
-            listMission[currentMissionIndex].missionSteps[step].UpdateStep(parent);
         }
     }
 }

@@ -2,12 +2,9 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[Serializable]
-public class FightingMission : MissionSteps
+[CreateAssetMenu(menuName = "ScriptableObject/Mission/FightingMission")]
+public class FightingMission : BaseMission
 {
-    [Header("CreateStep")]
-    public Vector3 spawnPosition;
-
     [Header("MissionData")]
     public List<Waves> waveListData;
     public float fightingMissionRange;
@@ -16,7 +13,7 @@ public class FightingMission : MissionSteps
     public int enemies = 0;
     public int waves = 0;
 
-    public override bool CheckCompleteStep()
+    public override bool CheckCompleteMission()
     {
         if(waves != waveListData.Count - 1) return false;
 
@@ -36,22 +33,20 @@ public class FightingMission : MissionSteps
         }
     }
 
-    public override bool CheckFailedStep()
+    public override bool CheckFailedMission()
     {
         return true;
     }
 
-    public override void InstantiateStep(Vector3 position, Transform parent)
+    public override void InstantiateMission(Transform parent)
     {
-        spawnPosition = position;
-
         enemies = 0;
         waves = 0;
 
         SpawnWave(parent, waves);
     }
 
-    public override void UpdateStep(Transform parent)
+    public override void UpdateMission(Transform parent)
     {
         enemies++;
 
@@ -61,11 +56,10 @@ public class FightingMission : MissionSteps
             SpawnWave(parent, waves);
         }
 
-        if (CheckCompleteStep())
+        if (CheckCompleteMission())
         {
-            completeStep.Raise();
+            completeMission.Raise();
         }
-
     }
 
     public void SpawnWave(Transform parent, int waves)

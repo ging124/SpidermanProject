@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d870930b527d31b489fe03fe3f0fa2cc, type: 3}
   m_Name: Mission 6
   m_EditorClassIdentifier: 
-  spawnPosition: {x: -11.39, y: 71, z: 0}
-  completeStep: {fileID: 11400000, guid: 03df3802ee641204b83f5965c49546ef, type: 2}
+  spawnPosition: {x: -344.9, y: 0.05000019, z: 215.78}
+  completeMission: {fileID: 11400000, guid: e9bf2e8a6ae3fb440a88cc195654f1b4, type: 2}
   listShippingPointPosition:
-  - position: {x: -5, y: 71, z: -5}
+  - position: {x: -5, y: 0, z: -5}
     shippingPoint: {fileID: 11400000, guid: 4c994c9ee8d912449873542d1b625f98, type: 2}
-  - position: {x: -10, y: 71, z: -10}
+  - position: {x: -10, y: 0, z: -10}
     shippingPoint: {fileID: 11400000, guid: 4c994c9ee8d912449873542d1b625f98, type: 2}
-  point: 3
+  point: 0

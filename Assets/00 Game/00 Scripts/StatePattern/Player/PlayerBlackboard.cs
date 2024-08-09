@@ -8,7 +8,7 @@ public class PlayerBlackboard : Blackboard
 {
     [Header("----Component----")]
     public PlayerController playerController;
-    public PlayerModel playerSkin;
+    public PlayerModel playerModel;
     public PlayerGadget playerGadget;
     public Character character;
 

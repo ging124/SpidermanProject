@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 [CreateAssetMenu(menuName = "ScriptableObject/GameEffect")]
-public class GameEffect : ScriptableObject
+public class GameEffect : Item
 {
-    public ParticleSystem ultimateSkill;
+    
 }

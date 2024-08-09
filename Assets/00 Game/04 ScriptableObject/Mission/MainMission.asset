@@ -12,14 +12,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 049b289c50c07434f96b86a572a8cf73, type: 3}
   m_Name: MainMission
   m_EditorClassIdentifier: 
-  currentMissionIndex: 0
   listMission:
-  - spawnPosition: {x: -5, y: 71, z: -5}
-    completeStep: {fileID: 11400000, guid: 3c64bcd9add7fc34a90f9eb544730ff0, type: 2}
-    missionSteps:
-    - {fileID: 11400000, guid: d6bf8ea0681c6c843b1db058d4a1f22e, type: 2}
-    - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
-    currentStepsIndex: 0
+  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
+  - {fileID: 11400000, guid: f607bf1f997a28049b247af8b355871f, type: 2}
+  - {fileID: 11400000, guid: 5b8e89aa6cdcacf47b3540d5282ebe62, type: 2}
+  - {fileID: 11400000, guid: fbc91539867c0af4f92d6839e0b62624, type: 2}
+  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
+  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
+  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
+  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
+  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
+  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
+  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
+  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
+  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
+  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
+  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
+  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
+  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
+  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
+  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
+  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
+  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
+  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
+  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
+  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
+  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
+  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
+  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
+  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
+  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
+  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
+  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
+  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
+  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
+  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
+  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
+  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
+  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
+  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
+  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
+  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
+  currentMissionIndex: 0
   completeMission:
     gameEvent: {fileID: 11400000, guid: e9bf2e8a6ae3fb440a88cc195654f1b4, type: 2}
     response:
@@ -38,4 +72,4 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
   changeProgressingMission: {fileID: 11400000, guid: 09083e75ac811d84d9a0ad73c1b51ce3, type: 2}
-  changeProgressingStep: {fileID: 11400000, guid: ca7a9c6b2cd475f42b6824e7517ffa3b, type: 2}
+  changeStep: {fileID: 11400000, guid: 3c64bcd9add7fc34a90f9eb544730ff0, type: 2}

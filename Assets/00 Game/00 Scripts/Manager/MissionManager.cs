@@ -1,21 +1,26 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class MissionManager : MonoBehaviour
 {
     [SerializeField] MissionList missionManagerSO;
-    [SerializeField] GameEventListener updateStepEvent;
+    
+    [SerializeField] GameEventListener updateMissionEvent;
     [SerializeField] GameEventListener changeMissionEvent;
+
+    [Header("Mission Location Data")]
+    [SerializeField] Transform missionLocation;
 
     private void Awake()
     {
         InstantiateMission();
-        updateStepEvent.Register();
+        updateMissionEvent.Register();
         changeMissionEvent.Register();
     }
 
     private void OnDestroy()
     {
-        updateStepEvent.Unregister();
+        updateMissionEvent.Unregister();
         changeMissionEvent.Unregister();
     }
 
@@ -29,8 +34,19 @@ public class MissionManager : MonoBehaviour
         missionManagerSO.CheckFailedMission();
     }
 
-    public void UpdateStep()
+    public void UpdateMission()
     {
-        missionManagerSO.UpdateStep(this.transform);
+        missionManagerSO.UpdateMission(this.transform);
+    }
+
+    [ContextMenu("GetMissionListLocation")]
+    public void GetMissionListLocation()
+    {
+        int i = 0;
+        foreach (Transform t in missionLocation)
+        {
+            missionManagerSO.listMission[i].spawnPosition = t.position;
+            i++;
+        }
     }
 }

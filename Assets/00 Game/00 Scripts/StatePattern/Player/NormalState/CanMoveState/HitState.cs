@@ -9,8 +9,6 @@ public class HitState : CanMoveState
     [SerializeField] private ClipTransition _hitAnim;
     [SerializeField] private float _timeToIdle;
 
-    [SerializeField] private UnityEvent<float, float> playerHit;
-
     public override void EnterState()
     {
         base.EnterState();
@@ -34,7 +32,7 @@ public class HitState : CanMoveState
             return StateStatus.Success;
         }
 
-        if (_blackboard.playerController.currentHP <= 0)
+        if (_blackboard.playerController.playerData.currentHp <= 0)
         {
             _stateManager.ChangeState(_stateReferences.deadState);
             return StateStatus.Success;
@@ -51,12 +49,12 @@ public class HitState : CanMoveState
     public void TakeDamage()
     {
         int damageValue = _blackboard.playerController.hitDamage;
-        _blackboard.playerController.currentHP -= damageValue;
-        playerHit.Invoke(_blackboard.playerController.currentHP, _blackboard.playerController.playerData.maxHP.Value);
+        _blackboard.playerController.playerData.currentHp -= damageValue;
+        _blackboard.playerController.playerChangeHP.Invoke(_blackboard.playerController.playerData.currentHp, _blackboard.playerController.playerData.maxHP.Value);
 
-        if (_blackboard.playerController.currentHP <= 0)
+        if (_blackboard.playerController.playerData.currentHp <= 0)
         {
-            _blackboard.playerController.currentHP = 0;
+            _blackboard.playerController.playerData.currentHp = 0;
         }
     }
 }

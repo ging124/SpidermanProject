@@ -1,19 +1,17 @@
 using Animancer;
-using DG.Tweening;
 using EasyCharacterMovement;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem.HID;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class PlayerController : ObjectController
 {
     [Header("----PlayerController----")]
     public LayerMask enemyLayer;
-    public float currentHP;
+    public float ultimateRange;
 
     [Header("----Effect----")]
-    public float ultimateRange;
+    public GameEffect attackHitEffect;
 
     [Header("----AttackValue----")]
     public float attackRangeDetection;
@@ -43,6 +41,11 @@ public class PlayerController : ObjectController
     public bool wallFront;
     public Vector3 zipPoint;
 
+    [Header("----Event----")]
+    public UnityEvent<float, float> playerChangeHP;
+    public UnityEvent<double ,double, double> playerGainExp;
+
+
     [Header("----Component----")]
     public Player playerData;
     public Character character;
@@ -55,7 +58,7 @@ public class PlayerController : ObjectController
         cam = GameObject.FindWithTag("MainCamera").GetComponent<Transform>();
         rb = this.GetComponent<Rigidbody>();
         animancer = this.GetComponent<AnimancerComponent>();
-        currentHP = playerData.maxHP.Value;
+        playerData = Instantiate(playerData);
     }
 
     private void OnTriggerEnter(Collider other)

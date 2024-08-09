@@ -6,10 +6,9 @@ using UnityEngine;
 public abstract  class Item : ScriptableObject, IFactory
 {
     public GameObject prefabItemWorld;
-    public Sprite image;
+    
     public Queue<GameObject> poolItemWorld = new Queue<GameObject>();
 
-    public GameEvent<Item> changeItem;
 
 
     public virtual GameObject Spawn(Vector3 position, Quaternion rotation, Transform parent = default)

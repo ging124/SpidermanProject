@@ -54,10 +54,14 @@ public class AttackState : ActionState
     {
         if (_blackboard.playerController.enemyTarget == null) return;
 
-        var enemyComponent = _blackboard.playerController.enemyTarget.GetComponent<IHitable>();
-        
+        _blackboard.playerController.playerData.levelSystem.GetExp(1);
+
+        var hitEffect = _blackboard.playerController.attackHitEffect;
+        hitEffect.Spawn(_blackboard.playerController.enemyTarget.transform.position, Quaternion.identity, _blackboard.playerController.enemyTarget.transform);
+
+        var target = _blackboard.playerController.enemyTarget.GetComponent<IHitable>();
         var damage = _blackboard.playerController.playerData.RandomDamage(_blackboard.playerController.playerData.attackDamage.Value);
-        enemyComponent.OnHit(damage);
+        target.OnHit(damage);
     }
 
     public virtual void MoveToTarget()

@@ -2,17 +2,13 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[Serializable]
-public class BaseMission
+public class BaseMission : ScriptableObject
 {
     [Header("CreateMission")]
     public Vector3 spawnPosition;
 
     [Header("ChangeStepEvent")]
-    public GameEvent completeStep;
-
-    public List<MissionSteps> missionSteps = new List<MissionSteps>();
-    public int currentStepsIndex = 0;
+    public GameEvent completeMission;
 
     public virtual bool CheckCompleteMission()
     {
@@ -29,19 +25,11 @@ public class BaseMission
         return false;
     }
 
-    public virtual void InstantiateMisison(Transform parent)
+    public virtual void InstantiateMission(Transform parent)
     {
-        if (currentStepsIndex != missionSteps.Count)
-        {
-            missionSteps[currentStepsIndex].InstantiateStep(spawnPosition, parent);
-        }
     }
 
     public virtual void UpdateMission(Transform parent)
     {
-        if (currentStepsIndex != missionSteps.Count)
-        {
-            missionSteps[currentStepsIndex].UpdateStep(parent);
-        }
     }
 }

@@ -24,6 +24,12 @@ public class EnemyMovementState : EnemyNormalState
             return StateStatus.Success;
         }
 
+        if (_blackboard.enemyController.stunLockDuration != 0)
+        {
+            _stateManager.ChangeState(_stateReferences.enemyStunLockState);
+            return StateStatus.Success;
+        }
+
         if (_blackboard.enemyController.followPlayer == true 
             && _stateManager.currentState != _stateReferences.enemyRunState
             && Vector3.Distance(_blackboard.enemyController.transform.position, _blackboard.enemyController.player.transform.position) >= 2)
@@ -32,7 +38,7 @@ public class EnemyMovementState : EnemyNormalState
             return StateStatus.Success;
         }
 
-        if (_blackboard.enemyController.canAttack && _stateManager.currentState.GetType().BaseType != typeof(EnemyAttackState))
+        if (_blackboard.enemyController.canAttack && _stateManager.currentState.GetType().BaseType != typeof(EnemyAttackState) && _elapsedTime > 0.2f)
         {
             Debug.Log("Attack");
             _stateManager.ChangeState(_stateReferences.enemyAttack1State);

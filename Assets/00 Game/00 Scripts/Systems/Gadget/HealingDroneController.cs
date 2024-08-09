@@ -3,7 +3,6 @@ using UnityEngine.Events;
 
 public class HealingDroneController : GadgetController
 {
-    [SerializeField] private UnityEvent<float, float> _playerHeal;
 
     private float _time;
 
@@ -38,15 +37,15 @@ public class HealingDroneController : GadgetController
     {
         float hpRegen = ((HealingDrone)itemData).hpRegen;
 
-        if (playerController.currentHP + hpRegen >= playerController.playerData.maxHP.Value)
+        if (playerController.playerData.currentHp + hpRegen >= playerController.playerData.maxHP.Value)
         {
-            playerController.currentHP = playerController.playerData.maxHP.Value;
+            playerController.playerData.currentHp = playerController.playerData.maxHP.Value;
         }
         else
         {
-            playerController.currentHP += hpRegen;
+            playerController.playerData.currentHp += hpRegen;
         }
 
-        _playerHeal.Invoke(playerController.currentHP, playerController.playerData.maxHP.Value);
+        playerController.playerChangeHP.Invoke(playerController.playerData.currentHp, playerController.playerData.maxHP.Value);
     }
 }

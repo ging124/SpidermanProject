@@ -17,7 +17,7 @@ public class EnemyDeadState : EnemyNormalState
     public override StateStatus UpdateState()
     {
 
-        if (_blackboard.enemyController.currentHP == _blackboard.enemyController.enemyData.maxHP.Value)
+        if (_blackboard.enemyController.enemyData.currentHp == _blackboard.enemyController.enemyData.maxHP.Value)
         {
             _stateManager.ChangeState(_stateReferences.enemyIdleState);
             return StateStatus.Success;
