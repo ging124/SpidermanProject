@@ -6,10 +6,12 @@ using UnityEngine;
 public class FightingMission : BaseMission
 {
     [Header("MissionData")]
+    public GetShippingPoint getFightingMission;
     public List<Waves> waveListData;
     public float fightingMissionRange;
 
     [Header("MissionProgress")]
+    public int getMisisonPoint = 0;
     public int enemies = 0;
     public int waves = 0;
 
@@ -40,15 +42,21 @@ public class FightingMission : BaseMission
 
     public override void InstantiateMission(Transform parent)
     {
+        getMisisonPoint = 0;
         enemies = 0;
         waves = 0;
 
-        SpawnWave(parent, waves);
+        getFightingMission.Spawn(spawnPosition, Quaternion.identity, parent);
     }
 
     public override void UpdateMission(Transform parent)
     {
-        enemies++;
+        if (getMisisonPoint == 0) getMisisonPoint++;
+        if(getMisisonPoint == 1 && waves == 0)
+        {
+            SpawnWave(parent, waves);
+            enemies++;
+        }
 
         if(enemies == waveListData[waves].enemies.Count && waves != waveListData.Count - 1)
         {

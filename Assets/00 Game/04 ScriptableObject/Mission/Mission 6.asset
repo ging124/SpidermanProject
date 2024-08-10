@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPosition: {x: -344.9, y: 0.05000019, z: 215.78}
   completeMission: {fileID: 11400000, guid: e9bf2e8a6ae3fb440a88cc195654f1b4, type: 2}
+  getShippingMission: {fileID: 11400000, guid: e950e4e4d6f75084ea281b0cdba45469, type: 2}
   listShippingPointPosition:
-  - position: {x: -5, y: 0, z: -5}
+  - position: {x: -5, y: 0.05000019, z: -5}
     shippingPoint: {fileID: 11400000, guid: 4c994c9ee8d912449873542d1b625f98, type: 2}
-  - position: {x: -10, y: 0, z: -10}
+  - position: {x: -10, y: 0.05000019, z: -10}
     shippingPoint: {fileID: 11400000, guid: 4c994c9ee8d912449873542d1b625f98, type: 2}
-  point: 0
+  point: 3

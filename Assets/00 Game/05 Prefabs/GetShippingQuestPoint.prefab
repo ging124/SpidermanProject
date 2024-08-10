@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 441220382048188932}
   - component: {fileID: 2673370530060352763}
   - component: {fileID: 5181346885817819560}
+  - component: {fileID: 2772109259693225511}
   m_Layer: 0
   m_Name: GetShippingQuestPoint
   m_TagString: Untagged
@@ -68,7 +69,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   getShippingPoint: {fileID: 0}
-  getShippingDone: {fileID: 11400000, guid: 03df3802ee641204b83f5965c49546ef, type: 2}
+  getShippingDone: {fileID: 11400000, guid: a783a6895ab1c654698386f5625b433b, type: 2}
+--- !u!114 &2772109259693225511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3265224513604202290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 411060de4483b5e4c9847cd3cbc18554, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetColor: {r: 1, g: 0, b: 0, a: 1}
+  needBoxIndicator: 1
+  needArrowIndicator: 1
+  needDistanceText: 1
+  indicator: {fileID: 0}
 --- !u!1 &3996324524714642078
 GameObject:
   m_ObjectHideFlags: 0

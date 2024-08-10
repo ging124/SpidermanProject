@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPosition: {x: -204.09, y: 0.09899998, z: 166.55}
   completeMission: {fileID: 11400000, guid: e9bf2e8a6ae3fb440a88cc195654f1b4, type: 2}
+  getFightingMission: {fileID: 11400000, guid: e950e4e4d6f75084ea281b0cdba45469, type: 2}
   waveListData:
   - enemies:
     - {fileID: 11400000, guid: 2c116274eba07184baa370cf5ab20a33, type: 2}
   fightingMissionRange: 0
+  getMisisonPoint: 0
   enemies: 0
   waves: 0

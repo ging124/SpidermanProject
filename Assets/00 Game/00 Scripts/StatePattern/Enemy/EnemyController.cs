@@ -28,11 +28,12 @@ public class EnemyController : ObjectController, IHitable
         capCollider = this.GetComponent<CapsuleCollider>();
         rigid = this.GetComponent<Rigidbody>();
         agent = this.GetComponent<NavMeshAgent>();
-        enemyData = Instantiate(enemyData);
     }
 
     private void OnEnable()
     {
+        Debug.Log("He");
+        enemyData = Instantiate(enemyData);
         uIEnemyBlackboard.enemyHPBar.EnemyHPChange(enemyData.currentHp, enemyData.maxHP.Value);
         //enemyManager.Add(enemyData);
     }

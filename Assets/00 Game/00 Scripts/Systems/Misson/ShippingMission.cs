@@ -5,7 +5,7 @@ using UnityEngine;
 public class ShippingMission : BaseMission
 {
     [Header("MissionData")]
-    public GetShippingPoint getShippingPointPosition;
+    public GetShippingPoint getShippingMission;
     public List<ShippingPointPosition> listShippingPointPosition;
 
     [Header("MissionProgress")]
@@ -13,7 +13,7 @@ public class ShippingMission : BaseMission
 
     public override bool CheckCompleteMission()
     {
-        if (point == listShippingPointPosition.Count)
+        if (point == listShippingPointPosition.Count + 1)
         {
             return true;
         }
@@ -32,13 +32,17 @@ public class ShippingMission : BaseMission
     {
         point = 0;
 
-        SpawnWave(parent);
+        getShippingMission.Spawn(spawnPosition, Quaternion.identity, parent);
     }
 
     public override void UpdateMission(Transform parent)
     {
         point++;
-        Debug.Log("Update Mission");
+
+        if (point == 1)
+        {
+            SpawnShippingPoint(parent);
+        }
 
         if (CheckCompleteMission())
         {
@@ -47,7 +51,7 @@ public class ShippingMission : BaseMission
 
     }
 
-    public void SpawnWave(Transform parent)
+    public void SpawnShippingPoint(Transform parent)
     {
         foreach (ShippingPointPosition shippingPoint in listShippingPointPosition)
         {
