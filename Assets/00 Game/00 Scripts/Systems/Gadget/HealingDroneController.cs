@@ -37,15 +37,15 @@ public class HealingDroneController : GadgetController
     {
         float hpRegen = ((HealingDrone)itemData).hpRegen;
 
-        if (playerController.playerData.currentHp + hpRegen >= playerController.playerData.maxHP.Value)
+        if (playerController.playerData.currentHP + hpRegen >= playerController.playerData.maxHP.Value)
         {
-            playerController.playerData.currentHp = playerController.playerData.maxHP.Value;
+            playerController.playerData.currentHP = playerController.playerData.maxHP.Value;
         }
         else
         {
-            playerController.playerData.currentHp += hpRegen;
+            playerController.playerData.currentHP += hpRegen;
         }
 
-        playerController.playerChangeHP.Invoke(playerController.playerData.currentHp, playerController.playerData.maxHP.Value);
+        playerController.playerChangeHP.Invoke(playerController.playerData.currentHP, playerController.playerData.maxHP.Value);
     }
 }

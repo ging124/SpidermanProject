@@ -58,7 +58,11 @@ public class PlayerController : ObjectController
         cam = GameObject.FindWithTag("MainCamera").GetComponent<Transform>();
         rb = this.GetComponent<Rigidbody>();
         animancer = this.GetComponent<AnimancerComponent>();
-        playerData = Instantiate(playerData);
+    }
+
+    private void OnEnable()
+    {
+        playerData.currentHP = playerData.maxHP.Value;
     }
 
     private void OnTriggerEnter(Collider other)

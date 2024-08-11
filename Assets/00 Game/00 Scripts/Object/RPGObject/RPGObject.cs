@@ -4,7 +4,7 @@ using UnityEngine;
 [Serializable]
 public abstract class RPGObject : ScriptableObject
 {
-    public float currentHp;
+    public float currentHP;
     public LevelSystem levelSystem;
     public FloatVariables maxHP;
     public FloatVariables attackDamage;
@@ -14,7 +14,7 @@ public abstract class RPGObject : ScriptableObject
 
     public void OnEnable()
     {
-        currentHp = maxHP.Value;
+        currentHP = maxHP.Value;
     }
 
     public int RandomDamage(float damage)

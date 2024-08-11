@@ -57,7 +57,7 @@ public class AttackState : ActionState
         _blackboard.playerController.playerData.levelSystem.GetExp(1);
 
         var hitEffect = _blackboard.playerController.attackHitEffect;
-        hitEffect.Spawn(_blackboard.playerController.enemyTarget.transform.position, Quaternion.identity, _blackboard.playerController.enemyTarget.transform);
+        hitEffect.Spawn(_blackboard.playerController.enemyTarget.transform.position, Quaternion.identity, null);
 
         var target = _blackboard.playerController.enemyTarget.GetComponent<IHitable>();
         var damage = _blackboard.playerController.playerData.RandomDamage(_blackboard.playerController.playerData.attackDamage.Value);

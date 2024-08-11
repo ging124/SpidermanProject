@@ -6,7 +6,7 @@ using UnityEngine;
 [Serializable]
 public class ShippingPointPosition
 {
-    [SerializeField] Vector3 position;
+    public Vector3 position;
     [SerializeField] ShippingPoint shippingPoint;
 
     public void SpawnPoint(Transform parent)
