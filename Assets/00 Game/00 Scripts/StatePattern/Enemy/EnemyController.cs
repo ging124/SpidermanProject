@@ -32,9 +32,8 @@ public class EnemyController : ObjectController, IHitable
 
     private void OnEnable()
     {
-        Debug.Log("He");
-        enemyData = Instantiate(enemyData);
-        uIEnemyBlackboard.enemyHPBar.EnemyHPChange(enemyData.currentHp, enemyData.maxHP.Value);
+        enemyData.currentHP = enemyData.maxHP.Value;
+        uIEnemyBlackboard.enemyHPBar.EnemyHPChange(enemyData.currentHP, enemyData.maxHP.Value);
         //enemyManager.Add(enemyData);
     }
 

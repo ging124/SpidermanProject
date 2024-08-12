@@ -1,7 +1,7 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
-
 
 [ExecuteInEditMode]
 public class WallScript : MonoBehaviour
@@ -11,6 +11,9 @@ public class WallScript : MonoBehaviour
     public float highDetect = 0.1f;
     public List<Vector3> verticesList = new List<Vector3>();
 
+    public List<List<Vector3>> groupedVectors;
+
+
     public float debugPointRadius = 0.18f;
     public int debugTextSize = 24;
     public int debugTextHeight = 3;
@@ -18,66 +21,72 @@ public class WallScript : MonoBehaviour
 
     public float debugPointHeight = 1;
 
-    /*public GameObject testPrefab;
-    public List<GameObject> lists = new List<GameObject>();*/
 
     [ContextMenu("GetVertices")]
     private void GetVertices()
     {
+        Debug.Log("He");
         verticesList.Clear();
 
         Vector3[] vertices = meshCollider.sharedMesh.vertices;
         for (int i = 0; i < vertices.Length; i++)
         {
             var vertexTransform = transform.TransformPoint(vertices[i]);
+            int flag = 0;
+            Vector3 disctance = vertexTransform + (vertexTransform - this.transform.position) * 0.002f;
+            Vector3 direction1 = Vector3.up;
 
-            int flag = 1;
-
-            Vector3 direction1 = -Vector3.up + Vector3.right;
-
-            if (Physics.Raycast(vertexTransform + Vector3.up * debugPointHeight, direction1, 2))
+            if (Physics.Raycast(disctance, direction1))
             {
                 flag++;
             }
 
-            Vector3 direction2 = -Vector3.up + Vector3.forward;
+            Vector3 direction2 = -Vector3.up;
 
-            if (Physics.Raycast(vertexTransform + Vector3.up * debugPointHeight, direction2, 2))
+            if (Physics.Raycast(disctance, direction2))
             {
                 flag++;
             }
 
-            Vector3 direction3 = -Vector3.up - Vector3.right;
+            Vector3 direction3 = Vector3.right;
 
-            if (Physics.Raycast(vertexTransform + Vector3.up * debugPointHeight, direction3, 2))
+            if (Physics.Raycast(disctance, direction3))
             {
                 flag++;
             }
 
-            Vector3 direction4 = -Vector3.up - Vector3.forward;
+            Vector3 direction4 = -Vector3.right;
 
-            if (Physics.Raycast(vertexTransform + Vector3.up * debugPointHeight, direction4, 2))
+            if (Physics.Raycast(disctance, direction4))
             {
                 flag++;
             }
 
-            Vector3 direction5 = -Vector3.up;
+            Vector3 direction5 = Vector3.forward;
 
-            if (Physics.Raycast(vertexTransform + Vector3.up * debugPointHeight, direction5, 2))
+            if (Physics.Raycast(disctance, direction5))
+            {
+                flag++;
+            }
+
+            Vector3 direction6 = -Vector3.forward;
+
+            if (Physics.Raycast(disctance, direction6))
             {
                 flag++;
             }
 
             //RaycastHit hit;
             if (!verticesList.Contains(vertexTransform) && vertices[i].y > highDetect
-                && flag == 4)
-            {
+                && flag == 3)       
                 //Debug.Log(hit.collider.name);
                 verticesList.Add(vertexTransform);
                 //lists.Add(Instantiate(testPrefab, vertexTransform, Quaternion.identity, transform));
             }
-        }
+
+        groupedVectors = new List<List<Vector3>>(SplitByHeight(verticesList));
     }
+
 
     public Vector3 GetZipPoint(Vector3 point)
     {
@@ -134,7 +143,6 @@ public class WallScript : MonoBehaviour
             Gizmos.DrawSphere(verticies, debugPointRadius);
             index++;
         }
-
         Gizmos.color = Color.red;
 
         for (int i = 0; i < verticesList.Count; i++)
@@ -148,23 +156,27 @@ public class WallScript : MonoBehaviour
                 Handles.DrawLine(verticesList[i], verticesList[i + 1], debugLinethickness);
             }
 
-            Vector3 direction1 = - Vector3.up + Vector3.right;
+            Vector3 direction1 = Vector3.up;
 
             DebugRayDetection(verticesList[i], direction1);
 
-            Vector3 direction2 = - Vector3.up + Vector3.forward;
+            Vector3 direction2 = Vector3.forward;
 
             DebugRayDetection(verticesList[i], direction2);
 
-            Vector3 direction3 = -Vector3.up - Vector3.right;
+            Vector3 direction3 = Vector3.right;
 
             DebugRayDetection(verticesList[i], direction3);
 
-            Vector3 direction4 = -Vector3.up - Vector3.forward;
+            Vector3 direction4 = -Vector3.up;
 
             DebugRayDetection(verticesList[i], direction4);
 
-            Vector3 direction6 = -Vector3.up;
+            Vector3 direction5 = -Vector3.forward;
+
+            DebugRayDetection(verticesList[i], direction5);
+
+            Vector3 direction6 = -Vector3.right;
 
             DebugRayDetection(verticesList[i], direction6);
         }
@@ -174,13 +186,37 @@ public class WallScript : MonoBehaviour
     {
         Vector3 direction1 = direction;
 
-        if (Physics.Raycast(point + Vector3.up * debugPointHeight, direction1, 2))
+        RaycastHit hit;
+        if (Physics.Raycast(point + (point - this.transform.position) * 0.002f, direction1, out hit))
         {
-            Debug.DrawRay(point + Vector3.up * debugPointHeight, direction1, Color.red);
+            Debug.DrawRay(point + (point - this.transform.position) * 0.002f, direction1, Color.red);
+            if (hit.collider != null) Debug.Log(hit.collider.name);
         }
         else
         {
-            Debug.DrawRay(point + Vector3.up * debugPointHeight, direction1, Color.green);
+            Debug.DrawRay(point + (point - this.transform.position) * 0.002f, direction1, Color.green);
         }
     }
+
+    public List<List<Vector3>> SplitByHeight(List<Vector3> vectors)
+    {
+        // Tạo dictionary để nhóm các vector theo giá trị y
+        Dictionary<float, List<Vector3>> groupedByHeight = new Dictionary<float, List<Vector3>>();
+
+        foreach (Vector3 vec in vectors)
+        {
+            float height = vec.y;
+            if (!groupedByHeight.ContainsKey(height))
+            {
+                groupedByHeight[height] = new List<Vector3>();
+            }
+            groupedByHeight[height].Add(vec);
+        }
+
+        // Chuyển dictionary thành list các list
+        return groupedByHeight.Values.ToList();
+    }
 }
+
+
+

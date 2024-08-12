@@ -31,5 +31,11 @@ public class BaseMission : ScriptableObject
 
     public virtual void UpdateMission(Transform parent)
     {
+
+    }
+
+    public virtual void GetMissionPossition(Transform pos)
+    {
+        spawnPosition = pos.position;
     }
 }

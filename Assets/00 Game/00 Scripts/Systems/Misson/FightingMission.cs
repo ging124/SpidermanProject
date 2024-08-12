@@ -11,7 +11,7 @@ public class FightingMission : BaseMission
     public float fightingMissionRange;
 
     [Header("MissionProgress")]
-    public int getMisisonPoint = 0;
+    public int getMissionPoint = 0;
     public int enemies = 0;
     public int waves = 0;
 
@@ -19,13 +19,7 @@ public class FightingMission : BaseMission
     {
         if(waves != waveListData.Count - 1) return false;
 
-        int enemyCount = 0;
-        foreach (Waves wave in waveListData)
-        {
-            enemyCount += wave.enemies.Count;
-        }
-
-        if (enemies == enemyCount)
+        if ( enemies == waveListData[waves].enemies.Count)
         {
             return true;
         }
@@ -42,7 +36,7 @@ public class FightingMission : BaseMission
 
     public override void InstantiateMission(Transform parent)
     {
-        getMisisonPoint = 0;
+        getMissionPoint = 0;
         enemies = 0;
         waves = 0;
 
@@ -51,16 +45,19 @@ public class FightingMission : BaseMission
 
     public override void UpdateMission(Transform parent)
     {
-        if (getMisisonPoint == 0) getMisisonPoint++;
-        if(getMisisonPoint == 1 && waves == 0)
+        if (getMissionPoint == 0 && waves == 0)
         {
             SpawnWave(parent, waves);
-            enemies++;
+            getMissionPoint++;
+            return;
         }
 
-        if(enemies == waveListData[waves].enemies.Count && waves != waveListData.Count - 1)
+        enemies++;
+
+        if (enemies == waveListData[waves].enemies.Count && waves != waveListData.Count - 1)
         {
             waves++;
+            enemies = 0;
             SpawnWave(parent, waves);
         }
 

@@ -17,6 +17,13 @@ public class MissionList : ScriptableObject
 
     public void FinishedMission()
     {
+        if (currentMissionIndex == listMission.Count - 1)
+        {
+            currentMissionIndex = 0;
+            changeProgressingMission.Raise();
+            return;
+        }
+
         if (listMission.Count > 0)
         {
             currentMissionIndex++;
@@ -29,11 +36,6 @@ public class MissionList : ScriptableObject
         Debug.Log("Failed Mission");
     }
 
-    public void CheckFailedStep()
-    {
-        Debug.Log("Failed Stept");
-    }
-
     public void InstantiateMission(Transform parent)
     {
         if (listMission[currentMissionIndex] != null)
@@ -44,6 +46,7 @@ public class MissionList : ScriptableObject
 
     public void UpdateMission(Transform parent)
     {
+
         if (listMission[currentMissionIndex] != null)
         {
             listMission[currentMissionIndex].UpdateMission(parent);

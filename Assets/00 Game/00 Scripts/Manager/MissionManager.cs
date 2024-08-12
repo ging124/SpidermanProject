@@ -45,7 +45,7 @@ public class MissionManager : MonoBehaviour
         int i = 0;
         foreach (Transform t in missionLocation)
         {
-            missionManagerSO.listMission[i].spawnPosition = t.position;
+            missionManagerSO.listMission[i].GetMissionPossition(t);
             i++;
         }
     }

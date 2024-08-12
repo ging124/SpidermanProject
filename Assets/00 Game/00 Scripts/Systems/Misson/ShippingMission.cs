@@ -58,4 +58,16 @@ public class ShippingMission : BaseMission
             shippingPoint.SpawnPoint(parent);
         }
     }
+
+    public override void GetMissionPossition(Transform pos)
+    {
+        base.GetMissionPossition(pos);
+
+        int i = 0;
+        foreach(Transform t in pos)
+        {
+            listShippingPointPosition[i].position = t.position;
+            i++;
+        }
+    }
 }

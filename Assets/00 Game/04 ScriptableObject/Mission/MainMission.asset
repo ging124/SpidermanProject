@@ -13,46 +13,11 @@ MonoBehaviour:
   m_Name: MainMission
   m_EditorClassIdentifier: 
   listMission:
-  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
   - {fileID: 11400000, guid: f607bf1f997a28049b247af8b355871f, type: 2}
-  - {fileID: 11400000, guid: 5b8e89aa6cdcacf47b3540d5282ebe62, type: 2}
+  - {fileID: 11400000, guid: 0f7c559fa1a4aa241929f1e8d9f34611, type: 2}
+  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
   - {fileID: 11400000, guid: fbc91539867c0af4f92d6839e0b62624, type: 2}
-  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
-  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
-  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
-  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
-  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
-  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
-  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
-  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
-  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
-  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
-  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
-  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
-  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
-  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
-  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
-  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
-  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
-  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
-  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
-  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
-  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
-  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
-  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
-  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
-  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
-  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
-  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
-  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
-  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
-  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
-  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
-  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
-  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
-  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
-  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
-  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
+  - {fileID: 11400000, guid: 5b8e89aa6cdcacf47b3540d5282ebe62, type: 2}
   currentMissionIndex: 0
   completeMission:
     gameEvent: {fileID: 11400000, guid: e9bf2e8a6ae3fb440a88cc195654f1b4, type: 2}
@@ -72,4 +37,3 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
   changeProgressingMission: {fileID: 11400000, guid: 09083e75ac811d84d9a0ad73c1b51ce3, type: 2}
-  changeStep: {fileID: 11400000, guid: 3c64bcd9add7fc34a90f9eb544730ff0, type: 2}

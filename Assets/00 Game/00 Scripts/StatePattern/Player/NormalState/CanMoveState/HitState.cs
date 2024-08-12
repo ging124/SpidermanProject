@@ -32,7 +32,7 @@ public class HitState : CanMoveState
             return StateStatus.Success;
         }
 
-        if (_blackboard.playerController.playerData.currentHp <= 0)
+        if (_blackboard.playerController.playerData.currentHP <= 0)
         {
             _stateManager.ChangeState(_stateReferences.deadState);
             return StateStatus.Success;
@@ -49,12 +49,12 @@ public class HitState : CanMoveState
     public void TakeDamage()
     {
         int damageValue = _blackboard.playerController.hitDamage;
-        _blackboard.playerController.playerData.currentHp -= damageValue;
-        _blackboard.playerController.playerChangeHP.Invoke(_blackboard.playerController.playerData.currentHp, _blackboard.playerController.playerData.maxHP.Value);
+        _blackboard.playerController.playerData.currentHP -= damageValue;
+        _blackboard.playerController.playerChangeHP.Invoke(_blackboard.playerController.playerData.currentHP, _blackboard.playerController.playerData.maxHP.Value);
 
-        if (_blackboard.playerController.playerData.currentHp <= 0)
+        if (_blackboard.playerController.playerData.currentHP <= 0)
         {
-            _blackboard.playerController.playerData.currentHp = 0;
+            _blackboard.playerController.playerData.currentHP = 0;
         }
     }
 }
