@@ -6,9 +6,12 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class WallScript : MonoBehaviour
 {
+    public RaySearch raySearch;
     public MeshCollider meshCollider;
 
     public float highDetect = 0.1f;
+    public float distanceVertices = 1.2f;
+
     public List<Vector3> verticesList = new List<Vector3>();
 
     public List<List<Vector3>> groupedVectors;
@@ -19,10 +22,6 @@ public class WallScript : MonoBehaviour
     public float debugPointRadius = 0.18f;
     public int debugTextSize = 24;
     public int debugTextHeight = 3;
-    public int debugLinethickness = 3;
-
-    public float debugPointHeight = 1;
-    public float debugPointDistance = 0.5f;
 
 
 
@@ -62,8 +61,13 @@ public class WallScript : MonoBehaviour
             point.Add(groupedVectors[i][flag]);
         }
 
-    }
+        foreach(var point in point)
+        {
+            if (Physics.Raycast(point - Vector3.forward, Vector3.forward, out RaycastHit hit))
+                raySearch.FindNext(hit.point, hit.normal);
+        }
 
+    }
 
     public Vector3 GetZipPoint(Vector3 point)
     {
@@ -118,10 +122,24 @@ public class WallScript : MonoBehaviour
         {
             Handles.Label(verticies + Vector3.up * debugTextHeight, index.ToString(), style);
             Gizmos.DrawSphere(verticies, debugPointRadius);
+            DebugRayDetection(verticies);
             index++;
         }
         Gizmos.color = Color.red;
 
+    }
+
+    void DebugRayDetection(Vector3 point)
+    {
+        
+        if (Physics.Raycast(point - Vector3.forward, Vector3.forward, 2))
+        {
+            Debug.DrawRay(point + point.normalized, Vector3.forward, Color.red);
+        }
+        else
+        {
+            Debug.DrawRay(point + point.normalized, Vector3.forward, Color.green);
+        }
     }
 
     public List<List<Vector3>> SplitByHeight(List<Vector3> vectors)
@@ -145,7 +163,7 @@ public class WallScript : MonoBehaviour
         int index = 0;
         foreach (var item in groupedByHeight)
         {
-            if(Mathf.Abs(tmp.Key - item.Key) < 1.2f) {
+            if(Mathf.Abs(tmp.Key - item.Key) < distanceVertices) {
                 if (!final.ContainsKey(index))
                 {
                     final[index] = new List<Vector3>();
