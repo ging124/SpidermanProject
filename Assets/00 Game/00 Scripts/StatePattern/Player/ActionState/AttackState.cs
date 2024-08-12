@@ -69,6 +69,6 @@ public class AttackState : ActionState
         Vector3 target = Vector3.MoveTowards(_blackboard.playerController.enemyTarget.transform.position, _blackboard.playerController.transform.position, .95f);
         target.y = _blackboard.playerController.transform.position.y;
         _blackboard.playerController.transform.DOLookAt(_blackboard.playerController.enemyTarget.transform.position, 0.2f, AxisConstraint.Y);
-        _blackboard.playerController.transform.DOMove(target, 0.2f);
+        _blackboard.playerController.rb.DOMove(target, 0.2f);
     }
 }

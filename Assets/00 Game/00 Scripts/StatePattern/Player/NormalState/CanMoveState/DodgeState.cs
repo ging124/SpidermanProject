@@ -51,7 +51,7 @@ public class DodgeState : NormalState
                 _stateManager.ChangeState(_stateReferences.idleNormalState);
 
             };
-            _blackboard.playerController.transform.DOMove(_blackboard.playerController.transform.position - _blackboard.playerController.transform.forward, 0.2f);
+            _blackboard.playerController.rb.DOMove(_blackboard.playerController.transform.position - _blackboard.playerController.transform.forward, 0.2f);
         }
         else
         {
@@ -73,7 +73,7 @@ public class DodgeState : NormalState
 
                 };
             }
-            _blackboard.playerController.transform.DOMove(_blackboard.playerController.transform.position + horizontal, 0.2f);
+            _blackboard.playerController.rb.DOMove(_blackboard.playerController.transform.position + horizontal, 0.2f);
         }
     }
 }

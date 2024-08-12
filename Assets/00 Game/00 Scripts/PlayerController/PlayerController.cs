@@ -119,15 +119,6 @@ public class PlayerController : ObjectController
         {
             this.enemyTarget = null;
         }
-
-        /*if (Physics.SphereCast(transform.position, 1, movement.normalized, out hit, attackRangeDetection, enemyLayer))
-        {
-            if (hit.transform.GetComponent<IHitable>() != null)
-            {
-                enemyTarget = hit.collider;
-            }
-        }*/
-
     }
 
     public void WallCheck()
@@ -144,7 +135,6 @@ public class PlayerController : ObjectController
             if (this.zipPointDetection.transform.TryGetComponent<WallScript>(out wallScript))
             {
                 this.zipPoint = wallScript.GetZipPoint(this.zipPointDetection.point);
-                Debug.Log("Zip");
             }
             else
             {

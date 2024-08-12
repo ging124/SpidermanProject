@@ -1,9 +1,6 @@
 using Animancer;
 using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 
 [CreateAssetMenu(menuName = "ScriptableObject/Gadget/WebShooter")]
 public class WebShooter : Gadget

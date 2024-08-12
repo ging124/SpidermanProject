@@ -72,7 +72,7 @@ public class StartZipState : NormalState
     public void Zip()
     {
         _blackboard.transform.DOLookAt(zipPoint, 0.2f, AxisConstraint.Y);
-        _blackboard.transform.DOMove(zipPoint + Vector3.up, _zipTime);
+        _blackboard.playerController.rb.DOMove(zipPoint + Vector3.up, _zipTime);
     }
 
     public void StartZip()

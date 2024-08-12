@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e96d93878655738479fdeed7f3102fe7, type: 3}
   m_Name: Mission 1
   m_EditorClassIdentifier: 
-  spawnPosition: {x: -169.01, y: 102.87, z: 247.9}
+  spawnPosition: {x: -22.310001, y: 0.09899998, z: 164.97}
   completeMission: {fileID: 11400000, guid: e9bf2e8a6ae3fb440a88cc195654f1b4, type: 2}
   getFightingMission: {fileID: 11400000, guid: e950e4e4d6f75084ea281b0cdba45469, type: 2}
   waveListData:
@@ -21,6 +21,6 @@ MonoBehaviour:
   - enemies:
     - {fileID: 11400000, guid: 2c116274eba07184baa370cf5ab20a33, type: 2}
   fightingMissionRange: 0
-  getMissionPoint: 1
-  enemies: 1
-  waves: 2
+  getMissionPoint: 0
+  enemies: 0
+  waves: 0

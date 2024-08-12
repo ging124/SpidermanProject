@@ -13,6 +13,8 @@ public class WallScript : MonoBehaviour
 
     public List<List<Vector3>> groupedVectors;
 
+    public List<Vector3> point;
+
 
     public float debugPointRadius = 0.18f;
     public int debugTextSize = 24;
@@ -20,71 +22,46 @@ public class WallScript : MonoBehaviour
     public int debugLinethickness = 3;
 
     public float debugPointHeight = 1;
+    public float debugPointDistance = 0.5f;
+
 
 
     [ContextMenu("GetVertices")]
     private void GetVertices()
     {
-        Debug.Log("He");
         verticesList.Clear();
+        point.Clear();
 
         Vector3[] vertices = meshCollider.sharedMesh.vertices;
         for (int i = 0; i < vertices.Length; i++)
         {
-            var vertexTransform = transform.TransformPoint(vertices[i]);
-            int flag = 0;
-            Vector3 disctance = vertexTransform + (vertexTransform - this.transform.position) * 0.002f;
-            Vector3 direction1 = Vector3.up;
+            Vector3 vertexTransform = transform.TransformPoint(vertices[i]);
 
-            if (Physics.Raycast(disctance, direction1))
+            if (!verticesList.Contains(vertexTransform) && vertexTransform.y > highDetect)
             {
-                flag++;
-            }
-
-            Vector3 direction2 = -Vector3.up;
-
-            if (Physics.Raycast(disctance, direction2))
-            {
-                flag++;
-            }
-
-            Vector3 direction3 = Vector3.right;
-
-            if (Physics.Raycast(disctance, direction3))
-            {
-                flag++;
-            }
-
-            Vector3 direction4 = -Vector3.right;
-
-            if (Physics.Raycast(disctance, direction4))
-            {
-                flag++;
-            }
-
-            Vector3 direction5 = Vector3.forward;
-
-            if (Physics.Raycast(disctance, direction5))
-            {
-                flag++;
-            }
-
-            Vector3 direction6 = -Vector3.forward;
-
-            if (Physics.Raycast(disctance, direction6))
-            {
-                flag++;
-            }
-
-            //RaycastHit hit;
-            if (!verticesList.Contains(vertexTransform) && vertices[i].y > highDetect
-                && flag == 3)       
-                //Debug.Log(hit.collider.name);
                 verticesList.Add(vertexTransform);
-                //lists.Add(Instantiate(testPrefab, vertexTransform, Quaternion.identity, transform));
             }
+
+        }
 
         groupedVectors = new List<List<Vector3>>(SplitByHeight(verticesList));
+
+        for (int i = 0; i < groupedVectors.Count; i++)
+        {
+            float maxDistance = float.MinValue;
+            int flag = 0;
+            for (int j = 0; j < groupedVectors[i].Count; j++)
+            {
+                float distance = Vector3.Distance(groupedVectors[i][j], this.transform.position);
+                if (maxDistance < distance)
+                {
+                    maxDistance = distance;
+                    flag = j;
+                }
+            }
+            point.Add(groupedVectors[i][flag]);
+        }
+
     }
 
 
@@ -137,7 +114,7 @@ public class WallScript : MonoBehaviour
 
         int index = 0;
 
-        foreach (var verticies in verticesList)
+        foreach (var verticies in point)
         {
             Handles.Label(verticies + Vector3.up * debugTextHeight, index.ToString(), style);
             Gizmos.DrawSphere(verticies, debugPointRadius);
@@ -145,63 +122,12 @@ public class WallScript : MonoBehaviour
         }
         Gizmos.color = Color.red;
 
-        for (int i = 0; i < verticesList.Count; i++)
-        {
-            if (i == verticesList.Count - 1)
-            {
-                Handles.DrawLine(verticesList[i], verticesList[0], debugLinethickness);
-            }
-            else
-            {
-                Handles.DrawLine(verticesList[i], verticesList[i + 1], debugLinethickness);
-            }
-
-            Vector3 direction1 = Vector3.up;
-
-            DebugRayDetection(verticesList[i], direction1);
-
-            Vector3 direction2 = Vector3.forward;
-
-            DebugRayDetection(verticesList[i], direction2);
-
-            Vector3 direction3 = Vector3.right;
-
-            DebugRayDetection(verticesList[i], direction3);
-
-            Vector3 direction4 = -Vector3.up;
-
-            DebugRayDetection(verticesList[i], direction4);
-
-            Vector3 direction5 = -Vector3.forward;
-
-            DebugRayDetection(verticesList[i], direction5);
-
-            Vector3 direction6 = -Vector3.right;
-
-            DebugRayDetection(verticesList[i], direction6);
-        }
-    }
-
-    void DebugRayDetection(Vector3 point, Vector3 direction)
-    {
-        Vector3 direction1 = direction;
-
-        RaycastHit hit;
-        if (Physics.Raycast(point + (point - this.transform.position) * 0.002f, direction1, out hit))
-        {
-            Debug.DrawRay(point + (point - this.transform.position) * 0.002f, direction1, Color.red);
-            if (hit.collider != null) Debug.Log(hit.collider.name);
-        }
-        else
-        {
-            Debug.DrawRay(point + (point - this.transform.position) * 0.002f, direction1, Color.green);
-        }
     }
 
     public List<List<Vector3>> SplitByHeight(List<Vector3> vectors)
     {
         // Tạo dictionary để nhóm các vector theo giá trị y
-        Dictionary<float, List<Vector3>> groupedByHeight = new Dictionary<float, List<Vector3>>();
+        SortedDictionary<float, List<Vector3>> groupedByHeight = new SortedDictionary<float, List<Vector3>>();
 
         foreach (Vector3 vec in vectors)
         {
@@ -210,11 +136,36 @@ public class WallScript : MonoBehaviour
             {
                 groupedByHeight[height] = new List<Vector3>();
             }
+
             groupedByHeight[height].Add(vec);
         }
 
+        Dictionary<float, List<Vector3>> final = new();
+        var tmp = groupedByHeight.First();
+        int index = 0;
+        foreach (var item in groupedByHeight)
+        {
+            if(Mathf.Abs(tmp.Key - item.Key) < 1.2f) {
+                if (!final.ContainsKey(index))
+                {
+                    final[index] = new List<Vector3>();
+                }
+                final[index].AddRange(item.Value);
+            }
+            else
+            {
+                index++;
+                if (!final.ContainsKey(index))
+                {
+                    final[index] = new List<Vector3>();
+                }
+                final[index].AddRange(item.Value);
+            }
+            tmp = item;
+        }
+
         // Chuyển dictionary thành list các list
-        return groupedByHeight.Values.ToList();
+        return final.Values.ToList();
     }
 }
 

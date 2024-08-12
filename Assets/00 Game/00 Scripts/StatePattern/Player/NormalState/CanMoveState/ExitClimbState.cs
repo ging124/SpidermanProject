@@ -13,8 +13,6 @@ public class ExitClimbState : NormalState
     public override void EnterState()
     {
         base.EnterState();
-        _blackboard.character.useRootMotion = true;
-        _blackboard.character.SetRotationMode(RotationMode.OrientWithRootMotion);
         _normalBodyLayer.Play(_exitClimbAnim);
     }
         
@@ -49,8 +47,6 @@ public class ExitClimbState : NormalState
 
     public override void ExitState()
     {
-        _blackboard.character.useRootMotion = false;
-        _blackboard.character.SetRotationMode(RotationMode.OrientToMovement);
         base.ExitState();
     }
 
