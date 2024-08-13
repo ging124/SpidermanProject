@@ -41,7 +41,7 @@ public class EnemyMovementState : EnemyNormalState
         if (_blackboard.enemyController.canAttack && _stateManager.currentState.GetType().BaseType != typeof(EnemyAttackState) && _elapsedTime > 0.2f)
         {
             Debug.Log("Attack");
-            _stateManager.ChangeState(_stateReferences.enemyAttack1State);
+            _stateManager.ChangeState(_stateReferences.enemyAttackState);
         }
 
         return StateStatus.Running;

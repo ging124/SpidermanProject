@@ -6,7 +6,6 @@ public class EnemyMoveState : EnemyCanMoveState
     [SerializeField] ClipTransition _enemyMoveAnim;
     private float _timeToIdle;
 
-
     public override void EnterState()
     {
         base.EnterState();
@@ -23,7 +22,7 @@ public class EnemyMoveState : EnemyCanMoveState
             return baseStatus;
         }
 
-        Movement(_blackboard.enemyController.enemyData.moveSpeed.Value);
+        Movement(_blackboard.enemyController.enemyData.moveSpeed);
 
         if (_elapsedTime > _timeToIdle)
         {

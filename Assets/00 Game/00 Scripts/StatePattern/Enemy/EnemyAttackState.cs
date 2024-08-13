@@ -47,7 +47,7 @@ public class EnemyAttackState : EnemyActionState
 
         var targetComponent = _blackboard.enemyController.player.GetComponent<IHitable>();
 
-        var damage = _blackboard.enemyController.enemyData.RandomDamage(_blackboard.enemyController.enemyData.attackDamage.Value);
+        var damage = _blackboard.enemyController.enemyData.RandomDamage(_blackboard.enemyController.enemyData.attackDamage);
         targetComponent.OnHit(damage);
     }
 }

@@ -3,12 +3,15 @@ using UnityEngine;
 
 public class EnemyAttack1State : EnemyAttackState
 {
-    [SerializeField] private ClipTransition _attack1Anim;
+    [SerializeField] private ClipTransition[] _attack1Anim;
 
     public override void EnterState()
     {
         base.EnterState();
-        _actionLayer.Play(_attack1Anim);
+        _actionLayer.Play(_attack1Anim[Random.Range(0, _attack1Anim.Length - 1)], 0.25f, FadeMode.FromStart).Events.OnEnd = () =>
+        {
+            _stateManager.ChangeState(_stateReferences.enemyIdleState);
+        };
     }
 
     public override StateStatus UpdateState()
@@ -17,12 +20,6 @@ public class EnemyAttack1State : EnemyAttackState
         if (baseStatus != StateStatus.Running)
         {
             return baseStatus;
-        }
-
-        if (_blackboard.enemyController.canAttack && _elapsedTime > _timeChangeState)
-        {
-            _stateManager.ChangeState(_stateReferences.enemyAttack2State);
-            return StateStatus.Success;
         }
 
         return StateStatus.Running;

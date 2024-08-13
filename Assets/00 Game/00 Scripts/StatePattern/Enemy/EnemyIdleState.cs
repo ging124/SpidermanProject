@@ -12,7 +12,6 @@ public class EnemyIdleState : EnemyMovementState
     {
         base.EnterState();
         _normalBodyLayer.Play(_idleAnim);
-        _timeToMove = Random.Range(5f, 10f);
     }
 
     public override StateStatus UpdateState()
@@ -23,11 +22,11 @@ public class EnemyIdleState : EnemyMovementState
             return baseStatus;
         }
 
-        if (_elapsedTime > _timeToMove)
+        /*if (_elapsedTime > _timeToMove)
         {
             _stateManager.ChangeState(_stateReferences.enemyMoveState);
             return StateStatus.Success;
-        }
+        }*/
 
         return StateStatus.Running;
     }

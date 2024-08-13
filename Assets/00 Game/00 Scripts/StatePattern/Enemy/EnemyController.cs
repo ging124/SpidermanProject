@@ -8,6 +8,7 @@ public class EnemyController : ObjectController, IHitable
 
     public float stunLockDuration = 0;
 
+    public float currentHP;
     public Enemy enemyData;
     public EnemyManager enemyManager;
 
@@ -32,8 +33,8 @@ public class EnemyController : ObjectController, IHitable
 
     private void OnEnable()
     {
-        enemyData.currentHP = enemyData.maxHP.Value;
-        uIEnemyBlackboard.enemyHPBar.EnemyHPChange(enemyData.currentHP, enemyData.maxHP.Value);
+        currentHP = enemyData.maxHP;
+        uIEnemyBlackboard.enemyHPBar.EnemyHPChange(currentHP, enemyData.maxHP);
         //enemyManager.Add(enemyData);
     }
 

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class NormalActionState : ActionState
 {
-    [SerializeField] private float _timeToAttack = 0.15f;
 
     public override void EnterState()
     {
@@ -19,8 +18,7 @@ public class NormalActionState : ActionState
             return baseStatus;
         }
 
-        if(_blackboard.inputSO.buttonAttack && _elapsedTime > _timeToAttack
-            && _blackboard.character.IsGrounded()
+        if(_blackboard.inputSO.buttonAttack && _blackboard.character.IsGrounded()
             && ((StateManagerAction)_stateManager).stateManagerMovement.currentState != _stateReferences.deadState)
         {
             if (_blackboard.playerController.enemyTarget == null)

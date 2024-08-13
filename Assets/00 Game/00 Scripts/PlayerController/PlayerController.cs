@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class PlayerController : ObjectController
 {
     [Header("----PlayerController----")]
+    public float currentHP;
     public LayerMask enemyLayer;
     public float ultimateRange;
 
@@ -62,7 +63,7 @@ public class PlayerController : ObjectController
 
     private void OnEnable()
     {
-        playerData.currentHP = playerData.maxHP.Value;
+        currentHP = playerData.maxHP;
     }
 
     private void OnTriggerEnter(Collider other)

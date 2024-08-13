@@ -10,7 +10,6 @@ public class EnemyHitState : EnemyNormalState
     {
         base.EnterState();
         _blackboard.enemyController.agent.enabled = false;
-        Debug.Log("Knockback");
         _normalBodyLayer.Play(_hitAnimList[Random.Range(0, _hitAnimList.Length - 1)], 0.25f, FadeMode.FromStart).Events.OnEnd = () =>
         {
             _stateManager.ChangeState(_stateReferences.enemyIdleState);
@@ -32,7 +31,7 @@ public class EnemyHitState : EnemyNormalState
             return StateStatus.Success;
         }
 
-        if (_blackboard.enemyController.enemyData.currentHP <= 0)
+        if (_blackboard.enemyController.currentHP <= 0)
         {
             _stateManager.ChangeState(_stateReferences.enemyDeadState);
             return StateStatus.Success;
@@ -52,12 +51,12 @@ public class EnemyHitState : EnemyNormalState
         _blackboard.enemyController.transform.LookAt(new Vector3(_blackboard.enemyController.player.transform.position.x, transform.position.y, _blackboard.enemyController.player.transform.position.z));
         _blackboard.enemyController.transform.DOMove(_blackboard.enemyController.transform.position - (_blackboard.enemyController.transform.forward / 2), 0.2f).SetDelay(0.1f);
 
-        _blackboard.enemyController.enemyData.currentHP -= _blackboard.enemyController.hitDamage;
-        _blackboard.enemyController.uIEnemyBlackboard.enemyHPBar.EnemyHPChange(_blackboard.enemyController.enemyData.currentHP, _blackboard.enemyController.enemyData.maxHP.Value);
+        _blackboard.enemyController.currentHP -= _blackboard.enemyController.hitDamage;
+        _blackboard.enemyController.uIEnemyBlackboard.enemyHPBar.EnemyHPChange(_blackboard.enemyController.currentHP, _blackboard.enemyController.enemyData.maxHP);
 
-        if (_blackboard.enemyController.enemyData.currentHP <= 0)
+        if (_blackboard.enemyController.currentHP <= 0)
         {
-            _blackboard.enemyController.enemyData.currentHP = 0;
+            _blackboard.enemyController.currentHP = 0;
         }
     }
 }

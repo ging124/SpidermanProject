@@ -29,7 +29,6 @@ public class EnemyRunState : EnemyCanMoveState
         }
         else
         {
-            _blackboard.enemyController.movement = _blackboard.enemyController.player.transform.position - _blackboard.enemyController.transform.position;
             Movement(_blackboard.enemyController.player.transform.position);
         }
 

@@ -22,7 +22,7 @@ public class EnemyIdleActionState : EnemyActionState
             && ((StateManagerAction)_stateManager).stateManagerMovement.currentState != _stateReferences.enemyHitState
             && ((StateManagerAction)_stateManager).stateManagerMovement.currentState != _stateReferences.enemyDeadState)
         {
-            _stateManager.ChangeState(_stateReferences.enemyAttack1State);
+            _stateManager.ChangeState(_stateReferences.enemyAttackState);
         }
 
         return StateStatus.Running;

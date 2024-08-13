@@ -60,15 +60,15 @@ public class AttackState : ActionState
         hitEffect.Spawn(_blackboard.playerController.enemyTarget.transform.position, Quaternion.identity, null);
 
         var target = _blackboard.playerController.enemyTarget.GetComponent<IHitable>();
-        var damage = _blackboard.playerController.playerData.RandomDamage(_blackboard.playerController.playerData.attackDamage.Value);
+        var damage = _blackboard.playerController.playerData.RandomDamage(_blackboard.playerController.playerData.attackDamage);
         target.OnHit(damage);
     }
 
     public virtual void MoveToTarget()
     {
-        Vector3 target = Vector3.MoveTowards(_blackboard.playerController.enemyTarget.transform.position, _blackboard.playerController.transform.position, .95f);
+        Vector3 target = Vector3.MoveTowards(_blackboard.playerController.enemyTarget.transform.position, _blackboard.playerController.transform.position, .9f);
         target.y = _blackboard.playerController.transform.position.y;
         _blackboard.playerController.transform.DOLookAt(_blackboard.playerController.enemyTarget.transform.position, 0.2f, AxisConstraint.Y);
-        _blackboard.playerController.rb.DOMove(target, 0.2f);
+        _blackboard.playerController.transform.DOMove(target, 0.2f);
     }
 }
