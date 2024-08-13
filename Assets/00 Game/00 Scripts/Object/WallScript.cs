@@ -23,13 +23,13 @@ public class WallScript : MonoBehaviour
     public int debugTextSize = 24;
     public int debugTextHeight = 3;
 
-
-
     [ContextMenu("GetVertices")]
     private void GetVertices()
     {
         verticesList.Clear();
         point.Clear();
+        raySearch.meshPoints.Clear();
+        raySearch.cornerPoints.Clear();
 
         Vector3[] vertices = meshCollider.sharedMesh.vertices;
         for (int i = 0; i < vertices.Length; i++)
@@ -61,9 +61,14 @@ public class WallScript : MonoBehaviour
             point.Add(groupedVectors[i][flag]);
         }
 
+
         foreach(var point in point)
         {
-            if (Physics.Raycast(point - Vector3.forward, Vector3.forward, out RaycastHit hit))
+            Vector3 wallTransform = this.transform.position;
+            wallTransform.y = point.y;
+            Vector3 direction = (point - wallTransform).normalized + point;
+            direction.x = point.x;
+            if (Physics.Raycast(direction, (point - direction).normalized, out RaycastHit hit))
                 raySearch.FindNext(hit.point, hit.normal);
         }
 
@@ -131,14 +136,18 @@ public class WallScript : MonoBehaviour
 
     void DebugRayDetection(Vector3 point)
     {
-        
-        if (Physics.Raycast(point - Vector3.forward, Vector3.forward, 2))
+        Vector3 wallTransform = this.transform.position;
+        wallTransform.y = point.y;
+        Vector3 direction = (point - wallTransform).normalized + point;
+        direction.x = point.x;
+
+        if (Physics.Raycast(direction, (point - direction).normalized, 2))
         {
-            Debug.DrawRay(point + point.normalized, Vector3.forward, Color.red);
+            Debug.DrawRay(direction, (point - direction).normalized, Color.red);
         }
         else
         {
-            Debug.DrawRay(point + point.normalized, Vector3.forward, Color.green);
+            Debug.DrawRay(direction, (point - direction).normalized, Color.green);
         }
     }
 

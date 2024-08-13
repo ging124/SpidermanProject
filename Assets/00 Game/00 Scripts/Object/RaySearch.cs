@@ -11,7 +11,7 @@ public class RaySearch : MonoBehaviour
     public int checkCountMax = 100;
     private bool cornerCheck = false;
     public List<MeshPoint> meshPoints = new List<MeshPoint>();
-    public List<MeshPoint> cornerPoints;
+    public List<MeshPoint> cornerPoints= new List<MeshPoint>();
     // public List<Vector3> pathPoints = new List<Vector3>();
 
     List<Vector3[]> debugTangentCheck = new List<Vector3[]>();
