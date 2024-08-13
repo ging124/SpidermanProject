@@ -10,6 +10,7 @@ public class PlayerModel : MonoBehaviour
     public Transform rightHand;
 
     [SerializeField] private Skin _currentSkin;
+    [SerializeField] private GameObject _currentSkinGameObject;
     [SerializeField] private PlayerController _playerController;
 
     [Header("----GameEvent----")]
@@ -33,10 +34,10 @@ public class PlayerModel : MonoBehaviour
     void InnitSkin()
     {
         //var currentModel = this.GetComponentInChildren<SkinController>();
-        var skin = _currentSkin.Spawn(this.transform.position, this.transform.rotation, this.transform);
+        _currentSkinGameObject = _currentSkin.Spawn(this.transform.position, this.transform.rotation, this.transform);
 
         _playerController.animancer.Animator.avatar = _currentSkin.avatar;
-        SkinnedMeshRenderer _skinnedMeshRenderer = skin.GetComponentInChildren<SkinnedMeshRenderer>();
+        SkinnedMeshRenderer _skinnedMeshRenderer = _currentSkinGameObject.GetComponentInChildren<SkinnedMeshRenderer>();
         Transform[] bones = _skinnedMeshRenderer.bones;
 
         foreach (Transform bone in bones)

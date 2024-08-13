@@ -35,7 +35,7 @@ public class SwingJumpState : OnAirState
 
     public override void ExitState()
     {
-        _blackboard.playerController.transform.DORotate(Quaternion.LookRotation(_blackboard.playerController.transform.forward.projectedOnPlane(Vector3.up), Vector3.up).eulerAngles, 0.2f);
+        _blackboard.playerController.rb.DORotate(Quaternion.LookRotation(_blackboard.playerController.transform.forward.projectedOnPlane(Vector3.up), Vector3.up).eulerAngles, 0.2f);
         base.ExitState();
     }
 }

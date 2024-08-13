@@ -25,6 +25,7 @@ public class PlayerController : ObjectController
     RaycastHit hit;
 
     [Header("----WallRunValue----")]
+    public Transform wallRunPoint;
     public LayerMask wallLayer;
     public float detectionLength;
     public RaycastHit frontWallHit;
@@ -124,8 +125,9 @@ public class PlayerController : ObjectController
 
     public void WallCheck()
     {
-        this.wallFront = Physics.Raycast(new Vector3(this.transform.position.x, this.transform.position.y + this.character.GetHeight() / 2f, this.transform.position.z)
-            , this.transform.forward, out this.frontWallHit, this.detectionLength, this.wallLayer);
+        this.wallFront = Physics.Raycast(wallRunPoint.transform.position, this.transform.forward, out this.frontWallHit, this.detectionLength, this.wallLayer);
+
+        Debug.DrawRay(wallRunPoint.transform.position, this.transform.forward, Color.blue);
     }
 
     public void ZipPointCheck()

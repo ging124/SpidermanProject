@@ -47,6 +47,7 @@ public class ExitClimbState : NormalState
 
     public override void ExitState()
     {
+        _blackboard.playerController.transform.DORotate(Quaternion.LookRotation(-_blackboard.playerController.frontWallHit.normal, Vector3.up).eulerAngles, 0.2f);
         base.ExitState();
     }
 

@@ -28,7 +28,6 @@ public class ClimbMovementState : NormalState
             return baseStatus;
         }
 
-        Movement();
         SetAnimancer();
 
         if (!_blackboard.playerController.wallFront)
@@ -52,10 +51,14 @@ public class ClimbMovementState : NormalState
         return StateStatus.Running;
     }
 
+    public override void FixedUpdateState()
+    {
+        Movement();
+    }
+
     public override void ExitState()
     {
         Vector3 velocity = _blackboard.playerController.rb.velocity;
-        _blackboard.character.SetRotationMode(RotationMode.OrientToMovement);
         _blackboard.character.SetMovementMode(MovementMode.Walking);
         _blackboard.playerController.rb.isKinematic = true;
         _blackboard.character.SetVelocity(velocity);
@@ -66,7 +69,7 @@ public class ClimbMovementState : NormalState
     {
         GetInput();
 
-        _blackboard.playerController.rb.velocity = _blackboard.playerController.movement.normalized * _climbSpeed * Time.deltaTime * 20;
+        _blackboard.playerController.rb.velocity = _blackboard.playerController.movement.normalized * _climbSpeed * Time.fixedDeltaTime * 20;
     }
 
     protected void GetInput()

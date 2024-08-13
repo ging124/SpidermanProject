@@ -78,7 +78,6 @@ public class SwingState : OnAirState
         lineRenderer.positionCount = 0;
 
         Destroy(joint);
-        _blackboard.playerController.transform.DORotate(Quaternion.LookRotation(_blackboard.transform.forward.projectedOnPlane(Vector3.up), Vector3.up).eulerAngles, 0.2f);
         Vector3 velocity = _blackboard.playerController.rb.velocity;
         _blackboard.character.SetMovementMode(MovementMode.Falling);
         _blackboard.playerController.rb.useGravity = false;

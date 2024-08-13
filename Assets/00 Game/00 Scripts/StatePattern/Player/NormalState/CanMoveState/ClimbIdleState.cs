@@ -11,7 +11,7 @@ public class ClimbIdleState : NormalState
     public override void EnterState()
     {
         base.EnterState();
-        _blackboard.playerController.transform.DORotate(Quaternion.LookRotation(_blackboard.playerController.transform.forward.projectedOnPlane(Vector3.up), Vector3.up).eulerAngles, 0.2f);
+        _blackboard.playerController.rb.DORotate(Quaternion.LookRotation(_blackboard.playerController.transform.forward.projectedOnPlane(Vector3.up), Vector3.up).eulerAngles, 0.2f);
         _blackboard.character.SetMovementMode(MovementMode.None);
         _blackboard.playerController.rb.isKinematic = false;
         _blackboard.playerController.rb.useGravity = false;
@@ -50,7 +50,6 @@ public class ClimbIdleState : NormalState
     public override void ExitState()
     {
         Vector3 velocity = _blackboard.playerController.rb.velocity;
-        _blackboard.character.SetRotationMode(RotationMode.OrientToMovement);
         _blackboard.character.SetMovementMode(MovementMode.Walking);
         _blackboard.playerController.rb.isKinematic = true;
         _blackboard.character.SetVelocity(velocity);
