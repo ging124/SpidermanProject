@@ -1,4 +1,5 @@
-using System.Collections.Generic;
+                   using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "ScriptableObject/Mission/ShippingMission")]
@@ -69,5 +70,7 @@ public class ShippingMission : BaseMission
             listShippingPointPosition[i].position = t.position;
             i++;
         }
+
+        EditorUtility.SetDirty(this);
     }
 }

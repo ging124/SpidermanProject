@@ -21,7 +21,12 @@ public class MeleAttackState : AttackState
             ResetCombo();
             _stateManager.ChangeState(_stateReferences.idleActionState);
         };
-        listCombo[combo].hitList[hit].hitAnim.Events.SetCallback("Attack", MeleAttack);
+
+        if (_blackboard.playerController.enemyTarget != null)
+        {
+            listCombo[combo].hitList[hit].hitAnim.Events.SetCallback("Attack", MeleAttack);
+        }
+
     }
 
     public override StateStatus UpdateState()

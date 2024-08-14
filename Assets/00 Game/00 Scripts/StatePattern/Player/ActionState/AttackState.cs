@@ -1,4 +1,4 @@
-using Animancer;
+ using Animancer;
 using DG.Tweening;
 using EasyCharacterMovement;
 using System.Collections;
@@ -18,7 +18,7 @@ public class AttackState : ActionState
         {
             Vector3 distance = _blackboard.playerController.enemyTarget.transform.position - _blackboard.playerController.transform.position;
             Vector3 endValue = _blackboard.playerController.enemyTarget.transform.position - distance * 0.1f;
-            _blackboard.playerController.transform.DOLookAt(endValue, 0.2f, AxisConstraint.Y);
+            _blackboard.playerController.rb.DOLookAt(endValue, 0.2f, AxisConstraint.Y);
 
             if (distance.magnitude < 0.5f) _blackboard.character.useRootMotion = false;
         }
@@ -62,14 +62,13 @@ public class AttackState : ActionState
         var target = _blackboard.playerController.enemyTarget.GetComponent<IHitable>();
         var damage = _blackboard.playerController.playerData.RandomDamage(_blackboard.playerController.playerData.attackDamage);
         target.OnHit(damage, attackType);
-        _blackboard.playerController.enemyTarget = null;
     }
 
     public virtual void MoveToTarget()
     {
         Vector3 target = Vector3.MoveTowards(_blackboard.playerController.enemyTarget.transform.position, _blackboard.playerController.transform.position, 0.7f);
         target.y = _blackboard.playerController.transform.position.y;
-        _blackboard.playerController.transform.DOLookAt(_blackboard.playerController.enemyTarget.transform.position, 0.2f, AxisConstraint.Y);
-        _blackboard.playerController.transform.DOMove(target, 0.2f);
+        _blackboard.playerController.rb.DOLookAt(_blackboard.playerController.enemyTarget.transform.position, 0.2f, AxisConstraint.Y);
+        _blackboard.playerController.rb.DOMove(target, 0.2f);
     }
 }

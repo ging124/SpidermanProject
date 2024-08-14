@@ -29,11 +29,12 @@ public class SwingState : OnAirState
         _blackboard.playerController.rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 
         Transform cam = _blackboard.playerController.cam;
-        swingPoint = _blackboard.playerController.transform.position + _blackboard.playerController.transform.forward * 25 + _blackboard.playerController.transform.up * 20;
+        swingPoint = _blackboard.playerController.transform.position + cam.transform.forward * 30 + _blackboard.playerController.transform.up * 25;
 
-        if(velocity.magnitude < 30)
+        Debug.Log(velocity.magnitude);
+        if(velocity.magnitude < 10)
         {
-            _blackboard.playerController.rb.velocity = velocity * 2f;
+            _blackboard.playerController.rb.velocity = velocity * 3f;
         }
         else
         {

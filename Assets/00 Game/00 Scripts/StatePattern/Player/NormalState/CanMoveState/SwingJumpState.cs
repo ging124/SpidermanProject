@@ -12,8 +12,8 @@ public class SwingJumpState : OnAirState
     public override void EnterState()
     {
         base.EnterState();
-        _normalBodyLayer.Play(_swingJumpAnim);
-        _blackboard.character.AddForce((_blackboard.character.GetVelocity() + Vector3.up * 30) * _swingJumpForce);
+        _normalBodyLayer.Play(_swingJumpAnim, 0.25f , FadeMode.FromStart);
+        _blackboard.character.AddForce((_blackboard.character.GetVelocity() * 2 + Vector3.up * 30) * _swingJumpForce);
     }
 
     public override StateStatus UpdateState()

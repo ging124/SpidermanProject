@@ -8,7 +8,7 @@ public class DiveState : OnAirState
     public override void EnterState()
     {
         base.EnterState();
-        _normalBodyLayer.Play(_onAirAnim);
+        _normalBodyLayer.Play(_onAirAnim, 0.25f, FadeMode.FromStart);
     }
 
     public override StateStatus UpdateState()

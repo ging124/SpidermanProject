@@ -30,7 +30,9 @@ public class EnemyRunState : EnemyCanMoveState
         }
         else
         {
-            Movement(_blackboard.enemyController.player.transform.position);
+            Vector3 movement = _blackboard.enemyController.player.transform.position;
+            movement.y = _blackboard.enemyController.transform.position.y;
+            Movement(movement);
         }
 
         return StateStatus.Running;
