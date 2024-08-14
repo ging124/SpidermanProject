@@ -17,8 +17,8 @@ MonoBehaviour:
   getFightingMission: {fileID: 11400000, guid: e950e4e4d6f75084ea281b0cdba45469, type: 2}
   waveListData:
   - enemies:
-    - {fileID: 11400000, guid: 2c116274eba07184baa370cf5ab20a33, type: 2}
+    - {fileID: 11400000, guid: 653fca0254ed9894187d277a779bd2a3, type: 2}
   fightingMissionRange: 0
   getMissionPoint: 1
   enemies: 1
-  waves: 1
+  waves: 0

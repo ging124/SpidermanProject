@@ -38,4 +38,9 @@ public class MediumAttackState : AttackState
     {
         base.ExitState();
     }
+
+    public void MediumAttack()
+    {
+        Attack(mediumHit.attackType);
+    }
 }

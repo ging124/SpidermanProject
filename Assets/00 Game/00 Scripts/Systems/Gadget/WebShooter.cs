@@ -1,5 +1,6 @@
 using Animancer;
 using DG.Tweening;
+using System.Resources;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "ScriptableObject/Gadget/WebShooter")]
@@ -11,12 +12,12 @@ public class WebShooter : Gadget
 
     private PlayerModel playerModel;
 
-    public override void StartGadget(PlayerController playerController)
+    public override GameObject StartGadget(PlayerController playerController)
     {
         base.StartGadget(playerController);
         playerController.animancer.Play(webShooterAnim, 0.25f, FadeMode.FromStart);
         playerModel = playerController.GetComponent<PlayerBlackboard>().playerModel;
-
+        return null;
     }
 
     public void ShootingLeftHand()
@@ -39,5 +40,10 @@ public class WebShooter : Gadget
             bulletController.target = playerController.enemyTarget.GetComponent<EnemyController>();
             bulletController.stunLockDuration = stunLockDuration;
         }
+    }
+
+    public void OnFinished()
+    {
+        gadgetFinished.Raise();
     }
 }

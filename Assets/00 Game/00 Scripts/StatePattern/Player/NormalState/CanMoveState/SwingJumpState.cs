@@ -13,7 +13,7 @@ public class SwingJumpState : OnAirState
     {
         base.EnterState();
         _normalBodyLayer.Play(_swingJumpAnim);
-        _blackboard.character.AddForce((_blackboard.character.GetVelocity() + Vector3.up * 10) * _swingJumpForce);
+        _blackboard.character.AddForce((_blackboard.character.GetVelocity() + Vector3.up * 30) * _swingJumpForce);
     }
 
     public override StateStatus UpdateState()

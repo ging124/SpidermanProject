@@ -5,6 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/RPGObject/Player")]
 public class Player : RPGObject
 {
-    public FloatVariables jumpHeight;
+    public float jumpHeight;
 
 }

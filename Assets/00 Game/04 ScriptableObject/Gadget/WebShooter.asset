@@ -18,6 +18,7 @@ MonoBehaviour:
   durationGadget: 1
   skillIcon: {fileID: 21300000, guid: 66f22f68a23eb4840a8b711df0acd120, type: 2}
   playerController: {fileID: 0}
+  gadgetFinished: {fileID: 11400000, guid: 93e23a4774250954ab66074f5a031be3, type: 2}
   webShooterAnim:
     _FadeDuration: 0.25
     _Events:

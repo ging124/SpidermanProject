@@ -18,9 +18,15 @@ public class EnemyMovementState : EnemyNormalState
         PlayerDetection();
         CanAttack();
 
-        if (_blackboard.enemyController.onHit)
+        if (_blackboard.enemyController.hitAttackType == AttackType.NormalAttack)
         {
             _stateManager.ChangeState(_stateReferences.enemyHitState);
+            return StateStatus.Success;
+        }
+
+        if (_blackboard.enemyController.hitAttackType == AttackType.HeavyAttack)
+        {
+            _stateManager.ChangeState(_stateReferences.enemyKnockDownState);
             return StateStatus.Success;
         }
 
@@ -40,7 +46,6 @@ public class EnemyMovementState : EnemyNormalState
 
         if (_blackboard.enemyController.canAttack && _stateManager.currentState.GetType().BaseType != typeof(EnemyAttackState) && _elapsedTime > 0.2f)
         {
-            Debug.Log("Attack");
             _stateManager.ChangeState(_stateReferences.enemyAttackState);
         }
 

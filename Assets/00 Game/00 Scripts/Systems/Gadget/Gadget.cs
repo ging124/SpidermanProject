@@ -8,9 +8,12 @@ public class Gadget : InventoryItem
     public float durationGadget;
     public Sprite skillIcon;
     public PlayerController playerController;
+    public GameEvent gadgetFinished;
 
-    public virtual void StartGadget(PlayerController playerController)
+
+    public virtual GameObject StartGadget(PlayerController playerController)
     {
         this.playerController = playerController;
+        return null;
     }
 }

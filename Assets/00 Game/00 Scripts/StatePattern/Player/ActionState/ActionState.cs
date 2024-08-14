@@ -31,14 +31,27 @@ public class ActionState : PlayerBaseState
         }
         else
         {
-            if (_blackboard.inputSO.buttonGadget && _blackboard.character.IsGrounded()
-                && _stateManager.currentState != _stateReferences.useGadgetState)
+            if (_blackboard.playerGadget.currentGadget.GetType() == typeof(HealingDrone))
             {
-                _stateManager.ChangeState(_stateReferences.useGadgetState);
-                return StateStatus.Success;
+                if (_blackboard.inputSO.buttonGadget && _stateManager.currentState != _stateReferences.useGadgetState
+                && !_blackboard.playerGadget.onUseGadget)
+                {
+                    _stateManager.ChangeState(_stateReferences.useGadgetState);
+                    return StateStatus.Success;
+                }
+            }
+            else
+            {
+                if (_blackboard.inputSO.buttonGadget && _blackboard.character.IsGrounded()
+                && _stateManager.currentState != _stateReferences.useGadgetState
+                && !_blackboard.playerGadget.onUseGadget)
+                {
+                    _stateManager.ChangeState(_stateReferences.useGadgetState);
+                    return StateStatus.Success;
+                }
             }
 
-            if (_blackboard.inputSO.buttonUltimate && _blackboard.character.IsGrounded())
+            if (_blackboard.inputSO.buttonUltimate)
             {
                 _stateManager.ChangeState(_stateReferences.ultimateAttackState);
                 return StateStatus.Success;

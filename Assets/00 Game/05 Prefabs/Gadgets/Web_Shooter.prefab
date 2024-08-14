@@ -129,3 +129,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemData: {fileID: 0}
+  playerController: {fileID: 0}
+  gadgetFinished: {fileID: 11400000, guid: 93e23a4774250954ab66074f5a031be3, type: 2}

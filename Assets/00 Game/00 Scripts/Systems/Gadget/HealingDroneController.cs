@@ -3,8 +3,7 @@ using UnityEngine.Events;
 
 public class HealingDroneController : GadgetController
 {
-
-    private float _time;
+    [field:SerializeField] public float time { get; private set; }
 
     void Start()
     {
@@ -13,21 +12,22 @@ public class HealingDroneController : GadgetController
 
     private void OnEnable()
     {
-        _time = 0;
+        time = 0;
     }
 
     protected override void Update()
     {
         base.Update();
 
-        _time += Time.deltaTime;
+        time += Time.deltaTime;
 
-        if (_time <= ((Gadget)itemData).durationGadget)
+        if (time <= ((Gadget)itemData).durationGadget)
         {
             Healing();
         }
         else
         {
+            ((Gadget)itemData).gadgetFinished.Raise();
             itemData.Despawn(this.gameObject);
         }
     }

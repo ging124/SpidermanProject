@@ -54,4 +54,8 @@ public class FarAttackState : AttackState
         };
     }
 
+    public void FarAttack()
+    {
+        Attack(_farHit.attackType);
+    }
 }

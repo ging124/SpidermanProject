@@ -46,7 +46,7 @@ public class NormalActionState : ActionState
                     _stateManager.ChangeState(_stateReferences.nearAttackState);
                     return StateStatus.Success;
                 }
-                else
+                else if (distance < _blackboard.playerController.nearAttackRange)
                 {
                     _stateManager.ChangeState(_stateReferences.meleAttackState);
                     return StateStatus.Success;

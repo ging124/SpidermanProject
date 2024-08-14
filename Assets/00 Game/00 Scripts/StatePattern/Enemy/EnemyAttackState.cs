@@ -26,9 +26,15 @@ public class EnemyAttackState : EnemyActionState
             return StateStatus.Success;
         }
 
-        if (_blackboard.enemyController.onHit)
+        if (_blackboard.enemyController.hitAttackType == AttackType.NormalAttack)
         {
             _stateManager.ChangeState(_stateReferences.enemyHitState);
+            return StateStatus.Success;
+        }
+
+        if (_blackboard.enemyController.hitAttackType == AttackType.HeavyAttack)
+        {
+            _stateManager.ChangeState(_stateReferences.enemyKnockDownState);
             return StateStatus.Success;
         }
 
@@ -41,13 +47,14 @@ public class EnemyAttackState : EnemyActionState
         _actionLayer.StartFade(0, 0.1f);
     }
 
-    public virtual void Attack()
+    public virtual void Attack(AttackType attackType)
     {
         if (_blackboard.enemyController.player == null) return;
 
         var targetComponent = _blackboard.enemyController.player.GetComponent<IHitable>();
 
         var damage = _blackboard.enemyController.enemyData.RandomDamage(_blackboard.enemyController.enemyData.attackDamage);
-        targetComponent.OnHit(damage);
+        targetComponent.OnHit(damage, attackType);
+        Debug.Log(damage);
     }
 }

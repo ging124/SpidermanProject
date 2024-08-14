@@ -20,6 +20,8 @@ public class EnemyIdleActionState : EnemyActionState
 
         if (_blackboard.enemyController.canAttack
             && ((StateManagerAction)_stateManager).stateManagerMovement.currentState != _stateReferences.enemyHitState
+            && ((StateManagerAction)_stateManager).stateManagerMovement.currentState != _stateReferences.enemyKnockDownState
+            && ((StateManagerAction)_stateManager).stateManagerMovement.currentState != _stateReferences.enemyStandUpState
             && ((StateManagerAction)_stateManager).stateManagerMovement.currentState != _stateReferences.enemyDeadState)
         {
             _stateManager.ChangeState(_stateReferences.enemyAttackState);

@@ -8,6 +8,8 @@ public class EnemyStateReferences : StateReferences
     public EnemyMoveState enemyMoveState;
     public EnemyRunState enemyRunState;
     public EnemyHitState enemyHitState;
+    public EnemyKnockDownState enemyKnockDownState;
+    public EnemyStandUpState enemyStandUpState;
     public EnemyDeadState enemyDeadState;
     public EnemyStunLockState enemyStunLockState;
 

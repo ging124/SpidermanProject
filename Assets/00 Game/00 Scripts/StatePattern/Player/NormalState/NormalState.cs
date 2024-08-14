@@ -38,7 +38,7 @@ public class NormalState : PlayerBaseState
             return StateStatus.Success;
         }
 
-        if (_blackboard.playerController.onHit
+        if (_blackboard.playerController.hitAttackType == AttackType.NormalAttack
             && _stateManager.currentState != _stateReferences.dodgeState
             && _stateManager.currentState != _stateReferences.hitState)
         {

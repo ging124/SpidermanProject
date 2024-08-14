@@ -50,7 +50,7 @@ public class AttackState : ActionState
         base.ExitState();
     }
 
-    public void Attack()
+    public void Attack(AttackType attackType)
     {
         if (_blackboard.playerController.enemyTarget == null) return;
 
@@ -61,12 +61,13 @@ public class AttackState : ActionState
 
         var target = _blackboard.playerController.enemyTarget.GetComponent<IHitable>();
         var damage = _blackboard.playerController.playerData.RandomDamage(_blackboard.playerController.playerData.attackDamage);
-        target.OnHit(damage);
+        target.OnHit(damage, attackType);
+        _blackboard.playerController.enemyTarget = null;
     }
 
     public virtual void MoveToTarget()
     {
-        Vector3 target = Vector3.MoveTowards(_blackboard.playerController.enemyTarget.transform.position, _blackboard.playerController.transform.position, .9f);
+        Vector3 target = Vector3.MoveTowards(_blackboard.playerController.enemyTarget.transform.position, _blackboard.playerController.transform.position, 0.7f);
         target.y = _blackboard.playerController.transform.position.y;
         _blackboard.playerController.transform.DOLookAt(_blackboard.playerController.enemyTarget.transform.position, 0.2f, AxisConstraint.Y);
         _blackboard.playerController.transform.DOMove(target, 0.2f);

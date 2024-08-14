@@ -3,12 +3,10 @@ using UnityEngine;
 
 public class UseGadgetState : ActionState
 {
-    [SerializeField] private float _timeToAttack = 0.15f;
-
     public override void EnterState()
     {
         base.EnterState();
-        _blackboard.playerGadget.currentGadget.StartGadget(_blackboard.playerController);
+        _blackboard.playerGadget.UseGadget();
     }
 
     public override StateStatus UpdateState()
@@ -17,12 +15,6 @@ public class UseGadgetState : ActionState
         if (baseStatus != StateStatus.Running)
         {
             return baseStatus;
-        }
-
-        if (_blackboard.inputSO.buttonGadget && _elapsedTime > _timeToAttack)
-        {
-            _stateManager.ChangeState(_stateReferences.useGadgetState);
-            return StateStatus.Success;
         }
 
         if (_elapsedTime > 0.5f)

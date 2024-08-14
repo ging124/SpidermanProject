@@ -1,17 +1,24 @@
 using Animancer;
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro.EditorUtilities;
 using UnityEngine;
 
 public class EnemyKnockDownState : EnemyNormalState
 {
     [SerializeField] private ClipTransition _knockDownAnim;
-    [SerializeField] private float _timeToStandUp = 0.1f;
 
     public override void EnterState()
     {
         base.EnterState();
-        _normalBodyLayer.Play(_knockDownAnim);
+        _blackboard.enemyController.animancer.Animator.applyRootMotion = true;
+        _normalBodyLayer.Play(_knockDownAnim).Events.OnEnd = () =>
+        {
+            _stateManager.ChangeState(_stateReferences.enemyStandUpState);
+        };
+        TakeDamage();
+        _blackboard.enemyController.canHit = false;
     }
 
     public override StateStatus UpdateState()
@@ -22,9 +29,9 @@ public class EnemyKnockDownState : EnemyNormalState
             return baseStatus;
         }
 
-        if (_elapsedTime > _timeToStandUp)
+        if (_blackboard.enemyController.currentHP <= 0)
         {
-            //_stateManager.ChangeState(_stateReferences.enemyDeadState);
+            _stateManager.ChangeState(_stateReferences.enemyDeadState);
             return StateStatus.Success;
         }
 
@@ -33,6 +40,20 @@ public class EnemyKnockDownState : EnemyNormalState
 
     public override void ExitState()
     {
+        _blackboard.enemyController.animancer.Animator.applyRootMotion = false;
         base.ExitState();
+    }
+
+    public void TakeDamage()
+    {
+        _blackboard.enemyController.transform.LookAt(new Vector3(_blackboard.enemyController.player.transform.position.x, transform.position.y, _blackboard.enemyController.player.transform.position.z));
+
+        _blackboard.enemyController.currentHP -= _blackboard.enemyController.hitDamage;
+        _blackboard.enemyController.uIEnemyBlackboard.enemyHPBar.EnemyHPChange(_blackboard.enemyController.currentHP, _blackboard.enemyController.enemyData.maxHP);
+
+        if (_blackboard.enemyController.currentHP <= 0)
+        {
+            _blackboard.enemyController.currentHP = 0;
+        }
     }
 }

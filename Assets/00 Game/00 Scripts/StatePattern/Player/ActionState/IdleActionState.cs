@@ -56,23 +56,13 @@ public class IdleActionState : ActionState
                     _stateManager.ChangeState(_stateReferences.nearAttackState);
                     return StateStatus.Success;
                 }
-                else
+                else if (distance < _blackboard.playerController.nearAttackRange)
                 {
                     _stateManager.ChangeState(_stateReferences.meleAttackState);
                     return StateStatus.Success;
                 }
             }
         }
-
-
-        if (_blackboard.inputSO.buttonGadget
-            && _blackboard.character.IsGrounded()
-            && ((StateManagerAction)_stateManager).stateManagerMovement.currentState != _stateReferences.deadState)
-        {
-            _stateManager.ChangeState(_stateReferences.useGadgetState);
-            return StateStatus.Success;
-        }
-
 
         return StateStatus.Running;
     }

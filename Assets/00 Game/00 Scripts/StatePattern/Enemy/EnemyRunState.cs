@@ -10,6 +10,7 @@ public class EnemyRunState : EnemyCanMoveState
     public override void EnterState()
     {
         base.EnterState();
+        _blackboard.enemyController.agent.enabled = true;
         _normalBodyLayer.Play(_enemyRunAnim);
     }
 
@@ -38,6 +39,7 @@ public class EnemyRunState : EnemyCanMoveState
     public override void ExitState()
     {
         _blackboard.enemyController.agent.SetDestination(_blackboard.enemyController.transform.position);
+        _blackboard.enemyController.agent.enabled = false;
         base.ExitState();
     }
 }

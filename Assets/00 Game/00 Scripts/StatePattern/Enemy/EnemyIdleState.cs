@@ -11,6 +11,7 @@ public class EnemyIdleState : EnemyMovementState
     public override void EnterState()
     {
         base.EnterState();
+        _blackboard.enemyController.agent.enabled = false;
         _normalBodyLayer.Play(_idleAnim);
     }
 

@@ -1,4 +1,5 @@
 using Animancer;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -8,6 +9,8 @@ public class EnemyDeadState : EnemyNormalState
     public override void EnterState()
     {
         base.EnterState();
+        _blackboard.enemyController.canHit = false;
+        _blackboard.enemyController.animancer.Animator.applyRootMotion = true;
         _blackboard.enemyController.capCollider.isTrigger = true;
         _blackboard.enemyController.rigid.isKinematic = true;
         _normalBodyLayer.Play(deadAnim);
@@ -28,6 +31,8 @@ public class EnemyDeadState : EnemyNormalState
 
     public override void ExitState()
     {
+        _blackboard.enemyController.canHit = true;
+        _blackboard.enemyController.animancer.Animator.applyRootMotion = false;
         base.ExitState();
     }
 
@@ -38,3 +43,4 @@ public class EnemyDeadState : EnemyNormalState
         _blackboard.enemyController.enemyData.Despawn(_blackboard.enemyController.gameObject);
     }
 }
+

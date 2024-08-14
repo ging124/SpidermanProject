@@ -22,7 +22,7 @@ public class EnemyRetreatState : EnemyNormalState
             return baseStatus;
         }
 
-        if (!_blackboard.enemyController.onHit && _elapsedTime > _timeToIdle)
+        if (_blackboard.enemyController.hitAttackType == AttackType.None && _elapsedTime > _timeToIdle)
         {
             _stateManager.ChangeState(_stateReferences.enemyIdleState);
             return StateStatus.Success;

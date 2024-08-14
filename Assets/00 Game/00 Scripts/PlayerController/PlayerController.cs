@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class PlayerController : ObjectController
+public class PlayerController : RPGObjectController
 {
     [Header("----PlayerController----")]
     public float currentHP;
@@ -20,7 +20,6 @@ public class PlayerController : ObjectController
     public float mediumAttackRange;
     public float farAttackRange;
 
-    public Collider[] hitEnemy;
     public Collider enemyTarget;
     RaycastHit hit;
 
@@ -55,8 +54,9 @@ public class PlayerController : ObjectController
     public Rigidbody rb;
     public Transform cam;
 
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         cam = GameObject.FindWithTag("MainCamera").GetComponent<Transform>();
         rb = this.GetComponent<Rigidbody>();
         animancer = this.GetComponent<AnimancerComponent>();
@@ -96,7 +96,7 @@ public class PlayerController : ObjectController
 
     public void EnemyCheck()
     {
-        hitEnemy = Physics.OverlapSphere(this.transform.position, this.attackRangeDetection, this.enemyLayer);
+        Collider[] hitEnemy = Physics.OverlapSphere(this.transform.position, this.attackRangeDetection, this.enemyLayer);
 
         if (hitEnemy.Length > 0)
         {
@@ -105,9 +105,13 @@ public class PlayerController : ObjectController
 
             for (int i = 0; i < hitEnemy.Length; i++)
             {
+                IHitable hitable;
+
+                hitEnemy[i].TryGetComponent<IHitable>(out hitable);
+
                 float distance = (hitEnemy[i].transform.position - this.transform.position).magnitude;
                 Debug.DrawLine(hitEnemy[i].transform.position, this.transform.position, Color.black);
-                if (minDistance > distance)
+                if (minDistance > distance && hitable.CanHit())
                 {
                     minDistance = distance;
                     enemyFlag = i;

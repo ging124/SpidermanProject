@@ -12,12 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7f2785420c0ebf4cae67175f37fe951, type: 3}
   m_Name: Player
   m_EditorClassIdentifier: 
-  currentHp: 100
   levelSystem:
-    currentLevel: 0
-    currentExp: 0
-  maxHP: {fileID: 11400000, guid: 91e3fb5e9848362478bcc2c75a836122, type: 2}
-  attackDamage: {fileID: 11400000, guid: 05686614ac807d342b9009e8a2548199, type: 2}
-  moveSpeed: {fileID: 11400000, guid: 28d0e2c9ce49a4a41b9ccdae461c5dbb, type: 2}
+    currentLevel: 5
+    currentExp: 5
+  maxHP: 100
+  attackDamage: 10
+  moveSpeed: 5
   _randomDamageRange: 0.2
-  jumpHeight: {fileID: 11400000, guid: 43cf8046126545843886022dd7bbd91d, type: 2}
+  jumpHeight: 5

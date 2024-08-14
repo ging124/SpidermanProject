@@ -6,12 +6,14 @@ using UnityEngine;
 public class EnemyStandUpState : EnemyNormalState
 {
     [SerializeField] private ClipTransition _standUpAnim;
-    [SerializeField] private float _timeToIdle = 0.1f;
 
     public override void EnterState()
     {
         base.EnterState();
-        _normalBodyLayer.Play(_standUpAnim);
+        _normalBodyLayer.Play(_standUpAnim).Events.OnEnd = () =>
+        {
+            _stateManager.ChangeState(_stateReferences.enemyIdleState);
+        };
     }
 
     public override StateStatus UpdateState()
@@ -22,17 +24,12 @@ public class EnemyStandUpState : EnemyNormalState
             return baseStatus;
         }
 
-        if (_elapsedTime > _timeToIdle)
-        {
-            _stateManager.ChangeState(_stateReferences.enemyIdleState);
-            return StateStatus.Success;
-        }
-
         return StateStatus.Running;
     }
 
     public override void ExitState()
     {
+        _blackboard.enemyController.canHit = true;
         base.ExitState();
     }
 }

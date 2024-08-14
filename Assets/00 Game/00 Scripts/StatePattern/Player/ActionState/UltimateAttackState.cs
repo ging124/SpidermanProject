@@ -58,7 +58,7 @@ public class UltimateAttackState : ActionState
                 if (hit.TryGetComponent<IHitable>(out hitable))
                 {
                     var damage = _blackboard.playerController.playerData.RandomDamage(_blackboard.playerController.playerData.attackDamage);
-                    hitable.OnHit(damage * 3);
+                    hitable.OnHit(damage * 3, AttackType.HeavyAttack);
                 }
             }
 

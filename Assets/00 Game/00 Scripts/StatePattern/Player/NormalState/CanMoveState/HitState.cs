@@ -26,7 +26,7 @@ public class HitState : CanMoveState
 
         Movement();
 
-        if (!_blackboard.playerController.onHit && _elapsedTime > _timeToIdle)
+        if (_blackboard.playerController.hitAttackType == AttackType.None && _elapsedTime > _timeToIdle)
         {
             _stateManager.ChangeState(_stateReferences.idleNormalState);
             return StateStatus.Success;

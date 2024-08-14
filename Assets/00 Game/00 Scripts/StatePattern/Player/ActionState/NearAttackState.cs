@@ -36,4 +36,9 @@ public class NearAttackState : AttackState
     {
         base.ExitState();
     }
+
+    public void NearAttack()
+    {
+        Attack(nearHit.attackType);
+    }
 }

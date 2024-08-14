@@ -10,7 +10,6 @@ public class EnemyStunLockState : EnemyNormalState
     public override void EnterState()
     {
         base.EnterState();
-        _blackboard.enemyController.agent.enabled = false;
         _normalBodyLayer.Play(_hitAnimList, 0.25f, FadeMode.FromStart);
     }
 
@@ -34,7 +33,6 @@ public class EnemyStunLockState : EnemyNormalState
     public override void ExitState()
     {
         _blackboard.enemyController.stunLockDuration = 0;
-        _blackboard.enemyController.agent.enabled = true;
         base.ExitState();
     }
 }

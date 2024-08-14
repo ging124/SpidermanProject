@@ -9,7 +9,6 @@ public class EnemyMoveState : EnemyCanMoveState
     public override void EnterState()
     {
         base.EnterState();
-        _blackboard.enemyController.agent.enabled = false;
         _normalBodyLayer.Play(_enemyMoveAnim);
         _timeToIdle = Random.Range(1f, 5f);
     }
@@ -35,7 +34,6 @@ public class EnemyMoveState : EnemyCanMoveState
 
     public override void ExitState()
     {
-        _blackboard.enemyController.agent.enabled = true;
         base.ExitState();
     }
 }

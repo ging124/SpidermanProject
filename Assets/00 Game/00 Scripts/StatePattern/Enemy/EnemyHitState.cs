@@ -9,7 +9,6 @@ public class EnemyHitState : EnemyNormalState
     public override void EnterState()
     {
         base.EnterState();
-        _blackboard.enemyController.agent.enabled = false;
         _normalBodyLayer.Play(_hitAnimList[Random.Range(0, _hitAnimList.Length - 1)], 0.25f, FadeMode.FromStart).Events.OnEnd = () =>
         {
             _stateManager.ChangeState(_stateReferences.enemyIdleState);
@@ -25,7 +24,7 @@ public class EnemyHitState : EnemyNormalState
             return baseStatus;
         }
 
-        if (_blackboard.enemyController.onHit && _elapsedTime > 0.1f)
+        if (_blackboard.enemyController.hitAttackType == AttackType.NormalAttack && _elapsedTime > 0.1f)
         {
             _stateManager.ChangeState(_stateReferences.enemyHitState);
             return StateStatus.Success;
@@ -42,7 +41,6 @@ public class EnemyHitState : EnemyNormalState
 
     public override void ExitState()
     {
-        _blackboard.enemyController.agent.enabled = true;
         base.ExitState();
     }
 

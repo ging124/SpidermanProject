@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObject/RPGObject/Enemy")]
 public class Enemy : RPGObject, IFactory
 {
     public float dectectionRange;
@@ -33,6 +32,7 @@ public class Enemy : RPGObject, IFactory
         {
             var enemy = Instantiate(enemyPrefab, position, rotation, parent);
             enemy.GetComponent<EnemyController>().enemyData = this;
+            enemy.gameObject.SetActive(true);
             return enemy;
         }
     }
