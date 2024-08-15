@@ -46,7 +46,7 @@ public class EnemyKnockDownState : EnemyNormalState
 
     public void TakeDamage()
     {
-        _blackboard.enemyController.transform.LookAt(new Vector3(_blackboard.enemyController.player.transform.position.x, transform.position.y, _blackboard.enemyController.player.transform.position.z));
+        _blackboard.enemyController.transform.LookAt(new Vector3(_blackboard.enemyController.target.transform.position.x, transform.position.y, _blackboard.enemyController.target.transform.position.z));
 
         _blackboard.enemyController.currentHP -= _blackboard.enemyController.hitDamage;
         _blackboard.enemyController.uIEnemyBlackboard.enemyHPBar.EnemyHPChange(_blackboard.enemyController.currentHP, _blackboard.enemyController.enemyData.maxHP);

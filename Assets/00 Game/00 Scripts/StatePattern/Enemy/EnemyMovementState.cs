@@ -1,3 +1,4 @@
+using TMPro.EditorUtilities;
 using UnityEngine;
 
 public class EnemyMovementState : EnemyNormalState
@@ -15,19 +16,17 @@ public class EnemyMovementState : EnemyNormalState
             return baseStatus;
         }
 
-        PlayerDetection();
+        _blackboard.enemyController.TargetDetection();
         CanAttack();
 
-        if (_blackboard.enemyController.hitAttackType == AttackType.NormalAttack)
+        switch (_blackboard.enemyController.hitAttackType)
         {
-            _stateManager.ChangeState(_stateReferences.enemyHitState);
-            return StateStatus.Success;
-        }
-
-        if (_blackboard.enemyController.hitAttackType == AttackType.HeavyAttack)
-        {
-            _stateManager.ChangeState(_stateReferences.enemyKnockDownState);
-            return StateStatus.Success;
+            case AttackType.NormalAttack:
+                _stateManager.ChangeState(_stateReferences.enemyHitState);
+                return StateStatus.Success;
+            case AttackType.HeavyAttack:
+                _stateManager.ChangeState(_stateReferences.enemyKnockDownState);
+                return StateStatus.Success;
         }
 
         if (_blackboard.enemyController.stunLockDuration != 0)
@@ -36,9 +35,8 @@ public class EnemyMovementState : EnemyNormalState
             return StateStatus.Success;
         }
 
-        if (_blackboard.enemyController.followPlayer == true 
-            && _stateManager.currentState != _stateReferences.enemyRunState
-            && Vector3.Distance(_blackboard.enemyController.transform.position, _blackboard.enemyController.player.transform.position) >= 2)
+        if (_stateManager.currentState != _stateReferences.enemyRunState
+            && Vector3.Distance(_blackboard.enemyController.transform.position, _blackboard.enemyController.target.transform.position) >= 2)
         {
             _stateManager.ChangeState(_stateReferences.enemyRunState);
             return StateStatus.Success;
@@ -59,26 +57,15 @@ public class EnemyMovementState : EnemyNormalState
 
     public virtual void CanAttack()
     {
-        if (Physics.Raycast(_blackboard.enemyController.transform.position, _blackboard.enemyController.transform.forward, _blackboard.enemyController.enemyData.canAttackMaxDistance, _blackboard.enemyController.enemyData.playerLayer))
+        if (_blackboard.enemyController.target == null) return;
+
+        if (Vector3.Distance(_blackboard.enemyController.transform.position, _blackboard.enemyController.target.transform.position) <= _blackboard.enemyController.enemyData.attackRange)
         {
             _blackboard.enemyController.canAttack = true;
         }
         else
         {
             _blackboard.enemyController.canAttack = false;
-        }
-    }
-
-    public void PlayerDetection()
-    {
-        Collider[] playerDetection = Physics.OverlapSphere(_blackboard.enemyController.transform.position, _blackboard.enemyController.enemyData.dectectionRange, _blackboard.enemyController.enemyData.playerLayer);
-        if (playerDetection.Length != 0)
-        {
-            _blackboard.enemyController.followPlayer = true;
-        }
-        else
-        {
-            _blackboard.enemyController.followPlayer = false;
         }
     }
 

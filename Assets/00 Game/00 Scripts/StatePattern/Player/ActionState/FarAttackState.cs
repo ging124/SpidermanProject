@@ -41,7 +41,7 @@ public class FarAttackState : AttackState
     public void Zip()
     {
         _rightLineRenderer.positionCount = 2;
-        _blackboard.playerController.SetLineRenderer(_rightLineRenderer, _blackboard.playerModel.rightHand, _blackboard.playerController.enemyTarget.transform.position);
+        _blackboard.playerController.SetLineRenderer(_rightLineRenderer, _blackboard.playerModel.rightHand, _blackboard.playerController.target.transform.position);
     }
 
     public override void MoveToTarget()

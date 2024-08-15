@@ -13,5 +13,5 @@ public class EnemyStateReferences : StateReferences
     public EnemyDeadState enemyDeadState;
     public EnemyStunLockState enemyStunLockState;
 
-    public EnemyAttack1State enemyAttackState;
+    public EnemyMeleAttackState enemyAttackState;
 }

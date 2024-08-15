@@ -27,6 +27,8 @@ public class PlayerStateReferences : StateReferences
     public ZipJumpState zipJumpState;
     public SwimState swimState;
     public DodgeState dodgeState;
+    public KnockDownState knockDownState;
+    public StandUpState standUpState;
 
     [Header("ActionState")]
     public NormalActionState normalActionState;

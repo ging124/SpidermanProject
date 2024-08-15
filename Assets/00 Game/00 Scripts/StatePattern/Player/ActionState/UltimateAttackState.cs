@@ -9,7 +9,7 @@ public class UltimateAttackState : ActionState
 
     [SerializeField] private ClipTransition _webShooterAnim;
     [SerializeField] private float _timeToAttack = 0.15f;
-    [SerializeField] private float _ultimateHit = 0.15f;
+    [SerializeField] private float _ultimateHit = 1;
 
     public override void EnterState()
     {
@@ -57,8 +57,14 @@ public class UltimateAttackState : ActionState
                 IHitable hitable;
                 if (hit.TryGetComponent<IHitable>(out hitable))
                 {
-                    var damage = _blackboard.playerController.playerData.RandomDamage(_blackboard.playerController.playerData.attackDamage);
-                    hitable.OnHit(damage * 3, AttackType.HeavyAttack);
+                    var damage = _blackboard.playerController.playerData.RandomDamage(_blackboard.playerController.playerData.attackDamage * 3);
+
+                    AttackType attackType = (i == _ultimateHit - 1) ? AttackType.HeavyAttack : AttackType.NormalAttack;
+                    hitable.OnHit(damage, attackType);
+
+                    _blackboard.playerController.damagePrefab.Spawn(hit.transform.position + Vector3.up, damage);
+                    var hitEffect = _blackboard.playerController.attackHitEffect;
+                    hitEffect.Spawn(hit.transform.position, Quaternion.identity, null);
                 }
             }
 

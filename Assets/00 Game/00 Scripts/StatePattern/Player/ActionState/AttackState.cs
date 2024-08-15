@@ -14,11 +14,11 @@ public class AttackState : ActionState
         _blackboard.character.useRootMotion = true;
         _blackboard.character.SetRotationMode(RotationMode.OrientWithRootMotion);
 
-        if(_blackboard.playerController.enemyTarget != null)
+        if(_blackboard.playerController.target != null)
         {
-            Vector3 distance = _blackboard.playerController.enemyTarget.transform.position - _blackboard.playerController.transform.position;
-            Vector3 endValue = _blackboard.playerController.enemyTarget.transform.position - distance * 0.1f;
-            _blackboard.playerController.rb.DOLookAt(endValue, 0.2f, AxisConstraint.Y);
+            Vector3 distance = _blackboard.playerController.target.transform.position - _blackboard.playerController.transform.position;
+            Vector3 endValue = _blackboard.playerController.target.transform.position - distance * 0.1f;
+            _blackboard.playerController.transform.DOLookAt(endValue, 0.2f, AxisConstraint.Y);
 
             if (distance.magnitude < 0.5f) _blackboard.character.useRootMotion = false;
         }
@@ -52,23 +52,27 @@ public class AttackState : ActionState
 
     public void Attack(AttackType attackType)
     {
-        if (_blackboard.playerController.enemyTarget == null) return;
+        if (_blackboard.playerController.target == null) return;
+        else if (_blackboard.playerController.target != null 
+            && Vector3.Distance(_blackboard.playerController.transform.position, _blackboard.playerController.target.transform.position) < _blackboard.playerController.mediumAttackRange + _blackboard.playerController.nearAttackRange)
+        {
+            _blackboard.playerController.playerData.levelSystem.GetExp(1);
 
-        _blackboard.playerController.playerData.levelSystem.GetExp(1);
+            var target = _blackboard.playerController.target.GetComponent<IHitable>();
+            var damage = _blackboard.playerController.playerData.RandomDamage(_blackboard.playerController.playerData.attackDamage);
+            target.OnHit(damage, attackType);
 
-        var hitEffect = _blackboard.playerController.attackHitEffect;
-        hitEffect.Spawn(_blackboard.playerController.enemyTarget.transform.position, Quaternion.identity, null);
-
-        var target = _blackboard.playerController.enemyTarget.GetComponent<IHitable>();
-        var damage = _blackboard.playerController.playerData.RandomDamage(_blackboard.playerController.playerData.attackDamage);
-        target.OnHit(damage, attackType);
+            _blackboard.playerController.damagePrefab.Spawn(_blackboard.playerController.target.transform.position + Vector3.up, damage);
+            var hitEffect = _blackboard.playerController.attackHitEffect;
+            hitEffect.Spawn(_blackboard.playerController.target.transform.position, Quaternion.identity, null);
+        }
     }
 
     public virtual void MoveToTarget()
     {
-        Vector3 target = Vector3.MoveTowards(_blackboard.playerController.enemyTarget.transform.position, _blackboard.playerController.transform.position, 0.7f);
+        Vector3 target = Vector3.MoveTowards(_blackboard.playerController.target.transform.position, _blackboard.playerController.transform.position, 0.7f);
         target.y = _blackboard.playerController.transform.position.y;
-        _blackboard.playerController.rb.DOLookAt(_blackboard.playerController.enemyTarget.transform.position, 0.2f, AxisConstraint.Y);
-        _blackboard.playerController.rb.DOMove(target, 0.2f);
+        _blackboard.playerController.transform.DOLookAt(_blackboard.playerController.target.transform.position, 0.2f, AxisConstraint.Y);
+        _blackboard.playerController.transform.DOMove(target, 0.2f);
     }
 }

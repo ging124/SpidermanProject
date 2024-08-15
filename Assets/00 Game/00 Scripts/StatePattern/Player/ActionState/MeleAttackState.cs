@@ -22,11 +22,7 @@ public class MeleAttackState : AttackState
             _stateManager.ChangeState(_stateReferences.idleActionState);
         };
 
-        if (_blackboard.playerController.enemyTarget != null)
-        {
-            listCombo[combo].hitList[hit].hitAnim.Events.SetCallback("Attack", MeleAttack);
-        }
-
+        listCombo[combo].hitList[hit].hitAnim.Events.SetCallback("Attack", MeleAttack);
     }
 
     public override StateStatus UpdateState()
@@ -37,16 +33,16 @@ public class MeleAttackState : AttackState
             return baseStatus;
         }
 
-        if (_blackboard.inputSO.buttonAttack && _elapsedTime > listCombo[combo].hitList[hit].timeNextAttack && _blackboard.playerController.enemyTarget == null)
+        if (_blackboard.inputSO.buttonAttack && _elapsedTime > listCombo[combo].hitList[hit].timeNextAttack && _blackboard.playerController.target == null)
         {
             _stateManager.ChangeState(_stateReferences.meleAttackState);
             return StateStatus.Success;
         }
 
-        if (_blackboard.inputSO.buttonAttack && _blackboard.playerController.enemyTarget != null && _elapsedTime > listCombo[combo].hitList[hit].timeNextAttack)
+        if (_blackboard.inputSO.buttonAttack && _blackboard.playerController.target != null && _elapsedTime > listCombo[combo].hitList[hit].timeNextAttack)
         {
             Vector3 player = _blackboard.playerController.transform.position;
-            Vector3 target = _blackboard.playerController.enemyTarget.transform.position;
+            Vector3 target = _blackboard.playerController.target.transform.position;
             float distance = Vector3.Distance(player, target);
             if (distance >= _blackboard.playerController.farAttackRange)
             {
@@ -63,7 +59,7 @@ public class MeleAttackState : AttackState
                 _stateManager.ChangeState(_stateReferences.nearAttackState);
                 return StateStatus.Success;
             }
-            else
+            else if (distance < _blackboard.playerController.nearAttackRange)
             {
                 _stateManager.ChangeState(_stateReferences.meleAttackState);
                 return StateStatus.Success;

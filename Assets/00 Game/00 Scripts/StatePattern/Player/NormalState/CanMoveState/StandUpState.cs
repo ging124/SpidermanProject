@@ -1,16 +1,18 @@
 using Animancer;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAttack1State : EnemyAttackState
+public class StandUpState : NormalState
 {
-    [SerializeField] private ClipTransition[] _attack1Anim;
+    [SerializeField] private ClipTransition _standUpAnim;
 
     public override void EnterState()
     {
         base.EnterState();
-        _actionLayer.Play(_attack1Anim[Random.Range(0, _attack1Anim.Length - 1)], 0.25f, FadeMode.FromStart).Events.OnEnd = () =>
+        _normalBodyLayer.Play(_standUpAnim).Events.OnEnd = () =>
         {
-            _stateManager.ChangeState(_stateReferences.enemyIdleState);
+            _stateManager.ChangeState(_stateReferences.idleNormalState);
         };
     }
 
@@ -25,9 +27,10 @@ public class EnemyAttack1State : EnemyAttackState
         return StateStatus.Running;
     }
 
-
     public override void ExitState()
     {
+        _blackboard.character.useRootMotion = false;
+        _blackboard.playerController.canHit = true;
         base.ExitState();
     }
 }

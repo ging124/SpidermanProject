@@ -21,7 +21,7 @@ public class NormalState : PlayerBaseState
 
         _blackboard.playerController.WallCheck();
         _blackboard.playerController.ZipPointCheck();
-        _blackboard.playerController.EnemyCheck();
+        _blackboard.playerController.TargetDetection();
 
         if (_blackboard.playerController.onSwim && _elapsedTime > 0.25 && _stateManager.currentState != _stateReferences.swimState)
         {
@@ -38,12 +38,17 @@ public class NormalState : PlayerBaseState
             return StateStatus.Success;
         }
 
-        if (_blackboard.playerController.hitAttackType == AttackType.NormalAttack
-            && _stateManager.currentState != _stateReferences.dodgeState
-            && _stateManager.currentState != _stateReferences.hitState)
+        if(_stateManager.currentState != _stateReferences.dodgeState)
         {
-            _stateManager.ChangeState(_stateReferences.hitState);
-            return StateStatus.Success;
+            switch (_blackboard.playerController.hitAttackType)
+            {
+                case AttackType.NormalAttack:
+                    _stateManager.ChangeState(_stateReferences.hitState);
+                    return StateStatus.Success;
+                case AttackType.HeavyAttack:
+                    _stateManager.ChangeState(_stateReferences.knockDownState);
+                    return StateStatus.Success;
+            }
         }
 
         return StateStatus.Running;

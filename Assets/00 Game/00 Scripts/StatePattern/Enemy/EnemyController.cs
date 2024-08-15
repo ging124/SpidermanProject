@@ -12,11 +12,8 @@ public class EnemyController : RPGObjectController, IHitable
     public Enemy enemyData;
     public EnemyManager enemyManager;
 
-    public bool followPlayer;
     public bool canAttack;
 
-    public PlayerController player;
-    public CapsuleCollider capCollider;
     public Rigidbody rigid;
     public AnimancerComponent animancer;
     public NavMeshAgent agent;
@@ -25,9 +22,8 @@ public class EnemyController : RPGObjectController, IHitable
     protected override void Awake()
     {
         base.Awake();
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        capCollider = this.GetComponent<CapsuleCollider>();
         rigid = this.GetComponent<Rigidbody>();
+        animancer = this.GetComponent<AnimancerComponent>();
         agent = this.GetComponent<NavMeshAgent>();
     }
 

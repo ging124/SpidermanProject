@@ -49,12 +49,11 @@ public class EnemyAttackState : EnemyActionState
 
     public virtual void Attack(AttackType attackType)
     {
-        if (_blackboard.enemyController.player == null) return;
+        if (_blackboard.enemyController.target == null) return;
 
-        var targetComponent = _blackboard.enemyController.player.GetComponent<IHitable>();
+        var targetComponent = _blackboard.enemyController.target.GetComponent<IHitable>();
 
         var damage = _blackboard.enemyController.enemyData.RandomDamage(_blackboard.enemyController.enemyData.attackDamage);
         targetComponent.OnHit(damage, attackType);
-        Debug.Log(damage);
     }
 }

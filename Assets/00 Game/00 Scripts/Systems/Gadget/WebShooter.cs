@@ -33,11 +33,11 @@ public class WebShooter : Gadget
     private void Shoot(Vector3 pos)
     {
         var bullet = webBullet.Spawn(pos, playerController.transform.rotation, null);
-        if (playerController.enemyTarget != null)
+        if (playerController.target != null)
         {
-            playerController.transform.DOLookAt(playerController.enemyTarget.transform.position, 0.2f, AxisConstraint.Y);
+            playerController.transform.DOLookAt(playerController.target.transform.position, 0.2f, AxisConstraint.Y);
             var bulletController = bullet.GetComponent<WebBulletController>();
-            bulletController.target = playerController.enemyTarget.GetComponent<EnemyController>();
+            bulletController.target = playerController.target.GetComponent<EnemyController>();
             bulletController.stunLockDuration = stunLockDuration;
         }
     }

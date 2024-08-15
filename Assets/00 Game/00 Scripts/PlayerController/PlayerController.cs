@@ -1,4 +1,5 @@
 using Animancer;
+using DamageNumbersPro;
 using EasyCharacterMovement;
 using UnityEngine;
 using UnityEngine.Events;
@@ -8,19 +9,17 @@ public class PlayerController : RPGObjectController
 {
     [Header("----PlayerController----")]
     public float currentHP;
-    public LayerMask enemyLayer;
     public float ultimateRange;
+    public DamageNumber damagePrefab;
 
     [Header("----Effect----")]
     public GameEffect attackHitEffect;
 
     [Header("----AttackValue----")]
-    public float attackRangeDetection;
     public float nearAttackRange;
     public float mediumAttackRange;
     public float farAttackRange;
 
-    public Collider enemyTarget;
     RaycastHit hit;
 
     [Header("----WallRunValue----")]
@@ -49,7 +48,6 @@ public class PlayerController : RPGObjectController
 
     [Header("----Component----")]
     public Player playerData;
-    public Character character;
     public AnimancerComponent animancer;
     public Rigidbody rb;
     public Transform cam;
@@ -92,39 +90,6 @@ public class PlayerController : RPGObjectController
         //Gizmos.DrawSphere(hit.transform.position, 1);
 
         Gizmos.DrawWireSphere(this.transform.position, ultimateRange);
-    }
-
-    public void EnemyCheck()
-    {
-        Collider[] hitEnemy = Physics.OverlapSphere(this.transform.position, this.attackRangeDetection, this.enemyLayer);
-
-        if (hitEnemy.Length > 0)
-        {
-            float minDistance = float.MaxValue;
-            int enemyFlag = -1;
-
-            for (int i = 0; i < hitEnemy.Length; i++)
-            {
-                IHitable hitable;
-
-                hitEnemy[i].TryGetComponent<IHitable>(out hitable);
-
-                float distance = (hitEnemy[i].transform.position - this.transform.position).magnitude;
-                Debug.DrawLine(hitEnemy[i].transform.position, this.transform.position, Color.black);
-                if (minDistance > distance && hitable.CanHit())
-                {
-                    minDistance = distance;
-                    enemyFlag = i;
-                }
-            }
-
-            if (enemyFlag != -1) this.enemyTarget = hitEnemy[enemyFlag];
-            else this.enemyTarget = null;
-        }
-        else
-        {
-            this.enemyTarget = null;
-        }
     }
 
     public void WallCheck()

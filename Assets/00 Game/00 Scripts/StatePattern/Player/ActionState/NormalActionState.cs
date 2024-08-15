@@ -21,7 +21,7 @@ public class NormalActionState : ActionState
         if(_blackboard.inputSO.buttonAttack && _blackboard.character.IsGrounded()
             && ((StateManagerAction)_stateManager).stateManagerMovement.currentState != _stateReferences.deadState)
         {
-            if (_blackboard.playerController.enemyTarget == null)
+            if (_blackboard.playerController.target == null)
             {
                 _stateManager.ChangeState(_stateReferences.meleAttackState);
                 return StateStatus.Success;
@@ -29,7 +29,7 @@ public class NormalActionState : ActionState
             else
             {
                 Vector3 player = _blackboard.playerController.transform.position;
-                Vector3 target = _blackboard.playerController.enemyTarget.transform.position;
+                Vector3 target = _blackboard.playerController.target.transform.position;
                 float distance = Vector3.Distance(player, target);
                 if (distance >= _blackboard.playerController.farAttackRange)
                 {

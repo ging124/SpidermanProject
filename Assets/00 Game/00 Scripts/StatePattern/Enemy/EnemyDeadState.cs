@@ -11,7 +11,6 @@ public class EnemyDeadState : EnemyNormalState
         base.EnterState();
         _blackboard.enemyController.canHit = false;
         _blackboard.enemyController.animancer.Animator.applyRootMotion = true;
-        _blackboard.enemyController.capCollider.isTrigger = true;
         _blackboard.enemyController.rigid.isKinematic = true;
         _normalBodyLayer.Play(deadAnim);
         StartCoroutine(PlayDeadEffect());

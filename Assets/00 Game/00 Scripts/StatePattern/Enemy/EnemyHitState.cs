@@ -30,6 +30,12 @@ public class EnemyHitState : EnemyNormalState
             return StateStatus.Success;
         }
 
+        if (_blackboard.enemyController.hitAttackType == AttackType.HeavyAttack)
+        {
+            _stateManager.ChangeState(_stateReferences.enemyKnockDownState);
+            return StateStatus.Success;
+        }
+
         if (_blackboard.enemyController.currentHP <= 0)
         {
             _stateManager.ChangeState(_stateReferences.enemyDeadState);
@@ -46,7 +52,7 @@ public class EnemyHitState : EnemyNormalState
 
     public void TakeDamage()
     {
-        _blackboard.enemyController.transform.LookAt(new Vector3(_blackboard.enemyController.player.transform.position.x, transform.position.y, _blackboard.enemyController.player.transform.position.z));
+        _blackboard.enemyController.transform.LookAt(new Vector3(_blackboard.enemyController.target.transform.position.x, transform.position.y, _blackboard.enemyController.target.transform.position.z));
         _blackboard.enemyController.transform.DOMove(_blackboard.enemyController.transform.position - (_blackboard.enemyController.transform.forward / 2), 0.2f).SetDelay(0.1f);
 
         _blackboard.enemyController.currentHP -= _blackboard.enemyController.hitDamage;
