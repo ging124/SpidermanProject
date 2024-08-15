@@ -10,6 +10,7 @@ public class KnockDownState : NormalState
     public override void EnterState()
     {
         base.EnterState();
+        _blackboard.playerController.canAttack = false;
         _blackboard.character.useRootMotion = true;
         _normalBodyLayer.Play(_knockDownAnim).Events.OnEnd = () =>
         {
@@ -38,6 +39,7 @@ public class KnockDownState : NormalState
 
     public override void ExitState()
     {
+        _blackboard.playerController.canAttack = true;
         base.ExitState();
     }
 

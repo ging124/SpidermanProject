@@ -19,6 +19,7 @@ public class PlayerController : RPGObjectController
     public float nearAttackRange;
     public float mediumAttackRange;
     public float farAttackRange;
+    public bool canAttack;
 
     RaycastHit hit;
 
@@ -62,6 +63,7 @@ public class PlayerController : RPGObjectController
 
     private void OnEnable()
     {
+        canAttack = true;
         currentHP = playerData.maxHP;
     }
 

@@ -28,8 +28,7 @@ public class IdleActionState : ActionState
         }
 
         if (_blackboard.inputSO.buttonAttack && _elapsedTime > _timeToAttack 
-            && _blackboard.character.IsGrounded()
-            && ((StateManagerAction)_stateManager).stateManagerMovement != _stateReferences.deadState)
+            && _blackboard.playerController.canAttack)
         {
             if (_blackboard.playerController.target == null)
             {

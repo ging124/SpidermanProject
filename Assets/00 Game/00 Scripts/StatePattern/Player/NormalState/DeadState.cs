@@ -10,6 +10,7 @@ public class DeadState : NormalState
     public override void EnterState()
     {
         base.EnterState();
+        _blackboard.playerController.canAttack = false;
         _normalBodyLayer.Play(_deadAnim);
     }
     public override StateStatus UpdateState()
@@ -19,6 +20,7 @@ public class DeadState : NormalState
 
     public override void ExitState()
     {
+        _blackboard.playerController.canAttack = true;
         base.ExitState();
     }
 

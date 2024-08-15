@@ -35,11 +35,13 @@ public class EnemyMovementState : EnemyNormalState
             return StateStatus.Success;
         }
 
-        if (_stateManager.currentState != _stateReferences.enemyRunState
-            && Vector3.Distance(_blackboard.enemyController.transform.position, _blackboard.enemyController.target.transform.position) >= 2)
+        if (_stateManager.currentState != _stateReferences.enemyRunState && _blackboard.enemyController.target != null)
         {
-            _stateManager.ChangeState(_stateReferences.enemyRunState);
-            return StateStatus.Success;
+            if(Vector3.Distance(_blackboard.enemyController.transform.position, _blackboard.enemyController.target.transform.position) >= _blackboard.enemyController.enemyData.attackRange)
+            {
+                _stateManager.ChangeState(_stateReferences.enemyRunState);
+                return StateStatus.Success;
+            }
         }
 
         if (_blackboard.enemyController.canAttack && _stateManager.currentState.GetType().BaseType != typeof(EnemyAttackState) && _elapsedTime > 0.2f)

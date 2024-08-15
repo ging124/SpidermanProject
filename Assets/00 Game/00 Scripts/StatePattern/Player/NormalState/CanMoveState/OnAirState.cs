@@ -5,6 +5,7 @@ public class OnAirState : NormalState
     public override void EnterState()
     {
         base.EnterState();
+        _blackboard.playerController.canAttack = false;
     }
 
     public override void FixedUpdateState()
@@ -41,6 +42,7 @@ public class OnAirState : NormalState
     public override void ExitState()
     {
         base.ExitState();
+        _blackboard.playerController.canAttack = true;
     }
 
     protected virtual void Movement()

@@ -12,6 +12,7 @@ public class HitState : CanMoveState
     public override void EnterState()
     {
         base.EnterState();
+        _blackboard.playerController.canAttack = false;
         _normalBodyLayer.Play(_hitAnim, 0.25f, FadeMode.FromStart);
         TakeDamage();
     }
@@ -43,6 +44,7 @@ public class HitState : CanMoveState
 
     public override void ExitState()
     {
+        _blackboard.playerController.canAttack = true;
         base.ExitState();
     }
 

@@ -11,6 +11,7 @@ public class ClimbIdleState : NormalState
     public override void EnterState()
     {
         base.EnterState();
+        _blackboard.playerController.canAttack = false;
         _blackboard.playerController.rb.DORotate(Quaternion.LookRotation(_blackboard.playerController.transform.forward.projectedOnPlane(Vector3.up), Vector3.up).eulerAngles, 0.2f);
         _blackboard.character.SetMovementMode(MovementMode.None);
         _blackboard.playerController.rb.isKinematic = false;

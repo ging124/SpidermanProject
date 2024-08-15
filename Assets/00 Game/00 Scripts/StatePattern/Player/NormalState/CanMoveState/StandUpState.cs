@@ -1,4 +1,5 @@
 using Animancer;
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,7 @@ public class StandUpState : NormalState
     public override void EnterState()
     {
         base.EnterState();
+        _blackboard.playerController.canAttack = false;
         _normalBodyLayer.Play(_standUpAnim).Events.OnEnd = () =>
         {
             _stateManager.ChangeState(_stateReferences.idleNormalState);
@@ -31,6 +33,7 @@ public class StandUpState : NormalState
     {
         _blackboard.character.useRootMotion = false;
         _blackboard.playerController.canHit = true;
+        _blackboard.playerController.canAttack = true;
         base.ExitState();
     }
 }

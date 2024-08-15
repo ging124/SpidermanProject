@@ -6,7 +6,6 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class WallScript : MonoBehaviour
 {
-    public RaySearch raySearch;
     public MeshCollider meshCollider;
 
     public float highDetect = 0.1f;
@@ -28,8 +27,6 @@ public class WallScript : MonoBehaviour
     {
         verticesList.Clear();
         point.Clear();
-        raySearch.meshPoints.Clear();
-        raySearch.cornerPoints.Clear();
 
         Vector3[] vertices = meshCollider.sharedMesh.vertices;
         for (int i = 0; i < vertices.Length; i++)
@@ -68,8 +65,7 @@ public class WallScript : MonoBehaviour
             wallTransform.y = point.y;
             Vector3 direction = (point - wallTransform).normalized + point;
             direction.x = point.x;
-            if (Physics.Raycast(direction, (point - direction).normalized, out RaycastHit hit))
-                raySearch.FindNext(hit.point, hit.normal);
+            
         }
 
     }

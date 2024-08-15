@@ -19,7 +19,7 @@ public class NormalActionState : ActionState
         }
 
         if(_blackboard.inputSO.buttonAttack && _blackboard.character.IsGrounded()
-            && ((StateManagerAction)_stateManager).stateManagerMovement.currentState != _stateReferences.deadState)
+            && _blackboard.playerController.canAttack)
         {
             if (_blackboard.playerController.target == null)
             {
