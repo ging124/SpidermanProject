@@ -9,12 +9,10 @@ public abstract class RPGObject : ScriptableObject
     public float attackDamage;
     public float moveSpeed;
 
-    [SerializeField] private float _randomDamageRange = 0.2f;
-
-    public int RandomDamage(float damage)
+    public static int RandomDamage(float damage, float randomDamageRange = 0.2f)
     {
-        float minRandomDamage = damage - damage * _randomDamageRange;
-        float maxRandomDamage = damage + damage * _randomDamageRange;
+        float minRandomDamage = damage - damage * randomDamageRange;
+        float maxRandomDamage = damage + damage * randomDamageRange;
         if (minRandomDamage <= 0)
         {
             minRandomDamage = 1;

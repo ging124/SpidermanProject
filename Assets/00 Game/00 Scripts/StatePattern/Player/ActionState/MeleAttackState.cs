@@ -16,7 +16,7 @@ public class MeleAttackState : AttackState
         base.EnterState();
 
         CountCombo();
-        _actionLayer.Play(listCombo[combo].hitList[hit].hitAnim, 0.25f, FadeMode.FromStart).Events.OnEnd = () =>
+        _normalBodyLayer.Play(listCombo[combo].hitList[hit].hitAnim, 0.25f, FadeMode.FromStart).Events.OnEnd = () =>
         {
             ResetCombo();
             _stateManager.ChangeState(_stateReferences.idleActionState);

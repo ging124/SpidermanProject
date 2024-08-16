@@ -22,9 +22,9 @@ public class GroundState : NormalState
         }
 
         if (_blackboard.inputSO.buttonJump && _blackboard.character.IsGrounded()
-            && ((StateManagerMovement)_stateManager).stateManagerAction.currentState != _stateReferences.useGadgetState
-            && ((StateManagerMovement)_stateManager).stateManagerAction.currentState != _stateReferences.ultimateAttackState
-            && ((StateManagerMovement)_stateManager).stateManagerAction.currentState.GetType().BaseType != typeof(AttackState))
+            && _stateManager.currentState != _stateReferences.useGadgetState
+            && _stateManager.currentState != _stateReferences.ultimateAttackState
+            && _stateManager.currentState.GetType().BaseType != typeof(AttackState))
         {
             _stateManager.ChangeState(_stateReferences.jumpState);
             return StateStatus.Success;
@@ -40,6 +40,42 @@ public class GroundState : NormalState
         {
             _stateManager.ChangeState(_stateReferences.climbState);
             return StateStatus.Success;
+        }
+
+        if (_blackboard.inputSO.buttonAttack && _blackboard.character.IsGrounded()
+            && _blackboard.playerController.canAttack)
+        {
+            if (_blackboard.playerController.target == null)
+            {
+                _stateManager.ChangeState(_stateReferences.meleAttackState);
+                return StateStatus.Success;
+            }
+            else
+            {
+                Vector3 player = _blackboard.playerController.transform.position;
+                Vector3 target = _blackboard.playerController.target.transform.position;
+                float distance = Vector3.Distance(player, target);
+                if (distance >= _blackboard.playerController.farAttackRange)
+                {
+                    _stateManager.ChangeState(_stateReferences.farAttackState);
+                    return StateStatus.Success;
+                }
+                else if (distance >= _blackboard.playerController.mediumAttackRange && distance < _blackboard.playerController.farAttackRange)
+                {
+                    _stateManager.ChangeState(_stateReferences.mediumAttackState);
+                    return StateStatus.Success;
+                }
+                else if (distance >= _blackboard.playerController.nearAttackRange && distance < _blackboard.playerController.mediumAttackRange)
+                {
+                    _stateManager.ChangeState(_stateReferences.nearAttackState);
+                    return StateStatus.Success;
+                }
+                else if (distance < _blackboard.playerController.nearAttackRange)
+                {
+                    _stateManager.ChangeState(_stateReferences.meleAttackState);
+                    return StateStatus.Success;
+                }
+            }
         }
 
         return StateStatus.Running;

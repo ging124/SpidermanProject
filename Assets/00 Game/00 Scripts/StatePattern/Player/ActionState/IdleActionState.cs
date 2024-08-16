@@ -1,7 +1,7 @@
 using Animancer;
 using UnityEngine;
 
-public class IdleActionState : ActionState
+public class IdleActionState : NormalState
 {
     [SerializeField] private float _timeToAttack;
     [SerializeField] private float _timeToChangeState;
@@ -10,7 +10,7 @@ public class IdleActionState : ActionState
     public override void EnterState()
     {
         base.EnterState();
-        _actionLayer.Play(_idleActionAnim);
+        _normalBodyLayer.Play(_idleActionAnim);
     }
 
     public override StateStatus UpdateState()
@@ -21,9 +21,9 @@ public class IdleActionState : ActionState
             return baseStatus;
         }
 
-        if (_elapsedTime > _timeToChangeState || ((StateManagerAction)_stateManager).stateManagerMovement.currentState != _stateReferences.idleNormalState)
+        if (_elapsedTime > _timeToChangeState || _stateManager.currentState != _stateReferences.idleNormalState)
         {
-            _stateManager.ChangeState(_stateReferences.normalActionState);
+            _stateManager.ChangeState(_stateReferences.idleNormalState);
             return StateStatus.Success;
         }
 
@@ -68,7 +68,6 @@ public class IdleActionState : ActionState
 
     public override void ExitState()
     {
-        _actionLayer.StartFade(0, 0.1f);
         base.ExitState();
     }
 }

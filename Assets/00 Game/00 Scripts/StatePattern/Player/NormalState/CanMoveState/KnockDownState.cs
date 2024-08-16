@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KnockDownState : NormalState
+public class KnockDownState : HitStatusState
 {
     [SerializeField] private ClipTransition _knockDownAnim;
 
@@ -28,12 +28,6 @@ public class KnockDownState : NormalState
             return baseStatus;
         }
 
-        if (_blackboard.playerController.currentHP <= 0)
-        {
-            _stateManager.ChangeState(_stateReferences.deadState);
-            return StateStatus.Success;
-        }
-
         return StateStatus.Running;
     }
 
@@ -43,15 +37,4 @@ public class KnockDownState : NormalState
         base.ExitState();
     }
 
-    public void TakeDamage()
-    {
-        int damageValue = _blackboard.playerController.hitDamage;
-        _blackboard.playerController.currentHP -= damageValue;
-        _blackboard.playerController.playerChangeHP.Invoke(_blackboard.playerController.currentHP, _blackboard.playerController.playerData.maxHP);
-
-        if (_blackboard.playerController.currentHP <= 0)
-        {
-            _blackboard.playerController.currentHP = 0;
-        }
-    }
 }

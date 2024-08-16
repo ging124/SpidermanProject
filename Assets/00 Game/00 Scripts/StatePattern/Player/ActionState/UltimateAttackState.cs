@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UltimateAttackState : ActionState
+public class UltimateAttackState : NormalState
 {
     [SerializeField] private ParticleSystem _ultimateEffect;
 
@@ -14,9 +14,9 @@ public class UltimateAttackState : ActionState
     public override void EnterState()
     {
         base.EnterState();
-        _actionLayer.Play(_webShooterAnim).Events.OnEnd = () =>
+        _normalBodyLayer.Play(_webShooterAnim).Events.OnEnd = () =>
         {
-            _stateManager.ChangeState(_stateReferences.normalActionState);
+            _stateManager.ChangeState(_stateReferences.idleNormalState);
         };
         
     }
@@ -34,7 +34,6 @@ public class UltimateAttackState : ActionState
     public override void ExitState()
     {
         _ultimateEffect.gameObject.SetActive(false);
-        _actionLayer.StartFade(0, 0.1f);
         base.ExitState();
     }
 
@@ -57,7 +56,7 @@ public class UltimateAttackState : ActionState
                 IHitable hitable;
                 if (hit.TryGetComponent<IHitable>(out hitable))
                 {
-                    var damage = _blackboard.playerController.playerData.RandomDamage(_blackboard.playerController.playerData.attackDamage * 3);
+                    var damage = RPGObject.RandomDamage(_blackboard.playerController.playerData.attackDamage * 3);
 
                     AttackType attackType = (i == _ultimateHit - 1) ? AttackType.HeavyAttack : AttackType.NormalAttack;
                     hitable.OnHit(damage, attackType);

@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class StateManagerAction : StateManager
 {
-    public StateManager stateManagerMovement;
+    //public StateManager stateManagerMovement;
 }

@@ -13,7 +13,7 @@ public class FarAttackState : AttackState
     {
         base.EnterState();
 
-        _actionLayer.Play(_zipAnim);
+        _normalBodyLayer.Play(_zipAnim);
     }
 
     public override StateStatus UpdateState()
@@ -48,7 +48,7 @@ public class FarAttackState : AttackState
     {
         _rightLineRenderer.positionCount = 0;
         base.MoveToTarget();
-        _actionLayer.Play(_farHit.hitAnim).Events.OnEnd = () =>
+        _normalBodyLayer.Play(_farHit.hitAnim).Events.OnEnd = () =>
         {
             _stateManager.ChangeState(_stateReferences.idleActionState);
         };

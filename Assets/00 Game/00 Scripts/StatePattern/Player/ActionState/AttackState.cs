@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackState : ActionState
+public class AttackState : NormalState
 {
     public override void EnterState()
     {
@@ -32,10 +32,10 @@ public class AttackState : ActionState
             return baseStatus;
         }
 
-        if (((StateManagerAction)_stateManager).stateManagerMovement.currentState == _stateReferences.dodgeState)
+        if (_blackboard.inputSO.buttonDodge)
         {
             _stateReferences.meleAttackState.ResetCombo();
-            _stateManager.ChangeState(_stateReferences.normalActionState);
+            _stateManager.ChangeState(_stateReferences.dodgeState);
             return StateStatus.Success;
         }
 
@@ -46,7 +46,6 @@ public class AttackState : ActionState
     {
         _blackboard.character.useRootMotion = false;
         _blackboard.character.SetRotationMode(RotationMode.OrientToMovement);
-        _actionLayer.StartFade(0, 0.1f);
         base.ExitState();
     }
 
@@ -59,7 +58,7 @@ public class AttackState : ActionState
             _blackboard.playerController.playerData.levelSystem.GetExp(1);
 
             var target = _blackboard.playerController.target.GetComponent<IHitable>();
-            var damage = _blackboard.playerController.playerData.RandomDamage(_blackboard.playerController.playerData.attackDamage);
+            var damage = RPGObject.RandomDamage(_blackboard.playerController.playerData.attackDamage);
             target.OnHit(damage, attackType);
 
             _blackboard.playerController.damagePrefab.Spawn(_blackboard.playerController.target.transform.position + Vector3.up, damage);

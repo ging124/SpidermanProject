@@ -11,7 +11,7 @@ public class MediumAttackState : AttackState
     {
         base.EnterState();
 
-        _actionLayer.Play(mediumHit.hitAnim).Events.OnEnd = () =>
+        _normalBodyLayer.Play(mediumHit.hitAnim).Events.OnEnd = () =>
         {
             _stateManager.ChangeState(_stateReferences.idleActionState);
         };

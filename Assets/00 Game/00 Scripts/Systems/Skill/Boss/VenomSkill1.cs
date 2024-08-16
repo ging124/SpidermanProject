@@ -10,31 +10,36 @@ public class VenomSkill1 : Skill
     public override void UseSkill(Transform transform, AnimancerComponent animancer, Collider target, float skillDamage)
     {
         base.UseSkill(transform, animancer, target, skillDamage);
-        
+        animancer.Play(skillAnim);
     }
 
-    public void MoveToTarget()
+    public void StartAttack()
     {
-        transform.DOMove(target.transform.position, 0.2f);
+        target.transform.position = transform.position + transform.forward;
+        Attack(AttackType.StartGrabAttack);
     }
 
-    public virtual void Attack()
+    public void NormalAttack()
     {
-        if (target == null) return;
-
-        var targetComponent = target.GetComponent<IHitable>();
-
-        var damage = transform.GetComponent<RPGObject>().RandomDamage(this.skillDamage);
-        targetComponent.OnHit(damage, AttackType.NormalAttack);
+        Attack(AttackType.NormalAttack);
     }
 
-    public virtual void LastAttack()
+    public void LastAttack()
     {
-        if (target == null) return;
+        Attack(AttackType.EndGrabAttack);
+    }
 
-        var targetComponent = target.GetComponent<IHitable>();
+    public override bool CanSkill(Collider target, Transform transform)
+    {
+        if (target == null) return false;
 
-        var damage = transform.GetComponent<RPGObject>().RandomDamage(this.skillDamage);
-        targetComponent.OnHit(damage, AttackType.HeavyAttack);
+        if (Vector3.Distance(target.transform.position, transform.position) < distanceToAttack)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

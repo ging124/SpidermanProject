@@ -10,6 +10,8 @@ public enum AttackType
 {
     None,
     NormalAttack,
-    HeavyAttack
+    HeavyAttack,
+    StartGrabAttack,
+    EndGrabAttack
 }
 

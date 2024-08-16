@@ -13,7 +13,7 @@ public class PlayerStateReferences : StateReferences
     public LandHighState landHighState;
     public StartJumpState jumpState;
     public FallState fallState;
-    public HitState hitState;
+    public StaggerState staggerState;
     public DeadState deadState;
     public SwingState swingState;
     public DiveState diveState;
@@ -29,9 +29,11 @@ public class PlayerStateReferences : StateReferences
     public DodgeState dodgeState;
     public KnockDownState knockDownState;
     public StandUpState standUpState;
+    public StartGrabState startGrabState;
+    public GrabHitState grabHitState;
+    public EndGrabState endGrabState;
 
     [Header("ActionState")]
-    public NormalActionState normalActionState;
     public IdleActionState idleActionState;
     public MeleAttackState meleAttackState;
     public NearAttackState nearAttackState;

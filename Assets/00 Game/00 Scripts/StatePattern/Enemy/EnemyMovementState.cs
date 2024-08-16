@@ -16,9 +16,6 @@ public class EnemyMovementState : EnemyNormalState
             return baseStatus;
         }
 
-        _blackboard.enemyController.TargetDetection();
-        CanAttack();
-
         switch (_blackboard.enemyController.hitAttackType)
         {
             case AttackType.NormalAttack:
@@ -44,9 +41,36 @@ public class EnemyMovementState : EnemyNormalState
             }
         }
 
-        if (_blackboard.enemyController.canAttack && _stateManager.currentState.GetType().BaseType != typeof(EnemyAttackState) && _elapsedTime > 0.2f)
+
+        if (_blackboard.enemyController.enemyData.GetType() == typeof(Boss) && _blackboard.enemyController.target != null)
         {
-            _stateManager.ChangeState(_stateReferences.enemyAttackState);
+            float random = Random.Range(0, 1f);
+            if (random < 0.5)
+            {
+                int randomSkill = Random.Range(0, _stateReferences.enemySkillState.listSkill.Length);
+                if (_stateReferences.enemySkillState.listSkill[randomSkill].CanSkill(_blackboard.enemyController.target, _blackboard.enemyController.transform))
+                {
+                    _stateReferences.enemySkillState.ChoseSkill(randomSkill);
+                    _stateManager.ChangeState(_stateReferences.enemySkillState);
+                    return StateStatus.Success;
+                }
+            }
+            else
+            {
+                if (_blackboard.enemyController.canAttack)
+                {
+                    _stateManager.ChangeState(_stateReferences.enemyAttackState);
+                    return StateStatus.Success;
+                }
+            }
+        }
+        else
+        {
+            if (_blackboard.enemyController.canAttack)
+            {
+                _stateManager.ChangeState(_stateReferences.enemyAttackState);
+                return StateStatus.Success;
+            }
         }
 
         return StateStatus.Running;
@@ -55,25 +79,5 @@ public class EnemyMovementState : EnemyNormalState
     public override void ExitState()
     {
         base.ExitState();
-    }
-
-    public virtual void CanAttack()
-    {
-        if (_blackboard.enemyController.target == null) return;
-
-        if (Vector3.Distance(_blackboard.enemyController.transform.position, _blackboard.enemyController.target.transform.position) <= _blackboard.enemyController.enemyData.attackRange)
-        {
-            _blackboard.enemyController.canAttack = true;
-        }
-        else
-        {
-            _blackboard.enemyController.canAttack = false;
-        }
-    }
-
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.DrawWireSphere(_blackboard.enemyController.transform.position, _blackboard.enemyController.enemyData.dectectionRange);
-        Gizmos.DrawWireSphere(_blackboard.enemyController.transform.position, _blackboard.enemyController.enemyData.canAttackMaxDistance);
     }
 }

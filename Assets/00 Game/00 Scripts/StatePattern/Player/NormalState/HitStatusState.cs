@@ -1,21 +1,9 @@
-using Animancer;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
-public class HitState : CanMoveState
+public class HitStatusState : NormalState
 {
-    [SerializeField] private ClipTransition _hitAnim;
-    [SerializeField] private float _timeToIdle;
-
-    public override void EnterState()
-    {
-        base.EnterState();
-        _blackboard.playerController.canAttack = false;
-        _normalBodyLayer.Play(_hitAnim, 0.25f, FadeMode.FromStart);
-        TakeDamage();
-    }
 
     public override StateStatus UpdateState()
     {
@@ -25,14 +13,6 @@ public class HitState : CanMoveState
             return baseStatus;
         }
 
-        Movement();
-
-        if (_blackboard.playerController.hitAttackType == AttackType.None && _elapsedTime > _timeToIdle)
-        {
-            _stateManager.ChangeState(_stateReferences.idleNormalState);
-            return StateStatus.Success;
-        }
-
         if (_blackboard.playerController.currentHP <= 0)
         {
             _stateManager.ChangeState(_stateReferences.deadState);
@@ -40,12 +20,6 @@ public class HitState : CanMoveState
         }
 
         return StateStatus.Running;
-    }
-
-    public override void ExitState()
-    {
-        _blackboard.playerController.canAttack = true;
-        base.ExitState();
     }
 
     public void TakeDamage()

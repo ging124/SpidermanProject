@@ -9,7 +9,7 @@ public class NearAttackState : AttackState
     {
         base.EnterState();
 
-        _actionLayer.Play(nearHit.hitAnim).Events.OnEnd = () =>
+        _normalBodyLayer.Play(nearHit.hitAnim).Events.OnEnd = () =>
         {
             _stateManager.ChangeState(_stateReferences.idleActionState);
         };

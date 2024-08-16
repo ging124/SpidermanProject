@@ -8,7 +8,7 @@ public class EnemyAttack2State : EnemyAttackState
     public override void EnterState()
     {
         base.EnterState();
-        _actionLayer.Play(_attack2Anim);
+        _normalBodyLayer.Play(_attack2Anim);
     }
 
     public override StateStatus UpdateState()
@@ -19,7 +19,7 @@ public class EnemyAttack2State : EnemyAttackState
             return baseStatus;
         }
 
-        if (_blackboard.enemyController.canAttack && _elapsedTime > _timeChangeState)
+        if (_blackboard.enemyController.canAttack && _normalBodyLayer.CurrentState.NormalizedTime >= 1)
         {
             _stateManager.ChangeState(_stateReferences.enemyAttackState);
             return StateStatus.Success;

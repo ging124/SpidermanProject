@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cdd7779dccb22874fb4b82bd79572a57, type: 3}
-  m_Name: Skill1
+  m_Name: VenomSkill1
   m_EditorClassIdentifier: 
   skillAnim:
     _FadeDuration: 0.25
@@ -30,7 +30,7 @@ MonoBehaviour:
           m_Calls:
           - m_Target: {fileID: 11400000}
             m_TargetAssemblyTypeName: VenomSkill1, Assembly-CSharp
-            m_MethodName: Attack
+            m_MethodName: StartAttack
             m_Mode: 1
             m_Arguments:
               m_ObjectArgument: {fileID: 0}
@@ -44,7 +44,7 @@ MonoBehaviour:
           m_Calls:
           - m_Target: {fileID: 11400000}
             m_TargetAssemblyTypeName: VenomSkill1, Assembly-CSharp
-            m_MethodName: Attack
+            m_MethodName: NormalAttack
             m_Mode: 1
             m_Arguments:
               m_ObjectArgument: {fileID: 0}
@@ -58,7 +58,7 @@ MonoBehaviour:
           m_Calls:
           - m_Target: {fileID: 11400000}
             m_TargetAssemblyTypeName: VenomSkill1, Assembly-CSharp
-            m_MethodName: Attack
+            m_MethodName: NormalAttack
             m_Mode: 1
             m_Arguments:
               m_ObjectArgument: {fileID: 0}
@@ -72,7 +72,7 @@ MonoBehaviour:
           m_Calls:
           - m_Target: {fileID: 11400000}
             m_TargetAssemblyTypeName: VenomSkill1, Assembly-CSharp
-            m_MethodName: Attack
+            m_MethodName: NormalAttack
             m_Mode: 1
             m_Arguments:
               m_ObjectArgument: {fileID: 0}
@@ -86,7 +86,7 @@ MonoBehaviour:
           m_Calls:
           - m_Target: {fileID: 11400000}
             m_TargetAssemblyTypeName: VenomSkill1, Assembly-CSharp
-            m_MethodName: Attack
+            m_MethodName: NormalAttack
             m_Mode: 1
             m_Arguments:
               m_ObjectArgument: {fileID: 0}
@@ -100,7 +100,7 @@ MonoBehaviour:
           m_Calls:
           - m_Target: {fileID: 11400000}
             m_TargetAssemblyTypeName: VenomSkill1, Assembly-CSharp
-            m_MethodName: Attack
+            m_MethodName: NormalAttack
             m_Mode: 1
             m_Arguments:
               m_ObjectArgument: {fileID: 0}
@@ -114,7 +114,7 @@ MonoBehaviour:
           m_Calls:
           - m_Target: {fileID: 11400000}
             m_TargetAssemblyTypeName: VenomSkill1, Assembly-CSharp
-            m_MethodName: Attack
+            m_MethodName: NormalAttack
             m_Mode: 1
             m_Arguments:
               m_ObjectArgument: {fileID: 0}
@@ -143,3 +143,4 @@ MonoBehaviour:
     _Speed: 1
     _NormalizedStartTime: NaN
   attackType: 2
+  distanceToAttack: 1.5

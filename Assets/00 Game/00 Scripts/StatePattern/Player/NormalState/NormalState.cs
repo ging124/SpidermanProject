@@ -38,15 +38,20 @@ public class NormalState : PlayerBaseState
             return StateStatus.Success;
         }
 
-        if(_stateManager.currentState != _stateReferences.dodgeState)
+        if(_stateManager.currentState != _stateReferences.dodgeState
+            && _stateManager.currentState != _stateReferences.startGrabState 
+            && _stateManager.currentState != _stateReferences.grabHitState)
         {
             switch (_blackboard.playerController.hitAttackType)
             {
                 case AttackType.NormalAttack:
-                    _stateManager.ChangeState(_stateReferences.hitState);
+                    _stateManager.ChangeState(_stateReferences.staggerState);
                     return StateStatus.Success;
                 case AttackType.HeavyAttack:
                     _stateManager.ChangeState(_stateReferences.knockDownState);
+                    return StateStatus.Success;
+                case AttackType.StartGrabAttack:
+                    _stateManager.ChangeState(_stateReferences.startGrabState);
                     return StateStatus.Success;
             }
         }

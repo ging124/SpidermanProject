@@ -24,39 +24,43 @@ public class ActionState : PlayerBaseState
             return baseStatus;
         }
 
-        if (((StateManagerAction)_stateManager).stateManagerMovement.currentState == _stateReferences.deadState)
+        if (_blackboard.playerGadget.currentGadget.GetType() == typeof(HealingDrone))
         {
-            _stateManager.ChangeState(_stateReferences.normalActionState);
-            return StateStatus.Success;
-        }
-        else
-        {
-            if (_blackboard.playerGadget.currentGadget.GetType() == typeof(HealingDrone))
+            if (_blackboard.inputSO.buttonGadget && _stateManager.currentState != _stateReferences.useGadgetState
+            && !_blackboard.playerGadget.onUseGadget)
             {
-                if (_blackboard.inputSO.buttonGadget && _stateManager.currentState != _stateReferences.useGadgetState
-                && !_blackboard.playerGadget.onUseGadget)
-                {
-                    _stateManager.ChangeState(_stateReferences.useGadgetState);
-                    return StateStatus.Success;
-                }
-            }
-            else
-            {
-                if (_blackboard.inputSO.buttonGadget && _blackboard.character.IsGrounded()
-                && _stateManager.currentState != _stateReferences.useGadgetState
-                && !_blackboard.playerGadget.onUseGadget)
-                {
-                    _stateManager.ChangeState(_stateReferences.useGadgetState);
-                    return StateStatus.Success;
-                }
-            }
-
-            if (_blackboard.inputSO.buttonUltimate)
-            {
-                _stateManager.ChangeState(_stateReferences.ultimateAttackState);
+                _stateManager.ChangeState(_stateReferences.useGadgetState);
                 return StateStatus.Success;
             }
         }
+        else
+        {
+            if (_blackboard.inputSO.buttonGadget && _blackboard.character.IsGrounded()
+            && _stateManager.currentState != _stateReferences.useGadgetState
+            && !_blackboard.playerGadget.onUseGadget)
+            {
+                _stateManager.ChangeState(_stateReferences.useGadgetState);
+                return StateStatus.Success;
+            }
+        }
+
+        /*if (_stateManager.currentState != _stateReferences.dodgeState
+            && _stateManager.currentState != _stateReferences.startGrabState
+            && _stateManager.currentState != _stateReferences.grabHitState)
+        {
+            switch (_blackboard.playerController.hitAttackType)
+            {
+                case AttackType.NormalAttack:
+                    _stateManager.ChangeState(_stateReferences.staggerState);
+                    return StateStatus.Success;
+                case AttackType.HeavyAttack:
+                    _stateManager.ChangeState(_stateReferences.knockDownState);
+                    return StateStatus.Success;
+                case AttackType.StartGrabAttack:
+                    _stateManager.ChangeState(_stateReferences.startGrabState);
+                    return StateStatus.Success;
+            }
+        }*/
 
         return StateStatus.Running;
     }
