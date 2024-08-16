@@ -39,6 +39,13 @@ public class AttackState : NormalState
             return StateStatus.Success;
         }
 
+        if (_blackboard.inputSO.buttonUltimate)
+        {
+            _stateReferences.meleAttackState.ResetCombo();
+            _stateManager.ChangeState(_stateReferences.ultimateAttackState);
+            return StateStatus.Success;
+        }
+
         return StateStatus.Running;
     }
 

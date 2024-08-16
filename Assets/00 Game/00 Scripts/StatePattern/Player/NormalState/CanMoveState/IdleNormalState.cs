@@ -28,9 +28,8 @@ public class IdleNormalState : GroundState
             return StateStatus.Success;
         }
 
-        if (_blackboard.inputSO.move != Vector2.zero && _stateManager.currentState
-            && _stateManager.currentState != _stateReferences.useGadgetState
-            && _stateManager.currentState != _stateReferences.ultimateAttackState)
+        if (_blackboard.inputSO.move != Vector2.zero && _stateManager.currentState)
+            //&& _stateManager.currentState != _stateReferences.useGadgetState)
         {
             _stateManager.ChangeState(_stateReferences.runState);
             return StateStatus.Success;

@@ -31,10 +31,9 @@ public class SwingState : OnAirState
         Transform cam = _blackboard.playerController.cam;
         swingPoint = _blackboard.playerController.transform.position + cam.transform.forward * 30 + _blackboard.playerController.transform.up * 25;
 
-        Debug.Log(velocity.magnitude);
         if(velocity.magnitude < 10)
         {
-            _blackboard.playerController.rb.velocity = velocity * 3f;
+            _blackboard.playerController.rb.velocity = velocity * 5f;
         }
         else
         {

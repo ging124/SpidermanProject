@@ -19,7 +19,7 @@ public class UseGadgetState : ActionState
 
         if (_elapsedTime > 0.5f)
         {
-            _stateManager.ChangeState(_stateReferences.idleActionState);
+            _stateManager.ChangeState(_stateReferences.idleNormalState);
             return StateStatus.Success;
         }
 

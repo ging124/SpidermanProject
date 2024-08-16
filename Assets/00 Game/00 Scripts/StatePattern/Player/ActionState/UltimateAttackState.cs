@@ -7,14 +7,15 @@ public class UltimateAttackState : NormalState
 {
     [SerializeField] private ParticleSystem _ultimateEffect;
 
-    [SerializeField] private ClipTransition _webShooterAnim;
+    [SerializeField] private ClipTransition _ultimateAnim;
     [SerializeField] private float _timeToAttack = 0.15f;
     [SerializeField] private float _ultimateHit = 1;
 
     public override void EnterState()
     {
         base.EnterState();
-        _normalBodyLayer.Play(_webShooterAnim).Events.OnEnd = () =>
+        _blackboard.character.SetMovementDirection(Vector3.zero);
+        _normalBodyLayer.Play(_ultimateAnim).Events.OnEnd = () =>
         {
             _stateManager.ChangeState(_stateReferences.idleNormalState);
         };

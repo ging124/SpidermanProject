@@ -15,16 +15,22 @@ public class GroundState : NormalState
             return baseStatus;
         }
 
-        if (_stateManager.currentState != _stateReferences.dodgeState && _blackboard.inputSO.buttonDodge)
+        if (_stateManager.currentState != _stateReferences.dodgeState 
+            && _blackboard.inputSO.buttonDodge)
         {
             _stateManager.ChangeState(_stateReferences.dodgeState);
             return StateStatus.Success;
         }
 
-        if (_blackboard.inputSO.buttonJump && _blackboard.character.IsGrounded()
-            && _stateManager.currentState != _stateReferences.useGadgetState
-            && _stateManager.currentState != _stateReferences.ultimateAttackState
-            && _stateManager.currentState.GetType().BaseType != typeof(AttackState))
+        if (_blackboard.playerController.wallFront)
+        {
+            _stateManager.ChangeState(_stateReferences.climbState);
+            return StateStatus.Success;
+        }
+
+        if (_blackboard.inputSO.buttonJump 
+            && _blackboard.character.IsGrounded())
+            //&& _stateManager.currentState != _stateReferences.useGadgetState)
         {
             _stateManager.ChangeState(_stateReferences.jumpState);
             return StateStatus.Success;
@@ -36,13 +42,10 @@ public class GroundState : NormalState
             return StateStatus.Success;
         }
 
-        if (_blackboard.playerController.wallFront)
-        {
-            _stateManager.ChangeState(_stateReferences.climbState);
-            return StateStatus.Success;
-        }
+        
 
-        if (_blackboard.inputSO.buttonAttack && _blackboard.character.IsGrounded()
+        if (_blackboard.inputSO.buttonAttack 
+            && _blackboard.character.IsGrounded()
             && _blackboard.playerController.canAttack)
         {
             if (_blackboard.playerController.target == null)
@@ -76,6 +79,12 @@ public class GroundState : NormalState
                     return StateStatus.Success;
                 }
             }
+        }
+
+        if(_blackboard.inputSO.buttonUltimate)
+        {
+            _stateManager.ChangeState(_stateReferences.ultimateAttackState);
+            return StateStatus.Success;
         }
 
         return StateStatus.Running;
