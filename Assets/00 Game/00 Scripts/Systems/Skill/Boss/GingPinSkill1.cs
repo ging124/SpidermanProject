@@ -37,7 +37,7 @@ public class GingPinSkill1 : Skill
     {
         Vector3 movePos = target.transform.position + (target.transform.position - transform.position).normalized * 4;
         movePos.y = transform.position.y;
-        this.transform.DOMove(movePos, 0.3f).OnUpdate(NormalAttack);
+        this.transform.DOMove(movePos, movePos.magnitude / 80f).OnUpdate(NormalAttack);
         this.transform.DOLookAt(target.transform.position, 0.3f, AxisConstraint.Y);
         animancer.Play(skillAnim).Events.OnEnd = () =>
         {

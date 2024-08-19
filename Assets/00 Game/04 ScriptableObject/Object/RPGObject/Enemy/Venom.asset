@@ -15,10 +15,32 @@ MonoBehaviour:
   levelSystem:
     currentLevel: 0
     currentExp: 0
-  maxHP: 200
-  attackDamage: 4
+    config: {fileID: 0}
+    levelup: {fileID: 0}
+  maxHP: 0
+  attackDamage: 0
+  baseMaxHP: 800
+  baseAttackDamage: 60
   moveSpeed: 0
-  _randomDamageRange: 0.2
+  hpUpLevel: 10
+  dmgUpLevel: 5
+  levelup:
+    gameEvent: {fileID: 11400000, guid: 0e188e3c29d49444bb31e29d46e3961e, type: 2}
+    response:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11400000}
+          m_TargetAssemblyTypeName: RPGObject, Assembly-CSharp
+          m_MethodName: LevelUp
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   dectectionRange: 6
   rotateSpeed: 30
   attackRange: 2

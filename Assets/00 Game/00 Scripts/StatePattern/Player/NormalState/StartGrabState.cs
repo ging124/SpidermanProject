@@ -12,10 +12,7 @@ public class StartGrabState : HitStatusState
         base.EnterState();
         _blackboard.playerController.canAttack = false;
         _blackboard.character.SetMovementDirection(Vector3.zero);
-        _normalBodyLayer.Play(_startGrabAnim).Events.OnEnd = () =>
-        {
-            _stateManager.ChangeState(_stateReferences.standUpState);
-        };
+        _normalBodyLayer.Play(_startGrabAnim);
         TakeDamage();
     }
 
@@ -30,6 +27,12 @@ public class StartGrabState : HitStatusState
         if (_blackboard.playerController.hitAttackType == AttackType.NormalAttack)
         {
             _stateManager.ChangeState(_stateReferences.grabHitState);
+            return StateStatus.Success;
+        }
+
+        if (_normalBodyLayer.CurrentState.NormalizedTime >= 1)
+        {
+            _stateManager.ChangeState(_stateReferences.standUpState);
             return StateStatus.Success;
         }
 

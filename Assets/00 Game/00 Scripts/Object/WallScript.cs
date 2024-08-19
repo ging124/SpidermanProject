@@ -110,7 +110,7 @@ public class WallScript : MonoBehaviour
         return Vector3.Project((p - a), (b - a)) + a;
     }
 
-    private void OnDrawGizmosSelected()
+    /*private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.blue;
         GUIStyle style = new GUIStyle();
@@ -121,14 +121,14 @@ public class WallScript : MonoBehaviour
 
         foreach (var verticies in point)
         {
-            Handles.Label(verticies + Vector3.up * debugTextHeight, index.ToString(), style);
+            //Handles.Label(verticies + Vector3.up * debugTextHeight, index.ToString(), style);
             Gizmos.DrawSphere(verticies, debugPointRadius);
             DebugRayDetection(verticies);
             index++;
         }
         Gizmos.color = Color.red;
 
-    }
+    }*/
 
     void DebugRayDetection(Vector3 point)
     {

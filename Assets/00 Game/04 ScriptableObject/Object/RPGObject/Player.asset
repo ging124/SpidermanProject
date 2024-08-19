@@ -13,10 +13,20 @@ MonoBehaviour:
   m_Name: Player
   m_EditorClassIdentifier: 
   levelSystem:
-    currentLevel: 5
-    currentExp: 5
-  maxHP: 100
-  attackDamage: 10
+    currentLevel: 1
+    currentExp: 0
+    config: {fileID: 11400000, guid: 09224c4d2cd0f634085b756eb9d1f205, type: 2}
+    levelup: {fileID: 11400000, guid: 0e188e3c29d49444bb31e29d46e3961e, type: 2}
+  maxHP: 0
+  attackDamage: 0
+  baseMaxHP: 500
+  baseAttackDamage: 20
   moveSpeed: 5
-  _randomDamageRange: 0.2
+  hpUpLevel: 10
+  dmgUpLevel: 4
+  levelup:
+    gameEvent: {fileID: 0}
+    response:
+      m_PersistentCalls:
+        m_Calls: []
   jumpHeight: 5

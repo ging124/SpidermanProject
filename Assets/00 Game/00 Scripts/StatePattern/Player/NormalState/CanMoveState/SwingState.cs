@@ -33,7 +33,7 @@ public class SwingState : OnAirState
 
         if(velocity.magnitude < 10)
         {
-            _blackboard.playerController.rb.velocity = velocity * 5f;
+            _blackboard.playerController.rb.velocity = velocity * 2f;
         }
         else
         {

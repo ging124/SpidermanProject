@@ -28,6 +28,12 @@ public class GrabHitState : HitStatusState
             return StateStatus.Success;
         }
 
+        if(_normalBodyLayer.CurrentState.NormalizedTime >= 1)
+        {
+            _stateManager.ChangeState(_stateReferences.standUpState);
+            return StateStatus.Success;
+        }
+
         if (_blackboard.playerController.hitAttackType == AttackType.EndGrabAttack)
         {
             _stateManager.ChangeState(_stateReferences.endGrabState);

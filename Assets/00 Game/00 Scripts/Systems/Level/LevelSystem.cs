@@ -3,8 +3,11 @@ using System;
 [Serializable]
 public class LevelSystem
 {
-    public double currentLevel = 0;
+    public double currentLevel = 1;
     public double currentExp = 0;
+    public LevelConfig config;
+
+    public GameEvent levelup;
 
     public void GetExp(double exp)
     {
@@ -13,6 +16,7 @@ public class LevelSystem
         if(currentExp >= NextLevel(currentLevel))
         {
             currentLevel++;
+            levelup.Raise();
             currentExp = 0;
         }
     }
@@ -24,6 +28,6 @@ public class LevelSystem
 
     private double NextLevel(double level)
     {
-        return Math.Round((4 * Math.Pow(level, 3)) / 5);
+        return Math.Pow(level + config.levelConfig[(int)level + 1], 2);
     }
 }

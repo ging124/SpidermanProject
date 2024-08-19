@@ -15,4 +15,6 @@ public class EnemyStateReferences : StateReferences
 
     public EnemyMeleAttackState enemyAttackState;
     public EnemySkillState enemySkillState;
+    public EnemyAimState enemyAimState;
+    public EnemyRangeAttackState enemyRangeAttackState;
 }

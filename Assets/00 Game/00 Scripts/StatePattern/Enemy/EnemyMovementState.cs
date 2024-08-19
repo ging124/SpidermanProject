@@ -1,4 +1,3 @@
-using TMPro.EditorUtilities;
 using UnityEngine;
 
 public class EnemyMovementState : EnemyNormalState
@@ -34,7 +33,7 @@ public class EnemyMovementState : EnemyNormalState
 
         if (_stateManager.currentState != _stateReferences.enemyRunState && _blackboard.enemyController.target != null)
         {
-            if(Vector3.Distance(_blackboard.enemyController.transform.position, _blackboard.enemyController.target.transform.position) >= _blackboard.enemyController.enemyData.attackRange)
+            if (Vector3.Distance(_blackboard.enemyController.transform.position, _blackboard.enemyController.target.transform.position) >= _blackboard.enemyController.enemyData.attackRange)
             {
                 _stateManager.ChangeState(_stateReferences.enemyRunState);
                 return StateStatus.Success;
@@ -62,6 +61,19 @@ public class EnemyMovementState : EnemyNormalState
                     _stateManager.ChangeState(_stateReferences.enemyAttackState);
                     return StateStatus.Success;
                 }
+            }
+        }
+        else if (_blackboard.enemyController.enemyData.GetType() == typeof(RangeEnemy) && _blackboard.enemyController.target != null)
+        {
+            if (_blackboard.enemyController.canAttack)
+            {
+                _stateManager.ChangeState(_stateReferences.enemyAttackState);
+                return StateStatus.Success;
+            }
+            else
+            {
+                _stateManager.ChangeState(_stateReferences.enemyAimState);
+                return StateStatus.Success;
             }
         }
         else

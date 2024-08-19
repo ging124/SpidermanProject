@@ -59,6 +59,7 @@ public class PlayerController : RPGObjectController
         cam = GameObject.FindWithTag("MainCamera").GetComponent<Transform>();
         rb = this.GetComponent<Rigidbody>();
         animancer = this.GetComponent<AnimancerComponent>();
+        playerData.LevelUp();
     }
 
     private void OnEnable()

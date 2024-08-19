@@ -40,7 +40,8 @@ public class NormalState : PlayerBaseState
 
         if(_stateManager.currentState != _stateReferences.dodgeState
             && _stateManager.currentState != _stateReferences.startGrabState 
-            && _stateManager.currentState != _stateReferences.grabHitState)
+            && _stateManager.currentState != _stateReferences.grabHitState
+            && _stateManager.currentState != _stateReferences.ultimateAttackState)
         {
             switch (_blackboard.playerController.hitAttackType)
             {

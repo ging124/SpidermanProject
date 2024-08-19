@@ -33,8 +33,11 @@ public class PlayerModel : MonoBehaviour
 
     void InnitSkin()
     {
+        if (_currentSkinGameObject.GetComponent<SkinController>().itemData != _currentSkin)
+        {
+            _currentSkinGameObject = _currentSkin.Spawn(this.transform.position, this.transform.rotation, this.transform);
+        }
         //var currentModel = this.GetComponentInChildren<SkinController>();
-        _currentSkinGameObject = _currentSkin.Spawn(this.transform.position, this.transform.rotation, this.transform);
 
         _playerController.animancer.Animator.avatar = _currentSkin.avatar;
         SkinnedMeshRenderer _skinnedMeshRenderer = _currentSkinGameObject.GetComponentInChildren<SkinnedMeshRenderer>();

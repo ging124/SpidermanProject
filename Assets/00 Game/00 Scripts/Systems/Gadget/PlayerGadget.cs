@@ -39,6 +39,7 @@ public class PlayerGadget : MonoBehaviour
     public void ChangeGadget(Item item)
     {
         currentGadget = (Gadget)item;
+        onUseGadget = false;
     }
 
     public void UseGadget()

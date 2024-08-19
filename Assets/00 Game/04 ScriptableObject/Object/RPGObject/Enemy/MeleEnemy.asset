@@ -15,15 +15,23 @@ MonoBehaviour:
   levelSystem:
     currentLevel: 0
     currentExp: 0
-  maxHP: 100
-  attackDamage: 5
+    config: {fileID: 0}
+    levelup: {fileID: 0}
+  maxHP: 0
+  attackDamage: 0
+  baseMaxHP: 100
+  baseAttackDamage: 10
   moveSpeed: 3
+  hpUpLevel: 3
+  dmgUpLevel: 1
+  levelup:
+    gameEvent: {fileID: 0}
+    response:
+      m_PersistentCalls:
+        m_Calls: []
   dectectionRange: 6
   rotateSpeed: 30
   attackRange: 2
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 256
   damageText: {fileID: 0}
   enemyDeadEffect: {fileID: 0}
   enemyPrefab: {fileID: 4076153531080333860, guid: df406740bd7235141b43534d66674e14, type: 3}

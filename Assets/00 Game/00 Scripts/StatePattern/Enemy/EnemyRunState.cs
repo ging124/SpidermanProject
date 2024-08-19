@@ -22,18 +22,26 @@ public class EnemyRunState : EnemyCanMoveState
             return baseStatus;
         }
 
-        if (Vector3.Distance(_blackboard.enemyController.transform.position, _blackboard.enemyController.target.transform.position) < 1.5f)
+        if(_blackboard.enemyController.target != null)
+        {
+            if (Vector3.Distance(_blackboard.enemyController.transform.position, _blackboard.enemyController.target.transform.position) < 1.5f)
+            {
+                _stateManager.ChangeState(_stateReferences.enemyIdleState);
+                return StateStatus.Success;
+            }
+            else
+            {
+                Vector3 movement = _blackboard.enemyController.target.transform.position;
+                movement.y = _blackboard.enemyController.transform.position.y;
+                Movement(movement);
+            }
+        }
+        else
         {
             _stateManager.ChangeState(_stateReferences.enemyIdleState);
             return StateStatus.Success;
         }
 
-        if(_blackboard.enemyController.target != null)
-        {
-            Vector3 movement = _blackboard.enemyController.target.transform.position;
-            movement.y = _blackboard.enemyController.transform.position.y;
-            Movement(movement);
-        }
 
         return StateStatus.Running;
     }

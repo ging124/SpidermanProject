@@ -4,24 +4,12 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class WebBulletController : ItemWorld
+public class WebBulletController : BulletController
 {
     public EnemyController target;
     public float stunLockDuration;
-    private float flyDuration = 0.3f;
 
-
-    private void OnEnable()
-    {
-        Shoot();
-    }
-
-    private void DestroyBullet()
-    {
-        itemData.Despawn(this.gameObject);
-    }
-
-    private void Shoot()
+    protected override void Shoot()
     {
         if (target != null)
         {

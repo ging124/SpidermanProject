@@ -27,6 +27,7 @@ public class EnemyController : RPGObjectController, IHitable
         rigid = this.GetComponent<Rigidbody>();
         animancer = this.GetComponent<AnimancerComponent>();
         agent = this.GetComponent<NavMeshAgent>();
+        enemyData.LevelUp();
     }
 
     protected virtual void OnEnable()

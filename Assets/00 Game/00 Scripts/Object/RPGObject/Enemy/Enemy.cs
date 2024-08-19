@@ -9,8 +9,6 @@ public class Enemy : RPGObject, IFactory
     public float rotateSpeed;
     public float attackRange;
 
-    public LayerMask playerLayer;
-
     public GameObject damageText;
     public ParticleSystem enemyDeadEffect;
     public GameObject enemyPrefab;

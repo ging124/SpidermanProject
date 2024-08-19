@@ -49,9 +49,9 @@ public class EnemyNormalState : EnemyBaseState
             _blackboard.enemyController.canAttack = false;
         }
     }
-
+/*
     void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(_blackboard.enemyController.transform.position, _blackboard.enemyController.enemyData.dectectionRange);
-    }
+    }*/
 }

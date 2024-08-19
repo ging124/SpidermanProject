@@ -1,7 +1,4 @@
 using Animancer;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro.EditorUtilities;
 using UnityEngine;
 
 public class EndGrabState : HitStatusState
@@ -13,10 +10,7 @@ public class EndGrabState : HitStatusState
         base.EnterState();
         _blackboard.character.useRootMotion = true;
         TakeDamage();
-        _normalBodyLayer.Play(_endGrabAnim).Events.OnEnd = () =>
-        {
-            _stateManager.ChangeState(_stateReferences.standUpState);
-        };
+        _normalBodyLayer.Play(_endGrabAnim);
     }
 
     public override StateStatus UpdateState()
@@ -25,6 +19,12 @@ public class EndGrabState : HitStatusState
         if (baseStatus != StateStatus.Running)
         {
             return baseStatus;
+        }
+
+        if (_normalBodyLayer.CurrentState.NormalizedTime >= 1)
+        {
+            _stateManager.ChangeState(_stateReferences.standUpState);
+            return StateStatus.Success;
         }
 
         return StateStatus.Running;

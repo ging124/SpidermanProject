@@ -1,4 +1,4 @@
-                   using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -71,6 +71,6 @@ public class ShippingMission : BaseMission
             i++;
         }
 
-        EditorUtility.SetDirty(this);
+        //EditorUtility.SetDirty(this);
     }
 }

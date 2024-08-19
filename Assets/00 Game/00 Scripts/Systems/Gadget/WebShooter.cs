@@ -15,7 +15,10 @@ public class WebShooter : Gadget
     public override GameObject StartGadget(PlayerController playerController)
     {
         base.StartGadget(playerController);
-        playerController.animancer.Play(webShooterAnim, 0.25f, FadeMode.FromStart);
+        playerController.animancer.Play(webShooterAnim, 0.25f, FadeMode.FromStart).Events.OnEnd = () =>
+        {
+            gadgetFinished.Raise();
+        };
         playerModel = playerController.GetComponent<PlayerBlackboard>().playerModel;
         return null;
     }
@@ -42,8 +45,4 @@ public class WebShooter : Gadget
         }
     }
 
-    public void OnFinished()
-    {
-        gadgetFinished.Raise();
-    }
 }
