@@ -45,7 +45,7 @@ public class RPGObjectController : MonoBehaviour, IHitable
         this.hitDamage = 0;
     }
 
-    public void TargetDetection()
+    public virtual void TargetDetection()
     {
         Collider[] hitTarget = Physics.OverlapSphere(this.transform.position, this.rangeDetection);
 

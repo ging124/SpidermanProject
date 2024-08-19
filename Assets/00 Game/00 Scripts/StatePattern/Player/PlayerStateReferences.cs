@@ -34,6 +34,7 @@ public class PlayerStateReferences : StateReferences
     public EndGrabState endGrabState;
 
     [Header("ActionState")]
+    public NormalActionState normalActionState;
     public IdleActionState idleActionState;
     public MeleAttackState meleAttackState;
     public NearAttackState nearAttackState;

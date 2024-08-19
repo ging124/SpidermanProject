@@ -5,13 +5,14 @@ using UnityEngine;
 
 public class EnemyRetreatState : EnemyNormalState
 {
-    [SerializeField] private ClipTransition _retreatAnim;
+    [SerializeField] private ClipTransition _retreatLeftAnim;
+    [SerializeField] private ClipTransition _retreatRightAnim;
     [SerializeField] private float _timeToIdle = 0.1f;
 
     public override void EnterState()
     {
         base.EnterState();
-        _normalBodyLayer.Play(_retreatAnim, 0.25f, FadeMode.FromStart);
+        _normalBodyLayer.Play(_retreatLeftAnim, 0.25f, FadeMode.FromStart);
     }
 
     public override StateStatus UpdateState()

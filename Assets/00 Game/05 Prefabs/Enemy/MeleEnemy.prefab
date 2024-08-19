@@ -1761,6 +1761,10 @@ MonoBehaviour:
   hitAttackType: 0
   target: {fileID: 0}
   enemyDead: {fileID: 11400000, guid: a783a6895ab1c654698386f5625b433b, type: 2}
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  hitTarget: []
   stunLockDuration: 0
   currentHP: 0
   enemyData: {fileID: 0}

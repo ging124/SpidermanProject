@@ -91,15 +91,14 @@ public class MeleAttackState : AttackState
     {
         if (hit >= 3)
         {
-            combo = -1;
-            hit = 0;
+            ResetCombo();
         }
     }
 
     public void ResetCombo()
     {
-        hit = 0;
         combo = -1;
+        hit = 0;
     }
 
     public void MeleAttack()

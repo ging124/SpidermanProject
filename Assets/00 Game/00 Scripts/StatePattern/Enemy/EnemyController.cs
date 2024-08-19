@@ -5,6 +5,8 @@ using UnityEngine.AI;
 public class EnemyController : RPGObjectController, IHitable
 {
     public GameEvent enemyDead;
+    public LayerMask enemyLayer;
+    public Collider[] hitTarget;
 
     public float stunLockDuration = 0;
 
@@ -37,4 +39,46 @@ public class EnemyController : RPGObjectController, IHitable
     {
         enemyManager.Remove(enemyData);
     }*/
+
+    public override void TargetDetection()
+    {
+        Collider[] hitTarget = Physics.OverlapSphere(this.transform.position, this.rangeDetection, ~enemyLayer);
+
+        if (hitTarget.Length > 0)
+        {
+            float minDistance = float.MaxValue;
+            int tagetFlag = -1;
+
+            for (int i = 0; i < hitTarget.Length; i++)
+            {
+                if (hitTarget[i].gameObject == this.gameObject)
+                {
+                    continue;
+                }
+
+                IHitable hitable;
+                if (hitTarget[i].TryGetComponent<IHitable>(out hitable))
+                {
+                    float distance = (hitTarget[i].transform.position - this.transform.position).magnitude;
+                    Debug.DrawLine(hitTarget[i].transform.position, this.transform.position, Color.black);
+                    if (minDistance > distance && hitable.CanHit())
+                    {
+                        minDistance = distance;
+                        tagetFlag = i;
+                    }
+                }
+                else
+                {
+                    continue;
+                }
+            }
+
+            if (tagetFlag != -1) this.target = hitTarget[tagetFlag];
+            else this.target = null;
+        }
+        else
+        {
+            this.target = null;
+        }
+    }
 }

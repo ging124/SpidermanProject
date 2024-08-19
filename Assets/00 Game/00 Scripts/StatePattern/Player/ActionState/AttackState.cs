@@ -3,6 +3,7 @@ using DG.Tweening;
 using EasyCharacterMovement;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 public class AttackState : NormalState
@@ -76,9 +77,13 @@ public class AttackState : NormalState
 
     public virtual void MoveToTarget()
     {
+        _blackboard.playerController.rb.interpolation = RigidbodyInterpolation.None;
         Vector3 target = Vector3.MoveTowards(_blackboard.playerController.target.transform.position, _blackboard.playerController.transform.position, 0.7f);
         target.y = _blackboard.playerController.transform.position.y;
         _blackboard.playerController.transform.DOLookAt(_blackboard.playerController.target.transform.position, 0.2f, AxisConstraint.Y);
-        _blackboard.playerController.transform.DOMove(target, 0.2f);
+        _blackboard.playerController.transform.DOMove(target, 0.2f).onComplete = () =>
+        {
+            _blackboard.playerController.rb.interpolation = RigidbodyInterpolation.Interpolate;
+        };
     }
 }

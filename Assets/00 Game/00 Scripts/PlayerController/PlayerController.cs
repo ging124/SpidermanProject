@@ -1,4 +1,4 @@
-using Animancer;
+﻿using Animancer;
 using DamageNumbersPro;
 using EasyCharacterMovement;
 using UnityEngine;
