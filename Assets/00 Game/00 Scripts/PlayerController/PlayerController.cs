@@ -106,6 +106,7 @@ public class PlayerController : RPGObjectController
     {
         if (Physics.SphereCast(this.cam.position, this.zipDetectionRange, this.cam.forward, out this.zipPointDetection, this.zipDetectionLength, this.wallLayer))
         {
+            Debug.Log(zipPointDetection.normal);
             WallScript wallScript;
             if (this.zipPointDetection.transform.TryGetComponent<WallScript>(out wallScript))
             {

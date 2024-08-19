@@ -37,11 +37,23 @@ public class GingPinSkill1 : Skill
     {
         Vector3 movePos = target.transform.position + (target.transform.position - transform.position).normalized * 4;
         movePos.y = transform.position.y;
-        this.transform.DOMove(movePos, movePos.magnitude / 80f).OnUpdate(NormalAttack);
+        this.transform.DOMove(movePos, movePos.magnitude / 120f).OnUpdate(NormalAttack);
         this.transform.DOLookAt(target.transform.position, 0.3f, AxisConstraint.Y);
         animancer.Play(skillAnim).Events.OnEnd = () =>
         {
             this.animancer.Play(stopSkillAnim);
         };
+    }
+
+    public override void Attack(AttackType attackType)
+    {
+        var targetComponent = target.GetComponent<IHitable>();
+
+        var damage = RPGObject.RandomDamage(this.skillDamage);
+
+        if (Vector3.Distance(this.target.transform.position, this.transform.position) < 1.5f)
+        {
+            targetComponent.OnHit(damage, attackType);
+        }
     }
 }
