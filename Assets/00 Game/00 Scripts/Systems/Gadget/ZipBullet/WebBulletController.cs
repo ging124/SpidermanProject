@@ -9,7 +9,7 @@ public class WebBulletController : BulletController
     public EnemyController target;
     public float stunLockDuration;
 
-    protected override void Shoot()
+    public override void Shoot()
     {
         if (target != null)
         {

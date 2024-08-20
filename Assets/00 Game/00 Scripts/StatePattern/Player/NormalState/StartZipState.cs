@@ -13,13 +13,12 @@ public class StartZipState : NormalState
     [SerializeField] private LineRenderer _rightLineRenderer;
     [SerializeField] private Vector3 zipPoint;
 
-
     public override void EnterState()
     {
         base.EnterState();
         _normalBodyLayer.Play(_zipAnim);
+        _blackboard.playerController.rb.interpolation = RigidbodyInterpolation.None;
         _blackboard.character.SetMovementMode(MovementMode.None);
-        _blackboard.playerController.rb.useGravity = true;
         _blackboard.playerController.rb.isKinematic = false;
 
         zipPoint = _blackboard.playerController.zipPoint;
@@ -63,7 +62,6 @@ public class StartZipState : NormalState
         _rightLineRenderer.positionCount = 0;
         Vector3 velocity = _blackboard.playerController.rb.velocity;
         _blackboard.character.SetMovementMode(MovementMode.Walking);
-        _blackboard.playerController.rb.useGravity = false;
         _blackboard.playerController.rb.isKinematic = true;
         _blackboard.character.SetVelocity(velocity);
         base.ExitState();
@@ -72,7 +70,10 @@ public class StartZipState : NormalState
     public void Zip()
     {
         _blackboard.transform.DOLookAt(zipPoint, 0.2f, AxisConstraint.Y);
-        _blackboard.playerController.rb.DOMove(zipPoint + Vector3.up, _zipTime);
+        _blackboard.playerController.transform.DOMove(zipPoint + Vector3.up, _zipTime).OnComplete(() =>
+        {
+            _blackboard.playerController.rb.interpolation = RigidbodyInterpolation.Interpolate;
+        });
     }
 
     public void StartZip()

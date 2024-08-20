@@ -18,9 +18,9 @@ MonoBehaviour:
   waveListData:
   - enemies:
     - {fileID: 11400000, guid: d6428460e879f4441888823db0f3c78f, type: 2}
-    - {fileID: 11400000, guid: ad14931ed2a46ac40b57e5a3bceb9b55, type: 2}
+    - {fileID: 11400000, guid: 653fca0254ed9894187d277a779bd2a3, type: 2}
     - {fileID: 11400000, guid: 82b0654c573d64f4b9e2b772349feca4, type: 2}
-  fightingMissionRange: 10
+  fightingMissionRange: 5
   getMissionPoint: 1
-  enemies: 3
+  enemies: 0
   waves: 0

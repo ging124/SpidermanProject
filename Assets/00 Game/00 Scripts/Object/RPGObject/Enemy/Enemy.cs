@@ -3,13 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : RPGObject, IFactory
+public class Enemy : RPGObject
 {
     public float dectectionRange;
     public float rotateSpeed;
     public float attackRange;
 
-    public GameObject damageText;
     public ParticleSystem enemyDeadEffect;
     public GameObject enemyPrefab;
     Queue<GameObject> enemyPool = new Queue<GameObject>();

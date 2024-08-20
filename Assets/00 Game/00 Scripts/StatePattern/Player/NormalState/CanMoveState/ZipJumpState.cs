@@ -19,7 +19,6 @@ public class ZipJumpState : OnAirState
 
         _blackboard.playerController.rb.AddForce((_blackboard.playerController.transform.up * 150) * _jumpForce);
         _blackboard.playerController.rb.AddForce((_blackboard.playerController.transform.forward * 175) * _jumpForce);
-
     }
 
     public override StateStatus UpdateState()

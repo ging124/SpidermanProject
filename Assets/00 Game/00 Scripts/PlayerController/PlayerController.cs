@@ -11,6 +11,7 @@ public class PlayerController : RPGObjectController
     public float currentHP;
     public float ultimateRange;
     public DamageNumber damagePrefab;
+    public LayerMask friendLayer;
 
     [Header("----Effect----")]
     public GameEffect attackHitEffect;
@@ -106,17 +107,32 @@ public class PlayerController : RPGObjectController
     {
         if (Physics.SphereCast(this.cam.position, this.zipDetectionRange, this.cam.forward, out this.zipPointDetection, this.zipDetectionLength, this.wallLayer))
         {
-            Debug.Log(zipPointDetection.normal);
-            WallScript wallScript;
-            if (this.zipPointDetection.transform.TryGetComponent<WallScript>(out wallScript))
+            if (zipPointDetection.normal == Vector3.up)
             {
-                this.zipPoint = wallScript.GetZipPoint(this.zipPointDetection.point);
+                Debug.Log("Mai Nha");
             }
             else
             {
-                this.zipPoint = Vector3.zero;
+                RaycastHit wallHit;
+                RaycastHit zipHit;
+
+                if (Physics.Raycast(zipPointDetection.point - zipPointDetection.normal * 0.2f, Vector3.ProjectOnPlane(Vector3.up, zipPointDetection.normal), out wallHit))
+                {
+                    if(Physics.Raycast(wallHit.point + Vector3.up * 5, -wallHit.transform.up, out zipHit))
+                    {
+                        Debug.DrawLine(zipHit.point, zipHit.normal, Color.red);
+                        this.zipPoint = zipHit.point;
+                    }
+                }
+                Debug.DrawRay(zipPointDetection.point - zipPointDetection.normal * 0.2f, Vector3.ProjectOnPlane(Vector3.up, zipPointDetection.normal), Color.red);
             }
         }
+        else
+        {
+            zipPoint = Vector3.zero;
+        }
+
+
         if (this.zipPoint != Vector3.zero && this.zipLength < this.maxZipLength)
         {
             this.zipIconImage.gameObject.SetActive(true);
@@ -133,6 +149,48 @@ public class PlayerController : RPGObjectController
     {
         lineRenderer.SetPosition(0, hand.position);
         lineRenderer.SetPosition(1, zipPoint);
+    }
+
+    public override void TargetDetection()
+    {
+        Collider[] hitTarget = Physics.OverlapSphere(this.transform.position, this.rangeDetection, ~friendLayer);
+
+        if (hitTarget.Length > 0)
+        {
+            float minDistance = float.MaxValue;
+            int tagetFlag = -1;
+
+            for (int i = 0; i < hitTarget.Length; i++)
+            {
+                if (hitTarget[i].gameObject == this.gameObject)
+                {
+                    continue;
+                }
+
+                IHitable hitable;
+                if (hitTarget[i].TryGetComponent<IHitable>(out hitable))
+                {
+                    float distance = (hitTarget[i].transform.position - this.transform.position).magnitude;
+                    Debug.DrawLine(hitTarget[i].transform.position, this.transform.position, Color.black);
+                    if (minDistance > distance && hitable.CanHit())
+                    {
+                        minDistance = distance;
+                        tagetFlag = i;
+                    }
+                }
+                else
+                {
+                    continue;
+                }
+            }
+
+            if (tagetFlag != -1) this.target = hitTarget[tagetFlag];
+            else this.target = null;
+        }
+        else
+        {
+            this.target = null;
+        }
     }
 
 }

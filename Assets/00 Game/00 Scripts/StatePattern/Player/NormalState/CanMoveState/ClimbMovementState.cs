@@ -6,6 +6,7 @@ using UnityEngine;
 public class ClimbMovementState : NormalState
 {
     [SerializeField] private float _climbSpeed;
+    [SerializeField] private float rotationSpeed;
     [SerializeField] private float _timeToChangeState;
     [SerializeField] private LinearMixerTransition _climbBlendTree;
     [SerializeField] private ClipTransition _idleClimbAnim;
@@ -16,7 +17,6 @@ public class ClimbMovementState : NormalState
         _blackboard.character.SetMovementMode(MovementMode.None);
         _blackboard.playerController.rb.isKinematic = false;
         _blackboard.playerController.rb.useGravity = false;
-        _blackboard.playerController.transform.DORotate(Quaternion.LookRotation(-_blackboard.playerController.frontWallHit.normal, Vector3.up).eulerAngles, 0.2f);
         _normalBodyLayer.Play(_climbBlendTree);
     }
 
@@ -53,6 +53,7 @@ public class ClimbMovementState : NormalState
 
     public override void FixedUpdateState()
     {
+        Rotation();
         Movement();
     }
 
@@ -94,6 +95,13 @@ public class ClimbMovementState : NormalState
         {
             _climbBlendTree.State.Parameter = Mathf.Lerp(_climbBlendTree.State.Parameter, Vector3.Angle(_blackboard.playerController.transform.right, _blackboard.playerController.movement.normalized), 60 * Time.deltaTime);
         }
+    }
+
+    public void Rotation()
+    {
+        Quaternion targetRotation = Quaternion.LookRotation(-_blackboard.playerController.frontWallHit.normal, Vector3.up);
+
+        _blackboard.playerController.transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
     }
 }
 

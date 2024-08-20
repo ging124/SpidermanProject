@@ -35,14 +35,16 @@ public class GingPinSkill1 : Skill
 
     public void Skill()
     {
+        animancer.Play(skillAnim);
         Vector3 movePos = target.transform.position + (target.transform.position - transform.position).normalized * 4;
         movePos.y = transform.position.y;
-        this.transform.DOMove(movePos, movePos.magnitude / 120f).OnUpdate(NormalAttack);
         this.transform.DOLookAt(target.transform.position, 0.3f, AxisConstraint.Y);
-        animancer.Play(skillAnim).Events.OnEnd = () =>
+        Tweener tweener = this.transform.DOMove(movePos, movePos.magnitude / 150f);
+        tweener.OnUpdate(NormalAttack);
+        tweener.OnComplete(() =>
         {
             this.animancer.Play(stopSkillAnim);
-        };
+        });
     }
 
     public override void Attack(AttackType attackType)

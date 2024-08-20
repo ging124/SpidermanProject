@@ -17,7 +17,7 @@ public class BulletController : ItemWorld
         itemData.Despawn(this.gameObject);
     }
 
-    protected virtual void Shoot()
+    public virtual void Shoot()
     {
     }
 }

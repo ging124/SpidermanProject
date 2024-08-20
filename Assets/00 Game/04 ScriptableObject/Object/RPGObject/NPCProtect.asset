@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cd83c515a8649e459a1610c56117dc5, type: 3}
+  m_Name: NPCProtect
+  m_EditorClassIdentifier: 
+  levelSystem:
+    currentLevel: 1
+    currentExp: 0
+    config: {fileID: 11400000, guid: 09224c4d2cd0f634085b756eb9d1f205, type: 2}
+    levelup: {fileID: 11400000, guid: 0e188e3c29d49444bb31e29d46e3961e, type: 2}
+  maxHP: 0
+  attackDamage: 0
+  baseMaxHP: 250
+  baseAttackDamage: 0
+  moveSpeed: 0
+  hpUpLevel: 10
+  dmgUpLevel: 0
+  levelup:
+    gameEvent: {fileID: 0}
+    response:
+      m_PersistentCalls:
+        m_Calls: []
+  npcProtectPrefab: {fileID: 4577682161283584139, guid: 9fd7f3091ee1e27498e41bf74c4d9a47, type: 3}

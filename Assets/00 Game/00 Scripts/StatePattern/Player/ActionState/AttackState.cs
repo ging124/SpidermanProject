@@ -48,6 +48,7 @@ public class AttackState : NormalState
 
     public override void ExitState()
     {
+        _blackboard.playerController.rb.interpolation = RigidbodyInterpolation.Interpolate;
         _blackboard.character.useRootMotion = false;
         _blackboard.character.SetRotationMode(RotationMode.OrientToMovement);
         base.ExitState();
@@ -74,12 +75,9 @@ public class AttackState : NormalState
     public virtual void MoveToTarget()
     {
         _blackboard.playerController.rb.interpolation = RigidbodyInterpolation.None;
-        Vector3 target = Vector3.MoveTowards(_blackboard.playerController.target.transform.position, _blackboard.playerController.transform.position, 0.7f);
+        Vector3 target = Vector3.MoveTowards(_blackboard.playerController.transform.position, _blackboard.playerController.target.transform.position, 0.7f);
         target.y = _blackboard.playerController.transform.position.y;
         _blackboard.playerController.transform.DOLookAt(_blackboard.playerController.target.transform.position, 0.2f, AxisConstraint.Y);
-        _blackboard.playerController.transform.DOMove(target, 0.2f).onComplete = () =>
-        {
-            _blackboard.playerController.rb.interpolation = RigidbodyInterpolation.Interpolate;
-        };
+        _blackboard.playerController.transform.DOMove(target, 0.2f);
     }
 }

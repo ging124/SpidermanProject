@@ -15,7 +15,7 @@ public class ClimbIdleState : NormalState
         _blackboard.character.SetMovementMode(MovementMode.None);
         _blackboard.playerController.rb.isKinematic = false;
         _blackboard.playerController.rb.useGravity = false;
-        _blackboard.playerController.transform.DORotate(Quaternion.LookRotation(_blackboard.playerController.transform.forward.projectedOnPlane(Vector3.up), Vector3.up).eulerAngles, 0.2f);
+        _blackboard.playerController.transform.DORotate(Quaternion.LookRotation(-_blackboard.playerController.frontWallHit.normal, Vector3.up).eulerAngles, 0.2f);
         _normalBodyLayer.Play(_idleClimbAnim);
     }
 

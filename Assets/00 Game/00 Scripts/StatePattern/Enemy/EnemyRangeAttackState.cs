@@ -40,7 +40,7 @@ public class EnemyRangeAttackState : EnemyAttackState
         var bulletObject = ((RangeEnemyController)_blackboard.enemyController).enemyBullet.Spawn(((RangeEnemyController)_blackboard.enemyController).gunTransform.position, _blackboard.enemyController.transform.rotation);
         var bullet = bulletObject.GetComponent<EnemyBulletController>();
         bullet.target = _blackboard.enemyController.target.GetComponent<PlayerController>();
-
+        bullet.Shoot();
     }
 
 }
