@@ -67,7 +67,7 @@ public class ProtectMission : BaseMission
 
         if (CheckCompleteMission())
         {
-            completeMission.Raise();
+            completeMission.Raise(moneyReward, expReward);
         }
     }
 
@@ -76,7 +76,7 @@ public class ProtectMission : BaseMission
         foreach (Enemy enemyes in waveListData[waves].enemies)
         {
             float randomRange = UnityEngine.Random.Range(0, fightingMissionRange);
-            enemyes.Spawn(new Vector3(randomRange, 0.5f, randomRange) + spawnPosition, Quaternion.identity, parent);
+            enemyes.Spawn(new Vector3(randomRange, 0, randomRange) + spawnPosition, Quaternion.identity, parent);
         }
     }
 }

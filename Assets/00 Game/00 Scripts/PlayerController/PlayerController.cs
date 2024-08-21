@@ -45,8 +45,7 @@ public class PlayerController : RPGObjectController
 
     [Header("----Event----")]
     public UnityEvent<float, float> playerChangeHP;
-    public UnityEvent<double ,double, double> playerGainExp;
-
+    public GameEvent playerDead;
 
     [Header("----Component----")]
     public Player playerData;

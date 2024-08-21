@@ -60,6 +60,7 @@ public class DodgeState : GroundState
 
         if (_blackboard.inputSO.move.y <= 0 && _blackboard.inputSO.move.x == 0)
         {
+            _blackboard.character.GetRootMotionController().ConsumeRootMotionVelocity(2);
             _normalBodyLayer.Play(_dodgeBackAnim, 0.25f, FadeMode.FromStart);
         }
         else

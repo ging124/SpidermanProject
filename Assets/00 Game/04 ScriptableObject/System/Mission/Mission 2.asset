@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e96d93878655738479fdeed7f3102fe7, type: 3}
   m_Name: Mission 2
   m_EditorClassIdentifier: 
+  expReward: 142
+  moneyReward: 165
+  missionData: {fileID: 11400000, guid: 2707092f9dd570844a847bda679f0216, type: 2}
   spawnPosition: {x: -169.01, y: 102.87, z: 247.9}
-  completeMission: {fileID: 11400000, guid: e9bf2e8a6ae3fb440a88cc195654f1b4, type: 2}
+  completeMission: {fileID: 11400000, guid: 11502746fe5ec2d4586af449325f3039, type: 2}
   getFightingMission: {fileID: 11400000, guid: e950e4e4d6f75084ea281b0cdba45469, type: 2}
   waveListData:
   - enemies:

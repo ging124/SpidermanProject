@@ -17,8 +17,8 @@ MonoBehaviour:
     currentExp: 0
     config: {fileID: 11400000, guid: 09224c4d2cd0f634085b756eb9d1f205, type: 2}
     levelup: {fileID: 11400000, guid: 0e188e3c29d49444bb31e29d46e3961e, type: 2}
-  maxHP: 0
-  attackDamage: 0
+  maxHP: 550
+  attackDamage: 40
   baseMaxHP: 500
   baseAttackDamage: 20
   moveSpeed: 5
@@ -30,3 +30,5 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
   jumpHeight: 5
+  money: 3957
+  playerPrefab: {fileID: 3374994747894680165, guid: c957583b4ee671f48bba75e7f8689780, type: 3}

@@ -757,7 +757,7 @@ PlayerSettings:
   webGLMemoryGeometricGrowthCap: 96
   webGLPowerPreference: 2
   scriptingDefineSymbols:
-    Android: DOTWEEN;NODECANVAS;UNITY_POST_PROCESSING_STACK_V2
+    Android: DOTWEEN;NODECANVAS;UNITY_POST_PROCESSING_STACK_V2;GLEY_TRAFFIC_SYSTEM
     EmbeddedLinux: DOTWEEN;UNITY_POST_PROCESSING_STACK_V2
     GameCoreScarlett: DOTWEEN
     GameCoreXboxOne: DOTWEEN;UNITY_POST_PROCESSING_STACK_V2

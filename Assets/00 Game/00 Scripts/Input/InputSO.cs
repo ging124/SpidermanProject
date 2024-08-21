@@ -16,16 +16,6 @@ public class InputSO : ScriptableObject
     public bool buttonGadget;
     public bool buttonUltimate;
 
-
     public bool disableInput;
 
-    public void DisableInput(bool disable)
-    {
-        disableInput = disable;
-    }
-
-    private void OnValidate()
-    {
-        buttonRoll = false;
-    }
 }

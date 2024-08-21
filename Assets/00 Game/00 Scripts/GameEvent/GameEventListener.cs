@@ -47,3 +47,25 @@ public class GameEventListener<T>
         response?.Invoke(t);
     }
 }
+
+[Serializable]
+public class GameEventListener<T, T1>
+{
+    [SerializeField] private GameEvent<T, T1> gameEvent;
+    [SerializeField] private UnityEvent<T, T1> response;
+
+    public void Register()
+    {
+        gameEvent?.RegisterListener(this);
+    }
+
+    public void Unregister()
+    {
+        gameEvent?.UnregisterListener(this);
+    }
+
+    public void OnEventRaised(T t, T1 t1)
+    {
+        response?.Invoke(t, t1);
+    }
+}

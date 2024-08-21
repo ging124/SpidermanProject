@@ -14,4 +14,9 @@ public class PlayerBlackboard : Blackboard
 
     [Header("----SO----")]
     public InputSO inputSO;
+
+    public void OnEnable()
+    {
+        inputSO.disableInput = false;
+    }
 }

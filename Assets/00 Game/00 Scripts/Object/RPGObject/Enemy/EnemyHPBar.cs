@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -34,10 +35,9 @@ public class EnemyHPBar : MonoBehaviour
 
     /*public void ActiveHPbar()
     {
-        this.transform.DOScale(new Vector3(1, 1, 1), fadeDurationDead);
-        hpbar.image.DOFade(1, fadeDurationDead);
-        hpbarAfter.image.DOFade(1, fadeDurationDead);
-        enemyName.DOFade(1, fadeDurationDead);
+        this.transform.DOScale(new Vector3(1, 1, 1), 0.2f);
+        _hpImage.image.DOFade(1, 0.2f);
+        _hpEffectImage.image.DOFade(1, 0.2f);
     }
 
 

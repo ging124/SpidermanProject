@@ -9,6 +9,7 @@ public class NPCProtectController : MonoBehaviour, IHitable
     [SerializeField] private float currentHP;
     [SerializeField] private ClipTransition _anim;
     [SerializeField] private AnimancerComponent animancer;
+    [SerializeField] private UIEnemyBlackboard UIEnemyBlackboard;
 
     private void Awake()
     {
@@ -20,6 +21,7 @@ public class NPCProtectController : MonoBehaviour, IHitable
     {
         animancer.Play(_anim);
         currentHP = npcProtecData.maxHP;
+        UIEnemyBlackboard.enemyHPBar.EnemyHPChange(currentHP, npcProtecData.maxHP);
     }
 
     public bool CanHit()
@@ -29,6 +31,7 @@ public class NPCProtectController : MonoBehaviour, IHitable
 
     public void OnHit(int hitDamage, AttackType attackType)
     {
-        
+        currentHP -= hitDamage;
+        UIEnemyBlackboard.enemyHPBar.EnemyHPChange(currentHP, npcProtecData.maxHP);
     }
 }

@@ -12,7 +12,7 @@ public class FarAttackState : AttackState
     public override void EnterState()
     {
         base.EnterState();
-
+        _blackboard.playerController.rb.interpolation = RigidbodyInterpolation.None;
         _normalBodyLayer.Play(_zipAnim);
     }
 
@@ -35,6 +35,7 @@ public class FarAttackState : AttackState
 
     public override void ExitState()
     {
+        _blackboard.playerController.rb.interpolation = RigidbodyInterpolation.Interpolate;
         base.ExitState();
     }
 

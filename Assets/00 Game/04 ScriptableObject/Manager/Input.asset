@@ -19,4 +19,6 @@ MonoBehaviour:
   buttonAttack: 0
   buttonZip: 0
   buttonDodge: 0
-  disableInput: 0
+  buttonGadget: 0
+  buttonUltimate: 0
+  disableInput: 1

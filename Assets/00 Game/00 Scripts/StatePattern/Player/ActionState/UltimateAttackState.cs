@@ -48,11 +48,11 @@ public class UltimateAttackState : NormalState
     {
         for (int i = 0; i < _ultimateHit; i++)
         {
-            Collider[] ultimateTarget = Physics.OverlapSphere(_blackboard.playerController.transform.position, _blackboard.playerController.ultimateRange, ~LayerMask.NameToLayer("Player"));
+            Collider[] ultimateTarget = Physics.OverlapSphere(_blackboard.playerController.transform.position, _blackboard.playerController.ultimateRange, ~_blackboard.playerController.friendLayer);
 
             foreach (Collider hit in ultimateTarget)
             {
-                if (hit == _blackboard.playerController.GetComponent<Collider>()) continue;
+                if (hit.gameObject == _blackboard.playerController.gameObject) continue;
 
                 IHitable hitable;
                 if (hit.TryGetComponent<IHitable>(out hitable))

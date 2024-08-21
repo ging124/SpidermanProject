@@ -8,7 +8,12 @@ public class EnemyController : RPGObjectController, IHitable
     public LayerMask enemyLayer;
     public Collider[] hitTarget;
 
+    public EnemyGroupBehaviour groupBehaviour;
+
+
     public float stunLockDuration = 0;
+
+    public GameEffect attackHitEffect;
 
     public float currentHP;
     public Enemy enemyData;
@@ -33,13 +38,13 @@ public class EnemyController : RPGObjectController, IHitable
     protected virtual void OnEnable()
     {
         uIEnemyBlackboard.enemyHPBar.EnemyHPChange(currentHP, enemyData.maxHP);
-        //enemyManager.Add(enemyData);
+        groupBehaviour.RegisterEnemy(enemyData);
     }
 
-    /*private void OnDisable()
+    private void OnDisable()
     {
-        enemyManager.Remove(enemyData);
-    }*/
+        groupBehaviour.UnregisterEnemy(enemyData);
+    }
 
     public override void TargetDetection()
     {

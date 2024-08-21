@@ -8,6 +8,7 @@ public class NearAttackState : AttackState
     public override void EnterState()
     {
         base.EnterState();
+        _blackboard.playerController.rb.interpolation = RigidbodyInterpolation.None;
 
         _normalBodyLayer.Play(nearHit.hitAnim).Events.OnEnd = () =>
         {
@@ -34,6 +35,7 @@ public class NearAttackState : AttackState
 
     public override void ExitState()
     {
+        _blackboard.playerController.rb.interpolation = RigidbodyInterpolation.Interpolate;
         base.ExitState();
     }
 

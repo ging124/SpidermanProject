@@ -50,3 +50,27 @@ public class GameEvent<T> : ScriptableObject
         listeners.Remove(listener);
     }
 }
+
+[Serializable]
+public class GameEvent<T, T1> : ScriptableObject
+{
+    [SerializeField] protected List<GameEventListener<T, T1>> listeners = new List<GameEventListener<T, T1>>();
+
+    public void Raise(T t, T1 t1)
+    {
+        for (int i = listeners.Count - 1; i >= 0; i--)
+        {
+            listeners[i].OnEventRaised(t, t1);
+        }
+    }
+
+    public void RegisterListener(GameEventListener<T, T1> listener)
+    {
+        listeners.Add(listener);
+    }
+
+    public void UnregisterListener(GameEventListener<T, T1> listener)
+    {
+        listeners.Remove(listener);
+    }
+}

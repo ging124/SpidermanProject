@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 146c012e9f173a4498aba1c810a69ee4, type: 3}
   m_Name: Mission 6
   m_EditorClassIdentifier: 
+  expReward: 323
+  moneyReward: 346
+  missionData: {fileID: 11400000, guid: 2707092f9dd570844a847bda679f0216, type: 2}
   spawnPosition: {x: -189, y: 46, z: 95.03}
-  completeMission: {fileID: 11400000, guid: e9bf2e8a6ae3fb440a88cc195654f1b4, type: 2}
+  completeMission: {fileID: 11400000, guid: 11502746fe5ec2d4586af449325f3039, type: 2}
   getFightingMission: {fileID: 11400000, guid: e950e4e4d6f75084ea281b0cdba45469, type: 2}
   waveListData:
   - enemies:
@@ -21,7 +24,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 82b0654c573d64f4b9e2b772349feca4, type: 2}
     - {fileID: 11400000, guid: 82b0654c573d64f4b9e2b772349feca4, type: 2}
   npcProtect: {fileID: 11400000, guid: 6e155fefcf4c53e4fb7a71327c45ffd8, type: 2}
-  fightingMissionRange: 3
+  npcProtectController: {fileID: 0}
+  fightingMissionRange: 5
   getMissionPoint: 1
   enemies: 3
   waves: 0

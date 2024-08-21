@@ -7,7 +7,7 @@ public class MissionList : ScriptableObject
     public List<BaseMission> listMission = new List<BaseMission>();
     public int currentMissionIndex = 0;
 
-    public GameEventListener completeMission;
+    public GameEventListener<float, float> completeMission;
     public GameEvent changeProgressingMission;
 
     private void OnValidate()
@@ -17,16 +17,16 @@ public class MissionList : ScriptableObject
 
     public void FinishedMission()
     {
-        if (currentMissionIndex == listMission.Count - 1)
-        {
-            currentMissionIndex = 0;
-            changeProgressingMission.Raise();
-            return;
-        }
-
         if (listMission.Count > 0)
         {
-            currentMissionIndex++;
+            if(currentMissionIndex == listMission.Count - 1)
+            {
+                currentMissionIndex = 0;
+            }
+            else
+            {
+                currentMissionIndex++;
+            }
             changeProgressingMission.Raise();
         }
     }

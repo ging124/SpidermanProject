@@ -47,7 +47,7 @@ public class ShippingMission : BaseMission
 
         if (CheckCompleteMission())
         {
-            completeMission.Raise();
+            completeMission.Raise(moneyReward, expReward);
         }
 
     }

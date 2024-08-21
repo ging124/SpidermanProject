@@ -20,12 +20,9 @@ public class InputManager : MonoBehaviour
     [SerializeField] private KeyCode _gadgetKey;
     [SerializeField] private KeyCode _ultimateKey;
 
-
-
     [Header("Input value(Readonly)")]
     public float timeScale;
     public bool isLooking;
-
 
     private Vector2 cachedTouchPos;
     private int lookFingerID;
@@ -33,13 +30,24 @@ public class InputManager : MonoBehaviour
 
     private float pcCamSenmultiplier = 1;
 
+    public GameEventListener playerDead;
+
+    private void Awake()
+    {
+        playerDead.Register();
+    }
+
+    private void OnDestroy()
+    {
+        playerDead.Unregister();
+    }
+
     private void Start()
     {
         #if UNITY_EDITOR || UNITY_STANDALONE_WIN
             Cursor.lockState = CursorLockMode.Locked;
         #endif
     }
-
 
     private void Update()
     {
@@ -314,5 +322,11 @@ public class InputManager : MonoBehaviour
         yield return 0;
         inputSO.buttonUltimate = false;
     }
+
+    public void DisableInput()
+    {
+        inputSO.disableInput = true;
+    }
+
 }
 

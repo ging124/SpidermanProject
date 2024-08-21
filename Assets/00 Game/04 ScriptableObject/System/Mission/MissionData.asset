@@ -1,0 +1,95 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7379c8ef11df2e642bc384257a575bb8, type: 3}
+  m_Name: MissionData
+  m_EditorClassIdentifier: 
+  missionDataConfigs:
+  - expConfig: 60
+    moneyConfig: 75
+  - expConfig: 90
+    moneyConfig: 105
+  - expConfig: 120
+    moneyConfig: 135
+  - expConfig: 150
+    moneyConfig: 165
+  - expConfig: 180
+    moneyConfig: 195
+  - expConfig: 210
+    moneyConfig: 225
+  - expConfig: 240
+    moneyConfig: 255
+  - expConfig: 270
+    moneyConfig: 285
+  - expConfig: 300
+    moneyConfig: 315
+  - expConfig: 330
+    moneyConfig: 345
+  - expConfig: 340
+    moneyConfig: 355
+  - expConfig: 350
+    moneyConfig: 365
+  - expConfig: 360
+    moneyConfig: 375
+  - expConfig: 370
+    moneyConfig: 385
+  - expConfig: 380
+    moneyConfig: 395
+  - expConfig: 390
+    moneyConfig: 405
+  - expConfig: 400
+    moneyConfig: 415
+  - expConfig: 410
+    moneyConfig: 425
+  - expConfig: 420
+    moneyConfig: 435
+  - expConfig: 430
+    moneyConfig: 445
+  - expConfig: 440
+    moneyConfig: 455
+  - expConfig: 450
+    moneyConfig: 465
+  - expConfig: 460
+    moneyConfig: 475
+  - expConfig: 470
+    moneyConfig: 485
+  - expConfig: 480
+    moneyConfig: 495
+  - expConfig: 490
+    moneyConfig: 505
+  - expConfig: 500
+    moneyConfig: 515
+  - expConfig: 510
+    moneyConfig: 525
+  - expConfig: 520
+    moneyConfig: 535
+  - expConfig: 530
+    moneyConfig: 545
+  - expConfig: 535
+    moneyConfig: 550
+  - expConfig: 540
+    moneyConfig: 555
+  - expConfig: 545
+    moneyConfig: 560
+  - expConfig: 550
+    moneyConfig: 565
+  - expConfig: 555
+    moneyConfig: 570
+  - expConfig: 560
+    moneyConfig: 575
+  - expConfig: 565
+    moneyConfig: 580
+  - expConfig: 570
+    moneyConfig: 585
+  - expConfig: 575
+    moneyConfig: 590
+  - expConfig: 580
+    moneyConfig: 595

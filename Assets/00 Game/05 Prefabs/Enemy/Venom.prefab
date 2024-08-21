@@ -880,7 +880,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   hitTarget: []
+  groupBehaviour: {fileID: 11400000, guid: 42f14bca94fc2fa46ab8ff98306eb757, type: 2}
   stunLockDuration: 0
+  attackHitEffect: {fileID: 0}
   currentHP: 0
   enemyData: {fileID: 11400000, guid: 653fca0254ed9894187d277a779bd2a3, type: 2}
   enemyManager: {fileID: 0}

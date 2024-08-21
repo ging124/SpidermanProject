@@ -11,7 +11,7 @@ public class AttackState : NormalState
         _blackboard.character.useRootMotion = true;
         _blackboard.character.SetRotationMode(RotationMode.OrientWithRootMotion);
 
-        if(_blackboard.playerController.target != null)
+        if (_blackboard.playerController.target != null)
         {
             Vector3 distance = _blackboard.playerController.target.transform.position - _blackboard.playerController.transform.position;
             Vector3 endValue = _blackboard.playerController.target.transform.position - distance * 0.1f;
@@ -48,9 +48,7 @@ public class AttackState : NormalState
 
     public override void ExitState()
     {
-        _blackboard.playerController.rb.interpolation = RigidbodyInterpolation.Interpolate;
         _blackboard.character.useRootMotion = false;
-        _blackboard.character.SetRotationMode(RotationMode.OrientToMovement);
         base.ExitState();
     }
 
@@ -74,8 +72,7 @@ public class AttackState : NormalState
 
     public virtual void MoveToTarget()
     {
-        _blackboard.playerController.rb.interpolation = RigidbodyInterpolation.None;
-        Vector3 target = Vector3.MoveTowards(_blackboard.playerController.transform.position, _blackboard.playerController.target.transform.position, 0.7f);
+        Vector3 target = Vector3.MoveTowards(_blackboard.playerController.target.transform.position, _blackboard.playerController.transform.position, 0.95f);
         target.y = _blackboard.playerController.transform.position.y;
         _blackboard.playerController.transform.DOLookAt(_blackboard.playerController.target.transform.position, 0.2f, AxisConstraint.Y);
         _blackboard.playerController.transform.DOMove(target, 0.2f);

@@ -63,7 +63,7 @@ public class FightingMission : BaseMission
 
         if (CheckCompleteMission())
         {
-            completeMission.Raise();
+            completeMission.Raise(expReward, moneyReward);
         }
     }
 
