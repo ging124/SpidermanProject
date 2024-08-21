@@ -49,6 +49,7 @@ public class AttackState : NormalState
     public override void ExitState()
     {
         _blackboard.character.useRootMotion = false;
+        _blackboard.character.SetRotationMode(RotationMode.OrientToMovement);
         base.ExitState();
     }
 
