@@ -1,9 +1,11 @@
 ﻿using Animancer;
 using DamageNumbersPro;
 using EasyCharacterMovement;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class PlayerController : RPGObjectController
 {
@@ -36,6 +38,18 @@ public class PlayerController : RPGObjectController
     public float maxZipLength = 50;
     public RaycastHit zipPointDetection;
     public Image zipIconImage;
+    public float inwardsOffset = 0.1f;
+    public float upPointSphereRadius = 0.5f;
+    public float upSphereCastHeight = 50f;
+
+    public Vector3 forwardPoint;
+    public float forwardPointDistance = 10f;
+    public float backPOffset = 0.2f;
+    public float floorDistance = 40f;
+
+    public RaycastHit hitSurface;
+    public Vector3 pointSetBack;
+    public Vector3 upPoint;
     public float zipLength => (zipPoint - this.transform.position).magnitude;
 
     [Header("----ReadOnly----")]
@@ -104,7 +118,44 @@ public class PlayerController : RPGObjectController
 
     public void ZipPointCheck()
     {
-        if (Physics.SphereCast(this.cam.position, this.zipDetectionRange, this.cam.forward, out this.zipPointDetection, this.zipDetectionLength, this.wallLayer))
+
+        if (Physics.SphereCast(cam.transform.position, zipDetectionRange, cam.transform.forward, out RaycastHit hit, zipDetectionLength, wallLayer))
+        {
+            hitSurface = hit;
+            pointSetBack = hit.point - hit.normal * inwardsOffset;
+            if (Vector3.Dot(hit.normal, Vector3.up) <= 0.99f)
+            {
+                if (Physics.Raycast(cam.transform.position, cam.transform.forward, zipDetectionLength, LayerMask.NameToLayer("Ground")))
+                {
+                    zipPoint = Vector3.zero;
+                    //Debug.Log("Found ground");
+                    if (zipIconImage.gameObject.activeSelf)
+                    {
+                        zipIconImage.gameObject.SetActive(false);
+                    }
+                }
+                else
+                {
+                    //Debug.Log("FaceZipPoint");
+                    FaceZipPoint();
+                }
+            }
+            else
+            {
+                //Debug.Log("FaceZipDownPoint");
+                FaceDownZipPoint();
+            }
+        }
+        else
+        {
+            zipPoint = Vector3.zero;
+            if (zipIconImage.gameObject.activeSelf)
+            {
+                zipIconImage.gameObject.SetActive(false);
+            }
+        }
+
+        /*if (Physics.SphereCast(this.cam.position, this.zipDetectionRange, this.cam.forward, out this.zipPointDetection, this.zipDetectionLength, this.wallLayer))
         {
             if (zipPointDetection.normal == Vector3.up)
             {
@@ -129,7 +180,7 @@ public class PlayerController : RPGObjectController
         else
         {
             zipPoint = Vector3.zero;
-        }
+        }*/
 
 
         if (this.zipPoint != Vector3.zero && this.zipLength < this.maxZipLength)
@@ -189,6 +240,167 @@ public class PlayerController : RPGObjectController
         else
         {
             this.target = null;
+        }
+    }
+
+    private bool IsZipPointInView(Vector3 point)
+    {
+        Vector3 screenPoint = cam.GetComponent<Camera>().WorldToViewportPoint(point);
+        return screenPoint.z > 0 && screenPoint.x >= 0 && screenPoint.x <= 1 && screenPoint.y >= 0 && screenPoint.y <= 1;
+    }
+
+    private void FaceZipPoint()
+    {
+        var direc = Vector3.ProjectOnPlane(Vector3.up, hitSurface.normal);
+        if (Physics.Raycast(pointSetBack, direc, out RaycastHit hit2, zipDetectionLength, wallLayer))
+        {
+            upPoint = hit2.point + Vector3.up * upSphereCastHeight;
+            //Debug.DrawRay(upPoint, -hit2.transform.up, Color.blue);
+            if (Physics.SphereCast(upPoint, upPointSphereRadius, -hit2.transform.up, out RaycastHit hit3, upSphereCastHeight, wallLayer))
+            {
+                //Debug.DrawRay(hit3.point, hit3.normal, Color.magenta);
+                if (Vector3.Angle(hit3.normal, Vector3.up) < 45)
+                {
+                    zipPoint = hit3.point;
+                    ShowFocusZipPoint();
+                }
+                else
+                {
+                    zipPoint = Vector3.zero;
+                    if (zipIconImage.gameObject.activeSelf)
+                    {
+                        zipIconImage.gameObject.SetActive(false);
+                    }
+                }
+            }
+            else
+            {
+                zipPoint = Vector3.zero;
+                if (zipIconImage.gameObject.activeSelf)
+                {
+                    zipIconImage.gameObject.SetActive(false);
+                }
+            }
+        }
+        else
+        {
+            zipPoint = Vector3.zero;
+            if (zipIconImage.gameObject.activeSelf)
+            {
+                zipIconImage.gameObject.SetActive(false);
+            }
+        }
+    }
+
+    private void FaceDownZipPoint()
+    {
+        var direc = Vector3.ProjectOnPlane(cam.transform.forward, hitSurface.normal);
+        forwardPoint = pointSetBack + direc.normalized * forwardPointDistance;
+        //var distanceFD = Vector3.Distance(direc, pointSetBack);
+        //Debug.DrawLine(pointSetBack, forwardPoint, Color.red);
+
+        #region Tutruocvao
+
+        if (Physics.Raycast(forwardPoint, -direc, out RaycastHit hit2, floorDistance, wallLayer))
+        {
+            //Debug.Log("hit2 - FaceDownZipPoint");
+            var hit2Point = hit2.point + -hit2.normal * backPOffset;
+            if (Physics.Raycast(hit2Point, Vector3.up, out RaycastHit hit3, zipDetectionLength, wallLayer))
+            {
+                //Debug.DrawLine(hit2Point, hit2Point + Vector3.up, Color.yellow);
+                //Debug.Log("hit 3 - FaceDownZipPoint");
+
+                var up = hit3.point + Vector3.up * 0.2f;
+                if (Physics.Raycast(up, -direc, out RaycastHit hit4, 5, wallLayer))
+                {
+                    var back = hit4.point + -hit4.normal * backPOffset;
+                    if (Physics.Raycast(back, Vector3.up, out RaycastHit hit5, 10, wallLayer))
+                    {
+                        if (Vector3.Angle(hit5.normal, Vector3.up) < 45)
+                        {
+                            zipPoint = hit5.point;
+                            ShowFocusZipPoint();
+                        }
+                        else
+                        {
+                            zipPoint = Vector3.zero;
+                            if (zipIconImage.gameObject.activeSelf)
+                            {
+                                zipIconImage.gameObject.SetActive(false);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        zipPoint = hit3.point;
+                        ShowFocusZipPoint();
+                    }
+                }
+                else if (Physics.Raycast(up, direc, out RaycastHit hit6, 5, wallLayer))
+                {
+                    //Debug.Log("hit6 - FaceDownZipPoint");
+                    var forward = hit6.point + -hit6.normal * backPOffset;
+                    if (Physics.Raycast(forward, Vector3.up, out RaycastHit hit7, 10, wallLayer))
+                    {
+                        if (Vector3.Angle(hit7.normal, Vector3.up) < 45)
+                        {
+                            zipPoint = hit7.point;
+                            ShowFocusZipPoint();
+                        }
+                        else
+                        {
+                            zipPoint = Vector3.zero;
+                            if (zipIconImage.gameObject.activeSelf)
+                            {
+                                zipIconImage.gameObject.SetActive(false);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        zipPoint = hit3.point;
+                        ShowFocusZipPoint();
+                    }
+                }
+                else
+                {
+                    zipPoint = hit3.point;
+                    ShowFocusZipPoint();
+                }
+            }
+            else
+            {
+                //Debug.Log("hit3 - FaceDownZipPoint - Null");
+                zipPoint = Vector3.zero;
+                if (zipIconImage.gameObject.activeSelf)
+                {
+                    zipIconImage.gameObject.SetActive(false);
+                }
+            }
+        }
+        else
+        {
+            //Debug.Log("hit2 - FaceDownZipPoint null");
+            zipPoint = Vector3.zero;
+            if (zipIconImage.gameObject.activeSelf)
+            {
+                zipIconImage.gameObject.SetActive(false);
+            }
+        }
+
+        #endregion
+    }
+
+    private void ShowFocusZipPoint()
+    {
+        Vector3 screenPoint = cam.GetComponent<Camera>().WorldToScreenPoint(zipPoint);
+        if (zipIconImage != null)
+        {
+            zipIconImage.transform.position = screenPoint;
+            if (zipIconImage.gameObject.activeSelf == false)
+            {
+                zipIconImage.gameObject.SetActive(true);
+            }
         }
     }
 
