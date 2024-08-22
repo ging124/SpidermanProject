@@ -23,7 +23,7 @@ public class StateManager : MonoBehaviour
         currentState.EnterState();
     }
 
-    public virtual void Start()
+    public virtual void OnEnable()
     {
         Init(_isAIControlled);
     }

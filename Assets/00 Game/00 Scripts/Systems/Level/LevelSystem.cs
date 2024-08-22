@@ -26,7 +26,7 @@ public class LevelSystem
         currentLevel = level;
     }
 
-    private double NextLevel(double level)
+    public double NextLevel(double level)
     {
         return Math.Pow(level + config.levelConfig[(int)level + 1], 2);
     }

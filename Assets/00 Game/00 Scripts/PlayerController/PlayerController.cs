@@ -33,11 +33,14 @@ public class PlayerController : RPGObjectController
     public RaycastHit frontWallHit;
 
     [Header("----ZipValue----")]
+    public bool canZip;
+    public LayerMask zipLayer;
     public float zipDetectionRange;
     public float zipDetectionLength;
     public float maxZipLength = 50;
     public RaycastHit zipPointDetection;
     public Image zipIconImage;
+
     public float inwardsOffset = 0.1f;
     public float upPointSphereRadius = 0.5f;
     public float upSphereCastHeight = 50f;
@@ -78,6 +81,8 @@ public class PlayerController : RPGObjectController
 
     private void OnEnable()
     {
+        canZip = true;
+        canHit = true;
         canAttack = true;
         currentHP = playerData.maxHP;
     }
@@ -118,27 +123,24 @@ public class PlayerController : RPGObjectController
 
     public void ZipPointCheck()
     {
-
-        if (Physics.SphereCast(cam.transform.position, zipDetectionRange, cam.transform.forward, out RaycastHit hit, zipDetectionLength, wallLayer))
+        if (Physics.SphereCast(cam.transform.position, zipDetectionRange, cam.transform.forward, out RaycastHit hit, zipDetectionLength, zipLayer) && canZip)
         {
+            if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Ground"))
+            {
+                zipPoint = Vector3.zero;
+                if (zipIconImage.gameObject.activeSelf)
+                {
+                    zipIconImage.gameObject.SetActive(false);
+                }
+                return;
+            }
+
             hitSurface = hit;
             pointSetBack = hit.point - hit.normal * inwardsOffset;
             if (Vector3.Dot(hit.normal, Vector3.up) <= 0.99f)
             {
-                if (Physics.Raycast(cam.transform.position, cam.transform.forward, zipDetectionLength, LayerMask.NameToLayer("Ground")))
-                {
-                    zipPoint = Vector3.zero;
-                    //Debug.Log("Found ground");
-                    if (zipIconImage.gameObject.activeSelf)
-                    {
-                        zipIconImage.gameObject.SetActive(false);
-                    }
-                }
-                else
-                {
-                    //Debug.Log("FaceZipPoint");
-                    FaceZipPoint();
-                }
+                //Debug.Log("FaceZipPoint");
+                FaceZipPoint();
             }
             else
             {
@@ -154,34 +156,6 @@ public class PlayerController : RPGObjectController
                 zipIconImage.gameObject.SetActive(false);
             }
         }
-
-        /*if (Physics.SphereCast(this.cam.position, this.zipDetectionRange, this.cam.forward, out this.zipPointDetection, this.zipDetectionLength, this.wallLayer))
-        {
-            if (zipPointDetection.normal == Vector3.up)
-            {
-                Debug.Log("Mai Nha");
-            }
-            else
-            {
-                RaycastHit wallHit;
-                RaycastHit zipHit;
-
-                if (Physics.Raycast(zipPointDetection.point - zipPointDetection.normal * 0.2f, Vector3.ProjectOnPlane(Vector3.up, zipPointDetection.normal), out wallHit))
-                {
-                    if(Physics.Raycast(wallHit.point + Vector3.up * 5, -wallHit.transform.up, out zipHit))
-                    {
-                        Debug.DrawLine(zipHit.point, zipHit.normal, Color.red);
-                        this.zipPoint = zipHit.point;
-                    }
-                }
-                Debug.DrawRay(zipPointDetection.point - zipPointDetection.normal * 0.2f, Vector3.ProjectOnPlane(Vector3.up, zipPointDetection.normal), Color.red);
-            }
-        }
-        else
-        {
-            zipPoint = Vector3.zero;
-        }*/
-
 
         if (this.zipPoint != Vector3.zero && this.zipLength < this.maxZipLength)
         {

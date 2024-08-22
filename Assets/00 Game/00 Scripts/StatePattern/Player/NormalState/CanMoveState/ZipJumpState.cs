@@ -12,6 +12,7 @@ public class ZipJumpState : OnAirState
     {
         base.EnterState();
         _normalBodyLayer.Play(_ZipJumpAnim);
+        _blackboard.playerController.canZip = true;
         _blackboard.character.SetMovementMode(MovementMode.None);
         _blackboard.playerController.rb.useGravity = true;
         _blackboard.playerController.rb.isKinematic = false;

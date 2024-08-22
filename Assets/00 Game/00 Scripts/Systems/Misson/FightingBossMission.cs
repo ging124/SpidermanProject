@@ -8,6 +8,8 @@ public class FightingBossMission : BaseMission
     [Header("MissionData")]
     public GetShippingPoint getFightingMission;
     public List<Waves> waveListData;
+    public EnemyGroupBehaviour enemyGroupBehaviour;
+
     public float fightingMissionRange;
 
     [Header("MissionProgress")]
@@ -29,9 +31,9 @@ public class FightingBossMission : BaseMission
         }
     }
 
-    public override bool CheckFailedMission()
+    public override void MissionFailed()
     {
-        return true;
+        enemyGroupBehaviour.DestroyAllEnemy();
     }
 
     public override void InstantiateMission(Transform parent)

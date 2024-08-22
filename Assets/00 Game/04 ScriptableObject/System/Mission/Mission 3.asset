@@ -18,6 +18,7 @@ MonoBehaviour:
   spawnPosition: {x: -204.09, y: 0.09899998, z: 166.55}
   completeMission: {fileID: 11400000, guid: 11502746fe5ec2d4586af449325f3039, type: 2}
   getShippingMission: {fileID: 11400000, guid: e950e4e4d6f75084ea281b0cdba45469, type: 2}
+  getShippingMisisonObject: {fileID: 0}
   listShippingPointPosition:
   - position: {x: -142.86, y: 32.029, z: 57.179993}
     shippingPoint: {fileID: 11400000, guid: 4c994c9ee8d912449873542d1b625f98, type: 2}
@@ -25,4 +26,16 @@ MonoBehaviour:
     shippingPoint: {fileID: 11400000, guid: 4c994c9ee8d912449873542d1b625f98, type: 2}
   - position: {x: 23.330002, y: 23.818998, z: 98.399994}
     shippingPoint: {fileID: 11400000, guid: 4c994c9ee8d912449873542d1b625f98, type: 2}
-  point: 0
+  listShippingPointsObject:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  timeRequired: 120
+  shippingMissionUI: {fileID: 11400000, guid: e05e6f2e23d044c4d955747d33cdc25e, type: 2}
+  point: 1

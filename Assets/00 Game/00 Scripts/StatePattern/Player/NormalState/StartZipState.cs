@@ -2,6 +2,7 @@ using Animancer;
 using DG.Tweening;
 using EasyCharacterMovement;
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class StartZipState : NormalState
@@ -17,6 +18,7 @@ public class StartZipState : NormalState
     {
         base.EnterState();
         _normalBodyLayer.Play(_zipAnim);
+        _blackboard.playerController.canZip = false;
         _blackboard.playerController.rb.interpolation = RigidbodyInterpolation.None;
         _blackboard.character.SetMovementMode(MovementMode.None);
         _blackboard.playerController.rb.isKinematic = false;
@@ -60,6 +62,7 @@ public class StartZipState : NormalState
     {
         _leftLineRenderer.positionCount = 0;
         _rightLineRenderer.positionCount = 0;
+        _blackboard.playerController.rb.interpolation = RigidbodyInterpolation.Interpolate;
         Vector3 velocity = _blackboard.playerController.rb.velocity;
         _blackboard.character.SetMovementMode(MovementMode.Walking);
         _blackboard.playerController.rb.isKinematic = true;

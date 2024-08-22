@@ -55,10 +55,7 @@ public class BaseMission : ScriptableObject
         return true;
     }
 
-    public virtual bool CheckFailedMission()
-    {
-        return false;
-    }
+    public virtual void MissionFailed(){}
 
     public virtual void InstantiateMission(Transform parent)
     {

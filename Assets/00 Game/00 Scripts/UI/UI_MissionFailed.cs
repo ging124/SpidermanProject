@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UI_PlayerDead : UIBase
+public class UI_MissionFailed : UIBase
 {
     public Player player;
+    public PlayerController playerController;
     public GameEventListener playerDead;
 
     protected override void Awake()
@@ -21,6 +22,15 @@ public class UI_PlayerDead : UIBase
     public override void CloseUI()
     {
         base.CloseUI();
-        player.Spawn(Vector3.zero, Quaternion.identity);
+        SpawnPlayer();
+
+    }
+
+    public void SpawnPlayer()
+    {
+        if (!playerController.gameObject.activeInHierarchy)
+        {
+            player.Spawn(Vector3.zero, Quaternion.identity);
+        }
     }
 }

@@ -7,9 +7,13 @@ public class ProtectMission : BaseMission
 {
     [Header("MissionData")]
     public GetShippingPoint getFightingMission;
+
     public List<Waves> waveListData;
+    public EnemyGroupBehaviour enemyGroupBehaviour;
+
     public NPCProtect npcProtect;
     public NPCProtectController npcProtectController;
+
     public float fightingMissionRange;
 
     [Header("MissionProgress")]
@@ -32,9 +36,10 @@ public class ProtectMission : BaseMission
         }
     }
 
-    public override bool CheckFailedMission()
+    public override void MissionFailed()
     {
-        return true;
+        npcProtectController.npcProtecData.Despawn(npcProtectController.gameObject);
+        enemyGroupBehaviour.DestroyAllEnemy();
     }
 
     public override void InstantiateMission(Transform parent)

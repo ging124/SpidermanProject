@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: MainMission
   m_EditorClassIdentifier: 
   listMission:
+  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
+  - {fileID: 11400000, guid: 2693683027ef78f4daa642f23a6da514, type: 2}
   - {fileID: 11400000, guid: f607bf1f997a28049b247af8b355871f, type: 2}
   - {fileID: 11400000, guid: 0f7c559fa1a4aa241929f1e8d9f34611, type: 2}
-  - {fileID: 11400000, guid: fd99f10aaa03b9045b7b22080ae1dd19, type: 2}
-  - {fileID: 11400000, guid: fbc91539867c0af4f92d6839e0b62624, type: 2}
+  - {fileID: 11400000, guid: 2be032e32634c2f40bf07680c3585113, type: 2}
   - {fileID: 11400000, guid: 5b8e89aa6cdcacf47b3540d5282ebe62, type: 2}
   - {fileID: 11400000, guid: 3e4db8fce1459b24e89fb21320eb377e, type: 2}
   currentMissionIndex: 0

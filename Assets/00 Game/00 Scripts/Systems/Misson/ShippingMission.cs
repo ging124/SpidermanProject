@@ -7,7 +7,13 @@ public class ShippingMission : BaseMission
 {
     [Header("MissionData")]
     public GetShippingPoint getShippingMission;
+    public GameObject getShippingMisisonObject;
     public List<ShippingPointPosition> listShippingPointPosition;
+    public List<GameObject> listShippingPointsObject;
+
+    public float timeRequired;
+    public GameEvent<ShippingMission> shippingMissionUI;
+
 
     [Header("MissionProgress")]
     public int point = 0;
@@ -16,6 +22,7 @@ public class ShippingMission : BaseMission
     {
         if (point == listShippingPointPosition.Count + 1)
         {
+            shippingMissionUI.Raise(this);
             return true;
         }
         else
@@ -24,16 +31,20 @@ public class ShippingMission : BaseMission
         }
     }
 
-    public override bool CheckFailedMission()
+    public override void MissionFailed()
     {
-        return true;
+        if(getShippingMisisonObject.activeInHierarchy)
+        {
+            getShippingMission.Despawn(getShippingMisisonObject);
+        }
+        //foreach ()
     }
 
     public override void InstantiateMission(Transform parent)
     {
         point = 0;
 
-        getShippingMission.Spawn(spawnPosition, Quaternion.identity, parent);
+        getShippingMisisonObject = getShippingMission.Spawn(spawnPosition, Quaternion.identity, parent);
     }
 
     public override void UpdateMission(Transform parent)
@@ -43,6 +54,7 @@ public class ShippingMission : BaseMission
         if (point == 1)
         {
             SpawnShippingPoint(parent);
+            shippingMissionUI.Raise(this);
         }
 
         if (CheckCompleteMission())
@@ -56,7 +68,7 @@ public class ShippingMission : BaseMission
     {
         foreach (ShippingPointPosition shippingPoint in listShippingPointPosition)
         {
-            shippingPoint.SpawnPoint(parent);
+            listShippingPointsObject.Add(shippingPoint.SpawnPoint(parent));
         }
     }
 

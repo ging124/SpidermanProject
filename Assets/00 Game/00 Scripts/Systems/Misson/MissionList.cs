@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.MLAgents;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "ScriptableObject/Mission/MissionList")]
@@ -31,9 +32,9 @@ public class MissionList : ScriptableObject
         }
     }
 
-    public void CheckFailedMission()
+    public void MissionFailed()
     {
-        Debug.Log("Failed Mission");
+        listMission[currentMissionIndex].MissionFailed();
     }
 
     public void InstantiateMission(Transform parent)

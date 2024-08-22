@@ -8,6 +8,7 @@ public class IdleZipState : NormalState
     public override void EnterState()
     {
         base.EnterState();
+        _blackboard.playerController.canZip = true;
         _normalBodyLayer.Play(_idleZipAnim);
         _blackboard.character.SetMovementDirection(Vector3.zero);
     }

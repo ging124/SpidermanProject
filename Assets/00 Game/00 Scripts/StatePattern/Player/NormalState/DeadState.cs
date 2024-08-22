@@ -13,8 +13,7 @@ public class DeadState : NormalState
         _blackboard.playerController.canAttack = false;
         _blackboard.playerController.canHit = false;
         _normalBodyLayer.Play(_deadAnim);
-        _blackboard.playerController.playerDead.Raise();
-        _blackboard.playerController.playerData.Despawn(_blackboard.playerController.gameObject);
+        StartCoroutine(Dead());
     }
     public override StateStatus UpdateState()
     {
@@ -34,4 +33,10 @@ public class DeadState : NormalState
         base.ExitState();
     }
 
+    public IEnumerator Dead()
+    {
+        yield return new WaitForSeconds(1.6f);
+        _blackboard.playerController.playerData.Despawn(_blackboard.playerController.gameObject);
+        _blackboard.playerController.playerDead.Raise();
+    }
 }

@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class EnemyBulletController : BulletController
 {
-    public PlayerController target;
-    public LayerMask playerLayer;
+    public LayerMask enemyLayer;
     public Tweener tweener;
 
     protected override void OnEnable()
@@ -23,10 +22,13 @@ public class EnemyBulletController : BulletController
     public void BulletOnHit()
     {
         RaycastHit hit;
-        if (Physics.Raycast(this.transform.position, this.transform.forward, out hit, 1, playerLayer))
+        if (Physics.Raycast(this.transform.position, this.transform.forward, out hit, 1, ~enemyLayer))
         {
-            hit.transform.GetComponent<PlayerController>().OnHit(10, AttackType.NormalAttack);
-            Debug.Log("DealDamage");
+            IHitable hitalbe;
+            if(hit.transform.TryGetComponent<IHitable>(out hitalbe))
+            {
+                hitalbe.OnHit(10, AttackType.NormalAttack);
+            }
             tweener.Kill();
             DestroyBullet();
         }

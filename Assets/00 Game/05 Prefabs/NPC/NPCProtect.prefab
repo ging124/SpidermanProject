@@ -2061,6 +2061,7 @@ MonoBehaviour:
     _NormalizedStartTime: NaN
   animancer: {fileID: 0}
   UIEnemyBlackboard: {fileID: 8055578204445839036}
+  missionFailed: {fileID: 11400000, guid: fb7f53c444e66b744b1316bac92dbf29, type: 2}
 --- !u!1 &4891230787752936734
 GameObject:
   m_ObjectHideFlags: 0

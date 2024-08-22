@@ -9,8 +9,8 @@ public class ShippingPointPosition
     public Vector3 position;
     [SerializeField] ShippingPoint shippingPoint;
 
-    public void SpawnPoint(Transform parent)
+    public GameObject SpawnPoint(Transform parent)
     {
-        shippingPoint.Spawn(position, Quaternion.identity, parent);
+        return shippingPoint.Spawn(position, Quaternion.identity, parent);
     }
 }

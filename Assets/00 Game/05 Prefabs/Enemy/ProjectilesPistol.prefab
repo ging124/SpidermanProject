@@ -47,10 +47,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemData: {fileID: 0}
   flyDuration: 0.8
-  target: {fileID: 0}
-  playerLayer:
+  enemyLayer:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 128
 --- !u!1 &7418467931905578783
 GameObject:
   m_ObjectHideFlags: 0

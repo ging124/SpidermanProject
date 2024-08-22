@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0748995b02ff19943af238bbb84fea7f, type: 3}
-  m_Name: PlayerDead
+  m_Script: {fileID: 11500000, guid: 4b8c07adeceba4345b5f1e11c6164325, type: 3}
+  m_Name: GetMissionPoint
   m_EditorClassIdentifier: 
-  listeners: []
+  getShippingPointPrefab: {fileID: 4236676232040235369, guid: 1ab74e256f48d344eb25ef4a4d841998, type: 3}

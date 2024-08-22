@@ -17,13 +17,14 @@ MonoBehaviour:
   missionData: {fileID: 11400000, guid: 2707092f9dd570844a847bda679f0216, type: 2}
   spawnPosition: {x: -22.310001, y: 0.09899998, z: 164.97}
   completeMission: {fileID: 11400000, guid: 11502746fe5ec2d4586af449325f3039, type: 2}
-  getFightingMission: {fileID: 11400000, guid: e950e4e4d6f75084ea281b0cdba45469, type: 2}
+  getFightingMission: {fileID: 11400000, guid: fb4a134fd4653bc46980a3e345238bda, type: 2}
   waveListData:
   - enemies:
     - {fileID: 11400000, guid: ad14931ed2a46ac40b57e5a3bceb9b55, type: 2}
     - {fileID: 11400000, guid: ad14931ed2a46ac40b57e5a3bceb9b55, type: 2}
     - {fileID: 11400000, guid: 82b0654c573d64f4b9e2b772349feca4, type: 2}
+  enemyGroupBehaviour: {fileID: 11400000, guid: 42f14bca94fc2fa46ab8ff98306eb757, type: 2}
   fightingMissionRange: 5
-  getMissionPoint: 1
-  enemies: 3
+  getMissionPoint: 0
+  enemies: 0
   waves: 0

@@ -9,10 +9,7 @@ public class EnemyKnockDownState : EnemyNormalState
     {
         base.EnterState();
         _blackboard.enemyController.animancer.Animator.applyRootMotion = true;
-        _normalBodyLayer.Play(_knockDownAnim).Events.OnEnd = () =>
-        {
-            _stateManager.ChangeState(_stateReferences.enemyStandUpState);
-        };
+        _normalBodyLayer.Play(_knockDownAnim);
         TakeDamage();
         _blackboard.enemyController.canHit = false;
     }
@@ -28,6 +25,12 @@ public class EnemyKnockDownState : EnemyNormalState
         if (_blackboard.enemyController.currentHP <= 0)
         {
             _stateManager.ChangeState(_stateReferences.enemyDeadState);
+            return StateStatus.Success;
+        }
+
+        if(_normalBodyLayer.CurrentState.NormalizedTime >= 1)
+        {
+            _stateManager.ChangeState(_stateReferences.enemyStandUpState);
             return StateStatus.Success;
         }
 

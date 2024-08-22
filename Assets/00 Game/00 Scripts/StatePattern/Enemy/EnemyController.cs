@@ -10,14 +10,12 @@ public class EnemyController : RPGObjectController, IHitable
 
     public EnemyGroupBehaviour groupBehaviour;
 
-
     public float stunLockDuration = 0;
 
     public GameEffect attackHitEffect;
 
     public float currentHP;
     public Enemy enemyData;
-    public EnemyManager enemyManager;
 
     public bool canAttack;
 
@@ -38,12 +36,13 @@ public class EnemyController : RPGObjectController, IHitable
     protected virtual void OnEnable()
     {
         uIEnemyBlackboard.enemyHPBar.EnemyHPChange(currentHP, enemyData.maxHP);
-        groupBehaviour.RegisterEnemy(enemyData);
+        groupBehaviour.RegisterEnemy(this);
+        canHit = true;
     }
 
     private void OnDisable()
     {
-        groupBehaviour.UnregisterEnemy(enemyData);
+        groupBehaviour.UnregisterEnemy(this);
     }
 
     public override void TargetDetection()

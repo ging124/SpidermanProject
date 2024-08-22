@@ -9,19 +9,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e96d93878655738479fdeed7f3102fe7, type: 3}
+  m_Script: {fileID: 11500000, guid: d870930b527d31b489fe03fe3f0fa2cc, type: 3}
   m_Name: Mission 7
   m_EditorClassIdentifier: 
   expReward: 368
   moneyReward: 392
   missionData: {fileID: 11400000, guid: 2707092f9dd570844a847bda679f0216, type: 2}
-  spawnPosition: {x: 199.4, y: 0.09899998, z: 189.74}
+  spawnPosition: {x: -204.09, y: 0.09899998, z: 166.55}
   completeMission: {fileID: 11400000, guid: 11502746fe5ec2d4586af449325f3039, type: 2}
-  getFightingMission: {fileID: 11400000, guid: e950e4e4d6f75084ea281b0cdba45469, type: 2}
-  waveListData:
-  - enemies:
-    - {fileID: 11400000, guid: 653fca0254ed9894187d277a779bd2a3, type: 2}
-  fightingMissionRange: 0
-  getMissionPoint: 0
-  enemies: 0
-  waves: 0
+  getShippingMission: {fileID: 11400000, guid: e950e4e4d6f75084ea281b0cdba45469, type: 2}
+  getShippingMisisonObject: {fileID: 0}
+  listShippingPointPosition:
+  - position: {x: -142.86, y: 32.029, z: 57.179993}
+    shippingPoint: {fileID: 11400000, guid: 4c994c9ee8d912449873542d1b625f98, type: 2}
+  - position: {x: -40.59999, y: 71.539, z: 252.46}
+    shippingPoint: {fileID: 11400000, guid: 4c994c9ee8d912449873542d1b625f98, type: 2}
+  - position: {x: 23.330002, y: 23.818998, z: 98.399994}
+    shippingPoint: {fileID: 11400000, guid: 4c994c9ee8d912449873542d1b625f98, type: 2}
+  listShippingPointsObject:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  timeRequired: 120
+  shippingMissionUI: {fileID: 11400000, guid: e05e6f2e23d044c4d955747d33cdc25e, type: 2}
+  point: 1

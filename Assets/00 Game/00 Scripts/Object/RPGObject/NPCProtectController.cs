@@ -11,6 +11,8 @@ public class NPCProtectController : MonoBehaviour, IHitable
     [SerializeField] private AnimancerComponent animancer;
     [SerializeField] private UIEnemyBlackboard UIEnemyBlackboard;
 
+    [SerializeField] private GameEvent missionFailed;
+
     private void Awake()
     {
         animancer = this.GetComponent<AnimancerComponent>();
@@ -33,5 +35,10 @@ public class NPCProtectController : MonoBehaviour, IHitable
     {
         currentHP -= hitDamage;
         UIEnemyBlackboard.enemyHPBar.EnemyHPChange(currentHP, npcProtecData.maxHP);
+
+        if(currentHP <= 0)
+        {
+            missionFailed.Raise();
+        }
     }
 }
