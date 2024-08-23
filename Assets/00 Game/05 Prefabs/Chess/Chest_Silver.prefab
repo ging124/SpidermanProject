@@ -96,6 +96,8 @@ GameObject:
   - component: {fileID: 6099690224563170384}
   - component: {fileID: 3875765840544743923}
   - component: {fileID: 2998704872909165438}
+  - component: {fileID: 867933585093363723}
+  - component: {fileID: 6934002590644216034}
   m_Layer: 0
   m_Name: Chest_Silver
   m_TagString: Untagged
@@ -113,7 +115,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.012, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4665229899071451818}
@@ -147,7 +149,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemData: {fileID: 0}
   animancer: {fileID: 0}
-  openChessAnim:
+  rotationAnim:
     _FadeDuration: 0.25
     _Events:
       _NormalizedTimes: []
@@ -156,6 +158,58 @@ MonoBehaviour:
     _Clip: {fileID: 7400000, guid: 4c46082c5fd82b746a1905c181a8c4d5, type: 2}
     _Speed: 1
     _NormalizedStartTime: NaN
+  openAnim:
+    _FadeDuration: 0.25
+    _Events:
+      _NormalizedTimes: []
+      _Callbacks: []
+      _Names: []
+    _Clip: {fileID: 7400000, guid: da606187953e54241bce3ebff55ac411, type: 2}
+    _Speed: 1
+    _NormalizedStartTime: NaN
+  uiSelectButton: {fileID: 0}
+--- !u!135 &867933585093363723
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4004333322642793071}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &6934002590644216034
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4004333322642793071}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.77, y: 0.79, z: 0.52}
+  m_Center: {x: 0, y: 0.39, z: 0}
 --- !u!1 &5850009314260416373
 GameObject:
   m_ObjectHideFlags: 0

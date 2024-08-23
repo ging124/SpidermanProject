@@ -5,15 +5,18 @@ using UnityEngine;
 
 public class ChessRewardManager : MonoBehaviour
 {
-    public Chess chessPrefab;
+    public Chest chessPrefab;
     public Transform chessTransformHolder;
+    public UI_SelectButton uiSelectButton;
+
 
     [ContextMenu("SpwanChess")]
     public void SpwanChess()
     {
         foreach (Transform transform in chessTransformHolder)
         {
-            chessPrefab.Spawn(transform.position, Quaternion.identity, this.transform);
+            var chestController = chessPrefab.Spawn(transform.position, Quaternion.identity, this.transform).GetComponent<ChestController>();
+            chestController.uiSelectButton = uiSelectButton;
         }
     }
 }

@@ -28,6 +28,6 @@ public class LevelSystem
 
     public double NextLevel(double level)
     {
-        return Math.Pow(level + config.levelConfig[(int)level + 1], 2);
+        return Math.Pow(level + config.levelConfig[(int)level - 1], 2);
     }
 }
