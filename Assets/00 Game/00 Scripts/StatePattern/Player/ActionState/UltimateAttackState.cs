@@ -29,6 +29,8 @@ public class UltimateAttackState : NormalState
             return baseStatus;
         }
 
+        MissAttack();
+
         return StateStatus.Running;
     }
 
@@ -69,6 +71,14 @@ public class UltimateAttackState : NormalState
             }
 
             yield return new WaitForSeconds(_timeToAttack);
+        }
+    }
+
+    public void MissAttack()
+    {
+        if (_blackboard.playerController.hitDamage != 0)
+        {
+            _blackboard.playerController.missPrefab.Spawn(_blackboard.playerController.transform.position + Vector3.up, _blackboard.playerController.hitDamage);
         }
     }
 

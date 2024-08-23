@@ -49,6 +49,8 @@ public class EnemyNormalState : EnemyBaseState
             _blackboard.enemyController.canAttack = false;
         }
     }
+
+    
 /*
     void OnDrawGizmosSelected()
     {

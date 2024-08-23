@@ -44,6 +44,9 @@ public class EnemyAttackState : EnemyNormalState
 
         var targetComponent = _blackboard.enemyController.target.GetComponent<IHitable>();
 
+        var hitEffect = _blackboard.enemyController.attackHitEffect;
+        hitEffect.Spawn(_blackboard.enemyController.target.transform.position + Vector3.up, Quaternion.identity, null);
+
         var damage = RPGObject.RandomDamage(_blackboard.enemyController.enemyData.attackDamage);
         targetComponent.OnHit(damage, attackType);
     }

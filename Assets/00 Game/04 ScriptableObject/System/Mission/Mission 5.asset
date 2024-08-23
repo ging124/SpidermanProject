@@ -15,7 +15,7 @@ MonoBehaviour:
   expReward: 278
   moneyReward: 301
   missionData: {fileID: 11400000, guid: 2707092f9dd570844a847bda679f0216, type: 2}
-  spawnPosition: {x: -204.09, y: 0.09899998, z: 166.55}
+  spawnPosition: {x: 18.01, y: 49, z: 51.399994}
   completeMission: {fileID: 11400000, guid: 11502746fe5ec2d4586af449325f3039, type: 2}
   getFightingMission: {fileID: 11400000, guid: fb4a134fd4653bc46980a3e345238bda, type: 2}
   waveListData:

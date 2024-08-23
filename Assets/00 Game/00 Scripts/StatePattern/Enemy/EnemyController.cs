@@ -1,4 +1,5 @@
 using Animancer;
+using DamageNumbersPro;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,6 +8,8 @@ public class EnemyController : RPGObjectController, IHitable
     public GameEvent enemyDead;
     public LayerMask enemyLayer;
     public Collider[] hitTarget;
+    public DamageNumber damagePrefab;
+    public DamageNumber missPrefab;
 
     public EnemyGroupBehaviour groupBehaviour;
 
@@ -35,6 +38,7 @@ public class EnemyController : RPGObjectController, IHitable
 
     protected virtual void OnEnable()
     {
+        rigid.isKinematic = true; 
         uIEnemyBlackboard.enemyHPBar.EnemyHPChange(currentHP, enemyData.maxHP);
         groupBehaviour.RegisterEnemy(this);
         canHit = true;

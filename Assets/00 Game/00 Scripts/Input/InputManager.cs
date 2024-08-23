@@ -19,6 +19,8 @@ public class InputManager : MonoBehaviour
     [SerializeField] private KeyCode _dodgeKey;
     [SerializeField] private KeyCode _gadgetKey;
     [SerializeField] private KeyCode _ultimateKey;
+    [SerializeField] private KeyCode _scanKey;
+
 
     [Header("Input value(Readonly)")]
     public float timeScale;
@@ -128,6 +130,11 @@ public class InputManager : MonoBehaviour
             if (Input.GetKey(_ultimateKey))
             {
                 ButtonUltimate();
+            }
+
+            if (Input.GetKey(_scanKey))
+            {
+                ButtonScan();
             }
         }
 #endif
@@ -321,6 +328,18 @@ public class InputManager : MonoBehaviour
     {
         yield return 0;
         inputSO.buttonUltimate = false;
+    }
+
+    public void ButtonScan()
+    {
+        inputSO.buttonScan = true;
+        StartCoroutine(ButtonScanFalse());
+    }
+
+    IEnumerator ButtonScanFalse()
+    {
+        yield return 0;
+        inputSO.buttonScan = false;
     }
 
     public void DisableInput()

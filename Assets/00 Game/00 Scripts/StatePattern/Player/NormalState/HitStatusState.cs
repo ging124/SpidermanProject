@@ -26,6 +26,7 @@ public class HitStatusState : NormalState
     {
         int damageValue = _blackboard.playerController.hitDamage;
         _blackboard.playerController.currentHP -= damageValue;
+        _blackboard.playerController.damagePrefab.Spawn(_blackboard.playerController.transform.position + Vector3.up, damageValue);
         _blackboard.playerController.playerChangeHP.Invoke(_blackboard.playerController.currentHP, _blackboard.playerController.playerData.maxHP);
 
         if (_blackboard.playerController.currentHP <= 0)

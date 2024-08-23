@@ -16,6 +16,8 @@ public class InputSO : ScriptableObject
     public bool buttonGadget;
     public bool buttonUltimate;
 
+    public bool buttonScan;
+
     public bool disableInput;
 
 }

@@ -57,7 +57,7 @@ public class AttackState : NormalState
     {
         if (_blackboard.playerController.target == null) return;
         else if (_blackboard.playerController.target != null 
-            && Vector3.Distance(_blackboard.playerController.transform.position, _blackboard.playerController.target.transform.position) < _blackboard.playerController.mediumAttackRange + _blackboard.playerController.nearAttackRange)
+            && Vector3.Distance(_blackboard.playerController.transform.position, _blackboard.playerController.target.transform.position) < 2.5)
         {
             _blackboard.playerController.playerData.levelSystem.GetExp(1);
 
@@ -65,9 +65,9 @@ public class AttackState : NormalState
             var damage = RPGObject.RandomDamage(_blackboard.playerController.playerData.attackDamage);
             target.OnHit(damage, attackType);
 
-            _blackboard.playerController.damagePrefab.Spawn(_blackboard.playerController.target.transform.position + Vector3.up, damage);
             var hitEffect = _blackboard.playerController.attackHitEffect;
-            hitEffect.Spawn(_blackboard.playerController.target.transform.position, Quaternion.identity, null);
+            Vector3 randomPos = new Vector3(Random.Range(0, 0.5f), Random.Range(0, 0.5f), 0);
+            hitEffect.Spawn(_blackboard.playerController.target.transform.position + randomPos, Quaternion.identity, null);
         }
     }
 

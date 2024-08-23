@@ -6,6 +6,8 @@ TagManager:
   tags:
   - CharacterRoot
   - TrafficLight
+  - Effects
+  - Icon
   layers:
   - Default
   - TransparentFX
@@ -19,9 +21,9 @@ TagManager:
   - NPCProtect
   - Road
   - Traffic
-  - Buildings
-  - Obstacles
   - 
+  - 
+  - Chest
   - 
   - 
   - 

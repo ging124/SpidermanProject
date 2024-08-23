@@ -23,7 +23,9 @@ public class EnemySkillState : EnemyNormalState
             return baseStatus;
         }
 
-        if(_blackboard.enemyController.animancer.States.Current.NormalizedTime >= 1)
+        MissAttack();
+
+        if (_blackboard.enemyController.animancer.States.Current.NormalizedTime >= 1)
         {
             _stateManager.ChangeState(_stateReferences.enemyIdleState);
             return StateStatus.Success;
@@ -40,5 +42,13 @@ public class EnemySkillState : EnemyNormalState
     public void ChoseSkill(int skillIndex)
     {
         this._skillIndex = skillIndex;
+    }
+
+    public void MissAttack()
+    {
+        if (_blackboard.enemyController.hitDamage != 0)
+        {
+            _blackboard.enemyController.missPrefab.Spawn(_blackboard.enemyController.transform.position + Vector3.up, _blackboard.enemyController.hitDamage);
+        }
     }
 }

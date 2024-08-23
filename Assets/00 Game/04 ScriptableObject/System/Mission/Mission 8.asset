@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e3959935b022dc4ea2eed60eb6a6328, type: 3}
+  m_Name: Mission 8
+  m_EditorClassIdentifier: 
+  expReward: 270
+  moneyReward: 297
+  missionData: {fileID: 11400000, guid: 2707092f9dd570844a847bda679f0216, type: 2}
+  spawnPosition: {x: 297.69, y: 0.010000229, z: 193.1}
+  completeMission: {fileID: 11400000, guid: 11502746fe5ec2d4586af449325f3039, type: 2}
+  getFightingMission: {fileID: 11400000, guid: fb4a134fd4653bc46980a3e345238bda, type: 2}
+  waveListData:
+  - enemies:
+    - {fileID: 11400000, guid: 653fca0254ed9894187d277a779bd2a3, type: 2}
+  enemyGroupBehaviour: {fileID: 11400000, guid: 42f14bca94fc2fa46ab8ff98306eb757, type: 2}
+  fightingMissionRange: 0
+  getMissionPoint: 0
+  enemies: 0
+  waves: 0

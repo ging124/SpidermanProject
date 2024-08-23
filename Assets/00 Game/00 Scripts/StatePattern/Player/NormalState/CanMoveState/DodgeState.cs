@@ -28,6 +28,8 @@ public class DodgeState : GroundState
             return baseStatus;
         }
 
+        MissAttack();
+
         if (_normalBodyLayer.CurrentState.NormalizedTime >= 0.6f)
         {
             _blackboard.playerController.canAttack = true;
@@ -71,6 +73,14 @@ public class DodgeState : GroundState
                 _normalBodyLayer.Play(_dodgeRAnim, 0.25f, FadeMode.FromStart);
             else
                 _normalBodyLayer.Play(_dodgeLAnim, 0.25f, FadeMode.FromStart);
+        }
+    }
+
+    public void MissAttack()
+    {
+        if (_blackboard.playerController.hitDamage != 0)
+        {
+            _blackboard.playerController.missPrefab.Spawn(_blackboard.playerController.transform.position + Vector3.up, _blackboard.playerController.hitDamage);
         }
     }
 }

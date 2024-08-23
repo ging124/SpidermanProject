@@ -8,6 +8,7 @@ public class ChestController : ItemWorld
     [SerializeField] private AnimancerComponent animancer;
     [SerializeField] private ClipTransition rotationAnim;
     [SerializeField] private ClipTransition openAnim;
+    [SerializeField] GameEffect effect;
 
     public UI_SelectButton uiSelectButton;
 
@@ -24,14 +25,25 @@ public class ChestController : ItemWorld
         }
     }
 
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            uiSelectButton.CloseUI();
+        }
+    }
+
     public void OpenChess()
     {
         animancer.Play(rotationAnim).Events.OnEnd = () =>
         {
+            uiSelectButton.uiChestReward.OpenUI();
+            uiSelectButton.CloseUI();
+            GameObject gameObject = effect.Spawn(this.transform.position + Vector3.up * 0.5f, Quaternion.identity, this.transform);
             animancer.Play(openAnim).Events.OnEnd = () =>
             {
                 itemData.Despawn(this.gameObject);
-                uiSelectButton.CloseUI();
+                effect.Despawn(gameObject);
             };
         };
     }

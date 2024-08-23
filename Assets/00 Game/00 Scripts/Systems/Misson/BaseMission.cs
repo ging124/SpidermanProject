@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Unity.Barracuda;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 public class BaseMission : ScriptableObject
@@ -69,5 +70,9 @@ public class BaseMission : ScriptableObject
     public virtual void GetMissionPossition(Transform pos)
     {
         spawnPosition = pos.position;
+
+#if UNITY_EDITOR || UNITY_STANDALONE_WIN
+        EditorUtility.SetDirty(this);
+#endif
     }
 }

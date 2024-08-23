@@ -12,7 +12,6 @@ public class RPGObjectController : MonoBehaviour, IHitable
     public AttackType hitAttackType;
     public Collider target;
 
-
     protected virtual void Awake()
     {
         canHit = true;

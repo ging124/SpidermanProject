@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0efa6bb837b70f149b11b706f53c8d7f, type: 3}
   m_Name: AttackHitEffect
   m_EditorClassIdentifier: 
-  prefabItemWorld: {fileID: 7888301319306864682, guid: bf76576479b56ed419d4e2631595d5cd, type: 3}
+  prefabItemWorld: {fileID: 4547275102643459542, guid: 18737304c25d9024f99948ed80f0a075, type: 3}

@@ -10,6 +10,7 @@ public class Skill : ScriptableObject
     protected AnimancerComponent animancer;
     public AttackType attackType;
     public float distanceToAttack;
+    public GameEffect effect;
 
     public virtual void UseSkill(Transform transform, AnimancerComponent animancer, Collider target, float skillDamage)
     {
@@ -28,6 +29,7 @@ public class Skill : ScriptableObject
 
         if (Vector3.Distance(this.target.transform.position, this.transform.position) < 1.5f)
         {
+            effect.Spawn(this.target.transform.position, Quaternion.identity, null);
             targetComponent.OnHit(damage, attackType);
         }
     }

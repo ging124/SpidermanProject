@@ -1945,12 +1945,13 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   hitTarget: []
+  damagePrefab: {fileID: 662797033166148243, guid: d409796fc9de7704d9aa699eabcf8a46, type: 3}
+  missPrefab: {fileID: 1513282550588008930, guid: 22f88bd731654ac4a8f6b3e75b6303f9, type: 3}
   groupBehaviour: {fileID: 11400000, guid: 42f14bca94fc2fa46ab8ff98306eb757, type: 2}
   stunLockDuration: 0
   attackHitEffect: {fileID: 0}
   currentHP: 0
   enemyData: {fileID: 11400000, guid: d6428460e879f4441888823db0f3c78f, type: 2}
-  enemyManager: {fileID: 0}
   canAttack: 0
   rigid: {fileID: 3208398401214087061}
   animancer: {fileID: 1391068752241451781}

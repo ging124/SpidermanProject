@@ -1,11 +1,8 @@
 ﻿using Animancer;
 using DamageNumbersPro;
-using EasyCharacterMovement;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class PlayerController : RPGObjectController
 {
@@ -13,6 +10,8 @@ public class PlayerController : RPGObjectController
     public float currentHP;
     public float ultimateRange;
     public DamageNumber damagePrefab;
+    public DamageNumber missPrefab;
+
     public LayerMask friendLayer;
 
     [Header("----Effect----")]

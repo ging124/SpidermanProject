@@ -209,7 +209,7 @@ MonoBehaviour:
     characterSpacing: 0
     size: -1.5
   enableTopText: 0
-  topText: 
+  topText: Miss
   topTextSettings:
     bold: 0
     italic: 0
@@ -739,8 +739,8 @@ MonoBehaviour:
   m_enableVertexGradient: 1
   m_colorMode: 2
   m_fontColorGradient:
-    topLeft: {r: 1, g: 0.8627451, b: 0.078431375, a: 1}
-    topRight: {r: 1, g: 0.8627451, b: 0.078431375, a: 1}
+    topLeft: {r: 1, g: 0.9017473, b: 0.07843137, a: 1}
+    topRight: {r: 1, g: 0.9017473, b: 0.07843137, a: 1}
     bottomLeft: {r: 1, g: 0.078431375, b: 0.078431375, a: 1}
     bottomRight: {r: 1, g: 0.078431375, b: 0.078431375, a: 1}
   m_fontColorGradientPreset: {fileID: 0}

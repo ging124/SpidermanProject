@@ -83,6 +83,8 @@ public class ShippingMission : BaseMission
             i++;
         }
 
-        //EditorUtility.SetDirty(this);
+#if UNITY_EDITOR || UNITY_STANDALONE_WIN
+        EditorUtility.SetDirty(this);
+#endif
     }
 }
