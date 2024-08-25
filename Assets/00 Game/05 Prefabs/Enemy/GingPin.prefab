@@ -1945,7 +1945,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   hitTarget: []
-  damagePrefab: {fileID: 662797033166148243, guid: d409796fc9de7704d9aa699eabcf8a46, type: 3}
+  damagePrefab: {fileID: 1513282550588008930, guid: b530aa9a964e6874696cbe35acac3f09, type: 3}
   missPrefab: {fileID: 1513282550588008930, guid: 22f88bd731654ac4a8f6b3e75b6303f9, type: 3}
   groupBehaviour: {fileID: 11400000, guid: 42f14bca94fc2fa46ab8ff98306eb757, type: 2}
   stunLockDuration: 0
