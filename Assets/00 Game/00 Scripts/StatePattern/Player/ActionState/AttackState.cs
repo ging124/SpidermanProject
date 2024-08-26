@@ -8,14 +8,15 @@ public class AttackState : NormalState
     {
         base.EnterState();
         _blackboard.playerController.zipIconImage.gameObject.SetActive(false);
+
         _blackboard.character.useRootMotion = true;
         _blackboard.character.SetRotationMode(RotationMode.OrientWithRootMotion);
 
         if (_blackboard.playerController.target != null)
         {
-            Vector3 distance = _blackboard.playerController.target.transform.position - _blackboard.playerController.transform.position;
-            Vector3 endValue = _blackboard.playerController.target.transform.position - distance * 0.1f;
-            _blackboard.playerController.transform.DOLookAt(endValue, 0.2f, AxisConstraint.Y);
+            Vector3 lookAt = _blackboard.playerController.target.transform.position;
+            lookAt.y = _blackboard.playerController.transform.position.y;
+            _blackboard.playerController.transform.LookAt(lookAt);
         }
     }
 
@@ -57,7 +58,6 @@ public class AttackState : NormalState
         else if (_blackboard.playerController.target != null 
             && Vector3.Distance(_blackboard.playerController.transform.position, _blackboard.playerController.target.transform.position) < 2.5)
         {
-            _blackboard.playerController.playerData.levelSystem.GetExp(1);
 
             var target = _blackboard.playerController.target.GetComponent<IHitable>();
             var damage = RPGObject.RandomDamage(_blackboard.playerController.playerData.attackDamage);
@@ -71,9 +71,9 @@ public class AttackState : NormalState
 
     public virtual void MoveToTarget()
     {
-        Vector3 target = Vector3.MoveTowards(_blackboard.playerController.target.transform.position, _blackboard.playerController.transform.position, 0.95f);
+        Vector3 target = Vector3.MoveTowards(_blackboard.playerController.target.transform.position, _blackboard.playerController.transform.position, 0.8f);
         target.y = _blackboard.playerController.transform.position.y;
         _blackboard.playerController.transform.DOLookAt(_blackboard.playerController.target.transform.position, 0.2f, AxisConstraint.Y);
-        _blackboard.playerController.transform.DOMove(target, 0.2f);
+        _blackboard.playerController.transform.DOMove(target, 0.4f);
     }
 }

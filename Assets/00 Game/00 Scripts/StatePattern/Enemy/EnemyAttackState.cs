@@ -10,29 +10,6 @@ public class EnemyAttackState : EnemyNormalState
         //_attackEffect.Play();
     }
 
-    public override StateStatus UpdateState()
-    {
-        StateStatus baseStatus = base.UpdateState();
-        if (baseStatus != StateStatus.Running)
-        {
-            return baseStatus;
-        }
-
-        if (_blackboard.enemyController.hitAttackType == AttackType.NormalAttack)
-        {
-            _stateManager.ChangeState(_stateReferences.enemyHitState);
-            return StateStatus.Success;
-        }
-
-        if (_blackboard.enemyController.hitAttackType == AttackType.HeavyAttack)
-        {
-            _stateManager.ChangeState(_stateReferences.enemyKnockDownState);
-            return StateStatus.Success;
-        }
-
-        return StateStatus.Running;
-    }
-
     public override void ExitState()
     {
         base.ExitState();

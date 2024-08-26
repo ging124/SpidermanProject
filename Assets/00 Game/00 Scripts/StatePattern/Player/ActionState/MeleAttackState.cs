@@ -1,5 +1,6 @@
 using Animancer;
 using DG.Tweening;
+using EasyCharacterMovement;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -16,6 +17,7 @@ public class MeleAttackState : AttackState
         base.EnterState();
 
         CountCombo();
+
         _normalBodyLayer.Play(listCombo[combo].hitList[hit].hitAnim, 0.25f, FadeMode.FromStart).Events.OnEnd = () =>
         {
             ResetCombo();
@@ -46,11 +48,13 @@ public class MeleAttackState : AttackState
             float distance = Vector3.Distance(player, target);
             if (distance >= _blackboard.playerController.farAttackRange)
             {
+                ResetCombo();
                 _stateManager.ChangeState(_stateReferences.farAttackState);
                 return StateStatus.Success;
             }
             else if (distance >= _blackboard.playerController.mediumAttackRange && distance < _blackboard.playerController.farAttackRange)
             {
+                ResetCombo();
                 _stateManager.ChangeState(_stateReferences.mediumAttackState);
                 return StateStatus.Success;
             }
@@ -71,6 +75,7 @@ public class MeleAttackState : AttackState
 
     public override void ExitState()
     {
+        
         LoopCombo();
         base.ExitState();
     }

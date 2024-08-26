@@ -25,7 +25,7 @@ public class EnemyMeleAttackState : EnemyAttackState
 
         if (_blackboard.enemyController.animancer.States.Current.NormalizedTime >= 1)
         {
-            _stateManager.ChangeState(_stateReferences.enemyIdleState);
+            _stateManager.ChangeState(_stateReferences.enemyRetreatState);
             return StateStatus.Success;
         }
 

@@ -22,7 +22,7 @@ public class EnemyController : RPGObjectController, IHitable
 
     public bool canAttack;
 
-    public Rigidbody rigid;
+    public CharacterController characterController;
     public AnimancerComponent animancer;
     public NavMeshAgent agent;
     public UIEnemyBlackboard uIEnemyBlackboard;
@@ -30,7 +30,7 @@ public class EnemyController : RPGObjectController, IHitable
     protected override void Awake()
     {
         base.Awake();
-        rigid = this.GetComponent<Rigidbody>();
+        characterController = this.GetComponent<CharacterController>();
         animancer = this.GetComponent<AnimancerComponent>();
         agent = this.GetComponent<NavMeshAgent>();
         enemyData.LevelUp();
@@ -38,7 +38,6 @@ public class EnemyController : RPGObjectController, IHitable
 
     protected virtual void OnEnable()
     {
-        rigid.isKinematic = true; 
         uIEnemyBlackboard.enemyHPBar.EnemyHPChange(currentHP, enemyData.maxHP);
         groupBehaviour.RegisterEnemy(this);
         canHit = true;
