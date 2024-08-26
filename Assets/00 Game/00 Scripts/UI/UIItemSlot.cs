@@ -5,11 +5,14 @@ public class UIItemSlot : MonoBehaviour
 {
     [SerializeField] private InventoryItem _itemData;
     [SerializeField] private Image _image;
+    [SerializeField] private Image _background;
+
 
 
     private void Start()
     {
         _image.sprite = _itemData.image;
+        _background.sprite = _itemData.background;
     }
 
     public void SetData(Item item)

@@ -18,8 +18,8 @@ public class ZipJumpState : OnAirState
         _blackboard.playerController.rb.isKinematic = false;
         _blackboard.playerController.rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 
-        _blackboard.playerController.rb.AddForce((_blackboard.playerController.transform.up * 150) * _jumpForce);
-        _blackboard.playerController.rb.AddForce((_blackboard.playerController.transform.forward * 175) * _jumpForce);
+        _blackboard.playerController.rb.AddForce((_blackboard.playerController.transform.up * 20) * _jumpForce);
+        _blackboard.playerController.rb.AddForce((_blackboard.playerController.transform.forward * 30) * _jumpForce);
     }
 
     public override StateStatus UpdateState()

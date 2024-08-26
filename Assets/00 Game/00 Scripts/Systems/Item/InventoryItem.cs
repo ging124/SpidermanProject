@@ -7,5 +7,6 @@ using UnityEngine;
 public class InventoryItem : Item
 {
     public Sprite image;
+    public Sprite background;
     public GameEvent<Item> changeItem;
 }
