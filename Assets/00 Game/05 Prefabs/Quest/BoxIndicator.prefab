@@ -171,3 +171,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   indicatorType: 0
+  indicatorImage: {fileID: 3215888392724416939}
+  distanceText: {fileID: 5455658120621466856}
+  OffScreenImage: {fileID: 3215888392724416939}

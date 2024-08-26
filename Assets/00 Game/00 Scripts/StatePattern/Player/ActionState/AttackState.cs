@@ -16,8 +16,6 @@ public class AttackState : NormalState
             Vector3 distance = _blackboard.playerController.target.transform.position - _blackboard.playerController.transform.position;
             Vector3 endValue = _blackboard.playerController.target.transform.position - distance * 0.1f;
             _blackboard.playerController.transform.DOLookAt(endValue, 0.2f, AxisConstraint.Y);
-
-            if (distance.magnitude < 0.5f) _blackboard.character.useRootMotion = false;
         }
     }
 

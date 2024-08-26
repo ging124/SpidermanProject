@@ -44,7 +44,7 @@ public class EnemyMovementState : EnemyNormalState
         if (_blackboard.enemyController.enemyData.GetType() == typeof(Boss) && _blackboard.enemyController.target != null)
         {
             float random = Random.Range(0, 1f);
-            if (random < 0.5)
+            if (random < 0.2)
             {
                 int randomSkill = Random.Range(0, _stateReferences.enemySkillState.listSkill.Length);
                 if (_stateReferences.enemySkillState.listSkill[randomSkill].CanSkill(_blackboard.enemyController.target, _blackboard.enemyController.transform))
@@ -83,6 +83,12 @@ public class EnemyMovementState : EnemyNormalState
                 _stateManager.ChangeState(_stateReferences.enemyAttackState);
                 return StateStatus.Success;
             }
+        }
+
+        if(_blackboard.enemyController.target != null)
+        {
+            _stateManager.ChangeState(_stateReferences.enemyRetreatState);
+            return StateStatus.Success;
         }
 
         return StateStatus.Running;

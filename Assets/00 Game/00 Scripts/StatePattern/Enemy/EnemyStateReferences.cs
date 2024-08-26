@@ -7,6 +7,7 @@ public class EnemyStateReferences : StateReferences
     public EnemyIdleState enemyIdleState;
     public EnemyMoveState enemyMoveState;
     public EnemyRunState enemyRunState;
+    public EnemyRetreatState enemyRetreatState;
     public EnemyHitState enemyHitState;
     public EnemyKnockDownState enemyKnockDownState;
     public EnemyStandUpState enemyStandUpState;

@@ -11,11 +11,7 @@ namespace TerrainScannerDEMO
         private AudioSource _audioTrigger;
         [SerializeField] AudioClip _sensorExit;
 
-        [SerializeField] private Material _detectedMaterial;
-
-
-        [SerializeField] private Outline _outlineTop;
-        [SerializeField] private Outline _outlineBottom;
+        [SerializeField] protected Target target;
 
         private bool _detected;
 
@@ -29,8 +25,7 @@ namespace TerrainScannerDEMO
 
         private void OnEnable()
         {
-            _outlineTop.enabled = false;
-            _outlineBottom.enabled = false;
+            target.enabled = false;
         }
 
         private void Update()
@@ -42,8 +37,7 @@ namespace TerrainScannerDEMO
                     if (_detector.SensorOn) { return; }
                     _detected = false;
                     _timerToReset = 0f;
-                    _outlineTop.enabled = false;
-                    _outlineBottom.enabled = false;
+                    target.enabled = false;
                     _audioTrigger.PlayOneShot(_sensorExit);
                 }
 
@@ -65,11 +59,11 @@ namespace TerrainScannerDEMO
 
         private void Detected()
         {
+            Debug.Log("he");
             _detected = true;
             _timeToReset = 2 * _detector.Duration;
             _audioTrigger.Play();
-            _outlineTop.enabled = true;
-            _outlineBottom.enabled = true;
+            target.enabled = true;
         }
     }
 }

@@ -19,7 +19,7 @@ public class EnemyCanMoveState : EnemyMovementState
 
         if (_blackboard.enemyController.movement != Vector3.zero)
         {
-            _blackboard.enemyController.transform.forward = Vector3.Lerp(_blackboard.transform.forward, new Vector3(_blackboard.enemyController.movement.x, 0, _blackboard.enemyController.movement.z), _blackboard.enemyController.enemyData.rotateSpeed * Time.deltaTime);
+            _blackboard.enemyController.transform.forward = Vector3.Lerp(_blackboard.transform.forward, new Vector3(_blackboard.enemyController.movement.x, 0, _blackboard.enemyController.movement.z), _blackboard.enemyController.enemyData.rotationSpeed * Time.deltaTime);
         }
     }
 

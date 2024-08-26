@@ -7,9 +7,10 @@ using UnityEngine.UI;
 public class Indicator : MonoBehaviour
 {
     [SerializeField] private IndicatorType indicatorType;
-    private Image indicatorImage;
-    private Text distanceText;
+    [SerializeField] private Image indicatorImage;
+    [SerializeField] private Text distanceText;
 
+    public Image OffScreenImage;
     /// <summary>
     /// Gets if the game object is active in hierarchy.
     /// </summary>
@@ -34,8 +35,8 @@ public class Indicator : MonoBehaviour
 
     void Awake()
     {
-        indicatorImage = transform.GetComponent<Image>();
-        distanceText = transform.GetComponentInChildren<Text>();
+        indicatorImage = this.GetComponent<Image>();
+        distanceText = this.GetComponentInChildren<Text>();
     }
 
     /// <summary>
@@ -46,7 +47,15 @@ public class Indicator : MonoBehaviour
     {
         indicatorImage.color = color;
     }
-
+    public void SetImageSprite(Sprite sprite)
+    {
+        indicatorImage.sprite = sprite;
+    }
+    public void SetImageOffScreen(Sprite sprite, Color color)
+    {
+        OffScreenImage.sprite = sprite;
+        OffScreenImage.color = color;
+    }
     /// <summary>
     /// Sets the distance text for the indicator.
     /// </summary>
@@ -63,6 +72,10 @@ public class Indicator : MonoBehaviour
     public void SetTextRotation(Quaternion rotation)
     {
         distanceText.rectTransform.rotation = rotation;
+    }
+    public void SetImageRotation(Quaternion rotation)
+    {
+        OffScreenImage.rectTransform.rotation = rotation;
     }
 
     /// <summary>

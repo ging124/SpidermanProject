@@ -7,7 +7,8 @@
 public class Target : MonoBehaviour
 {
     [Tooltip("Change this color to change the indicators color for this target")]
-    [SerializeField] private Color targetColor = Color.red;
+    [SerializeField] public Color targetColor = Color.red;
+    [SerializeField] private Sprite targetSprite = null;
 
     [Tooltip("Select if box indicator is required for this target")]
     [SerializeField] private bool needBoxIndicator = true;
@@ -34,6 +35,11 @@ public class Target : MonoBehaviour
         {
             return targetColor;
         }
+    }
+    public Sprite TargetSprite
+    {
+        get { return targetSprite; }
+        set { targetSprite = value; }
     }
 
     /// <summary>
@@ -74,7 +80,7 @@ public class Target : MonoBehaviour
     /// </summary>
     private void OnEnable()
     {
-        if(OffScreenIndicator.TargetStateChanged != null)
+        if (OffScreenIndicator.TargetStateChanged != null)
         {
             OffScreenIndicator.TargetStateChanged.Invoke(this, true);
         }
@@ -85,7 +91,7 @@ public class Target : MonoBehaviour
     /// </summary>
     private void OnDisable()
     {
-        if(OffScreenIndicator.TargetStateChanged != null)
+        if (OffScreenIndicator.TargetStateChanged != null)
         {
             OffScreenIndicator.TargetStateChanged.Invoke(this, false);
         }

@@ -6,7 +6,7 @@ using UnityEngine;
 public class Enemy : RPGObject
 {
     public float dectectionRange;
-    public float rotateSpeed;
+    public float rotationSpeed;
     public float attackRange;
 
     public ParticleSystem enemyDeadEffect;

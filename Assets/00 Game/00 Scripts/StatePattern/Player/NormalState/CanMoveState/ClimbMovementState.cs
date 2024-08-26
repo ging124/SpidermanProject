@@ -101,7 +101,7 @@ public class ClimbMovementState : NormalState
     {
         Quaternion targetRotation = Quaternion.LookRotation(-_blackboard.playerController.frontWallHit.normal, Vector3.up);
 
-        _blackboard.playerController.transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+        _blackboard.playerController.transform.rotation = Quaternion.Lerp(_blackboard.playerController.transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
     }
 }
 

@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-
 /// <summary>
 /// Attach the script to the off screen indicator panel.
 /// </summary>
@@ -13,15 +12,11 @@ public class OffScreenIndicator : MonoBehaviour
     [Range(0.5f, 0.9f)]
     [Tooltip("Distance offset of the indicators from the centre of the screen")]
     [SerializeField] private float screenBoundOffset = 0.9f;
-
     private Camera mainCamera;
     private Vector3 screenCentre;
     private Vector3 screenBounds;
-
     private List<Target> targets = new List<Target>();
-
     public static Action<Target, bool> TargetStateChanged;
-
     void Awake()
     {
         mainCamera = Camera.main;
@@ -29,56 +24,61 @@ public class OffScreenIndicator : MonoBehaviour
         screenBounds = screenCentre * screenBoundOffset;
         TargetStateChanged += HandleTargetStateChanged;
     }
-
     void LateUpdate()
     {
         DrawIndicators();
     }
-
     /// <summary>
     /// Draw the indicators on the screen and set thier position and rotation and other properties.
     /// </summary>
     void DrawIndicators()
     {
-        foreach(Target target in targets)
+        foreach (Target target in targets)
         {
             Vector3 screenPosition = OffScreenIndicatorCore.GetScreenPosition(mainCamera, target.transform.position);
             bool isTargetVisible = OffScreenIndicatorCore.IsTargetVisible(screenPosition);
             float distanceFromCamera = target.NeedDistanceText ? target.GetDistanceFromCamera(mainCamera.transform.position) : float.MinValue;// Gets the target distance from the camera.
             Indicator indicator = null;
-
-            if(target.NeedBoxIndicator && isTargetVisible)
+            if (target.NeedBoxIndicator && isTargetVisible)
             {
                 screenPosition.z = 0;
                 indicator = GetIndicator(ref target.indicator, IndicatorType.BOX); // Gets the box indicator from the pool.
             }
-            else if(target.NeedArrowIndicator && !isTargetVisible)
+            else if (target.NeedArrowIndicator && !isTargetVisible)
             {
                 float angle = float.MinValue;
                 OffScreenIndicatorCore.GetArrowIndicatorPositionAndAngle(ref screenPosition, ref angle, screenCentre, screenBounds);
                 indicator = GetIndicator(ref target.indicator, IndicatorType.ARROW); // Gets the arrow indicator from the pool.
                 indicator.transform.rotation = Quaternion.Euler(0, 0, angle * Mathf.Rad2Deg); // Sets the rotation for the arrow indicator.
             }
-            if(indicator)
+            if (indicator)
             {
+                if (indicator.Type == IndicatorType.BOX)
+                {
+                    indicator.SetImageSprite(target.TargetSprite);
+                }
+                else
+                {
+                    indicator.SetImageOffScreen(target.TargetSprite, target.TargetColor);
+                }
                 indicator.SetImageColor(target.TargetColor);// Sets the image color of the indicator.
                 indicator.SetDistanceText(distanceFromCamera); //Set the distance text for the indicator.
                 indicator.transform.position = screenPosition; //Sets the position of the indicator on the screen.
                 indicator.SetTextRotation(Quaternion.identity); // Sets the rotation of the distance text of the indicator.
+                indicator.SetImageRotation(Quaternion.identity);
             }
         }
     }
-
     /// <summary>
     /// 1. Add the target to targets list if <paramref name="active"/> is true.
-    /// 2. If <paramref name="active"/> is false deactivate the targets indicator, 
+    /// 2. If <paramref name="active"/> is false deactivate the targets indicator,
     ///     set its reference null and remove it from the targets list.
     /// </summary>
     /// <param name="target"></param>
     /// <param name="active"></param>
     private void HandleTargetStateChanged(Target target, bool active)
     {
-        if(active)
+        if (active)
         {
             targets.Add(target);
         }
@@ -89,13 +89,12 @@ public class OffScreenIndicator : MonoBehaviour
             targets.Remove(target);
         }
     }
-
     /// <summary>
     /// Get the indicator for the target.
-    /// 1. If its not null and of the same required <paramref name="type"/> 
+    /// 1. If its not null and of the same required <paramref name="type"/>
     ///     then return the same indicator;
-    /// 2. If its not null but is of different type from <paramref name="type"/> 
-    ///     then deactivate the old reference so that it returns to the pool 
+    /// 2. If its not null but is of different type from <paramref name="type"/>
+    ///     then deactivate the old reference so that it returns to the pool
     ///     and request one of another type from pool.
     /// 3. If its null then request one from the pool of <paramref name="type"/>.
     /// </summary>
@@ -104,9 +103,9 @@ public class OffScreenIndicator : MonoBehaviour
     /// <returns></returns>
     private Indicator GetIndicator(ref Indicator indicator, IndicatorType type)
     {
-        if(indicator != null)
+        if (indicator != null)
         {
-            if(indicator.Type != type)
+            if (indicator.Type != type)
             {
                 indicator.Activate(false);
                 indicator = type == IndicatorType.BOX ? BoxObjectPool.current.GetPooledObject() : ArrowObjectPool.current.GetPooledObject();
@@ -120,7 +119,6 @@ public class OffScreenIndicator : MonoBehaviour
         }
         return indicator;
     }
-
     private void OnDestroy()
     {
         TargetStateChanged -= HandleTargetStateChanged;

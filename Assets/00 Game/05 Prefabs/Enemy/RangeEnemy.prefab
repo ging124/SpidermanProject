@@ -1009,7 +1009,7 @@ RectTransform:
   m_GameObject: {fileID: 2659576641644351228}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0.000011920929}
-  m_LocalScale: {x: 1, y: 0.5, z: 1}
+  m_LocalScale: {x: -1, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7155937595501210276}
@@ -1129,7 +1129,7 @@ RectTransform:
   m_GameObject: {fileID: 2811478560909471027}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0.000011920929}
-  m_LocalScale: {x: 1, y: 0.5, z: 1}
+  m_LocalScale: {x: -1, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1441591138583587183}
@@ -3619,7 +3619,7 @@ MonoBehaviour:
   missPrefab: {fileID: 1513282550588008930, guid: 22f88bd731654ac4a8f6b3e75b6303f9, type: 3}
   groupBehaviour: {fileID: 11400000, guid: 42f14bca94fc2fa46ab8ff98306eb757, type: 2}
   stunLockDuration: 0
-  attackHitEffect: {fileID: 0}
+  attackHitEffect: {fileID: 11400000, guid: adc8077c349701e4580f7122e779ca71, type: 2}
   currentHP: 0
   enemyData: {fileID: 11400000, guid: 82b0654c573d64f4b9e2b772349feca4, type: 2}
   canAttack: 0

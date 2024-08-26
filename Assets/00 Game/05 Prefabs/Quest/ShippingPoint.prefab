@@ -84,6 +84,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetColor: {r: 0.8117648, g: 0.9921569, b: 1, a: 1}
+  targetSprite: {fileID: 21300000, guid: de28d120cb170a845be7a22e42d0c368, type: 2}
   needBoxIndicator: 1
   needArrowIndicator: 1
   needDistanceText: 1

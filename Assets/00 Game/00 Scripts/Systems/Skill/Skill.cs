@@ -25,7 +25,7 @@ public class Skill : ScriptableObject
     {
         var targetComponent = target.GetComponent<IHitable>();
 
-        var damage = RPGObject.RandomDamage(this.skillDamage);
+        var damage = RPGObject.RandomDamage(this.skillDamage/2);
 
         if (Vector3.Distance(this.target.transform.position, this.transform.position) < 1.5f)
         {
