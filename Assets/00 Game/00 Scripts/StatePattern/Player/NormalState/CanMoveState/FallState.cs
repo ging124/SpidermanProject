@@ -20,13 +20,13 @@ public class FallState : OnAirState
             return baseStatus;
         }
 
-        if (_blackboard.character.fallingTime > _timeToDive)
+        if (_blackboard.character.fallingTime > _timeToDive && !_blackboard.character.IsGrounded())
         {
             _stateManager.ChangeState(_stateReferences.diveState);
             return StateStatus.Success;
         }
 
-        if (_blackboard.inputSO.buttonJump && !_blackboard.character.IsGrounded() && _elapsedTime > 0.5f)
+        if (_blackboard.inputSO.buttonJump && !_blackboard.character.IsGrounded() && _elapsedTime > 0.5f && !Physics.Raycast(_blackboard.playerController.transform.position, -Vector3.up, 2))
         {
             _stateManager.ChangeState(_stateReferences.swingState);
             return StateStatus.Success;

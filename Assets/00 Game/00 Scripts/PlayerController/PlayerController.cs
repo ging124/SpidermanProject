@@ -32,6 +32,9 @@ public class PlayerController : RPGObjectController
     public float detectionLength;
     public RaycastHit frontWallHit;
 
+    public bool groundHit;
+
+
     [Header("----ZipValue----")]
     public bool canZip;
     public LayerMask zipLayer;
@@ -119,6 +122,11 @@ public class PlayerController : RPGObjectController
     public void WallCheck()
     {
         this.wallFront = Physics.Raycast(wallRunPoint.transform.position, this.transform.forward, out this.frontWallHit, this.detectionLength, this.wallLayer);
+    }
+
+    public void GroundCheck()
+    {
+        this.groundHit = Physics.Raycast(this.transform.position, -Vector3.up, 2);
     }
 
     public void ZipPointCheck()

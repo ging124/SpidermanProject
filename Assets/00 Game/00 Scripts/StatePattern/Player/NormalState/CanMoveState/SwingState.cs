@@ -29,12 +29,11 @@ public class SwingState : OnAirState
         _blackboard.playerController.rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 
         Transform cam = _blackboard.playerController.cam;
-        swingPoint = _blackboard.playerController.transform.position + cam.transform.forward * 30 + _blackboard.playerController.transform.up * 25;
+        swingPoint = _blackboard.playerController.transform.position + Vector3.ProjectOnPlane(cam.forward, Vector3.up).normalized * 30 + Vector3.up * 25;
 
         if(velocity.magnitude < 10)
         {
             _blackboard.playerController.rb.AddForce(_blackboard.playerController.transform.forward * 1500f);
-            //_blackboard.playerController.rb.velocity = velocity.normalized * 40f;
         }
         else
         {
@@ -54,10 +53,23 @@ public class SwingState : OnAirState
 
         DrawRope();
 
-        if (!_blackboard.inputSO.buttonJump || _blackboard.playerController.rb.velocity.magnitude > 60 && _elapsedTime > 0.9f)
+        if (Physics.Raycast(_blackboard.playerController.transform.position, -Vector3.up, 5))
+        {
+            _blackboard.playerController.rb.AddForce((swingPoint - _blackboard.transform.position).normalized * 20);
+        }
+
+        if (!_blackboard.inputSO.buttonJump && _elapsedTime > 0.2f/* || _blackboard.playerController.transform.position == Vector3.Reflect()*/)
         {
             _stateManager.ChangeState(_stateReferences.swingJumpState);
             return StateStatus.Success;
+        }
+
+        if (Physics.Raycast(_blackboard.playerController.transform.position, -Vector3.up, 9))
+        {
+            float distanceFromPoint = Vector3.Distance(_blackboard.transform.position, swingPoint);
+
+            joint.maxDistance = distanceFromPoint * 0.3f;
+            joint.minDistance = distanceFromPoint * 0.1f;
         }
 
         return StateStatus.Running;
@@ -102,6 +114,7 @@ public class SwingState : OnAirState
         joint.maxDistance = distanceFromPoint * 0.6f;
         joint.minDistance = distanceFromPoint * 0.3f;
 
+        
         joint.spring = 4.5f;
         joint.damper = 7f;
         joint.massScale = 4.5f;
