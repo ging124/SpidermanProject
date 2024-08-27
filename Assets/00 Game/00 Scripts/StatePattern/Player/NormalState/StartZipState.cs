@@ -43,12 +43,6 @@ public class StartZipState : NormalState
             return baseStatus;
         }
 
-        if (_elapsedTime > _zipTime)
-        {
-            _stateManager.ChangeState(_stateReferences.idleZipState);
-            return StateStatus.Success;
-        }
-
         if (_blackboard.inputSO.buttonJump && _elapsedTime > _zipTime - _zipTime * 0.25f)
         {
             _stateManager.ChangeState(_stateReferences.zipJumpState);
@@ -73,8 +67,9 @@ public class StartZipState : NormalState
     public void Zip()
     {
         _blackboard.transform.DOLookAt(zipPoint, 0.2f, AxisConstraint.Y);
-        _blackboard.playerController.transform.DOMove(zipPoint + Vector3.up, _zipTime).OnComplete(() =>
+        _blackboard.playerController.transform.DOMove(zipPoint + Vector3.up * 0.5f, _zipTime).OnComplete(() =>
         {
+            _stateManager.ChangeState(_stateReferences.idleZipState);
             _blackboard.playerController.rb.interpolation = RigidbodyInterpolation.Interpolate;
         });
     }

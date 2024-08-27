@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Skin 07
   m_EditorClassIdentifier: 
   prefabItemWorld: {fileID: 9147899949860513735, guid: 22e800f49cb39c74e8f68a035dc18b46, type: 3}
-  image: {fileID: 21300000, guid: 6a67e6eb2cfc2354ca6145d9279d385d, type: 3}
+  image: {fileID: 21300000, guid: 94a2f40f79387be42a4f9c0f1626e5c2, type: 2}
+  background: {fileID: 21300000, guid: 4e1b73e8981b1c440a3bd8a9a118d8ed, type: 2}
   changeItem: {fileID: 11400000, guid: 239382e779b745d40a0a242a28031f6a, type: 2}
   avatar: {fileID: 9000000, guid: 392c07e0f9123e8419bfdf98198feafc, type: 3}
