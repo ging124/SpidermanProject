@@ -15,8 +15,6 @@ public abstract class RPGObject : ScriptableObject
     public float hpUpLevel;
     public float dmgUpLevel;
 
-    public GameEventListener levelup;
-
     public void LevelUp()
     {
         if(levelSystem.currentLevel != 1)

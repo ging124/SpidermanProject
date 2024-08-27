@@ -1,4 +1,5 @@
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,8 @@ public class EnemyHPBar : MonoBehaviour
     [SerializeField] private Transform _cam;
     [SerializeField] private Slider _hpImage;
     [SerializeField] private Slider _hpEffectImage;
+    [SerializeField] private TMP_Text levelText;
+
     private void Awake()
     {
         _cam = GameObject.FindWithTag("MainCamera").transform;
@@ -53,4 +56,10 @@ public class EnemyHPBar : MonoBehaviour
     {
         _hpImage.value = (float)currentHP / maxHP;
     }
+
+    public void SetLevelUI(double level)
+    {
+        levelText.text = $"Lv. {level}";
+    }
 }
+    

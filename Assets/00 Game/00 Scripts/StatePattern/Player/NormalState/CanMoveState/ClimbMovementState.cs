@@ -10,6 +10,8 @@ public class ClimbMovementState : NormalState
     [SerializeField] private float _timeToChangeState;
     [SerializeField] private LinearMixerTransition _climbBlendTree;
     [SerializeField] private ClipTransition _idleClimbAnim;
+    [SerializeField] private bool canClimbJump;
+
 
     public override void EnterState()
     {
@@ -18,6 +20,7 @@ public class ClimbMovementState : NormalState
         _blackboard.playerController.rb.isKinematic = false;
         _blackboard.playerController.rb.useGravity = false;
         _normalBodyLayer.Play(_climbBlendTree);
+        canClimbJump = false;
     }
 
     public override StateStatus UpdateState()
@@ -36,10 +39,17 @@ public class ClimbMovementState : NormalState
             return StateStatus.Success;
         }
 
-        if (_blackboard.inputSO.buttonJump && _elapsedTime > _timeToChangeState)
+        if (_blackboard.inputSO.buttonJump)
         {
-            _stateManager.ChangeState(_stateReferences.climbJumpState);
-            return StateStatus.Success;
+            if (canClimbJump)
+            {
+                _stateManager.ChangeState(_stateReferences.climbJumpState);
+                return StateStatus.Success;
+            }
+        }
+        else
+        {
+            canClimbJump = true;
         }
 
         if (_blackboard.playerController.movement == Vector3.zero && _blackboard.playerController.wallFront)

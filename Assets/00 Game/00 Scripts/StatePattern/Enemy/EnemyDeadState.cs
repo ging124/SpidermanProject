@@ -36,7 +36,8 @@ public class EnemyDeadState : EnemyNormalState
 
     IEnumerator PlayDeadEffect()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(2);
+        _blackboard.enemyController.enemyData.enemyDeadEffect.Spawn(_blackboard.enemyController.transform.position, Quaternion.identity);
         _blackboard.enemyController.enemyDead.Raise();
         _blackboard.enemyController.enemyData.Despawn(_blackboard.enemyController.gameObject);
     }

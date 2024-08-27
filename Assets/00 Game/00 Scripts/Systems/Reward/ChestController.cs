@@ -10,7 +10,10 @@ public class ChestController : ItemWorld
     [SerializeField] private ClipTransition openAnim;
     [SerializeField] GameEffect effect;
 
+    private GameObject effectGameObject;
+
     public UI_SelectButton uiSelectButton;
+    public UI_ChestReward uiChestReward;
 
     private void Awake()
     {
@@ -33,18 +36,24 @@ public class ChestController : ItemWorld
         }
     }
 
-    public void OpenChess()
+    public void StartOpenChest(UI_ChestReward ui)
     {
-        animancer.Play(rotationAnim).Events.OnEnd = () =>
-        {
-            uiSelectButton.uiChestReward.OpenUI();
-            uiSelectButton.CloseUI();
-            GameObject gameObject = effect.Spawn(this.transform.position + Vector3.up * 0.5f, Quaternion.identity, this.transform);
-            animancer.Play(openAnim).Events.OnEnd = () =>
-            {
-                itemData.Despawn(this.gameObject);
-                effect.Despawn(gameObject);
-            };
-        };
+        this.uiChestReward = ui;
+        animancer.Play(rotationAnim).Events.OnEnd = OpenChest;
+    }
+
+    public void OpenChest()
+    {
+        uiChestReward.OpenUI();
+        uiSelectButton.CloseUI();
+        effectGameObject = effect.Spawn(this.transform.position + Vector3.up * 0.5f, Quaternion.identity, this.transform);
+        animancer.Play(openAnim).Events.OnEnd = CloseChest;
+    }
+
+    public void CloseChest()
+    {
+        itemData.Despawn(this.gameObject);
+        ((Chest)itemData).despawnEffect.Spawn(this.transform.position, Quaternion.identity);
+        effect.Despawn(effectGameObject);
     }
 }

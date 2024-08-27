@@ -14,7 +14,6 @@ public class EnemyRetreatState : EnemyNormalState
         base.EnterState();
         _changeState = Random.Range(3, 8);
         enemyMovementLoop = (EnemyMovementLoop)Random.Range(0, System.Enum.GetValues(typeof(EnemyMovementLoop)).Length);
-        Debug.Log(System.Enum.GetValues(typeof(EnemyMovementLoop)).Length);
         _normalBodyLayer.Play(_retreatState);
     }
 
@@ -79,6 +78,15 @@ public class EnemyRetreatState : EnemyNormalState
             }
         }
 
+        switch (_blackboard.enemyController.hitAttackType)
+        {
+            case AttackType.NormalAttack:
+                _stateManager.ChangeState(_stateReferences.enemyHitState);
+                return StateStatus.Success;
+            case AttackType.HeavyAttack:
+                _stateManager.ChangeState(_stateReferences.enemyKnockDownState);
+                return StateStatus.Success;
+        }
 
         if (_elapsedTime >= _changeState)
         {
@@ -119,13 +127,9 @@ public class EnemyRetreatState : EnemyNormalState
                     break;
             }
 
-            
-
             _blackboard.enemyController.characterController.Move(direction.normalized * Time.fixedDeltaTime * speed);
 
             _retreatState.State.Parameter = Vector3.SignedAngle(lookAt.normalized, direction.normalized, Vector3.up);
-
-            Debug.Log(Vector3.Angle(lookAt.normalized, direction.normalized));
 
         }
     }

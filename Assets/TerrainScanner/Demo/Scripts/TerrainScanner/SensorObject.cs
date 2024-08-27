@@ -59,7 +59,6 @@ namespace TerrainScannerDEMO
 
         private void Detected()
         {
-            Debug.Log("he");
             _detected = true;
             _timeToReset = 2 * _detector.Duration;
             _audioTrigger.Play();

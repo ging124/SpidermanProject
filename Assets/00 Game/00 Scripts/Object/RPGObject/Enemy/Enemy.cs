@@ -8,8 +8,9 @@ public class Enemy : RPGObject
     public float dectectionRange;
     public float rotationSpeed;
     public float attackRange;
+    public Player player;
 
-    public ParticleSystem enemyDeadEffect;
+    public GameEffect enemyDeadEffect;
     public GameObject enemyPrefab;
     Queue<GameObject> enemyPool = new Queue<GameObject>();
 

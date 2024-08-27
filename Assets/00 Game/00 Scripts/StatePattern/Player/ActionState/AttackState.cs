@@ -14,9 +14,7 @@ public class AttackState : NormalState
 
         if (_blackboard.playerController.target != null)
         {
-            Vector3 lookAt = _blackboard.playerController.target.transform.position;
-            lookAt.y = _blackboard.playerController.transform.position.y;
-            _blackboard.playerController.transform.LookAt(lookAt);
+            _blackboard.playerController.transform.DOLookAt(_blackboard.playerController.target.transform.position, 0.2f, AxisConstraint.Y);
         }
     }
 

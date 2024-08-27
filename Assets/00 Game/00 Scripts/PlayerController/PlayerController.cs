@@ -11,6 +11,7 @@ public class PlayerController : RPGObjectController
     public float ultimateRange;
     public DamageNumber damagePrefab;
     public DamageNumber missPrefab;
+    public bool canUltimate;
 
     public LayerMask friendLayer;
 
@@ -62,6 +63,7 @@ public class PlayerController : RPGObjectController
     [Header("----Event----")]
     public UnityEvent<float, float> playerChangeHP;
     public GameEvent playerDead;
+    public GameEvent<ICountdownable> skillCountDown;
 
     [Header("----Component----")]
     public Player playerData;
@@ -80,6 +82,7 @@ public class PlayerController : RPGObjectController
 
     private void OnEnable()
     {
+        canUltimate = true;
         canZip = true;
         canHit = true;
         canAttack = true;
@@ -116,8 +119,6 @@ public class PlayerController : RPGObjectController
     public void WallCheck()
     {
         this.wallFront = Physics.Raycast(wallRunPoint.transform.position, this.transform.forward, out this.frontWallHit, this.detectionLength, this.wallLayer);
-
-        Debug.DrawRay(wallRunPoint.transform.position, this.transform.forward, Color.blue);
     }
 
     public void ZipPointCheck()
@@ -375,6 +376,11 @@ public class PlayerController : RPGObjectController
                 zipIconImage.gameObject.SetActive(true);
             }
         }
+    }
+
+    public void CanUltimateTrue()
+    {
+        canUltimate = true;
     }
 
 }

@@ -24,7 +24,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: ad14931ed2a46ac40b57e5a3bceb9b55, type: 2}
     - {fileID: 11400000, guid: ad14931ed2a46ac40b57e5a3bceb9b55, type: 2}
   enemyGroupBehaviour: {fileID: 11400000, guid: 42f14bca94fc2fa46ab8ff98306eb757, type: 2}
-  fightingMissionRange: 0
-  getMissionPoint: 1
-  enemies: 1
-  waves: 2
+  fightingMissionRange: 5
+  getMissionPoint: 0
+  enemies: 0
+  waves: 0

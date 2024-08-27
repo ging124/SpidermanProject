@@ -14,3 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabItemWorld: {fileID: 4004333322642793071, guid: 4374108252983474a8bec66bc4ed2000, type: 3}
   player: {fileID: 11400000, guid: 5d000776605bc934984d83bb8b21a21b, type: 2}
+  despawnEffect: {fileID: 11400000, guid: 1411bca0f28b2c74ca15fb3e50ea84dd, type: 2}
+  xpCollectible: 0
+  moneyCollectible: 0

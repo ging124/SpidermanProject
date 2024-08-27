@@ -8,6 +8,8 @@ public class Chest : Item
 {
     [SerializeField] private Player player;
 
+    public GameEffect despawnEffect;
+
     public double xpCollectible;
     public double moneyCollectible;
 

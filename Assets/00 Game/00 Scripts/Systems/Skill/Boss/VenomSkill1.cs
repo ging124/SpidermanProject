@@ -7,9 +7,9 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObject/Skill/Boss/VenomSkill1")]
 public class VenomSkill1 : Skill
 {
-    public override void UseSkill(Transform transform, AnimancerComponent animancer, Collider target, float skillDamage)
+    public override void UseSkill(Transform transform, AnimancerComponent animancer, float skillDamage, Collider target = null)
     {
-        base.UseSkill(transform, animancer, target, skillDamage);
+        base.UseSkill(transform, animancer, skillDamage, target);
         animancer.Play(skillAnim);
     }
 
@@ -33,7 +33,7 @@ public class VenomSkill1 : Skill
     {
         if (target == null) return false;
 
-        if (Vector3.Distance(target.transform.position, transform.position) < distanceToAttack)
+        if (Vector3.Distance(target.transform.position, transform.position) < skillRange)
         {
             return true;
         }

@@ -10,9 +10,9 @@ public class GingPinSkill1 : Skill
     [SerializeField] ClipTransition startSkillAnim;
     [SerializeField] ClipTransition stopSkillAnim;
 
-    public override void UseSkill(Transform transform, AnimancerComponent animancer, Collider target, float skillDamage)
+    public override void UseSkill(Transform transform, AnimancerComponent animancer, float skillDamage, Collider target = null)
     {
-        base.UseSkill(transform, animancer, target, skillDamage);
+        base.UseSkill(transform, animancer, skillDamage, target);
         this.animancer.Play(startSkillAnim).Events.OnEnd = Skill;
     }
 

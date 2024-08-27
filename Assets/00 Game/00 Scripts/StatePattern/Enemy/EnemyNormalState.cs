@@ -21,16 +21,6 @@ public class EnemyNormalState : EnemyBaseState
             return baseStatus;
         }
 
-        switch (_blackboard.enemyController.hitAttackType)
-        {
-            case AttackType.NormalAttack:
-                _stateManager.ChangeState(_stateReferences.enemyHitState);
-                return StateStatus.Success;
-            case AttackType.HeavyAttack:
-                _stateManager.ChangeState(_stateReferences.enemyKnockDownState);
-                return StateStatus.Success;
-        }
-
         _blackboard.enemyController.TargetDetection();
         CanAttack();
 

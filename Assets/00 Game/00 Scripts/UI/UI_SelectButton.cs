@@ -15,7 +15,7 @@ public class UI_SelectButton : UIBase
 
     public void OpenChess()
     {
-        chestController.OpenChess();
+        chestController.StartOpenChest(uiChestReward);
     }
 
 }

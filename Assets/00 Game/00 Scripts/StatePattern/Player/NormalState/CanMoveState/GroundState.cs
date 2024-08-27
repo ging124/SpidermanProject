@@ -42,8 +42,6 @@ public class GroundState : NormalState
             return StateStatus.Success;
         }
 
-        
-
         if (_blackboard.inputSO.buttonAttack 
             && _blackboard.character.IsGrounded()
             && _blackboard.playerController.canAttack)
@@ -81,7 +79,7 @@ public class GroundState : NormalState
             }
         }
 
-        if(_blackboard.inputSO.buttonUltimate)
+        if(_blackboard.inputSO.buttonUltimate && _blackboard.playerController.canUltimate)
         {
             _stateManager.ChangeState(_stateReferences.ultimateAttackState);
             return StateStatus.Success;

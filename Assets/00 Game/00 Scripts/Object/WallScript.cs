@@ -17,7 +17,6 @@ public class WallScript : MonoBehaviour
 
     public List<Vector3> point;
 
-
     public float debugPointRadius = 0.18f;
     public int debugTextSize = 24;
     public int debugTextHeight = 3;

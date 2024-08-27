@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bd5db0f1be00c94cbcc367711e5ca9f, type: 3}
+  m_Name: PlayerSkill1
+  m_EditorClassIdentifier: 
+  skillAnim:
+    _FadeDuration: 0.25
+    _Events:
+      _NormalizedTimes:
+      - 0.36779833
+      - NaN
+      _Callbacks:
+      - m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 11400000}
+            m_TargetAssemblyTypeName: PlayerSkill1, Assembly-CSharp
+            m_MethodName: Attack
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+      - m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 11400000}
+            m_TargetAssemblyTypeName: PlayerSkill1, Assembly-CSharp
+            m_MethodName: DespawnSkillEffect
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+      _Names: []
+    _Clip: {fileID: 7400000, guid: 82a323b4cb3e7ff4aba1945964af4d94, type: 2}
+    _Speed: 1
+    _NormalizedStartTime: NaN
+  attackType: 2
+  skillRange: 6
+  hitEffect: {fileID: 11400000, guid: 70fc32cc3487d2148a1c424c122716af, type: 2}
+  skillCountdown: 15
+  friendLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  skillEffect: {fileID: 11400000, guid: ca0a392f36578204cac60f4e8e231ef7, type: 2}

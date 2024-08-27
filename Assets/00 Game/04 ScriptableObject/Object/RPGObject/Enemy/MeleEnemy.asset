@@ -13,25 +13,20 @@ MonoBehaviour:
   m_Name: MeleEnemy
   m_EditorClassIdentifier: 
   levelSystem:
-    currentLevel: 0
+    currentLevel: 1
     currentExp: 0
-    config: {fileID: 0}
-    levelup: {fileID: 0}
-  maxHP: 0
-  attackDamage: 0
+    config: {fileID: 11400000, guid: 09224c4d2cd0f634085b756eb9d1f205, type: 2}
+    levelup: {fileID: 11400000, guid: 0e188e3c29d49444bb31e29d46e3961e, type: 2}
+  maxHP: 100
+  attackDamage: 10
   baseMaxHP: 100
   baseAttackDamage: 10
-  moveSpeed: 3
+  moveSpeed: 1
   hpUpLevel: 3
   dmgUpLevel: 1
-  levelup:
-    gameEvent: {fileID: 0}
-    response:
-      m_PersistentCalls:
-        m_Calls: []
   dectectionRange: 6
-  rotateSpeed: 30
+  rotationSpeed: 30
   attackRange: 2
-  damageText: {fileID: 0}
-  enemyDeadEffect: {fileID: 0}
+  player: {fileID: 11400000, guid: 5d000776605bc934984d83bb8b21a21b, type: 2}
+  enemyDeadEffect: {fileID: 11400000, guid: 1411bca0f28b2c74ca15fb3e50ea84dd, type: 2}
   enemyPrefab: {fileID: 4076153531080333860, guid: df406740bd7235141b43534d66674e14, type: 3}

@@ -12,7 +12,7 @@ public class EnemySkillState : EnemyNormalState
     {
         base.EnterState();
         _blackboard.enemyController.transform.DOLookAt(_blackboard.enemyController.target.transform.position, 0.2f, AxisConstraint.Y);
-        listSkill[_skillIndex].UseSkill(_blackboard.enemyController.transform, _blackboard.enemyController.animancer, _blackboard.enemyController.target, _blackboard.enemyController.enemyData.attackDamage);
+        listSkill[_skillIndex].UseSkill(_blackboard.enemyController.transform, _blackboard.enemyController.animancer, _blackboard.enemyController.enemyData.attackDamage, _blackboard.enemyController.target);
     }
 
     public override StateStatus UpdateState()

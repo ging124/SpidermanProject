@@ -12,7 +12,6 @@ public class PlayerGadget : MonoBehaviour
     [SerializeField] private GameEventListener<Item> _changeGadget;
     [SerializeField] private GameEventListener _gadgetFinished;
 
-
     public void OnEnable()
     {
         _changeGadget.Register();
@@ -24,7 +23,6 @@ public class PlayerGadget : MonoBehaviour
         _changeGadget.Unregister();
         _gadgetFinished.Unregister();
     }
-
 
     private void Start()
     {

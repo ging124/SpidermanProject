@@ -21,6 +21,16 @@ public class EnemyMovementState : EnemyNormalState
             return StateStatus.Success;
         }
 
+        switch (_blackboard.enemyController.hitAttackType)
+        {
+            case AttackType.NormalAttack:
+                _stateManager.ChangeState(_stateReferences.enemyHitState);
+                return StateStatus.Success;
+            case AttackType.HeavyAttack:
+                _stateManager.ChangeState(_stateReferences.enemyKnockDownState);
+                return StateStatus.Success;
+        }
+
         if (_stateManager.currentState != _stateReferences.enemyRunState && _blackboard.enemyController.target != null)
         {
             if (Vector3.Distance(_blackboard.enemyController.transform.position, _blackboard.enemyController.target.transform.position) >= _blackboard.enemyController.enemyData.attackRange)
