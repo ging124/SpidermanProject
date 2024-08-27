@@ -64,7 +64,6 @@ public class UltimateAttackState : NormalState
                     AttackType attackType = (i == _ultimateHit - 1) ? AttackType.HeavyAttack : AttackType.NormalAttack;
                     hitable.OnHit(damage, attackType);
 
-                    _blackboard.playerController.damagePrefab.Spawn(hit.transform.position + Vector3.up, damage);
                     var hitEffect = _blackboard.playerController.attackHitEffect;
                     hitEffect.Spawn(hit.transform.position, Quaternion.identity, null);
                 }

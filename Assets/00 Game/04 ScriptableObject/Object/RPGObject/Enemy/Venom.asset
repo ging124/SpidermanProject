@@ -21,7 +21,7 @@ MonoBehaviour:
   attackDamage: 60
   baseMaxHP: 800
   baseAttackDamage: 60
-  moveSpeed: 0.5
+  moveSpeed: 1
   hpUpLevel: 10
   dmgUpLevel: 5
   levelup:
@@ -42,7 +42,7 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
   dectectionRange: 6
-  rotationSpeed: 12
+  rotationSpeed: 30
   attackRange: 2
   enemyDeadEffect: {fileID: 0}
   enemyPrefab: {fileID: 1685392847421013538, guid: 4d4ac4109d49d00419f83e888518c416, type: 3}
