@@ -21,20 +21,23 @@ public class HealingDroneController : GadgetController
 
         time += Time.deltaTime;
 
-        if (time <= ((Gadget)itemData).durationGadget)
+        if(playerController != null)
         {
-            Healing();
-        }
-        else
-        {
-            ((Gadget)itemData).gadgetFinished.Raise();
-            itemData.Despawn(this.gameObject);
+            if (time <= ((Gadget)itemData).durationGadget)
+            {
+                Healing();
+            }
+            else
+            {
+                ((Gadget)itemData).gadgetFinished.Raise();
+                itemData.Despawn(this.gameObject);
+            }
         }
     }
 
-
     void Healing()
     {
+
         float hpRegen = ((HealingDrone)itemData).hpRegen;
 
         if (playerController.currentHP + hpRegen >= playerController.playerData.maxHP)

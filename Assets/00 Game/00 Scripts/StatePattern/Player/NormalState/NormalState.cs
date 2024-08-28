@@ -19,7 +19,6 @@ public class NormalState : PlayerBaseState
             return baseStatus;
         }
 
-        _blackboard.playerController.WallCheck();
         _blackboard.playerController.ZipPointCheck();
         _blackboard.playerController.TargetDetection();
 

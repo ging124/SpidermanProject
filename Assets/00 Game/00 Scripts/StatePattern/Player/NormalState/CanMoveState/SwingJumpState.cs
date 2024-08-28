@@ -14,6 +14,8 @@ public class SwingJumpState : OnAirState
         base.EnterState();
         _normalBodyLayer.Play(_swingJumpAnim, 0.25f , FadeMode.FromStart);
         _blackboard.character.AddForce((_blackboard.character.GetVelocity() * 2 + Vector3.up * 70) * _swingJumpForce);
+        _blackboard.playerController.detectionLength = 3;
+
     }
 
     public override StateStatus UpdateState()
@@ -35,6 +37,7 @@ public class SwingJumpState : OnAirState
 
     public override void ExitState()
     {
+        _blackboard.playerController.detectionLength = 1;
         _blackboard.playerController.rb.DORotate(Quaternion.LookRotation(_blackboard.playerController.transform.forward.projectedOnPlane(Vector3.up), Vector3.up).eulerAngles, 0.2f);
         base.ExitState();
     }

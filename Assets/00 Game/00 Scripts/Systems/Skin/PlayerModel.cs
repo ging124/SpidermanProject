@@ -69,6 +69,8 @@ public class PlayerModel : MonoBehaviour
 
     public void ChangeSkin(Item item)
     {
+        if (item == _currentSkin) return;
+
         var skin = this.GetComponentInChildren<SkinController>();
         _currentSkin.Despawn(skin.gameObject);
         _currentSkin = (Skin)item;

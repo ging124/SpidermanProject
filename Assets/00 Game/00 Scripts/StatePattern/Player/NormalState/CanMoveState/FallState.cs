@@ -26,7 +26,7 @@ public class FallState : OnAirState
             return StateStatus.Success;
         }
 
-        if (_blackboard.inputSO.buttonJump && !_blackboard.character.IsGrounded() && _elapsedTime > 0.5f && !Physics.Raycast(_blackboard.playerController.transform.position, -Vector3.up, 2))
+        if (_blackboard.inputSO.buttonJump && !_blackboard.character.IsGrounded() && _elapsedTime > 0.5f && !_blackboard.playerController.groundHit)
         {
             _stateManager.ChangeState(_stateReferences.swingState);
             return StateStatus.Success;

@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class SwingState : OnAirState
 {
-    [SerializeField] float swingSpeed;
-    [SerializeField] float maxDistance;
     [SerializeField] float rotateSpeed;
     private Vector3 swingPoint;
 
@@ -40,6 +38,8 @@ public class SwingState : OnAirState
             _blackboard.playerController.rb.velocity = velocity;
         }
 
+        _blackboard.playerController.detectionLength = 3;
+
         Swing();
     }
 
@@ -53,22 +53,19 @@ public class SwingState : OnAirState
 
         DrawRope();
 
-        if (Physics.Raycast(_blackboard.playerController.transform.position, -Vector3.up, 5))
-        {
-            _blackboard.playerController.rb.AddForce((swingPoint - _blackboard.transform.position).normalized * 20);
-        }
-
         if (!_blackboard.inputSO.buttonJump && _elapsedTime > 0.2f/* || _blackboard.playerController.transform.position == Vector3.Reflect()*/)
         {
             _stateManager.ChangeState(_stateReferences.swingJumpState);
             return StateStatus.Success;
         }
 
-        if (Physics.Raycast(_blackboard.playerController.transform.position, -Vector3.up, 9))
+        if (_blackboard.playerController.groundHit)
         {
+            Debug.Log("hit ground when swing");
             float distanceFromPoint = Vector3.Distance(_blackboard.transform.position, swingPoint);
 
-            joint.maxDistance = distanceFromPoint * 0.3f;
+            joint.spring = 6;
+            joint.maxDistance = distanceFromPoint * 0.1f;
             joint.minDistance = distanceFromPoint * 0.1f;
         }
 
@@ -90,8 +87,9 @@ public class SwingState : OnAirState
     public override void ExitState()
     {
         lineRenderer.positionCount = 0;
-
         Destroy(joint);
+        _blackboard.playerController.detectionLength = 1;
+
         Vector3 velocity = _blackboard.playerController.rb.velocity;
         _blackboard.character.SetMovementMode(MovementMode.Falling);
         _blackboard.playerController.rb.useGravity = false;

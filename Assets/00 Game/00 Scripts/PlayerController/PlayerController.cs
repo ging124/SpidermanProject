@@ -25,6 +25,8 @@ public class PlayerController : RPGObjectController
     public bool canAttack;
 
     RaycastHit hit;
+    RaycastHit hit2;
+
 
     [Header("----WallRunValue----")]
     public Transform wallRunPoint;
@@ -45,18 +47,18 @@ public class PlayerController : RPGObjectController
     public Image zipIconImage;
 
     public float inwardsOffset = 0.1f;
-    public float upPointSphereRadius = 0.5f;
-    public float upSphereCastHeight = 50f;
+    public float upPointSphereRadiusFace = 0.5f;
+    public float upSphereCastHeightFace = 50f;
+    public float upPointSphereRadiusTop = 0.5f;
+    public float upSphereCastHeightTop = 50f;
 
-    public Vector3 forwardPoint;
     public float forwardPointDistance = 10f;
     public float backPOffset = 0.2f;
-    public float floorDistance = 40f;
 
     public RaycastHit hitSurface;
     public Vector3 pointSetBack;
     public Vector3 upPoint;
-    public float zipLength => (zipPoint - this.transform.position).magnitude;
+    [HideInInspector] public float zipLength => (zipPoint - this.transform.position).magnitude;
 
     [Header("----ReadOnly----")]
     public bool onSwim;
@@ -108,15 +110,23 @@ public class PlayerController : RPGObjectController
         }
     }
 
-    private void OnDrawGizmos()
+    /*private void OnDrawGizmos()
     {
-        Gizmos.DrawSphere(zipPointDetection.point, zipDetectionRange);
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(zipPoint, zipDetectionRange);
         Gizmos.color = Color.yellow;
-        //Gizmos.DrawSphere(hit.transform.position, 1);
+        if(Physics.SphereCast(cam.transform.position, zipDetectionRange, cam.transform.forward, out RaycastHit hit, zipDetectionLength, zipLayer))
+        {
+            Gizmos.DrawSphere(hit.point, 1);
+        }
 
-        Gizmos.DrawWireSphere(this.transform.position, ultimateRange);
+        Gizmos.DrawSphere(hit2.point, 1);
+    }*/
+
+    private void Update()
+    {
+        WallCheck();
+        GroundCheck();
     }
 
     public void WallCheck()
@@ -147,12 +157,10 @@ public class PlayerController : RPGObjectController
             pointSetBack = hit.point - hit.normal * inwardsOffset;
             if (Vector3.Dot(hit.normal, Vector3.up) <= 0.99f)
             {
-                //Debug.Log("FaceZipPoint");
                 FaceZipPoint();
             }
             else
             {
-                //Debug.Log("FaceZipDownPoint");
                 FaceDownZipPoint();
             }
         }
@@ -165,16 +173,23 @@ public class PlayerController : RPGObjectController
             }
         }
 
-        if (this.zipPoint != Vector3.zero && this.zipLength < this.maxZipLength)
+        Camera camera = this.cam.GetComponent<Camera>();
+        Vector3 viewport = camera.WorldToViewportPoint(zipPoint);
+
+        if (this.zipPoint != Vector3.zero && this.zipLength < this.maxZipLength && Is01(viewport.x) && Is01(viewport.y))
         {
             this.zipIconImage.gameObject.SetActive(true);
-            Camera camera = this.cam.GetComponent<Camera>();
             this.zipIconImage.transform.position = camera.WorldToScreenPoint(this.zipPoint);
         }
         else
         {
             this.zipIconImage.gameObject.SetActive(false);
         }
+    }
+
+    public bool Is01(float a)
+    {
+        return a > 0 && a < 1;
     }
 
     public void SetLineRenderer(LineRenderer lineRenderer, Transform hand, Vector3 zipPoint)
@@ -203,7 +218,6 @@ public class PlayerController : RPGObjectController
                 if (hitTarget[i].TryGetComponent<IHitable>(out hitable))
                 {
                     float distance = (hitTarget[i].transform.position - this.transform.position).magnitude;
-                    Debug.DrawLine(hitTarget[i].transform.position, this.transform.position, Color.black);
                     if (minDistance > distance && hitable.CanHit())
                     {
                         minDistance = distance;
@@ -233,27 +247,13 @@ public class PlayerController : RPGObjectController
 
     private void FaceZipPoint()
     {
-        var direc = Vector3.ProjectOnPlane(Vector3.up, hitSurface.normal);
-        if (Physics.Raycast(pointSetBack, direc, out RaycastHit hit2, zipDetectionLength, wallLayer))
+        upPoint = pointSetBack + Vector3.up * upSphereCastHeightFace;
+        if (Physics.SphereCast(upPoint, upPointSphereRadiusFace, Vector3.down, out RaycastHit hit3, upSphereCastHeightFace, wallLayer))
         {
-            upPoint = hit2.point + Vector3.up * upSphereCastHeight;
-            //Debug.DrawRay(upPoint, -hit2.transform.up, Color.blue);
-            if (Physics.SphereCast(upPoint, upPointSphereRadius, -hit2.transform.up, out RaycastHit hit3, upSphereCastHeight, wallLayer))
+            if (Vector3.Angle(hit3.normal, Vector3.up) < 45)
             {
-                //Debug.DrawRay(hit3.point, hit3.normal, Color.magenta);
-                if (Vector3.Angle(hit3.normal, Vector3.up) < 45)
-                {
-                    zipPoint = hit3.point;
-                    ShowFocusZipPoint();
-                }
-                else
-                {
-                    zipPoint = Vector3.zero;
-                    if (zipIconImage.gameObject.activeSelf)
-                    {
-                        zipIconImage.gameObject.SetActive(false);
-                    }
-                }
+                zipPoint = hit3.point;
+                ShowFocusZipPoint();
             }
             else
             {
@@ -277,82 +277,44 @@ public class PlayerController : RPGObjectController
     private void FaceDownZipPoint()
     {
         var direc = Vector3.ProjectOnPlane(cam.transform.forward, hitSurface.normal);
-        forwardPoint = pointSetBack + direc.normalized * forwardPointDistance;
-        //var distanceFD = Vector3.Distance(direc, pointSetBack);
-        //Debug.DrawLine(pointSetBack, forwardPoint, Color.red);
-
+        var direc1 = Vector3.ProjectOnPlane(-cam.transform.forward, hitSurface.normal);
+        Vector3 forwardPoint = pointSetBack + direc.normalized * forwardPointDistance;
+        Vector3 forwardPoint1 = pointSetBack + direc1.normalized * forwardPointDistance;
         #region Tutruocvao
 
-        if (Physics.Raycast(forwardPoint, -direc, out RaycastHit hit2, floorDistance, wallLayer))
+        if (Physics.Raycast(forwardPoint, -direc, out hit2, upSphereCastHeightTop, wallLayer))
         {
-            //Debug.Log("hit2 - FaceDownZipPoint");
-            var hit2Point = hit2.point + -hit2.normal * backPOffset;
-            if (Physics.Raycast(hit2Point, Vector3.up, out RaycastHit hit3, zipDetectionLength, wallLayer))
-            {
-                //Debug.DrawLine(hit2Point, hit2Point + Vector3.up, Color.yellow);
-                //Debug.Log("hit 3 - FaceDownZipPoint");
+            Vector3 upPoint = hit2.point + Vector3.up * upSphereCastHeightTop;
+            Vector3 upPoint2 = this.transform.position + Vector3.up * upSphereCastHeightTop;
 
-                var up = hit3.point + Vector3.up * 0.2f;
-                if (Physics.Raycast(up, -direc, out RaycastHit hit4, 5, wallLayer))
-                {
-                    var back = hit4.point + -hit4.normal * backPOffset;
-                    if (Physics.Raycast(back, Vector3.up, out RaycastHit hit5, 10, wallLayer))
-                    {
-                        if (Vector3.Angle(hit5.normal, Vector3.up) < 45)
-                        {
-                            zipPoint = hit5.point;
-                            ShowFocusZipPoint();
-                        }
-                        else
-                        {
-                            zipPoint = Vector3.zero;
-                            if (zipIconImage.gameObject.activeSelf)
-                            {
-                                zipIconImage.gameObject.SetActive(false);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        zipPoint = hit3.point;
-                        ShowFocusZipPoint();
-                    }
-                }
-                else if (Physics.Raycast(up, direc, out RaycastHit hit6, 5, wallLayer))
-                {
-                    //Debug.Log("hit6 - FaceDownZipPoint");
-                    var forward = hit6.point + -hit6.normal * backPOffset;
-                    if (Physics.Raycast(forward, Vector3.up, out RaycastHit hit7, 10, wallLayer))
-                    {
-                        if (Vector3.Angle(hit7.normal, Vector3.up) < 45)
-                        {
-                            zipPoint = hit7.point;
-                            ShowFocusZipPoint();
-                        }
-                        else
-                        {
-                            zipPoint = Vector3.zero;
-                            if (zipIconImage.gameObject.activeSelf)
-                            {
-                                zipIconImage.gameObject.SetActive(false);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        zipPoint = hit3.point;
-                        ShowFocusZipPoint();
-                    }
-                }
-                else
-                {
-                    zipPoint = hit3.point;
-                    ShowFocusZipPoint();
-                }
+            if (Physics.SphereCast(upPoint, upPointSphereRadiusTop, Vector3.down, out RaycastHit hit3, zipDetectionLength, wallLayer)
+                && !Physics.Raycast(upPoint2, direc, zipDetectionLength, wallLayer))
+            {
+                zipPoint = hit3.point;
+                ShowFocusZipPoint();
             }
             else
             {
-                //Debug.Log("hit3 - FaceDownZipPoint - Null");
+                zipPoint = Vector3.zero;
+                if (zipIconImage.gameObject.activeSelf)
+                {
+                    zipIconImage.gameObject.SetActive(false);
+                }
+            }
+        }
+        else if (Physics.Raycast(forwardPoint1, -direc1, out hit2, upSphereCastHeightTop, wallLayer))
+        {
+            Vector3 upPoint = hit2.point + Vector3.up * upSphereCastHeightTop;
+            Vector3 upPoint2 = this.transform.position + Vector3.up * upSphereCastHeightTop;
+
+            if (Physics.SphereCast(upPoint, upPointSphereRadiusTop, Vector3.down, out RaycastHit hit3, zipDetectionLength, wallLayer)
+                && !Physics.Raycast(upPoint2, direc, zipDetectionLength, wallLayer))
+            {
+                zipPoint = hit3.point;
+                ShowFocusZipPoint();
+            }
+            else
+            {
                 zipPoint = Vector3.zero;
                 if (zipIconImage.gameObject.activeSelf)
                 {

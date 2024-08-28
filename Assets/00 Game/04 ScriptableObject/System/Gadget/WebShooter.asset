@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabItemWorld: {fileID: 8088195521736641369, guid: edca070f8782f704d9b7454be11bfeeb, type: 3}
   image: {fileID: 21300000, guid: 66f22f68a23eb4840a8b711df0acd120, type: 2}
-  background: {fileID: 21300000, guid: eecbdd7375dd2c14586b00bbd3f823d1, type: 2}
+  background: {fileID: 21300000, guid: 4a341a70cb4b6b149b8023bab572a3b9, type: 2}
   changeItem: {fileID: 11400000, guid: 11e2cff2341bca240b12a41a1667e338, type: 2}
   durationGadget: 1
   skillIcon: {fileID: 21300000, guid: 66f22f68a23eb4840a8b711df0acd120, type: 2}

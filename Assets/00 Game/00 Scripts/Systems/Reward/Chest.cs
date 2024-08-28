@@ -18,7 +18,6 @@ public class Chest : Item
         if (player.levelSystem.currentLevel <= 15)
         {
             xpCollectible = player.levelSystem.NextLevel(player.levelSystem.currentLevel) * (10 / 100f);
-            Debug.Log(player.levelSystem.NextLevel(player.levelSystem.currentLevel));
             moneyCollectible = xpCollectible + 50;
         }
         else

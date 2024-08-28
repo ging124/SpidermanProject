@@ -14,7 +14,7 @@ public class OnAirState : NormalState
 
         Movement();
 
-        if (_blackboard.playerController.wallFront)
+        if (_blackboard.playerController.wallFront && _elapsedTime > 0.2f)
         {
             _stateManager.ChangeState(_stateReferences.climbState);
             return;

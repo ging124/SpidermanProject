@@ -8,7 +8,7 @@ using UnityEngine;
 public class StartZipState : NormalState
 {
     [SerializeField] private ClipTransition _zipAnim;
-    [SerializeField] private float _zipTime;
+    private float _zipTime;
     [SerializeField] private float _zipSpeed;
     [SerializeField] private LineRenderer _leftLineRenderer;
     [SerializeField] private LineRenderer _rightLineRenderer;
@@ -32,7 +32,6 @@ public class StartZipState : NormalState
             _zipTime = 0.4f;
         }
 
-        StartZip();
     }
 
     public override StateStatus UpdateState()
@@ -42,6 +41,8 @@ public class StartZipState : NormalState
         {
             return baseStatus;
         }
+
+        StartZip();
 
         if (_blackboard.inputSO.buttonJump && _elapsedTime > _zipTime - _zipTime * 0.25f)
         {

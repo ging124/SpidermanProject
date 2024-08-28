@@ -19,7 +19,7 @@ public class DiveState : OnAirState
             return baseStatus;
         }
 
-        if (_blackboard.inputSO.buttonJump && !_blackboard.character.IsGrounded() && !Physics.Raycast(_blackboard.playerController.transform.position, -Vector3.up, 2))
+        if (_blackboard.inputSO.buttonJump && !_blackboard.character.IsGrounded() && !_blackboard.playerController.groundHit)
         {
             _stateManager.ChangeState(_stateReferences.swingState);
             return StateStatus.Success;

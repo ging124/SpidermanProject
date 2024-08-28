@@ -22,12 +22,6 @@ public class GroundState : NormalState
             return StateStatus.Success;
         }
 
-        if (_blackboard.playerController.wallFront)
-        {
-            _stateManager.ChangeState(_stateReferences.climbState);
-            return StateStatus.Success;
-        }
-
         if (_blackboard.inputSO.buttonJump 
             && _blackboard.character.IsGrounded())
             //&& _stateManager.currentState != _stateReferences.useGadgetState)
