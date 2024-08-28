@@ -159,7 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02fdac9feddc18c42b092217d7ca977b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputActions: {fileID: -944628639613478452, guid: c4cfb4c340609f1479a7adf971878a3e, type: 3}
+  _handleInput: 1
   _rotationMode: 1
   _rotationRate: 540
   _defaultMovementMode: 1

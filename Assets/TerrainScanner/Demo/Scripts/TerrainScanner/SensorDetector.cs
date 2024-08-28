@@ -113,7 +113,7 @@ namespace TerrainScannerDEMO
                 StartSensor();
             }
 
-            listCollider = Physics.OverlapSphere(this.transform.parent.transform.position, _maxDistance, chestLayer);
+            listCollider = Physics.OverlapSphere(this.transform.parent.transform.position, _maxDistance - 10, chestLayer);
 
             if (listCollider.Length > 0)
             {

@@ -33,13 +33,15 @@ public class EnemyController : RPGObjectController, IHitable
         characterController = this.GetComponent<CharacterController>();
         animancer = this.GetComponent<AnimancerComponent>();
         agent = this.GetComponent<NavMeshAgent>();
-        enemyData.levelSystem.currentLevel = enemyData.player.levelSystem.currentLevel;
-        enemyData.LevelUp();
-        uIEnemyBlackboard.enemyHPBar.SetLevelUI(enemyData.levelSystem.currentLevel);
+        
     }
 
     protected virtual void OnEnable()
     {
+        enemyData.levelSystem.currentLevel = enemyData.player.levelSystem.currentLevel;
+        enemyData.LevelUp();
+        uIEnemyBlackboard.enemyHPBar.SetLevelUI(enemyData.levelSystem.currentLevel);
+
         uIEnemyBlackboard.enemyHPBar.EnemyHPChange(currentHP, enemyData.maxHP);
         groupBehaviour.RegisterEnemy(this);
         canHit = true;

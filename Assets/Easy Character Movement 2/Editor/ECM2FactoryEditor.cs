@@ -1,7 +1,6 @@
 ﻿using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.InputSystem;
 
 namespace EasyCharacterMovement.Editor
 {
@@ -36,14 +35,6 @@ namespace EasyCharacterMovement.Editor
                 typeof(CharacterMovement), typeof(Character));
 
             InitRigidbodyAndCollider(go);
-
-            // Assign default input actions
-
-            Character character = go.GetComponent<Character>();
-            if (character)
-                character.inputActions =
-                    AssetDatabase.LoadAssetAtPath<InputActionAsset>(
-                        "Assets/ECM2/Input Actions/ECM2_Character_InputActions.inputactions");
             
             // Focus the newly created character
 
@@ -63,14 +54,6 @@ namespace EasyCharacterMovement.Editor
 
             InitRigidbodyAndCollider(go);
 
-            // Assign default input actions
-
-            Character character = go.GetComponent<Character>();
-            if (character)
-                character.inputActions =
-                    AssetDatabase.LoadAssetAtPath<InputActionAsset>(
-                        "Assets/ECM2/Input Actions/ECM2_Agent_InputActions.inputactions");
-
             // Focus the newly created character
 
             Undo.RegisterCreatedObjectUndo(go, "Create " + go.name);
@@ -86,14 +69,6 @@ namespace EasyCharacterMovement.Editor
                 typeof(CharacterLook), typeof(CharacterMovement), typeof(FirstPersonCharacter));
 
             InitRigidbodyAndCollider(go);
-
-            // Assign default input actions
-
-            Character character = go.GetComponent<Character>();
-            if (character)
-                character.inputActions =
-                    AssetDatabase.LoadAssetAtPath<InputActionAsset>(
-                        "Assets/ECM2/Input Actions/ECM2_FirstPerson_InputActions.inputactions");
 
             // Init first person RIG FirstPersonCharacter -> root -> eye -> camera
 

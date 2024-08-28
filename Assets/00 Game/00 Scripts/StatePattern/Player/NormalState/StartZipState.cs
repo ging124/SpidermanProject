@@ -14,11 +14,11 @@ public class StartZipState : NormalState
     [SerializeField] private LineRenderer _rightLineRenderer;
     [SerializeField] private Vector3 zipPoint;
 
+
     public override void EnterState()
     {
         base.EnterState();
-        _normalBodyLayer.Play(_zipAnim);
-        _blackboard.playerController.canZip = false;
+        _normalBodyLayer.Play(_zipAnim, 0.25f, FadeMode.FromStart);
         _blackboard.playerController.rb.interpolation = RigidbodyInterpolation.None;
         _blackboard.character.SetMovementMode(MovementMode.None);
         _blackboard.playerController.rb.isKinematic = false;
@@ -68,11 +68,12 @@ public class StartZipState : NormalState
     public void Zip()
     {
         _blackboard.transform.DOLookAt(zipPoint, 0.2f, AxisConstraint.Y);
-        _blackboard.playerController.transform.DOMove(zipPoint + Vector3.up * 0.5f, _zipTime).OnComplete(() =>
-        {
-            _stateManager.ChangeState(_stateReferences.idleZipState);
-            _blackboard.playerController.rb.interpolation = RigidbodyInterpolation.Interpolate;
-        });
+        _blackboard.playerController.transform.DOMove(zipPoint + Vector3.up * 0.5f, _zipTime).onComplete = EndZip;
+    }
+
+    public void EndZip()
+    {
+        _stateManager.ChangeState(_stateReferences.idleZipState);
     }
 
     public void StartZip()

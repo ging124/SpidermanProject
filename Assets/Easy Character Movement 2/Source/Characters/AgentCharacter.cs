@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.InputSystem;
 
 namespace EasyCharacterMovement
 {
@@ -36,8 +35,6 @@ namespace EasyCharacterMovement
         #region FIELDS
 
         private NavMeshAgent _agent;
-        
-        protected bool _mouseButtonPressed;
 
         #endregion
 
@@ -117,49 +114,7 @@ namespace EasyCharacterMovement
             }
         }
 
-        #endregion
-
-        #region INPUT ACTIONS
-
-        /// <summary>
-        /// Mouse Cursor InputAction.
-        /// </summary>
-
-        protected InputAction mousePositionInputAction { get; set; }
-
-        /// <summary>
-        /// Mouse Click InputAction.
-        /// </summary>
-
-        protected InputAction mouseClickInputAction { get; set; }
-
-        #endregion
-
-        #region INPUT ACTIONS HANDLERS
-
-        /// <summary>
-        /// Get the mouse position value.
-        /// Return its current value or zero if no valid InputAction found.
-        /// </summary>
-        
-        protected virtual Vector2 GetMousePosition()
-        {
-            if (mousePositionInputAction != null)
-                return mousePositionInputAction.ReadValue<Vector2>();
-
-            return Vector2.zero;
-        }
-        
-        /// <summary>
-        /// Mouse click input action handler.
-        /// </summary>
-
-        protected virtual void OnMouseClick(InputAction.CallbackContext context)
-        {
-            _mouseButtonPressed = context.started || context.performed;
-        }
-
-        #endregion
+        #endregion        
 
         #region EVENTS
 
@@ -197,7 +152,7 @@ namespace EasyCharacterMovement
 
             base.OnMovementModeChanged(prevMovementMode, prevCustomMode);
 
-            // If movement mode has ben changed to None (eg: disabled movement),
+            // If movement mode has been changed to None (eg: disabled movement),
             // stop path following movement
 
             if (IsDisabled())
@@ -332,75 +287,16 @@ namespace EasyCharacterMovement
         }
 
         /// <summary>
-        /// Setup player InputActions (if any).
-        /// </summary>
-
-        protected override void InitPlayerInput()
-        {
-            // Init base character controller input actions (if any)
-
-            base.InitPlayerInput();
-
-            // Attempts to cache and init this InputActions (if any)
-
-            if (inputActions == null)
-                return;
-
-            mousePositionInputAction = inputActions["Mouse Position"];
-            mousePositionInputAction?.Enable();
-            
-            mouseClickInputAction = inputActions["Mouse Click"];
-            if (mouseClickInputAction != null)
-            {
-                mouseClickInputAction.started += OnMouseClick;
-                mouseClickInputAction.performed += OnMouseClick;
-                mouseClickInputAction.canceled += OnMouseClick;
-
-                mouseClickInputAction.Enable();
-            }
-        }
-
-        /// <summary>
-        /// Unsubscribe from input action events and disable input actions.
-        /// </summary>
-
-        protected override void DeinitPlayerInput()
-        {
-            base.DeinitPlayerInput();
-
-            if (mousePositionInputAction != null)
-            {
-                mousePositionInputAction.Disable();
-                mousePositionInputAction = null;
-            }
-            
-            if (mouseClickInputAction != null)
-            {
-                mouseClickInputAction.started -= OnMouseClick;
-                mouseClickInputAction.performed -= OnMouseClick;
-                mouseClickInputAction.canceled -= OnMouseClick;
-
-                mouseClickInputAction.Disable();
-                mouseClickInputAction = null;
-            }
-        }
-
-        /// <summary>
         /// Overrides HandleInput method, to perform custom input code, in this case, click-to-move.
         /// </summary>
 
         protected override void HandleInput()
         {
-            // Should handle input here ?
-
-            if (inputActions == null)
-                return;
-
             // Movement (click-to-move)
 
-            if (_mouseButtonPressed)
+            if (Input.GetMouseButton(0))
             {
-                Vector2 mousePosition = GetMousePosition();
+                Vector2 mousePosition = Input.mousePosition;
 
                 Ray ray = camera.ScreenPointToRay(mousePosition);
 
@@ -413,7 +309,7 @@ namespace EasyCharacterMovement
             }
             else if (!IsPathFollowing())
             {
-                // Default movement input. Allow to control the agent with keyboard or controller too
+                // Default movement input
 
                 base.HandleInput();
             }

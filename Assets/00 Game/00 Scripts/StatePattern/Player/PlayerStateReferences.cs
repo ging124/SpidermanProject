@@ -18,7 +18,7 @@ public class PlayerStateReferences : StateReferences
     public SwingState swingState;
     public DiveState diveState;
     public SwingJumpState swingJumpState;
-    public ClimbIdleState climbState;
+    public ClimbIdleState climbIdleState;
     public ClimbJumpState climbJumpState;
     public ClimbMovementState climbMovementState;
     public ExitClimbState exitClimbState;
