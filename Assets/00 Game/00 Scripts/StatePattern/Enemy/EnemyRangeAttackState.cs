@@ -32,6 +32,11 @@ public class EnemyRangeAttackState : EnemyAttackState
 
     public override void ExitState()
     {
+        PlayerController player;
+        if (_blackboard.enemyController.target.TryGetComponent<PlayerController>(out player))
+        {
+            player.haveEnemyTarget = false;
+        }
         base.ExitState();
     }
 

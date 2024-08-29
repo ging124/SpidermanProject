@@ -73,7 +73,7 @@ public class GroundState : NormalState
             }
         }
 
-        if(_blackboard.inputSO.buttonUltimate && _blackboard.playerController.canUltimate)
+        if(_blackboard.inputSO.buttonUltimate)
         {
             _stateManager.ChangeState(_stateReferences.ultimateAttackState);
             return StateStatus.Success;

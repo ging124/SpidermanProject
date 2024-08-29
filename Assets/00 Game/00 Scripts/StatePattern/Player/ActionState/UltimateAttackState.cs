@@ -34,8 +34,6 @@ public class UltimateAttackState : NormalState
 
     public override void ExitState()
     {
-        _blackboard.playerController.skillCountDown.Raise((PlayerSkill1)_ultimateSkill);
-        _blackboard.playerController.canUltimate = false;
         base.ExitState();
     }
 

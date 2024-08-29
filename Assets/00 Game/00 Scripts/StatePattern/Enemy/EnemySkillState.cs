@@ -36,6 +36,12 @@ public class EnemySkillState : EnemyNormalState
 
     public override void ExitState()
     {
+        _blackboard.enemyController.spiderSense.Stop();
+        PlayerController player;
+        if (_blackboard.enemyController.target.TryGetComponent<PlayerController>(out player))
+        {
+            player.haveEnemyTarget = false;
+        }
         base.ExitState();
     }
 

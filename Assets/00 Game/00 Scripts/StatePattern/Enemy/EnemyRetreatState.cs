@@ -33,6 +33,13 @@ public class EnemyRetreatState : EnemyNormalState
 
         if (enemyMovementLoop == EnemyMovementLoop.Forward)
         {
+            _blackboard.enemyController.spiderSense.Play();
+            PlayerController player;
+            if(_blackboard.enemyController.target.TryGetComponent<PlayerController>(out player))
+            {
+                player.haveEnemyTarget = true;
+            }
+
             if (_blackboard.enemyController.enemyData.GetType() == typeof(Boss) && _blackboard.enemyController.target != null)
             {
                 float random = Random.Range(0, 1f);

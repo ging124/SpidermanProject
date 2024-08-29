@@ -11,6 +11,7 @@ public class PlayerBlackboard : Blackboard
     public PlayerModel playerModel;
     public PlayerGadget playerGadget;
     public Character character;
+    public CameraShakeComponent cameraShake;
 
     [Header("----SO----")]
     public InputSO inputSO;

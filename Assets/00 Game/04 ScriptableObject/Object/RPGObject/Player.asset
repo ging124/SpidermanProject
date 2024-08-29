@@ -25,5 +25,5 @@ MonoBehaviour:
   hpUpLevel: 10
   dmgUpLevel: 4
   jumpHeight: 5
-  money: 8948
+  money: 0
   playerPrefab: {fileID: 3374994747894680165, guid: c957583b4ee671f48bba75e7f8689780, type: 3}

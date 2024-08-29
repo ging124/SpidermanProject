@@ -11,12 +11,14 @@ public class PlayerController : RPGObjectController
     public float ultimateRange;
     public DamageNumber damagePrefab;
     public DamageNumber missPrefab;
-    public bool canUltimate;
+    public bool haveEnemyTarget;
 
     public LayerMask friendLayer;
 
     [Header("----Effect----")]
     public GameEffect attackHitEffect;
+    public ParticleSystem spiderSence;
+
 
     [Header("----AttackValue----")]
     public float nearAttackRange;
@@ -26,7 +28,6 @@ public class PlayerController : RPGObjectController
 
     RaycastHit hit;
     RaycastHit hit2;
-
 
     [Header("----WallRunValue----")]
     public Transform wallRunPoint;
@@ -65,6 +66,7 @@ public class PlayerController : RPGObjectController
 
     [Header("----Event----")]
     public UnityEvent<float, float> playerChangeHP;
+    public UnityEvent hitCombo;
     public GameEvent playerDead;
     public GameEvent<ICountdownable> skillCountDown;
 
@@ -85,7 +87,6 @@ public class PlayerController : RPGObjectController
 
     private void OnEnable()
     {
-        canUltimate = true;
         canHit = true;
         canAttack = true;
         currentHP = playerData.maxHP;
@@ -124,6 +125,15 @@ public class PlayerController : RPGObjectController
     {
         WallCheck();
         GroundCheck();
+
+        if(haveEnemyTarget)
+        {
+            spiderSence.Play();
+        }
+        else
+        {
+            spiderSence.Stop();
+        }
     }
 
     public void WallCheck()
@@ -337,10 +347,4 @@ public class PlayerController : RPGObjectController
             }
         }
     }
-
-    public void CanUltimateTrue()
-    {
-        canUltimate = true;
-    }
-
 }

@@ -7,6 +7,7 @@ public class InputSO : ScriptableObject
 {
     public Vector2 move;
     public Vector2 look;
+    public bool isLooking;
 
     public bool buttonJump;
     public bool buttonRoll;

@@ -24,7 +24,6 @@ public class InputManager : MonoBehaviour
 
     [Header("Input value(Readonly)")]
     public float timeScale;
-    public bool isLooking;
 
     private Vector2 cachedTouchPos;
     private int lookFingerID;
@@ -163,13 +162,13 @@ public class InputManager : MonoBehaviour
 
         if(Input.touchCount == 0)
         {
-            isLooking = false;
+            inputSO.isLooking = false;
             lookFingerID = -1;
             targetLook = Vector2.zero;
         }
         else
         {
-            if (isLooking && lookFingerID != -1)
+            if (inputSO.isLooking && lookFingerID != -1)
             {
                 int index = -1;
 
@@ -220,8 +219,8 @@ public class InputManager : MonoBehaviour
     public void LookPressed(BaseEventData eventData)
     {
         if (inputSO.disableInput) return;
-        if (isLooking) return;
-        isLooking = true;
+        if (inputSO.isLooking) return;
+        inputSO.isLooking = true;
         PointerEventData pointerEventData = (PointerEventData)eventData;
         cachedTouchPos = pointerEventData.position;
         lookFingerID = -1;
@@ -241,7 +240,7 @@ public class InputManager : MonoBehaviour
             {
                 if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
                 {
-                    isLooking = false;
+                    inputSO.isLooking = false;
                     lookFingerID = -1;
                     targetLook = Vector2.zero;
                 }

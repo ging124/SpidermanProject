@@ -5,6 +5,8 @@ using System.Linq;
 
 public class TempTools
 {
+#if UNITY_EDITOR || UNITY_STANDALONE_WIN
+
     [MenuItem("Tools/SortChildrenByName")]
 
     public static void SortChildrenByName()
@@ -20,5 +22,7 @@ public class TempTools
             }
         }
     } // SortChildrenByName()
+
+#endif
 
 } // class TempTools

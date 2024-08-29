@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class HitStatusState : NormalState
 {
-
     public override StateStatus UpdateState()
     {
         StateStatus baseStatus = base.UpdateState();
@@ -24,6 +23,7 @@ public class HitStatusState : NormalState
 
     public void TakeDamage()
     {
+        _blackboard.cameraShake.ShakeCamera(0.75f, 0.1f);
         int damageValue = _blackboard.playerController.hitDamage;
         _blackboard.playerController.currentHP -= damageValue;
         _blackboard.playerController.damagePrefab.Spawn(_blackboard.playerController.transform.position + Vector3.up, damageValue);

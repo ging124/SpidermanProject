@@ -16,6 +16,8 @@ public class EnemyController : RPGObjectController, IHitable
     public float stunLockDuration = 0;
 
     public GameEffect attackHitEffect;
+    public ParticleSystem spiderSense;
+
 
     public float currentHP;
     public Enemy enemyData;

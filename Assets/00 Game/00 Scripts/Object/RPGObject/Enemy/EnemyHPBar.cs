@@ -10,6 +10,7 @@ public class EnemyHPBar : MonoBehaviour
     [SerializeField] private Slider _hpImage;
     [SerializeField] private Slider _hpEffectImage;
     [SerializeField] private TMP_Text levelText;
+    [SerializeField] private GameObject spiderSence;
 
     private void Awake()
     {

@@ -57,6 +57,7 @@ public class AttackState : NormalState
             && Vector3.Distance(_blackboard.playerController.transform.position, _blackboard.playerController.target.transform.position) < 2.5)
         {
 
+            _blackboard.playerController.hitCombo.Invoke();
             var target = _blackboard.playerController.target.GetComponent<IHitable>();
             var damage = RPGObject.RandomDamage(_blackboard.playerController.playerData.attackDamage);
             target.OnHit(damage, attackType);
