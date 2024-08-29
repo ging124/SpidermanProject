@@ -52,8 +52,7 @@ public class EnemyHitState : EnemyNormalState
 
     public void TakeDamage()
     {
-        _blackboard.enemyController.transform.LookAt(new Vector3(_blackboard.enemyController.target.transform.position.x, transform.position.y, _blackboard.enemyController.target.transform.position.z));
-        _blackboard.enemyController.transform.DOMove(_blackboard.enemyController.transform.position - (_blackboard.enemyController.transform.forward / 2), 0.2f).SetDelay(0.1f);
+        _blackboard.enemyController.characterController.Move((_blackboard.enemyController.transform.position - new Vector3(_blackboard.enemyController.target.transform.position.x, transform.position.y, _blackboard.enemyController.target.transform.position.z)).normalized * 0.5f);
 
         _blackboard.enemyController.damagePrefab.Spawn(_blackboard.enemyController.transform.position + Vector3.up, _blackboard.enemyController.hitDamage);
 

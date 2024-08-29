@@ -14,9 +14,8 @@ public class ClimbIdleState : NormalState
         base.EnterState();
         _blackboard.playerController.canAttack = false;
         _blackboard.character.SetMovementMode(MovementMode.None);
-        _blackboard.playerController.rb.isKinematic = false;
+        _blackboard.playerController.rb.isKinematic = true;
         _blackboard.playerController.rb.useGravity = false;
-        _blackboard.playerController.transform.position = Vector3.Lerp(_blackboard.playerController.transform.position, _blackboard.playerController.frontWallHit.point + _blackboard.playerController.frontWallHit.normal * 0.4f, 10);
         _blackboard.playerController.transform.DORotate(Quaternion.LookRotation(-_blackboard.playerController.frontWallHit.normal, Vector3.up).eulerAngles, 0.2f);
         _normalBodyLayer.Play(_idleClimbAnim, 0.25f, FadeMode.FromStart);
         canClimbJump = false;
@@ -64,6 +63,8 @@ public class ClimbIdleState : NormalState
         _blackboard.character.SetMovementMode(MovementMode.Walking);
         _blackboard.playerController.rb.isKinematic = true;
         _blackboard.character.SetVelocity(velocity);
+        base.ExitState();
+
         base.ExitState();
     }
 }

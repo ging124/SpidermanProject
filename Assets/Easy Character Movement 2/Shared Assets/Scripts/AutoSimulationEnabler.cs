@@ -17,7 +17,7 @@ namespace EasyCharacterMovement
                     " Please make sure to enable it.");
 
                 Physics.simulationMode = SimulationMode.FixedUpdate;
-            }
+            }            
 #else
             if (Physics.autoSimulation == false)
             {

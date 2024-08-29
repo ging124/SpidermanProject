@@ -457,8 +457,8 @@ namespace EasyCharacterMovement
             _lockCursor = true;
             _invertLook = true;
 
-            _mouseHorizontalSensitivity = 0.1f;
-            _mouseVerticalSensitivity = 0.1f;
+            _mouseHorizontalSensitivity = 1f;
+            _mouseVerticalSensitivity = 1f;
 
             _controllerHorizontalSensitivity = 0.5f;
             _controllerVerticalSensitivity = 0.5f;

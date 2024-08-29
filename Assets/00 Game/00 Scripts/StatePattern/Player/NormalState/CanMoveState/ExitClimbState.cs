@@ -26,7 +26,7 @@ public class ExitClimbState : NormalState
 
         if (_blackboard.playerController.wallFront)
         {
-            _stateManager.ChangeState(_stateReferences.climbState);
+            _stateManager.ChangeState(_stateReferences.climbIdleState);
             return StateStatus.Success;
         }
             

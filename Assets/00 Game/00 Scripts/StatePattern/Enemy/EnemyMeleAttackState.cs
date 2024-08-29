@@ -29,6 +29,16 @@ public class EnemyMeleAttackState : EnemyAttackState
             return StateStatus.Success;
         }
 
+        switch (_blackboard.enemyController.hitAttackType)
+        {
+            case AttackType.NormalAttack:
+                _stateManager.ChangeState(_stateReferences.enemyHitState);
+                return StateStatus.Success;
+            case AttackType.HeavyAttack:
+                _stateManager.ChangeState(_stateReferences.enemyKnockDownState);
+                return StateStatus.Success;
+        }
+
         return StateStatus.Running;
     }
 

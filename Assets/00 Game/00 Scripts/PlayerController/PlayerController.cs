@@ -38,19 +38,17 @@ public class PlayerController : RPGObjectController
 
 
     [Header("----ZipValue----")]
-    public bool canZip;
     public LayerMask zipLayer;
-    public float zipDetectionRange;
-    public float zipDetectionLength;
-    public float maxZipLength = 50;
+    public float zipDetectionRange = 0.5f;
+    public float zipDetectionLength = 35;
     public RaycastHit zipPointDetection;
     public Image zipIconImage;
 
     public float inwardsOffset = 0.1f;
-    public float upPointSphereRadiusFace = 0.5f;
+    public float upPointSphereRadiusFace = 6f;
     public float upSphereCastHeightFace = 50f;
-    public float upPointSphereRadiusTop = 0.5f;
-    public float upSphereCastHeightTop = 50f;
+    public float upPointSphereRadiusTop = 0.6f;
+    public float upSphereCastHeightTop = 20f;
 
     public float forwardPointDistance = 10f;
     public float backPOffset = 0.2f;
@@ -88,7 +86,6 @@ public class PlayerController : RPGObjectController
     private void OnEnable()
     {
         canUltimate = true;
-        canZip = true;
         canHit = true;
         canAttack = true;
         currentHP = playerData.maxHP;
@@ -136,12 +133,12 @@ public class PlayerController : RPGObjectController
 
     public void GroundCheck()
     {
-        this.groundHit = Physics.Raycast(this.transform.position, -Vector3.up, 2);
+        this.groundHit = Physics.Raycast(this.transform.position, -Vector3.up, 2, this.wallLayer);
     }
 
     public void ZipPointCheck()
     {
-        if (Physics.SphereCast(cam.transform.position, zipDetectionRange, cam.transform.forward, out RaycastHit hit, zipDetectionLength, zipLayer) && canZip)
+        if (Physics.SphereCast(cam.transform.position, zipDetectionRange, cam.transform.forward, out RaycastHit hit, zipDetectionLength, zipLayer))
         {
             if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Ground"))
             {
@@ -173,23 +170,16 @@ public class PlayerController : RPGObjectController
             }
         }
 
-        Camera camera = this.cam.GetComponent<Camera>();
-        Vector3 viewport = camera.WorldToViewportPoint(zipPoint);
-
-        if (this.zipPoint != Vector3.zero && this.zipLength < this.maxZipLength && Is01(viewport.x) && Is01(viewport.y))
+        if (this.zipPoint != Vector3.zero)
         {
             this.zipIconImage.gameObject.SetActive(true);
+            Camera camera = this.cam.GetComponent<Camera>();
             this.zipIconImage.transform.position = camera.WorldToScreenPoint(this.zipPoint);
         }
         else
         {
             this.zipIconImage.gameObject.SetActive(false);
         }
-    }
-
-    public bool Is01(float a)
-    {
-        return a > 0 && a < 1;
     }
 
     public void SetLineRenderer(LineRenderer lineRenderer, Transform hand, Vector3 zipPoint)

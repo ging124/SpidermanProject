@@ -54,7 +54,7 @@ public class ClimbMovementState : NormalState
 
         if (_blackboard.playerController.movement == Vector3.zero && _blackboard.playerController.wallFront)
         {
-            _stateManager.ChangeState(_stateReferences.climbState);
+            _stateManager.ChangeState(_stateReferences.climbIdleState);
             return StateStatus.Success;
         }
 
@@ -114,4 +114,3 @@ public class ClimbMovementState : NormalState
         _blackboard.playerController.transform.rotation = Quaternion.Lerp(_blackboard.playerController.transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
     }
 }
-

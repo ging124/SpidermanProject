@@ -16,7 +16,8 @@ public class OnAirState : NormalState
 
         if (_blackboard.playerController.wallFront && _elapsedTime > 0.2f)
         {
-            _stateManager.ChangeState(_stateReferences.climbState);
+            _blackboard.playerController.transform.position = Vector3.Lerp(_blackboard.playerController.transform.position, _blackboard.playerController.frontWallHit.point + _blackboard.playerController.frontWallHit.normal * 0.3f, 10);
+            _stateManager.ChangeState(_stateReferences.climbIdleState);
             return;
         }
 

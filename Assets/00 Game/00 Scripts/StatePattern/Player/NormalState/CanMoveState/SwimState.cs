@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SwimState : CanMoveState
+public class SwimState : NormalState
 {
     [SerializeField] private LinearMixerTransition _swimAnim;
 
@@ -28,7 +28,7 @@ public class SwimState : CanMoveState
 
         if (_blackboard.inputSO.buttonJump && _elapsedTime > 0.25)
         {
-            _blackboard.character.LaunchCharacter(_blackboard.playerController.transform.up * 30, true);
+            _blackboard.character.LaunchCharacter((_blackboard.playerController.transform.up + _blackboard.playerController.transform.forward) * 30, true);
             _stateManager.ChangeState(_stateReferences.fallState);
             return StateStatus.Success;
         }
@@ -40,5 +40,21 @@ public class SwimState : CanMoveState
     {
         _blackboard.character.StopSwimming();
         base.ExitState();
+    }
+
+    protected virtual void Movement()
+    {
+        GetInput();
+
+        _blackboard.character.SetMovementDirection(_blackboard.playerController.movement.normalized);
+    }
+
+    protected virtual void GetInput()
+    {
+        Vector2 input = _blackboard.inputSO.move;
+        Vector3 vertical = _blackboard.playerController.cam.transform.forward * input.y;
+        Vector3 horizontal = _blackboard.playerController.cam.transform.right * input.x;
+        _blackboard.playerController.movement = (vertical + horizontal);
+        _blackboard.playerController.movement.y = 0;
     }
 }

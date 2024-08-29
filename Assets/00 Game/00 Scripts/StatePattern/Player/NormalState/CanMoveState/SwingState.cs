@@ -61,7 +61,6 @@ public class SwingState : OnAirState
 
         if (_blackboard.playerController.groundHit)
         {
-            Debug.Log("hit ground when swing");
             float distanceFromPoint = Vector3.Distance(_blackboard.transform.position, swingPoint);
 
             joint.spring = 6;

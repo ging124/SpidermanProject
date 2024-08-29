@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 
 namespace EasyCharacterMovement
 {
@@ -119,84 +118,7 @@ namespace EasyCharacterMovement
             set => _strafeSpeedMultiplier = Mathf.Max(0.0f, value);
         }
 
-        #endregion
-
-        #region INPUT ACTIONS
-
-        /// <summary>
-        /// Mouse Look InputAction.
-        /// </summary>
-
-        protected InputAction mouseLookInputAction { get; set; }
-
-        /// <summary>
-        /// Controller Look InputAction.
-        /// </summary>
-
-        protected InputAction controllerLookInputAction { get; set; }
-
-        /// <summary>
-        /// Cursor lock InputAction.
-        /// </summary>
-
-        protected InputAction cursorLockInputAction { get; set; }
-
-        /// <summary>
-        /// Cursor unlock InputAction.
-        /// </summary>
-
-        protected InputAction cursorUnlockInputAction { get; set; }
-
-        #endregion
-
-        #region INPUT ACTION HANDLERS
-
-        /// <summary>
-        /// Gets the mouse look value.
-        /// Return its current value or zero if no valid InputAction found.
-        /// </summary>
-        
-        protected virtual Vector2 GetMouseLookInput()
-        {
-            return mouseLookInputAction?.ReadValue<Vector2>() ?? Vector2.zero;
-        }
-
-        /// <summary>
-        /// Gets the controller look input value.
-        /// Return its current value or zero if no valid InputAction found.
-        /// </summary>
-        
-        protected virtual Vector2 GetControllerLookInput()
-        {
-            return controllerLookInputAction?.ReadValue<Vector2>() ?? Vector2.zero;
-        }
-
-        /// <summary>
-        /// Cursor lock input action handler.
-        /// </summary>
-
-        protected virtual void OnCursorLock(InputAction.CallbackContext context)
-        {
-            // Do not allow to lock cursor if using UI
-
-            if (EventSystem.current && EventSystem.current.IsPointerOverGameObject())
-                return;
-
-            if (context.started)
-                characterLook.LockCursor();
-        }
-
-        /// <summary>
-        /// Cursor unlock input action handler.
-        /// </summary>
-
-        protected virtual void OnCursorUnlock(InputAction.CallbackContext context)
-        {
-            if (context.started)
-                characterLook.UnlockCursor();
-        }
-
-        #endregion
+        #endregion        
 
         #region METHODS        
 
@@ -287,85 +209,94 @@ namespace EasyCharacterMovement
 
             return actualMaxSpeed * GetSpeedModifier();
         }
-        
+
         /// <summary>
-        /// Initialize player InputActions (if any).
-        /// E.g. Subscribe to input action events and enable input actions here.
+        /// Handles the character input.
         /// </summary>
 
-        protected override void InitPlayerInput()
+        protected virtual void HandleCharacterInput()
         {
-            // Call base method implementation
+            // Movement
 
-            base.InitPlayerInput();
-
-            // Attempts to cache this InputActions (if any)
-
-            if (inputActions == null)
-                return;
-
-            // Setup input action handlers
-
-            mouseLookInputAction = inputActions.FindAction("Mouse Look");
-            mouseLookInputAction?.Enable();
-
-            controllerLookInputAction = inputActions.FindAction("Controller Look");
-            controllerLookInputAction?.Enable();
-
-            cursorLockInputAction = inputActions.FindAction("Cursor Lock");
-            if (cursorLockInputAction != null)
+            Vector2 movementInput = new Vector2
             {
-                cursorLockInputAction.started += OnCursorLock;
-                cursorLockInputAction.Enable();
-            }
+                x = Input.GetAxisRaw("Horizontal"),
+                y = Input.GetAxisRaw("Vertical"),
+            };
 
-            cursorUnlockInputAction = inputActions.FindAction("Cursor Unlock");
-            if (cursorUnlockInputAction != null)
-            {
-                cursorUnlockInputAction.started += OnCursorUnlock;
-                cursorUnlockInputAction.Enable();
-            }
+            // Add input movement relative to us
+
+            Vector3 movementDirection = Vector3.zero;
+
+            movementDirection += GetRightVector() * movementInput.x;
+            movementDirection += GetForwardVector() * movementInput.y;
+
+            SetMovementDirection(movementDirection);
+
+            // Jump
+
+            if (Input.GetButtonDown("Jump"))
+                Jump();
+            else if (Input.GetButtonUp("Jump"))
+                StopJumping();
+
+            // Crouch
+
+            if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.C))
+                Crouch();
+            else if (Input.GetKeyUp(KeyCode.LeftControl) || Input.GetKeyUp(KeyCode.C))
+                StopCrouching();
+
+            // Sprint
+
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+                Sprint();
+            else if (Input.GetKeyUp(KeyCode.LeftShift))
+                StopSprinting();
         }
 
         /// <summary>
-        /// Unsubscribe from input action events and disable input actions.
+        /// Handle camera look input.
         /// </summary>
 
-        protected override void DeinitPlayerInput()
+        protected virtual void HandleCameraInput()
         {
-            // Call base method implementation
+            // If Character is disabled, halts camera input
 
-            base.DeinitPlayerInput();
+            if (IsDisabled())
+                return;
 
-            if (mouseLookInputAction != null)
+            // Cursor lock / unlock
+
+            if (Input.GetMouseButtonUp(0))
             {
-                mouseLookInputAction.Disable();
-                mouseLookInputAction = null;
+                characterLook.LockCursor();
+            }
+            else if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                characterLook.UnlockCursor();
             }
 
-            if (controllerLookInputAction != null)
+            if (!characterLook.IsCursorLocked())
             {
-                controllerLookInputAction.Disable();
-                controllerLookInputAction = null;
+                // Disable mouse look when cursor is unlocked
+
+                return;
             }
 
-            if (cursorLockInputAction != null)
-            {
-                cursorLockInputAction.started -= OnCursorLock;
-                
-                cursorLockInputAction.Disable();
-                cursorLockInputAction = null;
-            }
-            
-            if (cursorUnlockInputAction != null)
-            {
-                cursorUnlockInputAction.started -= OnCursorUnlock;
-                
-                cursorUnlockInputAction.Disable();
-                cursorUnlockInputAction = null;
+            // Mouse look
 
-            }
+            Vector2 mouseLookInput = new Vector2
+            {
+                x = Input.GetAxisRaw("Mouse X"),
+                y = Input.GetAxisRaw("Mouse Y"),
+            };
 
+            if (mouseLookInput.x != 0.0f)
+                AddYawInput(mouseLookInput.x * characterLook.mouseHorizontalSensitivity);
+
+            if (mouseLookInput.y != 0.0f)
+                AddEyePitchInput(mouseLookInput.y * characterLook.mouseVerticalSensitivity);
         }
 
         /// <summary>
@@ -374,51 +305,13 @@ namespace EasyCharacterMovement
 
         protected override void HandleInput()
         {
-            // Handle default movement input
-
-            base.HandleInput();
-            
-            // Is Character is disabled, or externally controlled (eg: by a controller), halts camera look
-
-            if (inputActions == null)
-                return;
-
-            // If disabled, or cursor is unlocked, halts camera input
-
-            if (IsDisabled() || !characterLook.IsCursorLocked())
-                return;
-
-            // Mouse Look Input
-
-            Vector2 mouseLookInput = GetMouseLookInput();
-
-            if (mouseLookInput.sqrMagnitude > 0.0f)
-            {
-                // Perform 'Look' rotation with Mouse
-
-                if (mouseLookInput.x != 0.0f)
-                    AddYawInput(mouseLookInput.x * characterLook.mouseHorizontalSensitivity);
-
-                if (mouseLookInput.y != 0.0f)
-                    AddEyePitchInput(mouseLookInput.y * characterLook.mouseVerticalSensitivity);
-            }
-            else
-            {
-                // Perform 'Look' rotation with Controller, this will perform rotation at (rotationRate) rate
-
-                Vector2 controllerLookInput = GetControllerLookInput();
-
-                if (controllerLookInput.x != 0.0f)
-                    AddYawInput(controllerLookInput.x * characterLook.controllerHorizontalSensitivity * rotationRate * Time.deltaTime);
-
-                if (controllerLookInput.y != 0.0f)
-                    AddEyePitchInput(controllerLookInput.y * characterLook.controllerVerticalSensitivity * rotationRate * Time.deltaTime);
-            }
+            HandleCharacterInput();
+            HandleCameraInput();
         }
 
         /// <summary>
         /// Helper method used to perform camera animation.
-        /// Default implementation do basic programatically crouch animation.
+        /// Default implementation do basic procedural crouch animation.
         /// </summary>
 
         protected virtual void AnimateEye()
@@ -491,7 +384,7 @@ namespace EasyCharacterMovement
         }
 
         /// <summary>
-        /// Extends OnLateUpdate to perform programatically camera animation (eg: crouch anim).
+        /// Extends OnLateUpdate to perform procedural camera animation (i.e: crouch anim).
         /// </summary>
 
         protected override void OnLateUpdate()

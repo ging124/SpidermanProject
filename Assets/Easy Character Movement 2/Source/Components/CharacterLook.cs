@@ -228,8 +228,8 @@ namespace EasyCharacterMovement
         protected virtual void OnReset()
         {
             lockCursor = true;
-            mouseHorizontalSensitivity = 0.1f;
-            mouseVerticalSensitivity = 0.1f;
+            mouseHorizontalSensitivity = 1.0f;
+            mouseVerticalSensitivity = 1.0f;
             controllerHorizontalSensitivity = 0.5f;
             controllerVerticalSensitivity = 0.5f;
             invertLook = true;

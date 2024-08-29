@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace EasyCharacterMovement
 {
@@ -50,15 +49,14 @@ namespace EasyCharacterMovement
     #endregion
 
     [RequireComponent(typeof(CharacterMovement))]
-    public class Character : MonoBehaviour
+    public class  Character : MonoBehaviour
     {
         #region EDITOR EXPOSED FIELDS
 
         [Space(15f)]
-        [Tooltip("Input actions associated with this Character." +
-                 " If not assigned, this Character wont process any input so you can externally take control of this Character (e.g. a Controller).")]
+        [Tooltip("Should the character handle input locally? (i.e: Handle Input method)")]
         [SerializeField]
-        private InputActionAsset _inputActions;
+        private bool _handleInput = true;
         
         [Space(15f)]
         [Tooltip("Character's current rotation mode.")]
@@ -323,6 +321,16 @@ namespace EasyCharacterMovement
         #endregion
 
         #region PROPERTIES
+
+        /// <summary>
+        /// Should this character handle input locally? (i.e: Handle Input method)
+        /// </summary>
+
+        public bool handleInput
+        {
+            get { return _handleInput; }
+            set { _handleInput = value; }
+        }
 
         /// <summary>
         /// The used deltaTime. Defaults to Time.deltaTime.
@@ -1006,94 +1014,6 @@ namespace EasyCharacterMovement
                 _enableLateFixedUpdateCoroutine = value;
                 EnableLateFixedUpdate(_enableLateFixedUpdateCoroutine);
             }
-        }
-
-        #endregion
-
-        #region INPUT ACTIONS
-
-        /// <summary>
-        /// InputActions assets.
-        /// </summary>
-
-        public InputActionAsset inputActions
-        {
-            get => _inputActions;
-            set => _inputActions = value;
-        }
-
-        /// <summary>
-        /// Movement InputAction.
-        /// </summary>
-
-        protected InputAction movementInputAction { get; set; }
-
-        /// <summary>
-        /// Sprint InputAction.
-        /// </summary>
-
-        protected InputAction sprintInputAction { get; set; }
-
-        /// <summary>
-        /// Crouch InputAction.
-        /// </summary>
-
-        protected InputAction crouchInputAction { get; set; }
-
-        /// <summary>
-        /// Jump InputAction.
-        /// </summary>
-
-        protected InputAction jumpInputAction { get; set; }
-
-        #endregion
-
-        #region INPUT ACTION HANDLERS
-
-        /// <summary>
-        /// Polls movement InputAction (if any).
-        /// Return its current value or zero if no valid InputAction found.
-        /// </summary>
-
-        protected virtual Vector2 GetMovementInput()
-        {
-            return movementInputAction?.ReadValue<Vector2>() ?? Vector2.zero;
-        }
-
-        /// <summary>
-        /// Sprint input action handler.
-        /// </summary>
-
-        protected virtual void OnSprint(InputAction.CallbackContext context)
-        {
-            if (context.started || context.performed)
-                Sprint();
-            else if (context.canceled)
-                StopSprinting();
-        }
-
-        /// <summary>
-        /// Crouch input action handler.
-        /// </summary>
-
-        protected virtual void OnCrouch(InputAction.CallbackContext context)
-        {
-            if (context.started || context.performed)
-                Crouch();
-            else if (context.canceled)
-                StopCrouching();
-        }
-
-        /// <summary>
-        /// Jump input action handler.
-        /// </summary>
-
-        protected virtual void OnJump(InputAction.CallbackContext context)
-        {
-            if (context.started || context.performed)
-                Jump();
-            else if (context.canceled)
-                StopJumping();
         }
 
         #endregion
@@ -3170,143 +3090,66 @@ namespace EasyCharacterMovement
         }
 
         /// <summary>
-        /// Initialize player InputActions (if any).
-        /// E.g. Subscribe to input action events and enable input actions here.
-        /// </summary>
-        
-        protected virtual void InitPlayerInput()
-        {
-            // Attempts to cache Character InputActions (if any)
-
-            if (inputActions == null)
-                return;
-            
-            // Movement input action (no handler, this is polled, e.g. GetMovementInput())
-
-            movementInputAction = inputActions.FindAction("Movement");
-            movementInputAction?.Enable();
-
-            // Setup Sprint input action handlers
-
-            sprintInputAction = inputActions.FindAction("Sprint");
-            if (sprintInputAction != null)
-            {
-                sprintInputAction.started += OnSprint;
-                sprintInputAction.performed += OnSprint;
-                sprintInputAction.canceled += OnSprint;
-
-                sprintInputAction.Enable();
-            }
-            
-            // Setup Crouch input action handlers
-
-            crouchInputAction = inputActions.FindAction("Crouch");
-            if (crouchInputAction != null)
-            {
-                crouchInputAction.started += OnCrouch;
-                crouchInputAction.performed += OnCrouch;
-                crouchInputAction.canceled += OnCrouch;
-
-                crouchInputAction.Enable();
-            }
-
-            // Setup Jump input action handlers
-
-            jumpInputAction = inputActions.FindAction("Jump");
-            if (jumpInputAction != null)
-            {
-                jumpInputAction.started += OnJump;
-                jumpInputAction.performed += OnJump;
-                jumpInputAction.canceled += OnJump;
-
-                jumpInputAction.Enable();
-            }
-        }
-
-        /// <summary>
-        /// Unsubscribe from input action events and disable input actions.
-        /// </summary>
-
-        protected virtual void DeinitPlayerInput()
-        {
-            // Unsubscribe from input action events and disable input actions
-
-            if (movementInputAction != null)
-            {
-                movementInputAction.Disable();
-                movementInputAction = null;
-            }
-
-            if (sprintInputAction != null)
-            {
-                sprintInputAction.started -= OnSprint;
-                sprintInputAction.performed -= OnSprint;
-                sprintInputAction.canceled -= OnSprint;
-
-                sprintInputAction.Disable();
-                sprintInputAction = null;
-            }
-
-            if (crouchInputAction != null)
-            {
-                crouchInputAction.started -= OnCrouch;
-                crouchInputAction.performed -= OnCrouch;
-                crouchInputAction.canceled -= OnCrouch;
-
-                crouchInputAction.Disable();
-                crouchInputAction = null;
-            }
-
-            if (jumpInputAction != null)
-            {
-                jumpInputAction.started -= OnJump;
-                jumpInputAction.performed -= OnJump;
-                jumpInputAction.canceled -= OnJump;
-
-                jumpInputAction.Disable();
-                jumpInputAction = null;
-            }
-        }
-
-        /// <summary>
         /// Handle Player input, only if actions are assigned (eg: actions != null).
         /// </summary>
 
         protected virtual void HandleInput()
         {
-            // Should this character handle input ?
-
-            if (inputActions == null)
-                return;
-
             // Poll movement InputAction
 
-            Vector2 movementInput = GetMovementInput();
-
-            if (camera)
+            Vector2 movementInput = new Vector2
             {
-                // If Camera is assigned, add input movement relative to camera look direction
+                x = Input.GetAxisRaw("Horizontal"),
+                y = Input.GetAxisRaw("Vertical")
+            };
+            
+            // Add movement input in world space
 
-                Vector3 movementDirection = Vector3.zero;
+            Vector3 movementDirection = Vector3.zero;
 
-                movementDirection += Vector3.right * movementInput.x;
-                movementDirection += Vector3.forward * movementInput.y;
-                
+            movementDirection += Vector3.right * movementInput.x;
+            movementDirection += Vector3.forward * movementInput.y;
+
+            // If Camera is assigned, add input movement relative to camera look direction
+
+            if (cameraTransform!= null)
+            {
                 movementDirection = movementDirection.relativeTo(cameraTransform);
-
-                SetMovementDirection(movementDirection);
-
             }
-            else
+            
+            SetMovementDirection(movementDirection);
+
+            // Jump
+
+            if (Input.GetButton("Jump"))
             {
-                // If Camera is not assigned, add movement input relative to world axis
+                Jump();
+            }
+            else if (Input.GetButtonUp("Jump"))
+            {
+                StopJumping();
+            }
 
-                Vector3 movementDirection = Vector3.zero;
+            // Crouch 
 
-                movementDirection += Vector3.right * movementInput.x;
-                movementDirection += Vector3.forward * movementInput.y;
+            if (Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.C))
+            {
+                Crouch();
+            }
+            else if (Input.GetKeyUp(KeyCode.LeftControl) || Input.GetKeyUp(KeyCode.C))
+            {
+                StopCrouching();
+            }
 
-                SetMovementDirection(movementDirection);
+            // Sprint
+
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                Sprint();
+            }
+            else if (Input.GetKeyUp(KeyCode.LeftShift))
+            {
+                StopSprinting();
             }
         }
 
@@ -3327,8 +3170,6 @@ namespace EasyCharacterMovement
 
         protected virtual void OnReset()
         {
-            _inputActions = null;
-
             _defaultMovementMode = MovementMode.Walking;
 
             _rotationRate = 540.0f;
@@ -3474,10 +3315,6 @@ namespace EasyCharacterMovement
 
         protected virtual void OnOnEnable()
         {
-            // Setup player InputActions (if any).
-
-            InitPlayerInput();
-            
             // Subscribe to CharacterMovement events
 
             characterMovement.Collided += OnCollided;
@@ -3506,10 +3343,6 @@ namespace EasyCharacterMovement
 
         protected virtual void OnOnDisable()
         {
-            // Unsubscribe from input action events and disable input actions (if any, e.g. inputActions != null)
-
-            DeinitPlayerInput();
-
             // Unsubscribe from CharacterMovement events
 
             characterMovement.Collided -= OnCollided;
@@ -3559,7 +3392,8 @@ namespace EasyCharacterMovement
 
         protected virtual void OnUpdate()
         {
-            HandleInput();
+            if (handleInput)
+                HandleInput();
 
             Animate();
         }
